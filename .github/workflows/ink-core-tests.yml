@@ -1,0 +1,27 @@
+name: Ink Core Tests
+on:
+  pull_request:
+    paths:
+      - "firmware/include/**"
+      - "firmware/src/ink_capture.cpp"
+      - "firmware/tests/**"
+      - ".github/workflows/ink-core-tests.yml"
+  push:
+    paths:
+      - "firmware/include/**"
+      - "firmware/src/ink_capture.cpp"
+      - "firmware/tests/**"
+
+jobs:
+  host-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and run portable ink buffer tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror \
+            -Ifirmware/include \
+            firmware/src/ink_capture.cpp \
+            firmware/tests/ink_capture_test.cpp \
+            -o /tmp/tab5-ink-test
+          /tmp/tab5-ink-test
