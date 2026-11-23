@@ -1,0 +1,43 @@
+# Student and teacher records must never enter Git.
+data/
+student-data/
+student_records/
+student-records/
+backups/
+exports/
+reports/
+*.backup
+*.bak
+*.db
+*.sqlite
+*.sqlite3
+*.jsonl
+
+# Credentials and signing secrets.
+.env
+.env.*
+!.env.example
+secrets/
+keys/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Generated build outputs.
+build/
+dist/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.bin
+*.elf
+*.uf2
+
+# IDE and operating-system noise.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
