@@ -1,0 +1,45 @@
+# Tab5 Learning — USB-Only Management and Security
+
+## Operating model
+
+- **Learner device:** One child's offline lessons, touch input and locally stored progress.
+- **Teacher PC:** Windows laptop with a protected local management application; no cloud account or school Wi-Fi required.
+- **Transport:** One physically connected USB data cable. The supported Tab5 USB device interface and protocol will be **verified on hardware** before choosing CDC serial, USB class, or a vendor-specific interface.
+- **Wireless:** Wi-Fi and Bluetooth are not used by the learning application or teacher manager. Their disabled state must be checked in the production firmware, not assumed merely because the UI has no network controls.
+- **Normal updates:** Lessons, corrections, configuration and reports move via authenticated wired sessions only. Recovery/programming interfaces are a separate security consideration.
+
+## Proposed safe correction transaction
+
+1. Connect and identify the device; verify the device ID and negotiated schema/protocol versions.
+2. Authenticate the teacher. Do not rely only on an easily guessed PIN to authenticate a USB host.
+3. Export the relevant original attempt, stored trace and current effective grade.
+4. Display the correction for teacher review and confirmation.
+5. Create an operation with unique ID, target attempt ID, desired correction, version and integrity metadata.
+6. Validate authorization, integrity, supported format and target state on the device.
+7. Atomically append the correction and recompute mastery. Acknowledge only after durable commit.
+8. Reconnecting and resending the same operation must return the prior result without creating duplicate changes.
+9. Make an independent local backup to the teacher's PC before destructive or large updates.
+
+## Threats and mitigations to validate
+
+| Threat | Planned control / limitation |
+| --- | --- |
+| Student attempts wireless access | No wireless operation in released learner firmware; verify and test |
+| Unauthorized teacher menu access | Authenticated teacher mode, lockout/rate limiting, limited permissions |
+| Malicious USB computer | Device-side authorization, bounded parser, integrity checks, no trust based on cable alone |
+| Tampered lesson or firmware image | Authenticated/signed packages; validate signatures in firmware, manage keys outside repository |
+| Lost or stolen device | Data minimization and privacy-focused local storage; study encryption support and threat model |
+| Edited USB backup | Backup integrity validation; distinguish restoring an approved backup from trusting arbitrary imported files |
+| Direct flashing / physical access | Evaluate device secure boot, flash encryption, recovery modes and hardware constraints before making tamper-resistance claims |
+| Partial USB transfer or unplugged cable | Atomic state writes, explicit acknowledgments, idempotent operation IDs and recovery tests |
+
+## Repository safety
+
+No actual student data, answer traces, identifiers tied to real people, teacher PINs, passwords, private signing keys, real backup files or embedded secrets in version control. Audit the licenses of every third-party firmware component, recognition model and curriculum resource before distribution.
+
+## Open verification tasks
+
+- Confirm exact Tab5 firmware, chip revision, touch driver and USB device capability with official documentation **and** a physical spike.
+- Measure offline handwriting-recognition accuracy with children's digit samples and provide an explicit correction path.
+- Test power-loss persistence, USB disconnects, and corrupted package rejection.
+- Choose a practical teacher authentication model and approved school data-handling/retention requirements before pilot deployment.
