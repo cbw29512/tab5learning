@@ -33,3 +33,6 @@ Historical hardware and vendor research: TAB5_HARDWARE_BASELINE.md. Separate lea
 
 ## Firmware compilation gate
 Build-only PR workflow learner-preview-build.yml added at ed922f4; compiles learner_preview and archives binaries, package inventory and SHA256 evidence. No upload. Actual build result not yet confirmed. Battery gate in TAB5_HARDWARE_BASELINE.md is mandatory; recover known-good power source before physical flash. No approval to flash or use real student data.
+
+## Mathematics preview and recovery
+Five-question synthetic addition lesson wired to native touchscreen (ee52232); retry and independent-answer distinction. Portable versioned checkpoint codec with CRC and invariant validation (b06baca), corruption/restore tests (e91a212), both math suites wired into CI (fc9414f). Physical storage integration and power-loss validation pending; checkpoint summary is not immutable attempt history. No achievement issuance from unsaved preview state. Build run #3 for ee52232 was in progress at last check; host CI #83 passed before new math suites were wired. Battery gate remains mandatory.
