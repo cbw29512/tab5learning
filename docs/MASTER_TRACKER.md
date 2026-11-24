@@ -21,3 +21,6 @@ Status vocabulary: specified / implemented / host-tested / hardware-tested / acc
 Portable child navigation -> native rendering/touch -> one real activity -> durable evidence -> authorized teacher import -> review and recommendation. Preserve diagnostic build separately; do not ship diagnostic USB access. In parallel, wire visual editor and standards mapping.
 ## Handoff discipline
 Every implementation session: inspect current branch, choose unfinished gate, commit functional changes with tests, check exact CI result, record evidence and blockers here. Do not invent completion percentages or use real student data. No formal grade promotion by software. Keep educational click history within retention/privacy rules.
+
+## M13 extension — certificates and frequent rewards
+Mandatory: short educational micro-goals, visible current/progress/completed achievements, certificate for every completed milestone, persistent portfolio and authorized printable export. Distinguish activity completion from mastery. See ACHIEVEMENTS.md. Implementation, native display, print and acceptance pending.
