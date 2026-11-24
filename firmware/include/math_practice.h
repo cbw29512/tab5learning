@@ -29,7 +29,7 @@ inline MathResult math_answer(MathPractice& s, std::size_t choice) {
   return s.finished?MathResult::Finished:MathResult::Correct;
 }
 inline int math_choice_at(int x,int y) {
-  if(y<300 || y>=540) return -1;
+  if(y<444 || y>=540) return -1;
   for(int i=0;i<4;++i) {
     const int left=32+i*308;
     if(x>=left && x<left+292) return i;
