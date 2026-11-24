@@ -1,5 +1,5 @@
 # Offline reading tutor — approved design direction
-Status: design contract; hardware and recognition quality not yet verified. Extends Version 1, not the existing math MVP gate.
+Status: design contract; hardware and recognition quality not yet verified. Required MVP slice: one narrated illustrated story, recording and teacher review. Full reading library and validated automatic scoring remain later expansion.
 
 ## Definition of done
 - Student selects a leveled illustrated book, hears narration with synchronized word highlighting, then reads the same passage aloud.
