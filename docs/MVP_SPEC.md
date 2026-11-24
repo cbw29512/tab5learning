@@ -33,6 +33,10 @@ A build passes when all of the following can be demonstrated on the real device:
 - Shared learning history: reviewed errors can suggest practice cards; uncertain recognition and self-ratings must not become formal grades.
 - The original twelve acceptance gates remain required. Full curriculum coverage and production AI assessment are not prerequisites for the first pilot.
 
+## Usability acceptance
+
+The child and teacher workflows must pass the observed task gates in [USABILITY_AUDIT.md](USABILITY_AUDIT.md). Automated backend tests alone are insufficient.
+
 ## Deferred to Version 1
 
 - Complete grade 1–3 reading, spelling, and math curricula.
