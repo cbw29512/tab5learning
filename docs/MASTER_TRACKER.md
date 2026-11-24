@@ -30,3 +30,6 @@ Mandatory teacher-added content classification and configurable bonus weights, i
 
 ## Native learner preview hardware gate
 Historical hardware and vendor research: TAB5_HARDWARE_BASELINE.md. Separate learner_preview PlatformIO environment, native dashboard/navigation and shared landscape hit regions committed. Host layout tests added; actual firmware compile, image revision/partition validation, backup and hardware acceptance pending. No flash performed. Subject screens are placeholders; no real student data.
+
+## Firmware compilation gate
+Build-only PR workflow learner-preview-build.yml added at ed922f4; compiles learner_preview and archives binaries, package inventory and SHA256 evidence. No upload. Actual build result not yet confirmed. Battery gate in TAB5_HARDWARE_BASELINE.md is mandatory; recover known-good power source before physical flash. No approval to flash or use real student data.
