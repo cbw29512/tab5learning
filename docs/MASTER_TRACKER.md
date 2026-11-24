@@ -39,3 +39,6 @@ Five-question synthetic addition lesson wired to native touchscreen (ee52232); r
 
 ## Native practice reward integration
 Host CI #86 and #90 passed. NVS checkpoint adapter and save-before-acknowledge/resume implemented (0b6e0aa, 2f9ccd3). Native preview derives two practice badges from valid saved independent-answer counts (52282be), tests (9a86d29), native journey and 2.5-second notification integration (257b9ac), CI suite registration (592d1ee). Thresholds 1 and 5 are synthetic preview only; no mastery/certificates or durable full award ledger integration. Native build #6 was in progress before reward changes; new build and tests not yet verified. Hardware battery gate, storage failure/power-loss tests, handwriting, full event history and authorization remain blockers. No physical flash.
+
+## Build reliability and battery source recovery
+Host CI #95 passed. Native build #8 cancelled; job has no step details, root cause unconfirmed. Workflow changed cancel-in-progress to false (867ecc7) to let active compilation finish during rapid commits. GitHub may still replace pending builds. Recovered prior battery source and contract from Tab5LASR at af26727; documented in TAB5_HARDWARE_BASELINE.md. No power register changes until exact M5Unified driver reconciled; no hardware flash or battery certification.
