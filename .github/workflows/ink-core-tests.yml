@@ -3,7 +3,8 @@ on:
   pull_request:
     paths:
       - "firmware/include/**"
-      - "firmware/src/ink_capture.cpp"
+      - "firmware/src/**"
+      - "firmware/platformio.ini"
       - "firmware/tests/**"
       - "tools/**"
       - "tests/**"
@@ -11,7 +12,8 @@ on:
   push:
     paths:
       - "firmware/include/**"
-      - "firmware/src/ink_capture.cpp"
+      - "firmware/src/**"
+      - "firmware/platformio.ini"
       - "firmware/tests/**"
       - "tools/**"
       - "tests/**"
@@ -37,6 +39,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/award_notice_test.cpp -o /tmp/tab5-award-notice-test
           /tmp/tab5-award-notice-test
+      - name: Compile and run landscape layout tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_layout_test.cpp -o /tmp/tab5-layout-test
+          /tmp/tab5-layout-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
