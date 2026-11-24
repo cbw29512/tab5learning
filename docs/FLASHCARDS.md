@@ -1,7 +1,7 @@
 # Flashcards — approved product direction
 
 ## Definition of done
-A teacher signs into the local Windows manager, creates or imports a deck, previews and approves it, assigns it to a student or class, and transfers it to each device over authenticated USB. The student practices offline, resumes after reboot, and the teacher retrieves results. Preserve the existing math MVP gate.
+A teacher signs into the local Windows manager, creates or imports a deck, previews and approves it, assigns it to a student or class, and transfers it to each device over authenticated USB. The student practices offline, resumes after reboot, and the teacher retrieves results. This is a required MVP gate alongside math, reading and spelling.
 
 ## Data contract
 - Deck: immutable deck_id, version, title, subject, grade band, author, asset manifest, license/attribution.
