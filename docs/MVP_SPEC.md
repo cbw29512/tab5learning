@@ -23,6 +23,15 @@ A build passes when all of the following can be demonstrated on the real device:
 11. **Security review:** Wireless features are disabled in the learner application. Unauthorized content imports are rejected. Firmware update protections and physical tamper risks are documented and tested to the extent supported by the hardware.
 12. **Tests and release evidence:** Automated tests cover answer scoring, corrections, mastery recomputation, schema validation, duplicate USB operations, and corrupted/partial transfers; a manual hardware checklist documents touch and USB behavior.
 
+## Expanded MVP acceptance gates (approved)
+
+- Flashcards: teacher-authored text decks, CSV import, approval, individual assignment, offline review, durable results and authenticated USB round trip. Images/audio and other response modes use versioned content packages and must be validated before release.
+- Reading: at least one licensed illustrated narrated story, synchronized highlighting, explicit recording and teacher-reviewed oral reading. Automated speech scoring remains experimental until validated.
+- Spelling: at least one spoken word set with handwritten response and teacher correction.
+- Teacher Studio: protected local login, deck and lesson creation, assignment, progress review and backup. No network dependency.
+- Shared learning history: reviewed errors can suggest practice cards; uncertain recognition and self-ratings must not become formal grades.
+- The original twelve acceptance gates remain required. Full curriculum coverage and production AI assessment are not prerequisites for the first pilot.
+
 ## Deferred to Version 1
 
 - Complete grade 1–3 reading, spelling, and math curricula.
