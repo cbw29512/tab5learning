@@ -26,4 +26,4 @@ Every implementation session: inspect current branch, choose unfinished gate, co
 Mandatory: short educational micro-goals, visible current/progress/completed achievements, certificate for every completed milestone, persistent portfolio and authorized printable export. Distinguish activity completion from mastery. See ACHIEVEMENTS.md. Implementation, native display, print and acceptance pending.
 
 ## M14 — Teacher-controlled extra credit
-Mandatory teacher-added content classification and configurable bonus weights, independent core mastery, audit history and supplemental certificates. Contract specified in EXTRA_CREDIT.md; implementation and acceptance pending.
+Mandatory teacher-added content classification and configurable bonus weights, independent core mastery, audit history and supplemental certificates. Contract specified in EXTRA_CREDIT.md; decimal host grade projection and regression tests implemented (ce6417d, f905f39). CI not yet verified. Teacher authorization, scoped persistent assignments, audit revisions, native UI, certificates and acceptance pending.
