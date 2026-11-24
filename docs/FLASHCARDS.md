@@ -21,3 +21,5 @@ Reading, spelling and math can suggest practice cards from reviewed errors; keep
 
 ## Tests
 Reject malformed decks, duplicate IDs, invalid assets and unauthorized imports. Verify restart recovery, duplicate USB operation handling, old-version reviews, teacher corrections, bounded retries, clock loss, self-rating separation, and no wireless services. Hardware and recognition quality remain unverified.
+
+Teacher-authored or imported supplemental decks are extra credit by default. Assignment weights and classroom reporting follow [EXTRA_CREDIT.md](EXTRA_CREDIT.md); self-rating alone cannot earn graded credit or establish mastery.
