@@ -48,3 +48,6 @@ Question and scratchpad cards must have identical outer width and height, aligne
 
 ## Native handwriting integration
 Equal 592x244 question and ink cards, 292x96 answer row, clear outside canvas. Shared scratchpad geometry and tests updated (6f3240c,352a8c5,1e14971,7e7b9cc). Native renderer and touch stroke integration (d202408,ccfc790), preserves draft during retry and navigation, clears after successful saved advance. Draft ink RAM-only, not recognized or retained as evidence. Latest native build and regression tests pending verification. Main renderer now needs modular refactor. Physical battery gate unchanged.
+
+## Individual mathematics evidence foundation
+Host CI #114 passed; native build #16 cancelled, no physical verification. Bounded attempt builder (71c17ce) captures question index, choice, sequence, result, post-answer checkpoint and normalized ink stroke points without mutating original state; tests (74624fa), CI registration (897a0d3). Synthetic only; not yet serialized, appended durably, integrated into native submission, or exported to teacher. Next implement versioned record codec and atomic journal/acknowledgement recovery; never claim durable evidence from checkpoint alone. Preserve equal cards and battery gate.
