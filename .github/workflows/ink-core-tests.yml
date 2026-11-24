@@ -53,6 +53,8 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_scratchpad_test.cpp -o /tmp/tab5-scratchpad-test
           /tmp/tab5-scratchpad-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_attempt_test.cpp -o /tmp/tab5-attempt-test
+          /tmp/tab5-attempt-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
