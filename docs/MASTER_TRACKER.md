@@ -45,3 +45,6 @@ Host CI #95 passed. Native build #8 cancelled; job has no step details, root cau
 
 ## Fixed lesson card layout (user requirement)
 Question and scratchpad cards must have identical outer width and height, aligned edges, consistent gap, no content-driven resizing. Entire scratchpad card is drawable; clear control lives outside it. Answer cards equally sized. Preview geometry shared in math_scratchpad.h; host boundary tests wired to CI. Current 592x134 reference is provisional pending larger writing-area layout and native renderer integration; keep equality at every size. Native build #11 and host #98 passed before scratchpad changes. Battery gate remains outstanding.
+
+## Native handwriting integration
+Equal 592x244 question and ink cards, 292x96 answer row, clear outside canvas. Shared scratchpad geometry and tests updated (6f3240c,352a8c5,1e14971,7e7b9cc). Native renderer and touch stroke integration (d202408,ccfc790), preserves draft during retry and navigation, clears after successful saved advance. Draft ink RAM-only, not recognized or retained as evidence. Latest native build and regression tests pending verification. Main renderer now needs modular refactor. Physical battery gate unchanged.
