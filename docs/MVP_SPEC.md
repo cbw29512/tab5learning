@@ -29,6 +29,7 @@ A build passes when all of the following can be demonstrated on the real device:
 - Reading: at least one licensed illustrated narrated story, synchronized highlighting, explicit recording and teacher-reviewed oral reading. Automated speech scoring remains experimental until validated.
 - Spelling: at least one spoken word set with handwritten response and teacher correction.
 - Teacher Studio: protected local login, deck and lesson creation, assignment, progress review and backup. No network dependency.
+- Mandatory educational interaction journal, teacher drilldown, milestone evidence and correction-driven recalculation: see [Learning history](LEARNING_HISTORY.md). Test durable sequence ordering, idempotence, recovery and privacy controls.
 - Shared learning history: reviewed errors can suggest practice cards; uncertain recognition and self-ratings must not become formal grades.
 - The original twelve acceptance gates remain required. Full curriculum coverage and production AI assessment are not prerequisites for the first pilot.
 
