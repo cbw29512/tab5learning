@@ -3,11 +3,14 @@
 #include <M5Unified.h>
 #include "learner_layout.h"
 #include "math_practice.h"
+#include "math_storage.h"
 #include <cstdio>
 
 namespace {
 LearnerNavigation navigation;
 MathPractice math;
+MathStorage storage;
+bool storage_error=false;
 MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
 bool geometry_ok=false;
@@ -34,10 +37,15 @@ void render_math() {
   char line[96];
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   M5.Display.setTextSize(3);
+  if(storage_error) {
+    M5.Display.drawString("Unable to save or restore practice.",48,200);
+    M5.Display.drawString("Ask your teacher to restart and check storage.",48,260);
+    return;
+  }
   if(math.finished) {
     snprintf(line,sizeof(line),"Practice complete: %u independent answers",math.independent);
     M5.Display.drawString(line,48,200);
-    M5.Display.drawString("Preview only - results are not saved yet.",48,280);
+    M5.Display.drawString("Practice summary saved.",48,280);
     return;
   }
   const auto& q=math_questions[math.index];
@@ -102,6 +110,10 @@ void setup() {
     M5.Display.drawString("Unsupported display geometry",10,10);
     return;
   }
+  const auto loaded=storage.begin(math);
+  storage_error=loaded==MathLoad::Error;
+  if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
+  else if(loaded==MathLoad::Restored) navigation.screen=LearnerScreen::Math;
   render();
   Serial.println("READY,POCKET_LEARNER_PREVIEW,1");
 }
@@ -116,7 +128,15 @@ void loop() {
         learner_navigate(navigation,action)) render();
     else if (!navigation.help_open && navigation.screen==LearnerScreen::Math) {
       int choice=math_choice_at(detail.x,detail.y);
-      if(choice>=0) { feedback=math_answer(math,static_cast<std::size_t>(choice)); render(); }
+      if(choice>=0 && !storage_error) {
+        auto next=math;
+        const auto result=math_answer(next,static_cast<std::size_t>(choice));
+        if(result!=MathResult::Ignored) {
+          if(storage.save(next)) { math=next; feedback=result; }
+          else { storage_error=true; Serial.println("ERR,MATH_STORAGE_SAVE"); }
+          render();
+        }
+      }
     }
   }
   was_touching=touching;
