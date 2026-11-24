@@ -4,12 +4,15 @@
 #include "learner_layout.h"
 #include "math_practice.h"
 #include "math_storage.h"
+#include "preview_badges.h"
+#include "award_notice.h"
 #include <cstdio>
 
 namespace {
 LearnerNavigation navigation;
 MathPractice math;
 MathStorage storage;
+AwardNotice notice;
 bool storage_error=false;
 MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
@@ -31,6 +34,35 @@ const char* heading() {
     case LearnerScreen::Journey: return "My Learning Journey";
     default: return "Pocket Learning";
   }
+}
+
+void render_notice() {
+  M5.Display.fillRect(32,108,1216,28,TFT_NAVY);
+  if(!notice.visible || navigation.help_open ||
+      navigation.screen!=LearnerScreen::Math) return;
+  M5.Display.fillRect(32,108,1216,28,TFT_DARKGREEN);
+  M5.Display.setTextSize(2);
+  M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREEN);
+  M5.Display.drawString(preview_badges[notice.sequence-1].name,48,112);
+  M5.Display.drawString("Achievement unlocked!",400,112);
+}
+
+void render_journey() {
+  M5.Display.setTextSize(3);
+  M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+  if(storage_error) {
+    M5.Display.drawString("Progress unavailable - ask your teacher.",48,180);
+    return;
+  }
+  const auto count=preview_badge_count(math);
+  for(unsigned i=0;i<preview_badges.size();++i) {
+    char line[100];
+    const auto& badge=preview_badges[i];
+    snprintf(line,sizeof(line),"%s: %s (%u/%u)",i<count?"Completed":i==count?"Current":"Upcoming",
+      badge.name,math.independent<badge.threshold?math.independent:badge.threshold,badge.threshold);
+    M5.Display.drawString(line,48,180+80*i);
+  }
+  M5.Display.drawString("Practice badges - not mastery certificates.",48,400);
 }
 
 void render_math() {
@@ -85,9 +117,9 @@ void render() {
     M5.Display.setTextSize(3);
     if (navigation.screen==LearnerScreen::Math) {
       render_math();
+      render_notice();
     } else if (navigation.screen==LearnerScreen::Journey) {
-      M5.Display.drawString("Current | Completed | Upcoming",48,180);
-      M5.Display.drawString("No learning records loaded in this preview.",48,260);
+      render_journey();
     } else {
       M5.Display.drawString("Lesson integration pending.",48,180);
     }
@@ -114,6 +146,7 @@ void setup() {
   storage_error=loaded==MathLoad::Error;
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
   else if(loaded==MathLoad::Restored) navigation.screen=LearnerScreen::Math;
+  notice.newest=preview_badge_count(math); // Never replay restored awards.
   render();
   Serial.println("READY,POCKET_LEARNER_PREVIEW,1");
 }
@@ -132,13 +165,21 @@ void loop() {
         auto next=math;
         const auto result=math_answer(next,static_cast<std::size_t>(choice));
         if(result!=MathResult::Ignored) {
-          if(storage.save(next)) { math=next; feedback=result; }
+          if(storage.save(next)) {
+            const auto before=preview_badge_count(math);
+            math=next; feedback=result;
+            const auto after=preview_badge_count(math);
+            if(after>before) award_notice_offer(notice,after,millis(),true);
+          }
           else { storage_error=true; Serial.println("ERR,MATH_STORAGE_SAVE"); }
           render();
         }
       }
     }
   }
+  const bool visible=notice.visible;
+  award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);
+  if(visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) render_notice();
   was_touching=touching;
   M5.delay(10);
 }
