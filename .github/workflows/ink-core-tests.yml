@@ -43,6 +43,12 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_layout_test.cpp -o /tmp/tab5-layout-test
           /tmp/tab5-layout-test
+      - name: Compile and run mathematics and checkpoint tests
+        run: |
+          for suite in math_practice math_checkpoint; do
+            g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include "firmware/tests/${suite}_test.cpp" -o "/tmp/${suite}-test"
+            "/tmp/${suite}-test" || exit 1
+          done
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
