@@ -4,10 +4,10 @@ int main() {
   assert(math_problem_card.w==math_ink_card.w);
   assert(math_problem_card.h==math_ink_card.h);
   assert(math_problem_card.y==math_ink_card.y);
-  assert(scratch_inside(656,150));
-  assert(scratch_inside(1247,283));
-  assert(!scratch_inside(655,150));
-  assert(!scratch_inside(1248,283));
+  assert(scratch_inside(656,184));
+  assert(scratch_inside(1247,427));
+  assert(!scratch_inside(655,184));
+  assert(!scratch_inside(1248,427));
   MathScratchpad s;
   assert(!scratch_touch(s,600,200,true));
   assert(!scratch_touch(s,700,200,false));
@@ -21,7 +21,7 @@ int main() {
   assert(s.ink.count==3);
   scratch_clear(s);
   assert(s.ink.count==0 && !s.drawing);
-  assert(scratch_clear_hit(1100,108));
-  assert(!scratch_clear_hit(1248,108));
-  assert(!scratch_inside(700,300));
+  assert(scratch_clear_hit(1100,140));
+  assert(!scratch_clear_hit(1248,140));
+  assert(!scratch_inside(700,444));
 }
