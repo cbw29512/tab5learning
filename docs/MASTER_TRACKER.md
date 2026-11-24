@@ -27,3 +27,6 @@ Mandatory: short educational micro-goals, visible current/progress/completed ach
 
 ## M14 — Teacher-controlled extra credit
 Mandatory teacher-added content classification and configurable bonus weights, independent core mastery, audit history and supplemental certificates. Contract specified in EXTRA_CREDIT.md; decimal host grade projection and regression tests implemented (ce6417d, f905f39). CI #56 passed. Teacher authorization, scoped persistent assignments, audit revisions, native UI, certificates and acceptance pending.
+
+## Native learner preview hardware gate
+Historical hardware and vendor research: TAB5_HARDWARE_BASELINE.md. Separate learner_preview PlatformIO environment, native dashboard/navigation and shared landscape hit regions committed. Host layout tests added; actual firmware compile, image revision/partition validation, backup and hardware acceptance pending. No flash performed. Subject screens are placeholders; no real student data.
