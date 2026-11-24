@@ -13,9 +13,10 @@ Status vocabulary: specified / implemented / host-tested / hardware-tested / acc
 | M7 | Timeline and progress | Host projection tested; teacher drilldown and durable milestone transitions pending |
 | M8 | Security/release | USB currently unauthenticated diagnostic only; no real student data; signing, encryption, retention, packaging and pilot gates pending |
 | M9 | Competencies and standards | Graph and mastery recommendation host CI #44 passed; actual standards crosswalk, educator-approved policies and integration pending |
-| M10 | Premium student UX | Navigation state foundation next; actual rendering, accessibility, audio, resume and user testing pending |
+| M10 | Premium student UX | Navigation state host CI #47 passed; actual rendering, accessibility, audio, resume and user testing pending |
 | M11 | Camera evidence | Specified; native capture and storage pending |
 | M12 | Curriculum expansion | K-12/college capable model; coverage audit and later packages pending |
+| M13 | Learner achievement journey | Host projection implemented; native UI, award history and acceptance pending; see ACHIEVEMENTS.md |
 ## Next vertical slice
 Portable child navigation -> native rendering/touch -> one real activity -> durable evidence -> authorized teacher import -> review and recommendation. Preserve diagnostic build separately; do not ship diagnostic USB access. In parallel, wire visual editor and standards mapping.
 ## Handoff discipline
