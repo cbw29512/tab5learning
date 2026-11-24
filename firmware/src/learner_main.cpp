@@ -2,9 +2,13 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include "learner_layout.h"
+#include "math_practice.h"
+#include <cstdio>
 
 namespace {
 LearnerNavigation navigation;
+MathPractice math;
+MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
 bool geometry_ok=false;
 
@@ -26,6 +30,35 @@ const char* heading() {
   }
 }
 
+void render_math() {
+  char line[96];
+  M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+  M5.Display.setTextSize(3);
+  if(math.finished) {
+    snprintf(line,sizeof(line),"Practice complete: %u independent answers",math.independent);
+    M5.Display.drawString(line,48,200);
+    M5.Display.drawString("Preview only - results are not saved yet.",48,280);
+    return;
+  }
+  const auto& q=math_questions[math.index];
+  snprintf(line,sizeof(line),"Question %u of %u",unsigned(math.index+1),unsigned(math_questions.size()));
+  M5.Display.drawString(line,48,140);
+  snprintf(line,sizeof(line),"%d + %d = ?",q.a,q.b);
+  M5.Display.setTextSize(7);
+  M5.Display.drawString(line,48,195);
+  for(int i=0;i<4;++i) {
+    const int x=32+i*308;
+    M5.Display.fillRoundRect(x,300,292,240,18,TFT_BLUE);
+    M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);
+    snprintf(line,sizeof(line),"%d",q.choices[i]);
+    M5.Display.drawString(line,x+100,390);
+  }
+  M5.Display.setTextSize(2);
+  M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+  if(feedback==MathResult::TryAgain) M5.Display.drawString("Try again - you can do it.",48,550);
+  else if(feedback==MathResult::Correct) M5.Display.drawString("Correct! Keep going.",48,550);
+}
+
 void render() {
   M5.Display.fillScreen(TFT_NAVY);
   tile(learner_home,TFT_DARKGREY);
@@ -42,7 +75,9 @@ void render() {
     for (unsigned i=0;i<learner_tiles.size();++i) tile(learner_tiles[i],colors[i]);
   } else {
     M5.Display.setTextSize(3);
-    if (navigation.screen==LearnerScreen::Journey) {
+    if (navigation.screen==LearnerScreen::Math) {
+      render_math();
+    } else if (navigation.screen==LearnerScreen::Journey) {
       M5.Display.drawString("Current | Completed | Upcoming",48,180);
       M5.Display.drawString("No learning records loaded in this preview.",48,260);
     } else {
@@ -79,6 +114,10 @@ void loop() {
     LearnerAction action;
     if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) render();
+    else if (!navigation.help_open && navigation.screen==LearnerScreen::Math) {
+      int choice=math_choice_at(detail.x,detail.y);
+      if(choice>=0) { feedback=math_answer(math,static_cast<std::size_t>(choice)); render(); }
+    }
   }
   was_touching=touching;
   M5.delay(10);
