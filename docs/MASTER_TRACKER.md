@@ -42,3 +42,6 @@ Host CI #86 and #90 passed. NVS checkpoint adapter and save-before-acknowledge/r
 
 ## Build reliability and battery source recovery
 Host CI #95 passed. Native build #8 cancelled; job has no step details, root cause unconfirmed. Workflow changed cancel-in-progress to false (867ecc7) to let active compilation finish during rapid commits. GitHub may still replace pending builds. Recovered prior battery source and contract from Tab5LASR at af26727; documented in TAB5_HARDWARE_BASELINE.md. No power register changes until exact M5Unified driver reconciled; no hardware flash or battery certification.
+
+## Fixed lesson card layout (user requirement)
+Question and scratchpad cards must have identical outer width and height, aligned edges, consistent gap, no content-driven resizing. Entire scratchpad card is drawable; clear control lives outside it. Answer cards equally sized. Preview geometry shared in math_scratchpad.h; host boundary tests wired to CI. Current 592x134 reference is provisional pending larger writing-area layout and native renderer integration; keep equality at every size. Native build #11 and host #98 passed before scratchpad changes. Battery gate remains outstanding.
