@@ -13,7 +13,7 @@ int main() {
   assert(math_answer(s,0)==MathResult::Finished);
   assert(s.finished && s.independent==4 && s.attempts==6);
   assert(math_answer(s,0)==MathResult::Ignored);
-  for(int i=0;i<4;++i) assert(math_choice_at(32+i*308,300)==i);
-  assert(math_choice_at(324,300)==-1);
+  for(int i=0;i<4;++i) assert(math_choice_at(32+i*308,444)==i);
+  assert(math_choice_at(324,444)==-1);
   assert(math_choice_at(32,540)==-1);
 }
