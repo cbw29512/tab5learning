@@ -3,7 +3,7 @@
 #include <M5Unified.h>
 #include "learner_layout.h"
 #include "math_practice.h"
-#include "math_storage.h"
+#include "math_journal.h"
 #include "preview_badges.h"
 #include "award_notice.h"
 #include "math_ink_ui.h"
@@ -12,7 +12,7 @@
 namespace {
 LearnerNavigation navigation;
 MathPractice math;
-MathStorage storage;
+MathJournal storage;
 AwardNotice notice;
 MathScratchpad scratch;
 bool storage_error=false;
@@ -79,7 +79,7 @@ void render_math() {
   if(math.finished) {
     snprintf(line,sizeof(line),"Practice complete: %u independent answers",math.independent);
     M5.Display.drawString(line,48,200);
-    M5.Display.drawString("Practice summary saved.",48,280);
+    M5.Display.drawString("Practice answers saved.",48,280);
     return;
   }
   const auto& q=math_questions[math.index];
@@ -154,9 +154,9 @@ void setup() {
     return;
   }
   const auto loaded=storage.begin(math);
-  storage_error=loaded==MathLoad::Error;
+  storage_error=loaded==JournalLoad::Error;
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
-  else if(loaded==MathLoad::Restored) navigation.screen=LearnerScreen::Math;
+  else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
   notice.newest=preview_badge_count(math); // Never replay restored awards.
   render();
   Serial.println("READY,POCKET_LEARNER_PREVIEW,1");
@@ -181,9 +181,10 @@ void loop() {
       int choice=math_choice_at(detail.x,detail.y);
       if(choice>=0 && !storage_error) {
         auto next=math;
-        const auto result=math_answer(next,static_cast<std::size_t>(choice));
-        if(result!=MathResult::Ignored) {
-          if(storage.save(next)) {
+        MathAttempt attempt;
+        if(make_math_attempt(math,static_cast<unsigned>(choice),scratch,attempt)) {
+          const auto result=attempt.result;
+          if(storage.append(attempt,math,next)) {
             const auto before=preview_badge_count(math);
             math=next; feedback=result;
             if(result!=MathResult::TryAgain) scratch_clear(scratch);
