@@ -48,3 +48,41 @@ USB operation: `RECEIVED -> VALIDATED -> APPLIED -> ACKNOWLEDGED`. Invalid opera
 - Replayed corrections do not double-apply.
 - Wrong device IDs, incompatible content versions, altered hashes, invalid signatures and malformed inputs are rejected.
 - Restored backups retain all attempts and audit history.
+
+## Expanded MVP records (logical contract)
+
+| Record | Required fields / intent |
+| --- | --- |
+| Lesson revision | lesson_id, revision, skill_ids, activity_ids, asset manifest, assignment scope |
+| Passage revision | passage_id, revision, locale, ordered token IDs and text, narration asset digest, duration_ms |
+| Narration cue | token_id, start_ms, end_ms; ordered, non-overlapping, bounded by duration |
+| Oral assessment | attempt_id, passage revision, optional local evidence reference, observed tokens, confidence, review status, policy version |
+| Flashcard revision | card_id, revision, skill_id, prompt, expected answer |
+| Review event | event_id, student_id, card revision, result, sequence; derived due state |
+| Activity event | event_id, student_id, session_id, kind, monotonic sequence, related record ID |
+| Reward definition | reward_id, criteria version, type (achievement, milestone, certificate), prerequisite IDs |
+| Reward grant | student_id, reward_id, criteria version, qualifying evidence IDs, earned sequence |
+| Lesson assignment | assignment_id, student_id, lesson revision, authorized operation ID |
+
+### State and invariants
+
+Read-along: READY -> PLAYING -> PAUSED / FINISHED; asset or timing validation failure -> ERROR. Position is bounded by narration duration. Resume uses audio playback position as the source of truth, not elapsed wall-clock time. Highlighting is derived from validated cues.
+
+Oral assessment: CAPTURED -> PENDING_REVIEW -> REVIEWED. A low-confidence or missing observation is not a confirmed error. Original observations remain immutable; teacher corrections append review events. Audio retention is separately configured, local-only and minimized; deletion of optional audio must not silently delete assessment history.
+
+Flashcards: append review events before updating derived review schedules. An interrupted or repeated event cannot advance the schedule twice. Content revisions must not erase previous reviews.
+
+Rewards: derive eligibility from reviewed evidence, grant once per student/reward/criteria version, and persist before displaying notifications. Achievements are non-blocking; certificates require explicit major milestone criteria. Exact educational thresholds remain configurable and teacher-reviewed.
+
+USB imports: validate lesson revisions, asset hashes, cue bounds, student scope and signatures before activation. Never replace historical content references with an unrelated revision.
+
+### Additional acceptance tests
+
+- Missing narration, invalid cue intervals, overlapping cues and duration overflow are rejected.
+- Pause/replay/resume maintain correct highlighting, including gaps between words.
+- Uncertain speech observations are routed to review rather than graded as definite errors.
+- Lesson revisions and repeated review events preserve prior progress.
+- Replayed reward grants are idempotent; certificates cannot be issued for an ordinary achievement.
+- Student reassignment does not expose another child's historical data.
+
+This contract specifies logical fields, not a selected embedded storage engine or speech model. Native memory and audio feasibility must be measured on the physical Tab5.
