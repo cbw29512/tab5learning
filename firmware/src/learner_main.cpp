@@ -6,6 +6,7 @@
 #include "math_storage.h"
 #include "preview_badges.h"
 #include "award_notice.h"
+#include "math_ink_ui.h"
 #include <cstdio>
 
 namespace {
@@ -13,6 +14,7 @@ LearnerNavigation navigation;
 MathPractice math;
 MathStorage storage;
 AwardNotice notice;
+MathScratchpad scratch;
 bool storage_error=false;
 MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
@@ -82,16 +84,25 @@ void render_math() {
   }
   const auto& q=math_questions[math.index];
   snprintf(line,sizeof(line),"Question %u of %u",unsigned(math.index+1),unsigned(math_questions.size()));
-  M5.Display.drawString(line,48,140);
+  M5.Display.drawString(line,48,144);
+  M5.Display.setTextSize(2);
+  M5.Display.drawString("Scratchpad",656,150);
+  M5.Display.fillRect(1100,140,148,40,TFT_DARKGREY);
+  M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREY);
+  M5.Display.drawString("Clear",1130,150);
+  const auto& card=math_problem_card;
+  M5.Display.fillRect(card.x,card.y,card.w,card.h,TFT_DARKGREY);
+  M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREY);
+  math_ink_render(scratch);
   snprintf(line,sizeof(line),"%d + %d = ?",q.a,q.b);
   M5.Display.setTextSize(7);
-  M5.Display.drawString(line,48,195);
+  M5.Display.drawString(line,120,270);
   for(int i=0;i<4;++i) {
     const int x=32+i*308;
-    M5.Display.fillRoundRect(x,300,292,240,18,TFT_BLUE);
+    M5.Display.fillRoundRect(x,444,292,96,18,TFT_BLUE);
     M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);
     snprintf(line,sizeof(line),"%d",q.choices[i]);
-    M5.Display.drawString(line,x+100,390);
+    M5.Display.drawString(line,x+100,465);
   }
   M5.Display.setTextSize(2);
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
@@ -160,6 +171,13 @@ void loop() {
     if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) render();
     else if (!navigation.help_open && navigation.screen==LearnerScreen::Math) {
+      if(!storage_error && !math.finished) {
+        if(scratch_clear_hit(detail.x,detail.y)) {
+          scratch_clear(scratch); render();
+        } else if(scratch_inside(detail.x,detail.y)) {
+          math_ink_sample(scratch,detail.x,detail.y,true);
+        }
+      }
       int choice=math_choice_at(detail.x,detail.y);
       if(choice>=0 && !storage_error) {
         auto next=math;
@@ -168,6 +186,7 @@ void loop() {
           if(storage.save(next)) {
             const auto before=preview_badge_count(math);
             math=next; feedback=result;
+            if(result!=MathResult::TryAgain) scratch_clear(scratch);
             const auto after=preview_badge_count(math);
             if(after>before) award_notice_offer(notice,after,millis(),true);
           }
@@ -177,6 +196,13 @@ void loop() {
       }
     }
   }
+  if(geometry_ok && touching && was_touching && scratch.drawing &&
+      !navigation.help_open && navigation.screen==LearnerScreen::Math &&
+      !storage_error && !math.finished) {
+    const auto detail=M5.Touch.getDetail(0);
+    math_ink_sample(scratch,detail.x,detail.y,false);
+  }
+  if(!touching) scratch_release(scratch);
   const bool visible=notice.visible;
   award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);
   if(visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) render_notice();
