@@ -31,6 +31,9 @@ A build passes when all of the following can be demonstrated on the real device:
 - Teacher Studio: protected local login, deck and lesson creation, assignment, progress review and backup. No network dependency.
 - Mandatory educational interaction journal, teacher drilldown, milestone evidence and correction-driven recalculation: see [Learning history](LEARNING_HISTORY.md). Test durable sequence ordering, idempotence, recovery and privacy controls.
 - Shared learning history: reviewed errors can suggest practice cards; uncertain recognition and self-ratings must not become formal grades.
+- Teacher-added supplemental content: configurable nonnegative extra-credit weights, separate core/bonus/combined grades, optional caps, audited corrections and no advancement solely from bonus points. See [EXTRA_CREDIT.md](EXTRA_CREDIT.md).
+- Learner achievement journey: frequent meaningful micro-goals, current/progress/completed views and durable certificates for every completed milestone, printable through Teacher Studio. See [ACHIEVEMENTS.md](ACHIEVEMENTS.md).
+- Native standalone lifelong-learning architecture and one guided camera evidence activity, subject to hardware/privacy acceptance. See [LIFELONG_LEARNING.md](LIFELONG_LEARNING.md).
 - The original twelve acceptance gates remain required. Full curriculum coverage and production AI assessment are not prerequisites for the first pilot.
 
 ## Usability acceptance
