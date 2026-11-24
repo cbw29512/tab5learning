@@ -1,0 +1,46 @@
+name: Tab5 learner preview firmware build
+on:
+  pull_request:
+    paths:
+      - 'firmware/src/**'
+      - 'firmware/include/**'
+      - 'firmware/platformio.ini'
+      - '.github/workflows/learner-preview-build.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: learner-preview-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PlatformIO
+        run: python -m pip install platformio==6.1.18
+      - name: Compile native learner preview (no upload)
+        run: pio run -d firmware -e learner_preview
+      - name: Record build evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build-evidence
+          pio pkg list -d firmware -e learner_preview > build-evidence/packages.txt
+          for name in firmware.bin bootloader.bin partitions.bin; do
+            test -s "firmware/.pio/build/learner_preview/$name"
+            cp "firmware/.pio/build/learner_preview/$name" build-evidence/
+          done
+          git rev-parse HEAD > build-evidence/commit.txt
+          (cd build-evidence && sha256sum *.bin > SHA256SUMS.txt)
+          printf '%s\n' 'BUILD ONLY: NOT APPROVED FOR FLASHING. Silicon compatibility, partition offsets, backup and battery gates outstanding.' > build-evidence/READ_ME_FIRST.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: learner-preview-build-only
+          path: build-evidence/
+          if-no-files-found: error
+          retention-days: 7
