@@ -45,7 +45,7 @@ jobs:
           /tmp/tab5-layout-test
       - name: Compile and run mathematics and checkpoint tests
         run: |
-          for suite in math_practice math_checkpoint; do
+          for suite in math_practice math_checkpoint preview_badges; do
             g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include "firmware/tests/${suite}_test.cpp" -o "/tmp/${suite}-test"
             "/tmp/${suite}-test" || exit 1
           done
