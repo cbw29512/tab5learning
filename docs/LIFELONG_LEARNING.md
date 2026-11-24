@@ -1,0 +1,17 @@
+# Approved product direction: standalone lifelong learning appliance
+
+Native Tab5 firmware is the student product. Windows Teacher Studio manages one assigned learner per device via authenticated USB only. No student web app, routine Wi-Fi/Bluetooth, cloud dependency, mandatory subscription or general-purpose browser. Premium quality means responsive touch, accessible narration, reliable battery, recovery, useful curriculum and easy teacher workflows. Original mascot is optional and age-appropriate; older students get a professional interface. Hardware-independent data and competency logic permit later device generations.
+
+Initial pilot: elementary math, reading, spelling, flashcards and a guided camera evidence activity, subject to hardware/privacy validation. Future packages span K-12, college course outcomes and professional competencies; no claim of coverage before audit. Common Core and South Carolina are initial proposed mappings; verify official edition, source, rights and educator approval before shipping. No national accreditation claim.
+
+## Data and state
+Curriculum catalog: catalog_id, version, skills (stable skill_id, subject, level_label, prerequisite IDs), framework mappings (framework_id, edition, standard_id, source URI, reviewed alignment). Many-to-many mapping; no automatic equivalence from names. Level labels are metadata, never grade-equivalent scores.
+Skill evidence derives from immutable student attempts and corrections. Mastery decisions require versioned teacher-approved policy, distinct tasks/sessions, independent accuracy, transfer and delayed retention; uncertain or self-rated answers cannot prove mastery. Separate recommendation from authorization; teacher may approve progression or configure bounded automatic progression. Formal promotion remains school decision.
+Graph state: blocked (missing approved prerequisites), available (prerequisites met), approved mastery. Recommend eligible skills only, not infer mastery from completion. Corrections trigger review of dependent progression, never erase history. Catalog changes preserve old skill/content versions; migrations reviewed.
+First implementation validates a bounded graph and determines eligible skills from already approved mastery IDs. This host reference is not a validated mastery assessor or device implementation.
+
+## Camera evidence
+Explicit activity -> preview -> capture -> review/retake -> durable evidence reference -> authorized USB export -> teacher review. No background capture or facial identification. Verify camera driver, memory, storage, latency and battery on physical hardware; use synthetic images until consent, retention, deletion and access controls pass. OCR/object recognition optional and separately benchmarked; never grade uncertain recognition as failure.
+
+## Release gates
+Preserve all existing MVP and usability requirements. Verify graph cycles/missing prerequisites, versioning, correction-driven invalidation, policy authorization, portability, offline operation, camera interruption/storage errors and privacy. Full secondary/college curriculum is later expansion, not an elementary release blocker.
