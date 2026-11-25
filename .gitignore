@@ -41,3 +41,7 @@ venv/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Generated developer narration and PlatformIO artifacts.
+/firmware/include/preview_narration.generated.h
+/firmware/.pio/
