@@ -7,6 +7,7 @@
 #include "preview_badges.h"
 #include "award_notice.h"
 #include "math_ink_ui.h"
+#include "reading_preview_ui.h"
 #include <cstdio>
 
 namespace {
@@ -15,6 +16,7 @@ MathPractice math;
 MathJournal storage;
 AwardNotice notice;
 MathScratchpad scratch;
+ReadingPreview reading;
 bool storage_error=false;
 MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
@@ -129,6 +131,8 @@ void render() {
     if (navigation.screen==LearnerScreen::Math) {
       render_math();
       render_notice();
+    } else if (navigation.screen==LearnerScreen::Reading) {
+      render_reading_preview(reading);
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
     } else {
@@ -169,7 +173,12 @@ void loop() {
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
     if (learner_hit(navigation,detail.x,detail.y,action) &&
-        learner_navigate(navigation,action)) render();
+        learner_navigate(navigation,action)) {
+      if (navigation.screen!=LearnerScreen::Reading) reading.reset();
+      render();
+    } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {
+      if (reading.select(detail.x,detail.y)) render_reading_preview(reading);
+    }
     else if (!navigation.help_open && navigation.screen==LearnerScreen::Math) {
       if(!storage_error && !math.finished) {
         if(scratch_clear_hit(detail.x,detail.y)) {
