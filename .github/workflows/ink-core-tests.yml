@@ -76,6 +76,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_speaker_output_test.cpp -o /tmp/tab5-speaker-output-test
           /tmp/tab5-speaker-output-test
+      - name: Compile and run reading preview touch tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_preview_test.cpp -o /tmp/tab5-reading-preview-test
+          /tmp/tab5-reading-preview-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
