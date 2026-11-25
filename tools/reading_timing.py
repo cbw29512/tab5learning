@@ -38,3 +38,44 @@ def validate_timing(tokens, duration_ms):
         # Do not include potentially personal content in logs.
         LOG.warning("Narration timing validation rejected input")
         raise
+
+
+class NarrationTimeline:
+    """Immutable cues; audio position is the only playback clock."""
+
+    def __init__(self, tokens, duration_ms):
+        try:
+            self._cues = validate_timing(tokens, duration_ms)
+            self._duration = duration_ms
+            self._starts = tuple(cue[2] for cue in self._cues)
+        except (ValueError, TypeError):
+            LOG.warning("Cannot initialize narration timeline")
+            raise
+
+    def active_token(self, position_ms):
+        """Return the active cue or None in silence and at end of audio."""
+        from bisect import bisect_right
+        try:
+            if type(position_ms) is not int or not 0 <= position_ms <= self._duration:
+                raise ValueError("Playback position outside narration")
+            # Binary search finds the most recent cue; its end is exclusive.
+            index = bisect_right(self._starts, position_ms) - 1
+            if index >= 0 and position_ms < self._cues[index][3]:
+                return self._cues[index]
+            return None
+        except (ValueError, TypeError):
+            LOG.warning("Invalid narration playback position")
+            raise
+
+    def replay_bounds(self, token_id):
+        """Return source-audio bounds for a word; player handles seeking."""
+        try:
+            if not isinstance(token_id, str):
+                raise ValueError("Invalid token ID")
+            for cue in self._cues:
+                if cue[0] == token_id:
+                    return cue[2], cue[3]
+            raise ValueError("Unknown narration token")
+        except ValueError:
+            LOG.warning("Cannot resolve narration replay target")
+            raise
