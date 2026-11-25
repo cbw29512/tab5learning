@@ -8,6 +8,12 @@
 #include "award_notice.h"
 #include "math_ink_ui.h"
 #include "reading_preview_ui.h"
+#include "reading_preview_playback.h"
+#include "m5_reading_speaker.h"
+#if __has_include("preview_narration.generated.h")
+#include "preview_narration.generated.h"
+#define TAB5_PREVIEW_AUDIO 1
+#endif
 #include <cstdio>
 
 namespace {
@@ -17,6 +23,47 @@ MathJournal storage;
 AwardNotice notice;
 MathScratchpad scratch;
 ReadingPreview reading;
+#ifdef TAB5_PREVIEW_AUDIO
+M5ReadingSpeaker reading_backend;
+ReadingSpeakerOutput reading_output(reading_backend);
+ReadingPreviewPlayback reading_audio(reading_output,narration_pcm,
+  sizeof(narration_pcm)/sizeof(narration_pcm[0]),narration_rate,
+  narration_cues,sizeof(narration_cues)/sizeof(narration_cues[0]));
+static_assert(sizeof(narration_cues)/sizeof(narration_cues[0])==reading_words.size());
+#endif
+
+void render_reading() {
+#ifdef TAB5_PREVIEW_AUDIO
+  render_reading_preview(reading,reading_audio.status());
+#else
+  render_reading_preview(reading);
+#endif
+}
+void reading_touch(int x,int y) {
+  const int action=reading_audio_action(x,y);
+#ifdef TAB5_PREVIEW_AUDIO
+  if(action==2) reading_audio.stop();
+  else if(action==1) { if(reading_audio.listen()) reading.reset(); }
+  else if(!reading_audio.busy() && reading.select(x,y))
+    reading_audio.replay(static_cast<size_t>(reading.selected));
+#else
+  if(!action) reading.select(x,y);
+#endif
+  render_reading();
+}
+void reading_leave() {
+#ifdef TAB5_PREVIEW_AUDIO
+  reading_audio.stop();
+#endif
+  reading.reset();
+}
+void reading_tick(bool visible) {
+#ifdef TAB5_PREVIEW_AUDIO
+  if(reading_audio.poll() && visible) render_reading();
+#else
+  (void)visible;
+#endif
+}
 bool storage_error=false;
 MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
@@ -132,7 +179,7 @@ void render() {
       render_math();
       render_notice();
     } else if (navigation.screen==LearnerScreen::Reading) {
-      render_reading_preview(reading);
+      render_reading();
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
     } else {
@@ -174,10 +221,10 @@ void loop() {
     LearnerAction action;
     if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) {
-      if (navigation.screen!=LearnerScreen::Reading) reading.reset();
+      if (navigation.screen!=LearnerScreen::Reading || navigation.help_open) reading_leave();
       render();
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {
-      if (reading.select(detail.x,detail.y)) render_reading_preview(reading);
+      reading_touch(detail.x,detail.y);
     }
     else if (!navigation.help_open && navigation.screen==LearnerScreen::Math) {
       if(!storage_error && !math.finished) {
@@ -216,6 +263,7 @@ void loop() {
   const bool visible=notice.visible;
   award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);
   if(visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) render_notice();
+  reading_tick(geometry_ok && navigation.screen==LearnerScreen::Reading && !navigation.help_open);
   was_touching=touching;
   M5.delay(10);
 }
