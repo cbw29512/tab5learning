@@ -2,7 +2,15 @@
 #include <M5Unified.h>
 #include "reading_preview.h"
 
-inline void render_reading_preview(const ReadingPreview& state) {
+// Half-open touch bounds match the rendered controls.
+inline int reading_audio_action(int x,int y) {
+  if(y<400 || y>=448) return 0;
+  if(x>=64 && x<264) return 1;
+  if(x>=280 && x<480) return 2;
+  return 0;
+}
+
+inline void render_reading_preview(const ReadingPreview& state, const char* audio_status="Audio not packaged") {
   M5.Display.fillRoundRect(32,156,1216,384,18,TFT_DARKGREY);
   M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREY);
   M5.Display.setTextSize(3);
@@ -18,6 +26,13 @@ inline void render_reading_preview(const ReadingPreview& state) {
   }
   M5.Display.setTextSize(2);
   M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREY);
-  M5.Display.drawString("Tap a word to highlight it.",64,412);
-  M5.Display.drawString("Read aloud at your own pace. Audio not connected yet.",64,454);
+  M5.Display.fillRoundRect(64,400,200,48,8,TFT_BLUE);
+  M5.Display.fillRoundRect(280,400,200,48,8,TFT_MAROON);
+  M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);
+  M5.Display.drawString("Listen",84,414);
+  M5.Display.setTextColor(TFT_WHITE,TFT_MAROON);
+  M5.Display.drawString("Stop",300,414);
+  M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREY);
+  M5.Display.drawString(audio_status,500,414);
+  M5.Display.drawString("Tap a word to replay it. Prototype audio.",64,470);
 }
