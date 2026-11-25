@@ -64,6 +64,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_timeline_test.cpp -o /tmp/tab5-reading-timeline-test
           /tmp/tab5-reading-timeline-test
+      - name: Compile and run embedded reading controller tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_controller_test.cpp -o /tmp/tab5-reading-controller-test
+          /tmp/tab5-reading-controller-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
