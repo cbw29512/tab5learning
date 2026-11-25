@@ -14,6 +14,7 @@ class PcmSourceClock {
     rate_ = 0; count_ = 0;
     // Constrain duration to the uint32_t millisecond timeline contract.
     if (rate < 8000 || rate > 48000 || !count ||
+        uint64_t(count) * 1000 / rate == 0 ||
         uint64_t(count) * 1000 / rate > UINT32_MAX) return false;
     rate_ = rate; count_ = count;
     return true;
@@ -25,10 +26,11 @@ class PcmSourceClock {
 
   bool range(uint32_t start_ms, uint32_t end_ms, PcmRange& out) const {
     if (!rate_ || start_ms >= end_ms || end_ms > duration_ms()) return false;
-    // Floor both boundaries so adjacent words never share or skip samples.
-    const auto first = uint64_t(start_ms) * rate_ / 1000;
+    // Round boundaries up: a sample at the start must map back to that
+    // millisecond, even at rates such as 44.1 kHz. Adjacent ranges meet.
+    const auto first = (uint64_t(start_ms) * rate_ + 999) / 1000;
     const auto end = end_ms == duration_ms() ? count_ :
-                     uint64_t(end_ms) * rate_ / 1000;
+                     (uint64_t(end_ms) * rate_ + 999) / 1000;
     if (first >= end || end > count_) return false;
     out = {static_cast<uint32_t>(first), static_cast<uint32_t>(end)};
     return true;
