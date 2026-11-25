@@ -40,10 +40,9 @@ A build passes when all of the following can be demonstrated on the real device:
 
 The child and teacher workflows must pass the observed task gates in [USABILITY_AUDIT.md](USABILITY_AUDIT.md). Automated backend tests alone are insufficient.
 
-## Deferred to Version 1
+## Deferred beyond initial launch
 
-- Complete grade 1–3 reading, spelling, and math curricula.
-- Grade 4 enrichment content and prerequisite mapping for every skill.
+- Comprehensive grade 4 enrichment content and prerequisite mapping beyond selected unlockable skills.
 - Full handwriting/cursive evaluation, sentence-level recognition, handwriting-quality scores.
 - Classroom-wide reporting and fleet provisioning.
 - Production secure-boot provisioning unless verified as supported by the exact Tab5 configuration.
@@ -72,3 +71,20 @@ Subjects progress independently. Mastery is calculated from reviewed effective a
 4. Implement teacher Windows USB manager and backup/restore.
 5. Add adaptive selection rules and automated/hardware regression tests.
 6. Evaluate the result with a teacher and revise requirements before expanding content.
+
+## Expanded launch scope — November 24, 2026
+
+The original twelve gates remain the first integration milestone, not the complete launch MVP. The [Master Development Tracker](https://chatgpt.com/space/page_02d1380881d08191a124e3becdbf3073) records the expanded scope. No feature below is certified by this specification change.
+
+13. Offline read-along: locally stored narration and word timing, synchronized highlighting, pause/resume and replay.
+14. Oral reading and pronunciation: capture local evidence, benchmark against teacher-reviewed examples, distinguish uncertainty from errors, provide teacher review where automatic scoring is unreliable.
+15. Reading comprehension and spelling: offline assessments and skill-specific adaptive practice.
+16. Teacher-authored lessons and flashcards: validate, preview, assign and transfer via authenticated USB; preserve existing progress.
+17. Activity tracking: append-only attempt and correction history, persistent review schedule and explainable mastery.
+18. Rewards: non-blocking achievements, progressively harder milestones and certificates for major accomplishments; no duplicate awards.
+19. Native UI: consistent flex-card sizes and matching scratch-pad dimensions; validate touch, audio, USB and battery operation on the physical Tab5.
+20. Curriculum: reviewed grades 1–3 math, reading and spelling with selected grade 4 skills unlocked by mastery. Exact coverage and thresholds require teacher acceptance.
+
+### Release evidence
+
+Record commit SHA, test results, firmware artifact hash and relevant physical acceptance evidence for each gate. The first hardware integration milestone must pass before declaring launch readiness. No cloud speech processing or wireless synchronization is permitted. Do not claim a speech engine is viable until measured on the actual target. Preserve existing firmware and known battery initialization behavior when testing.
