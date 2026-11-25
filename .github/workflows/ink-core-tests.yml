@@ -68,6 +68,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_controller_test.cpp -o /tmp/tab5-reading-controller-test
           /tmp/tab5-reading-controller-test
+      - name: Compile and run embedded PCM source clock tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_pcm_clock_test.cpp -o /tmp/tab5-reading-pcm-clock-test
+          /tmp/tab5-reading-pcm-clock-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
