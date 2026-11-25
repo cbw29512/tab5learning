@@ -22,7 +22,8 @@ def build(source: Path) -> str:
             if (audio.getnchannels(), audio.getsampwidth(), audio.getframerate(),
                 audio.getcomptype()) != (1, 2, RATE, "NONE"):
                 raise ValueError(f"Word {i}: expected mono PCM16 at {RATE} Hz")
-            if n < 16 or len(samples) + n + GAP > MAX_SAMPLES:
+            padded = ((n + 15) // 16) * 16
+            if n < 16 or len(samples) + padded + GAP > MAX_SAMPLES:
                 raise ValueError(f"Word {i}: invalid sample length")
             raw = audio.readframes(n)
             if len(raw) != n * 2:
@@ -53,7 +54,7 @@ def main() -> int:
         args.output.write_text(build(args.source), encoding="utf-8")
         LOG.info("Created narration asset: %s", args.output)
         return 0
-    except (OSError, ValueError, wave.Error) as exc:
+    except (OSError, ValueError, wave.Error, EOFError) as exc:
         LOG.error("Narration asset rejected: %s", exc)
         return 1
 
