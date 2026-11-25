@@ -9,6 +9,7 @@
 #include "math_ink_ui.h"
 #include "reading_preview_ui.h"
 #include "reading_preview_playback.h"
+#include "reading_estimated_highlight.h"
 #include "m5_reading_speaker.h"
 #if __has_include("preview_narration.generated.h")
 #include "preview_narration.generated.h"
@@ -24,6 +25,8 @@ AwardNotice notice;
 MathScratchpad scratch;
 ReadingPreview reading;
 #ifdef TAB5_PREVIEW_AUDIO
+ReadingEstimatedHighlight reading_highlight;
+bool reading_follow=false;
 M5ReadingSpeaker reading_backend;
 ReadingSpeakerOutput reading_output(reading_backend);
 ReadingPreviewPlayback reading_audio(reading_output,narration_pcm,
@@ -42,8 +45,14 @@ void render_reading() {
 void reading_touch(int x,int y) {
   const int action=reading_audio_action(x,y);
 #ifdef TAB5_PREVIEW_AUDIO
-  if(action==2) reading_audio.stop();
-  else if(action==1) { if(reading_audio.listen()) reading.reset(); }
+  if(action==2) {
+    reading_audio.stop(); reading_highlight.stop(); reading_follow=false; reading.reset();
+  } else if(action==1) {
+    if(reading_audio.listen()) {
+      reading.reset();
+      reading_follow=reading_highlight.start(narration_cues,reading_words.size(),narration_duration,millis());
+    }
+  }
   else if(!reading_audio.busy() && reading.select(x,y))
     reading_audio.replay(static_cast<size_t>(reading.selected));
 #else
@@ -53,13 +62,19 @@ void reading_touch(int x,int y) {
 }
 void reading_leave() {
 #ifdef TAB5_PREVIEW_AUDIO
-  reading_audio.stop();
+  reading_audio.stop(); reading_highlight.stop(); reading_follow=false;
 #endif
   reading.reset();
 }
 void reading_tick(bool visible) {
 #ifdef TAB5_PREVIEW_AUDIO
-  if(reading_audio.poll() && visible) render_reading();
+  bool changed=reading_audio.poll();
+  if(reading_follow) {
+    const int next=reading_highlight.update(millis(),reading_output.state()==SpeakerOutputState::Queued);
+    if(next!=reading.selected) { reading.selected=next; changed=true; }
+    if(!reading_audio.busy()) reading_follow=false;
+  }
+  if(changed && visible) render_reading();
 #else
   (void)visible;
 #endif
