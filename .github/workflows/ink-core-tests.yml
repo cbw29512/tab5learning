@@ -80,6 +80,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_preview_test.cpp -o /tmp/tab5-reading-preview-test
           /tmp/tab5-reading-preview-test
+      - name: Compile and run reading playback regression tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_preview_playback_test.cpp -o /tmp/tab5-reading-playback-test
+          /tmp/tab5-reading-playback-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
