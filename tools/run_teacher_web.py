@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from wsgiref.simple_server import make_server, WSGIRequestHandler
 
-from tools.teacher_web import TeacherWeb, ORIGIN
+from tools.teacher_web import TeacherWeb, ORIGIN, BIND_ADDRESS, PORT
 
 LOG = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ def main():
             app.accounts.create(user, password, "admin", bootstrap=True)
             LOG.info("Initial administrator created")
             return
-        with make_server("127.0.0.1", 8765, app, handler_class=LocalHandler) as server:
+        with make_server(BIND_ADDRESS, PORT, app, handler_class=LocalHandler) as server:
             LOG.info("Open %s in your browser. Ctrl+C stops the server.", ORIGIN)
             server.serve_forever()
     except KeyboardInterrupt:
