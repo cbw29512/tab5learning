@@ -23,7 +23,7 @@ inline bool valid_id(const char* id) {
 inline bool make_proof(Hmac hmac,const Bytes& key,Role role,const char* id,
                        const Bytes& host,const Bytes& device,Bytes& out) {
   out.fill(0);
-  if(!hmac||!valid_id(id)) return false;
+  if(!hmac||!valid_id(id)||(role!=Role::Device && role!=Role::Host)) return false;
   constexpr char domain[]="TAB5-AUTH-V1";
   const char* label=role==Role::Device?"device":"host";
   std::array<uint8_t,sizeof(domain)+7+65+64> transcript{};
@@ -49,6 +49,13 @@ inline bool equal_proof(const Bytes& a,const Bytes& b) {
 
 class DeviceChallenge {
  public:
+  DeviceChallenge() = default;
+  DeviceChallenge(const DeviceChallenge&) = delete;
+  DeviceChallenge& operator=(const DeviceChallenge&) = delete;
+  // Poll even without incoming traffic so an expired proof cannot survive a timer wrap.
+  void expire(uint32_t now) {
+    if(pending_ && uint32_t(now-started_)>10000) cancel();
+  }
   bool begin(Hmac hmac,const Bytes& key,const char* id,const Bytes& host,
              const Bytes& device,uint32_t now,Bytes& device_proof) {
     cancel();
