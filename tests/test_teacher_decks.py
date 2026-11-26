@@ -28,3 +28,22 @@ class DeckStoreTests(unittest.TestCase):
             sessions.require.side_effect = PermissionError
             with self.assertRaises(PermissionError):
                 store.save("bad", deck)
+
+    def test_creation_cannot_bypass_revision_authorization(self):
+        with tempfile.TemporaryDirectory() as folder:
+            sessions = Mock()
+            sessions.require.return_value = "owner"
+            sessions.accounts.role.return_value = "teacher"
+            store = TeacherDecks(Path(folder) / "decks.sqlite", sessions)
+            deck = import_csv("front,back\nq,a", "shared", "Original")
+            store.save("token", deck)
+            sessions.require.return_value = "other"
+            with self.assertRaises(ValueError):
+                store.save("token", dict(deck, version=2))
+            with self.assertRaises(sqlite3.IntegrityError):
+                store.save("token", deck)
+            with self.assertRaises(ValueError):
+                store.save("token", dict(deck, deck_id="new", version=3))
+            self.assertEqual(store.list_decks("token"), [])
+            sessions.require.return_value = "owner"
+            self.assertEqual(store.list_decks("token"), [deck])
