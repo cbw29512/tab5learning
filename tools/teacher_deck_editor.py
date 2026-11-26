@@ -2,14 +2,15 @@
 import logging
 import sqlite3
 from dataclasses import dataclass
-from html import escape
 from uuid import uuid4
 
 from tools.flashcard_deck import ID, validate_deck
+from tools.teacher_decks import StaleRevision
+from tools.teacher_deck_editor_views import editor
 
 LOG = logging.getLogger(__name__)
 MAX_ROWS = 25
-FORM_FIELDS = 5 + 2 * MAX_ROWS
+FORM_FIELDS = 6 + 2 * MAX_ROWS
 
 
 @dataclass
@@ -17,10 +18,21 @@ class Draft:
     deck_id: str
     title: str
     rows: list
+    base_version: int = 0
 
     @classmethod
     def new(cls):
         return cls(uuid4().hex, "", [("", "") for _ in range(5)])
+
+    @classmethod
+    def existing(cls, deck):
+        validate_deck(deck)
+        if len(deck["cards"]) > MAX_ROWS:
+            raise ValueError("This deck is too large for the visual editor. It has not been changed.")
+        if deck["version"] >= 2147483647:
+            raise ValueError("Deck version limit reached.")
+        return cls(deck["deck_id"], deck["title"],
+                   [(c["front"], c["back"]) for c in deck["cards"]], deck["version"])
 
     @classmethod
     def read(cls, data):
@@ -30,6 +42,12 @@ class Draft:
             if not 1 <= count <= MAX_ROWS or not ID.fullmatch(ident):
                 raise ValueError("Invalid editor state")
             expected = {"csrf", "count", "deck_id", "title", "action"}
+            base = 0
+            if "base_version" in data:
+                base = int(data["base_version"])
+                if not 1 <= base < 2147483647:
+                    raise ValueError("Invalid revision base")
+                expected.add("base_version")
             for i in range(count):
                 expected.update((f"front_{i}", f"back_{i}"))
             if set(data) != expected:
@@ -38,7 +56,7 @@ class Draft:
             # Keep error redisplay bounded even for hostile submissions.
             if len(data["title"]) > 120 or any(len(s) > 500 for row in rows for s in row):
                 raise ValueError("Card or title exceeds the editor limit")
-            return cls(ident, data["title"], rows)
+            return cls(ident, data["title"], rows, base)
         except (ValueError, TypeError, KeyError):
             LOG.warning("Invalid visual editor state")
             raise
@@ -56,53 +74,19 @@ class Draft:
                 cards.append({"card_id": f"card-{len(cards)+1}", "front": front, "back": back})
             if not cards:
                 raise ValueError("Enter at least one complete flashcard.")
-            return validate_deck({"deck_id": self.deck_id, "version": 1,
+            return validate_deck({"deck_id": self.deck_id, "version": self.base_version + 1,
                                   "title": self.title.strip(), "cards": cards})
         except ValueError:
             LOG.warning("Visual deck validation rejected")
             raise
 
 
-def editor(draft, csrf, *, preview=None, error=""):
-    """All user-controlled strings escaped; no scripts or external resources."""
-    def attr(s):
-        return escape(str(s), quote=True)
-    hidden = "".join(f'<input type="hidden" name="{name}" value="{attr(value)}">'
-                     for name, value in (("csrf", csrf), ("deck_id", draft.deck_id),
-                                         ("count", len(draft.rows))))
-    rows = []
-    for i, (front, back) in enumerate(draft.rows):
-        remove = (f'<button name="action" value="remove:{i}" type="submit" '
-                  f'aria-label="Remove card {i+1}">Remove card {i+1}</button>'
-                  if len(draft.rows) > 1 else "")
-        rows.append(f'<fieldset style="margin:16px 0;border:1px solid #dce2ea;border-radius:8px;padding:12px">'
-                    f'<legend>Card {i+1}</legend><label for="front_{i}">Question / front</label>'
-                    f'<textarea id="front_{i}" name="front_{i}" rows="2" maxlength="500">{escape(front)}</textarea>'
-                    f'<label for="back_{i}">Answer / back</label>'
-                    f'<textarea id="back_{i}" name="back_{i}" rows="2" maxlength="500">{escape(back)}</textarea>'
-                    f'{remove}</fieldset>')
-    preview_html = ""
-    if preview is not None:
-        items = "".join(f'<li><strong>{escape(c["front"])}</strong><p>{escape(c["back"])}</p></li>'
-                        for c in preview["cards"])
-        preview_html = (f'<section><h2>Preview — {len(preview["cards"])} cards</h2>'
-                        f'<p>{escape(preview["title"])}</p><ol>{items}</ol>'
-                        '<p>Saved decks are not yet assigned to a student.</p></section>')
-    add = ('<button name="action" value="add">Add another card</button>'
-           if len(draft.rows) < MAX_ROWS else '<p>25-card editor limit reached. CSV supports larger decks.</p>')
-    save = '<button name="action" value="save">Save deck</button>' if preview is not None else ""
-    notice = f'<p role="alert" class="notice">{escape(error)}</p>' if error else ""
-    return (f'{notice}{preview_html}<section><p>Type a question and its answer. Empty cards are ignored.</p>'
-            f'<form method="post" action="/decks/new">{hidden}'
-            f'<label for="deck-title">Deck title</label><input id="deck-title" name="title" '
-            f'maxlength="120" value="{attr(draft.title)}">{"".join(rows)}'
-            f'{add}<button name="action" value="preview">Preview cards</button>{save}'
-            '</form><p><a href="/">Return to dashboard (unsaved work will be lost)</a></p></section>')
-
-
 def handle_editor(data, csrf, decks, token):
     """Return (draft, preview, error, saved); no hidden state or session draft."""
     draft = Draft.read(data)
+    if draft.base_version:
+        # Authorize every edit submission, not just the initial open.
+        decks.latest(token, draft.deck_id)
     action = data["action"]
     if action == "add":
         if len(draft.rows) >= MAX_ROWS:
@@ -125,7 +109,12 @@ def handle_editor(data, csrf, decks, token):
         if action == "preview":
             return draft, deck, "", False
         try:
-            decks.save(token, deck)
+            if draft.base_version:
+                decks.revise(token, deck, draft.base_version)
+            else:
+                decks.save(token, deck)
+        except StaleRevision as exc:
+            return draft, deck, str(exc), False
         except sqlite3.IntegrityError:
             LOG.warning("Duplicate visual deck save rejected")
             return draft, deck, "This deck ID was already saved. Check the flashcard library before creating another copy.", False
