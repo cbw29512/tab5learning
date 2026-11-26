@@ -20,6 +20,7 @@ from tools.windows_credential_protection import WindowsProtector
 from tools.teacher_usb_discovery import scan_usb, scan_result
 from tools.teacher_usb_identity import identify, identity_panel
 from tools.flashcard_deck import import_csv, MAX_BYTES
+from tools.teacher_deck_editor import Draft, editor, handle_editor, FORM_FIELDS
 from tools import teacher_web_views as views
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
                                         login_challenge, valid_login_challenge)
@@ -83,7 +84,7 @@ class TeacherWeb:
         return self.respond(start, "303 See Other", headers=headers)
 
     @staticmethod
-    def form(env):
+    def form(env, *, max_fields=5):
         if env.get("CONTENT_TYPE", "").split(";")[0] != "application/x-www-form-urlencoded":
             raise ValueError("Unsupported form format")
         length = int(env.get("CONTENT_LENGTH") or "0")
@@ -93,7 +94,7 @@ class TeacherWeb:
         if len(raw) != length:
             raise ValueError("Incomplete form")
         data = parse_qs(raw.decode("utf-8"), strict_parsing=True,
-                        keep_blank_values=True, max_num_fields=5, errors="strict")
+                        keep_blank_values=True, max_num_fields=max_fields, errors="strict")
         if any(len(v) != 1 for v in data.values()):
             raise ValueError("Repeated field")
         return {k: v[0] for k, v in data.items()}
@@ -130,14 +131,20 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential"}:
+            if method == "GET" and path == "/decks/new":
+                try:
+                    self.sessions.require(token)
+                except PermissionError:
+                    return self.login_page(start)
+                return self.respond(start, "200 OK", views.page("Create flashcards", editor(Draft.new(), self.csrf(token))))
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
                             not env.get("HTTP_ORIGIN"), env.get("HTTP_ORIGIN") == "null")
                 return self.respond(start, "403 Forbidden", views.page(
                     "Request rejected", '<p><a href="/">Return to sign in</a> and submit a fresh form.</p>'))
-            data = self.form(env)
+            data = self.form(env, max_fields=FORM_FIELDS if path == "/decks/new" else 5)
             if path == "/login":
                 if not valid_login_challenge(self.csrf_key, self.token(env, LOGIN_COOKIE), data.get("csrf")):
                     return self.login_page(start, "Login form expired. Please sign in again.", "403 Forbidden")
@@ -149,6 +156,11 @@ class TeacherWeb:
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
                 raise PermissionError("CSRF mismatch")
+            if path == "/decks/new":
+                draft, preview, error, saved = handle_editor(data, self.csrf(token), self.decks, token)
+                if saved:
+                    return self.respond(start, "200 OK", self.dashboard(token, "Flashcard deck saved successfully."))
+                return self.respond(start, "200 OK", views.page("Create flashcards", editor(draft, self.csrf(token), preview=preview, error=error)))
             if path == "/logout":
                 self.sessions.logout(token)
                 return self.redirect(start, clear=True)
