@@ -124,6 +124,41 @@ class PreviewMathArchive:
             LOG.warning("Synthetic archive save rejected or failed")
             raise
 
+    def preview_restore(self, token, device, student, raw):
+        """Read-only admissibility check; save revalidates under write lock."""
+        try:
+            _, device, student = self._scope(token, device, student)
+            candidate = decode(raw)
+            with closing(self._connect()) as db, db:
+                db.execute("BEGIN")
+                identity = db.execute("SELECT student,base FROM preview_math_base WHERE device=?",
+                                      (device,)).fetchone()
+                if identity is None:
+                    if db.execute("SELECT 1 FROM preview_math_base WHERE student=?", (student,)).fetchone():
+                        raise ValueError("Student already has a different archive device")
+                    return len(candidate.records), False
+                if identity != (student, candidate.base):
+                    raise ValueError("Archive identity or base conflict")
+                head = db.execute("SELECT count,final,digest FROM preview_math_receipt WHERE device=? "
+                                  "ORDER BY count DESC LIMIT 1", (device,)).fetchone()
+                if not head or db.execute("SELECT count(*) FROM preview_math_attempt WHERE device=?",
+                                          (device,)).fetchone()[0] != head[0]:
+                    raise ValueError("Incomplete archive")
+                previous = decode(self._read(db, device, candidate.base, head))
+                count = len(candidate.records)
+                if count <= head[0]:
+                    receipt = db.execute("SELECT count,final,digest FROM preview_math_receipt "
+                                         "WHERE device=? AND count=?", (device,count)).fetchone()
+                    if receipt and self._read(db, device, candidate.base, receipt) == raw:
+                        return 0, True
+                    raise ValueError("Stale or conflicting archive")
+                if candidate.records[:head[0]] != previous.records:
+                    raise ValueError("History diverges")
+                return count-head[0], False
+        except (ValueError, TypeError, PermissionError, sqlite3.Error):
+            LOG.warning("Synthetic archive restore preview rejected")
+            raise
+
     def load(self, token, device, student, *, digest=None):
         """Return a validated snapshot; default to latest, never restore to device."""
         try:
@@ -140,6 +175,8 @@ class PreviewMathArchive:
                     (device, digest, digest)).fetchone()
                 if not receipt:
                     raise ValueError("Archive receipt not found")
+                if digest is None and db.execute("SELECT count(*) FROM preview_math_attempt WHERE device=?", (device,)).fetchone()[0] != receipt[0]:
+                    raise ValueError("Unexpected archived attempt count")
                 return self._read(db, device, row[1], receipt)
         except (ValueError, TypeError, PermissionError, sqlite3.Error):
             LOG.warning("Synthetic archive load rejected or failed")

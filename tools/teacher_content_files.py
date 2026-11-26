@@ -74,6 +74,39 @@ def _sync_directory(directory):
             os.close(fd)
 
 
+def publish_archive(directory, raw, *, workspace, prefix, suffix, verify):
+    staged = None
+    try:
+        root = Path(directory).resolve(strict=True)
+        workspace = Path(workspace).resolve()
+        if not root.is_dir() or root == workspace or workspace in root.parents:
+            raise ValueError("Choose a directory outside the teacher workspace")
+        final = root / f"{prefix}{uuid4().hex}{suffix}"
+        with tempfile.NamedTemporaryFile(dir=root, prefix=".pocket-",
+                                         suffix=".tmp", delete=False) as stream:
+            staged = Path(stream.name)
+            if stream.write(raw) != len(raw):
+                raise OSError("Incomplete archive write")
+            stream.flush()
+            os.fsync(stream.fileno())
+        if verify(staged) != raw:
+            raise ValueError("Staged archive readback mismatch")
+        _publish_new(staged, final)
+        _sync_directory(root)
+        if verify(final) != raw:
+            raise ValueError("Published archive readback mismatch")
+        return final
+    except (OSError, ValueError, PermissionError, TypeError):
+        LOG.warning("Independent archive save failed")
+        raise
+    finally:
+        if staged is not None:
+            try:
+                staged.unlink(missing_ok=True)
+            except OSError:
+                LOG.warning("Temporary archive cleanup failed")
+
+
 class PreviewArchiveFiles:
     """Trusted local caller selects an existing directory outside the workspace."""
     def __init__(self, archive):
@@ -87,36 +120,9 @@ class PreviewArchiveFiles:
         return self._save_bytes(directory, raw, len(parsed["decks"]), ".plta", read_archive)
 
     def _save_bytes(self, directory, raw, versions, suffix, verify):
-        staged = None
-        try:
-            root = Path(directory).resolve(strict=True)
-            workspace = Path(self.archive.decks.path).resolve().parent
-            if not root.is_dir() or root == workspace or workspace in root.parents:
-                raise ValueError("Choose a directory outside the teacher workspace")
-            final = root / f"pocket-teaching-test-{uuid4().hex}{suffix}"
-            with tempfile.NamedTemporaryFile(dir=root, prefix=".pocket-",
-                                             suffix=".tmp", delete=False) as stream:
-                staged = Path(stream.name)
-                if stream.write(raw) != len(raw):
-                    raise OSError("Incomplete archive write")
-                stream.flush()
-                os.fsync(stream.fileno())
-            if verify(staged) != raw:
-                raise ValueError("Staged archive readback mismatch")
-            _publish_new(staged, final)
-            _sync_directory(root)
-            if verify(final) != raw:
-                raise ValueError("Published archive readback mismatch")
-            return FileReceipt(final, hashlib.sha256(raw).hexdigest(), len(raw), versions)
-        except (OSError, ValueError, PermissionError, TypeError):
-            LOG.warning("Independent teaching archive save failed")
-            raise
-        finally:
-            if staged is not None:
-                try:
-                    staged.unlink(missing_ok=True)
-                except OSError:
-                    LOG.warning("Temporary archive cleanup failed")
+        path = publish_archive(directory, raw, workspace=Path(self.archive.decks.path).resolve().parent,
+                               prefix="pocket-teaching-test-", suffix=suffix, verify=verify)
+        return FileReceipt(path, hashlib.sha256(raw).hexdigest(), len(raw), versions)
 
     def preview(self, token, path):
         self.archive.decks.sessions.require(token)
