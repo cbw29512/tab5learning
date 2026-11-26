@@ -32,6 +32,10 @@ int main() {
   assert(!recording.captured(5));
   assert(recording.state()==RecordingState::Error);
   assert(recording.discard(true));
+  assert(recording.start(pcm,4,true,true,true));
+  assert(!recording.captured(0));
+  assert(recording.state()==RecordingState::Error && recording.count()==0);
+  assert(recording.discard(true));
   assert(!recording.start(nullptr,4,true,true,true));
   assert(recording.discard(true));
   assert(!recording.start(pcm,ReadingRecording::max_samples+1,true,true,true));
