@@ -15,6 +15,7 @@ class ReadingCaptureBackend {
 class ReadingCapturePump {
  public:
   static constexpr size_t block_samples=320; // 20 ms at 16 kHz.
+  static constexpr uint32_t block_timeout_ms=1000; // Provisional, verify on hardware.
   ReadingCapturePump(ReadingRecording& recording,ReadingCaptureBackend& backend)
     : recording_(recording),backend_(backend) {}
   ReadingCapturePump(const ReadingCapturePump&)=delete;
@@ -23,19 +24,27 @@ class ReadingCapturePump {
   bool start(int16_t* buffer,size_t capacity,bool request,bool audio_idle,bool authorized) {
     if(open_ || !recording_.start(buffer,capacity,request,audio_idle,authorized)) return false;
     if(!backend_.begin()) { recording_.interrupt(); return false; }
-    open_=true; stop_=false; interrupted_=false; pending_=0;
+    open_=true; stop_=false; interrupted_=false; timed_out_=false; pending_=0;
     return true;
   }
   // Stop submitting immediately; drain a borrowed block before releasing it.
   void stop(bool interrupted=false) {
     if(open_) { stop_=true; interrupted_=interrupted_ || interrupted; }
   }
-  void tick() {
+  void tick(uint32_t now) {
     if(!open_) return;
     if(pending_) {
+      // A missing release callback invalidates this attempt. Never count the
+      // timed-out block or free its buffer until the backend confirms release.
+      if(!timed_out_ && uint32_t(now-submitted_at_)>=block_timeout_ms) {
+        timed_out_=true; interrupted_=true; stop_=true;
+        recording_.interrupt();
+      }
       if(!backend_.idle()) return;
       const size_t complete=pending_; pending_=0;
-      if(!recording_.captured(complete)) { interrupted_=true; stop_=true; }
+      if(!timed_out_ && !recording_.captured(complete)) {
+        interrupted_=true; stop_=true;
+      }
     }
     if(stop_ || recording_.state()!=RecordingState::Recording) {
       if(!backend_.idle()) return;
@@ -50,13 +59,15 @@ class ReadingCapturePump {
     if(!count || !backend_.submit(recording_.destination(),count,ReadingRecording::rate)) {
       stop_=true; interrupted_=true; return;
     }
-    pending_=count;
+    pending_=count; submitted_at_=now;
   }
+  bool timed_out() const { return timed_out_; }
   bool active() const { return open_; }
   bool discard() { return !open_ && recording_.discard(backend_.idle()); }
  private:
   ReadingRecording& recording_;
   ReadingCaptureBackend& backend_;
   size_t pending_=0;
-  bool open_=false,stop_=false,interrupted_=false;
+  uint32_t submitted_at_=0;
+  bool open_=false,stop_=false,interrupted_=false,timed_out_=false;
 };
