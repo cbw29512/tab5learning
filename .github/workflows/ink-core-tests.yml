@@ -96,6 +96,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_capture_pump_test.cpp -o /tmp/tab5-capture-pump-test
           /tmp/tab5-capture-pump-test
+      - name: Compile and run M5 capture adapter fake hardware regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes/audio -Ifirmware/include firmware/tests/m5_reading_capture_test.cpp -o /tmp/tab5-m5-capture-test
+          /tmp/tab5-m5-capture-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
