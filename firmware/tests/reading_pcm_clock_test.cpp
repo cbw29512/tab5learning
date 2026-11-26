@@ -1,5 +1,6 @@
 #include "reading_pcm_clock.h"
 #include <cassert>
+#include <initializer_list>
 
 int main() {
   PcmSourceClock clock;
@@ -29,5 +30,21 @@ int main() {
   assert(clock.position(44101,ms) && ms==1000);
   assert(!clock.initialize(0,44100));
   assert(clock.duration_ms()==0 && !clock.position(0,ms));
+  // Exhaustively verify adjacent millisecond ranges at common PCM rates.
+  for (uint32_t rate : {8000u, 16000u, 22050u, 44100u, 48000u}) {
+    assert(clock.initialize(rate, rate + 7));
+    uint32_t previous=0;
+    for (uint32_t tick=0; tick<clock.duration_ms(); ++tick) {
+      assert(clock.range(tick,tick+1,range));
+      assert(range.first==previous);
+      assert(clock.position(range.first,ms) && ms==tick);
+      previous=range.end;
+    }
+    assert(previous==rate+7);
+  }
+  // Maximum sample count must use wide arithmetic without wrapping.
+  assert(clock.initialize(8000,UINT32_MAX));
+  assert(clock.position(UINT32_MAX,ms) && ms==536870911u);
+  assert(clock.range(ms-1,ms,range) && range.end==UINT32_MAX);
   return 0;
 }
