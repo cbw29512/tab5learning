@@ -112,6 +112,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes/nonce -Ifirmware/include firmware/src/learner_nonce_drbg.cpp firmware/tests/learner_nonce_drbg_test.cpp -o /tmp/tab5-nonce-test
           /tmp/tab5-nonce-test
+      - name: Compile and run mutual authentication wire tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_auth_wire_test.cpp -lcrypto -o /tmp/tab5-auth-wire-test
+          /tmp/tab5-auth-wire-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
