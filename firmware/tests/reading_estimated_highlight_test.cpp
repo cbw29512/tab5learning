@@ -25,5 +25,16 @@ int main() {
   assert(highlight.start(cues,2,500,1000));
   assert(highlight.update(1200,true)==1);
   assert(highlight.update(1199,true)==-1);
+  // Resuming at a word boundary must not replay the first highlight.
+  assert(highlight.start(cues,2,500,3000,200));
+  assert(highlight.update(3000,true)==1);
+  assert(highlight.update(3199,true)==1);
+  assert(highlight.update(3200,true)==-1);
+  assert(highlight.update(3300,true)==-1);
+  assert(!highlight.start(cues,2,500,0,500));
+  assert(!highlight.start(cues,2,500,0,501));
+  assert(highlight.start(cues,2,500,UINT32_MAX-49,200));
+  assert(highlight.update(0,true)==1);
+  assert(highlight.update(150,true)==-1);
   return 0;
 }
