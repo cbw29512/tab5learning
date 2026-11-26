@@ -6,10 +6,9 @@ from uuid import uuid4
 
 from tools.flashcard_deck import ID, validate_deck
 from tools.teacher_decks import StaleRevision
-from tools.teacher_deck_editor_views import editor
+from tools.teacher_deck_editor_views import editor, MAX_ROWS
 
 LOG = logging.getLogger(__name__)
-MAX_ROWS = 25
 FORM_FIELDS = 6 + 2 * MAX_ROWS
 
 
@@ -86,7 +85,7 @@ def handle_editor(data, csrf, decks, token):
     draft = Draft.read(data)
     if draft.base_version:
         # Authorize every edit submission, not just the initial open.
-        decks.latest(token, draft.deck_id)
+        Draft.existing(decks.latest(token, draft.deck_id))
     action = data["action"]
     if action == "add":
         if len(draft.rows) >= MAX_ROWS:
