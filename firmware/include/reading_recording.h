@@ -33,7 +33,7 @@ class ReadingRecording {
   }
   bool captured(size_t samples) {
     if(state_!=RecordingState::Recording) return false;
-    if(samples>remaining()) { state_=RecordingState::Error; return false; }
+    if(!samples || samples>remaining()) { state_=RecordingState::Error; return false; }
     count_+=samples;
     if(count_==capacity_) state_=RecordingState::Review;
     return true;
