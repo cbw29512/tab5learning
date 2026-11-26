@@ -2,7 +2,7 @@
 #include <nvs.h>
 #include <cstdio>
 #include <cstring>
-#include "math_attempt_codec.h"
+#include "math_snapshot.h"
 
 enum class JournalLoad { Empty, Restored, Error };
 enum class JournalFailure { None, Full, Storage, Conflict };
@@ -10,9 +10,9 @@ enum class JournalFailure { None, Full, Storage, Conflict };
 // logical attempt IDs, after a legacy checkpoint migration.
 class MathJournal {
   nvs_handle_t handle=0;
-  bool opened=false, ready=false;
+  bool opened=false, ready=false, exporting=false;
   unsigned last=0, limit=0;
-  MathPractice current{};
+  MathPractice current{}, origin{};
   JournalFailure error=JournalFailure::None;
   static void key_for(unsigned slot,char (&key)[12]) {
     snprintf(key,sizeof(key),"a%03u",slot);
@@ -62,6 +62,7 @@ class MathJournal {
   ~MathJournal() { if(opened) nvs_close(handle); }
   JournalFailure failure() const { return error; }
   JournalLoad begin(MathPractice& out) {
+    if(exporting) return JournalLoad::Error;
     ready=false; last=0; error=JournalFailure::None;
     if(opened) { nvs_close(handle); opened=false; }
     auto bad=[this](JournalFailure reason) { fail(reason); return JournalLoad::Error; };
@@ -81,6 +82,7 @@ class MathJournal {
     if((base!=ESP_OK&&base!=ESP_ERR_NVS_NOT_FOUND)||
        (prior!=ESP_OK&&prior!=ESP_ERR_NVS_NOT_FOUND)) return bad(JournalFailure::Storage);
     if(base==ESP_OK&&(prior!=ESP_OK||!same(state,old))) return bad(JournalFailure::Conflict);
+    origin=state;
     bool old_matches=prior!=ESP_OK||!old.attempts||same(state,old), gap=false;
     for(unsigned slot=1;slot<=limit;++slot) {
       char key[12]; key_for(slot,key);
@@ -97,14 +99,43 @@ class MathJournal {
         MathCheckpoint bytes{};
         if(!math_encode(old,bytes)) return bad(JournalFailure::Storage);
         if(!write("basev1",bytes.data(),bytes.size())) return JournalLoad::Error;
-        state=old;
+        state=old; origin=old;
       } else if(!old_matches) return bad(JournalFailure::Conflict);
     }
     current=state; out=state; ready=true;
     return state.attempts?JournalLoad::Restored:JournalLoad::Empty;
   }
+  // Only recovered journals can be exported. A failed append must be
+  // reconciled by begin() first, even if it reported insufficient space.
+  MathSnapshotResult snapshot(MathSnapshotSink& sink) {
+    if(!ready||exporting) return MathSnapshotResult::Unavailable;
+    exporting=true;
+    struct Guard { bool& flag; ~Guard() { flag=false; } } guard{exporting};
+    auto reject=[&sink](MathSnapshotResult reason) { sink.abort(); return reason; };
+    MathSnapshot manifest{};
+    manifest.count=last;
+    MathSnapshotVerifier verifier;
+    if(!math_encode(origin,manifest.base)||!math_encode(current,manifest.final)||
+       !verifier.begin(manifest)) return MathSnapshotResult::Invalid;
+    // Recheck the migrated base on disk, not just the cached checkpoint.
+    MathPractice persisted;
+    const auto base=checkpoint(handle,"basev1",persisted);
+    if(origin.attempts?(base!=ESP_OK||!same(origin,persisted)):base!=ESP_ERR_NVS_NOT_FOUND)
+      return MathSnapshotResult::Invalid;
+    if(!sink.begin(manifest)) return reject(MathSnapshotResult::SinkFailure);
+    for(unsigned slot=1;slot<=last;++slot) {
+      char key[12]; key_for(slot,key);
+      AttemptBytes bytes{}; auto n=bytes.size();
+      if(read(handle,key,bytes.data(),n)!=ESP_OK||!verifier.record(slot,bytes,n))
+        return reject(MathSnapshotResult::Invalid);
+      if(!sink.record(slot,bytes,n)) return reject(MathSnapshotResult::SinkFailure);
+    }
+    if(!verifier.complete()) return reject(MathSnapshotResult::Invalid);
+    if(!sink.commit()) return reject(MathSnapshotResult::SinkFailure);
+    return MathSnapshotResult::Complete;
+  }
   bool append(const MathAttempt& a,const MathPractice& before,MathPractice& out) {
-    if(!ready||!same(before,current)||before.attempts==UINT32_MAX||a.sequence!=before.attempts+1)
+    if(exporting||!ready||!same(before,current)||before.attempts==UINT32_MAX||a.sequence!=before.attempts+1)
       return false;
     if(last>=limit) return fail(JournalFailure::Full);
     AttemptBytes bytes{}; std::size_t n=0; auto next=before;
