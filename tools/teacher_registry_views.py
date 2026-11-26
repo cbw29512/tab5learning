@@ -2,7 +2,7 @@
 from html import escape
 
 
-def registry_panel(assignments, csrf, enrollment=None):
+def registry_panel(assignments, csrf, enrollment=None, credential_storage=None, can_migrate=False):
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
     rows = "".join(
         f'<tr><td>{escape(a["student_id"])}</td><td>{escape(a["device_id"])}</td>'
@@ -13,7 +13,19 @@ def registry_panel(assignments, csrf, enrollment=None):
         for a in assignments:
             device = escape(a["device_id"], quote=True)
             if a["device_id"] in enrollment:
-                enrollment_rows += f"<li>{device} — KEY_PENDING (not installed)</li>"
+                storage = (credential_storage or {}).get(a["device_id"])
+                detail = {"legacy": "Legacy test key (previously unencrypted)",
+                          "protected": "Protected host record (test only)",
+                          "conflict": "Conflicting records — maintenance required"}.get(storage, "")
+                action = ""
+                if storage == "legacy" and can_migrate:
+                    action = (f'<form method="post" action="/protect-credential">{hidden}'
+                              f'<input type="hidden" name="device_id" value="{device}">'
+                              '<label><input type="checkbox" name="confirm" value="yes" required '
+                              'style="display:inline;width:auto"> Protect the existing test key locally '
+                              '(does not erase older copies or install on Tab5).</label>'
+                              '<button>Protect existing key</button></form>')
+                enrollment_rows += f"<li>{device} — KEY_PENDING (not installed)<p>{detail}</p>{action}</li>"
             else:
                 enrollment_rows += f'<li><form method="post" action="/enrollment">{hidden}<input type="hidden" name="device_id" value="{device}"><button>Prepare key for {device}</button></form></li>'
         enrollment_rows = "<h3>Device enrollment</h3><p>Prepare a local test credential only. No hardware changes.</p><ul>" + enrollment_rows + "</ul>"
