@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include "learner_layout.h"
+#include "display_startup_refresh.h"
 #include "math_practice.h"
 #include "math_journal.h"
 #include "preview_badges.h"
@@ -96,6 +97,7 @@ bool storage_error=false;
 MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
 bool geometry_ok=false;
+DisplayStartupRefresh startup_refresh;
 
 void tile(const LearnerTile& t, uint32_t color) {
   M5.Display.fillRoundRect(t.x,t.y,t.w,t.h,18,color);
@@ -188,6 +190,8 @@ void render_math() {
 }
 
 void render() {
+  // Submit the complete frame together and explicitly flush its framebuffer.
+  M5.Display.startWrite();
   M5.Display.fillScreen(TFT_NAVY);
   tile(learner_home,TFT_DARKGREY);
   tile(learner_help,TFT_DARKGREY);
@@ -215,6 +219,8 @@ void render() {
     }
     tile(learner_back,TFT_DARKGREY);
   }
+  M5.Display.endWrite();
+  M5.Display.display(0,0,M5.Display.width(),M5.Display.height());
 }
 }
 
@@ -245,12 +251,20 @@ void setup() {
   else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
   notice.newest=preview_badge_count(math); // Never replay restored awards.
   render();
+  startup_refresh.begin(millis());
   Serial.println("READY,POCKET_LEARNER_PREVIEW,1");
 }
 
 void loop() {
   M5.update();
   const bool touching=M5.Touch.getCount()>0;
+  // Stop retries immediately when a learner interacts; never overwrite ink.
+  if (touching) startup_refresh.cancel();
+  if (geometry_ok && startup_refresh.due(millis())) {
+    M5.Display.setBrightness(128);
+    render();
+    Serial.printf("DISPLAY_STARTUP_REFRESH,%u\n", unsigned(startup_refresh.next));
+  }
   if (geometry_ok && touching && !was_touching) {
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
