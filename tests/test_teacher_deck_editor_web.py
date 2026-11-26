@@ -1,6 +1,7 @@
 import io
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlencode
 
@@ -88,3 +89,30 @@ class VisualEditorWebTests(unittest.TestCase):
         self.assertEqual(len(self.app.decks.list_decks(self.token)), 2)
         self.assertIn("has changed", self.request(form=dict(data, action="save"))[1])
         self.assertEqual(len(self.app.decks.list_decks(self.token)), 2)
+
+    def test_keyboard_default_and_reordering(self):
+        class Buttons(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.actions = []
+
+            def handle_starttag(self, tag, attrs):
+                fields = dict(attrs)
+                if tag == "button" and fields.get("name") == "action":
+                    self.actions.append(fields.get("value"))
+
+        buttons = Buttons()
+        buttons.feed(self.request()[1])
+        self.assertEqual(buttons.actions[0], "preview")
+        self.assertNotIn("up:0", buttons.actions)
+        self.assertNotIn("down:4", buttons.actions)
+        data = self.draft_form()
+        for action in ("up:1", "down:0"):
+            with self.subTest(action=action):
+                status, page = self.request(form=dict(data, action=action, back_1=""))
+                self.assertEqual(status, 200)
+                self.assertIn('name="front_0" rows="2" maxlength="500">1+1', page)
+                self.assertIn('name="back_0" rows="2" maxlength="500"></textarea>', page)
+                self.assertIn('name="back_1" rows="2" maxlength="500">1</textarea>', page)
+        self.assertIn("Choose a card", self.request(form=dict(data, action="up:0"))[1])
+        self.assertEqual(self.app.decks.list_decks(self.token), [])

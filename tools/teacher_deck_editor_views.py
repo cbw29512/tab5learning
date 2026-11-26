@@ -14,6 +14,12 @@ def editor(draft, csrf, *, preview=None, error=""):
         hidden += f'<input type="hidden" name="base_version" value="{draft.base_version}">'
     rows = []
     for i, (front, back) in enumerate(draft.rows):
+        moves = "".join(
+            f'<button name="action" value="{direction}:{i}" '
+            f'aria-label="Move card {i+1} {direction}">Move {direction}</button>'
+            for direction, available in (("up", i > 0), ("down", i+1 < len(draft.rows)))
+            if available
+        )
         remove = (f'<button name="action" value="remove:{i}" type="submit" '
                   f'aria-label="Remove card {i+1}">Remove card {i+1}</button>'
                   if len(draft.rows) > 1 else "")
@@ -22,7 +28,7 @@ def editor(draft, csrf, *, preview=None, error=""):
                     f'<textarea id="front_{i}" name="front_{i}" rows="2" maxlength="500">{escape(front)}</textarea>'
                     f'<label for="back_{i}">Answer / back</label>'
                     f'<textarea id="back_{i}" name="back_{i}" rows="2" maxlength="500">{escape(back)}</textarea>'
-                    f'{remove}</fieldset>')
+                    f'{moves}{remove}</fieldset>')
     preview_html = ""
     if preview is not None:
         items = "".join(f'<li><strong>{escape(c["front"])}</strong><p>{escape(c["back"])}</p></li>'
@@ -40,7 +46,9 @@ def editor(draft, csrf, *, preview=None, error=""):
     return (f'{notice}{preview_html}<section>{context}<p>Type a question and its answer. Empty cards are ignored.</p>'
             f'<form method="post" action="/decks/new">{hidden}'
             f'<label for="deck-title">Deck title</label><input id="deck-title" name="title" '
-            f'maxlength="120" value="{attr(draft.title)}">{"".join(rows)}'
+            f'maxlength="120" value="{attr(draft.title)}">'
+            # Enter in the title activates the first submit button. Preview preserves every row.
+            f'<button name="action" value="preview">Preview cards</button>{"".join(rows)}'
             f'{add}<button name="action" value="preview">Preview cards</button>{save}'
             '</form><p><a href="/">Return to dashboard (unsaved work will be lost)</a></p></section>')
 

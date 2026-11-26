@@ -91,6 +91,18 @@ def handle_editor(data, csrf, decks, token):
         if len(draft.rows) >= MAX_ROWS:
             return draft, None, "The editor supports up to 25 cards.", False
         draft.rows.append(("", ""))
+    elif action.startswith(("up:", "down:")):
+        direction, raw_index = action.split(":", 1)
+        try:
+            index = int(raw_index)
+            target = index + (-1 if direction == "up" else 1)
+            if not (0 <= index < len(draft.rows) and 0 <= target < len(draft.rows)):
+                raise ValueError("Move outside deck")
+        except ValueError:
+            LOG.warning("Invalid flashcard move")
+            return draft, None, "Choose a card that can move in that direction.", False
+        # Move the pair together, including partially written cards.
+        draft.rows[index], draft.rows[target] = draft.rows[target], draft.rows[index]
     elif action.startswith("remove:"):
         try:
             index = int(action.split(":", 1)[1])
