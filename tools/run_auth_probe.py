@@ -1,6 +1,7 @@
 """Explicit physical test of the isolated public test-key USB probe only."""
 import argparse
 import logging
+import time
 from contextlib import closing
 
 from tools.device_auth_transport import exchange_auth
@@ -9,7 +10,7 @@ from tools.teacher_usb_discovery import scan_usb, PORT
 LOG = logging.getLogger(__name__)
 
 
-def run_probe(port, *, scan=scan_usb, serial_factory=None, exchange=exchange_auth):
+def run_probe(port, *, scan=scan_usb, serial_factory=None, exchange=exchange_auth, sleep=time.sleep):
     try:
         if not PORT.fullmatch(port) or port.upper() not in scan().ports:
             LOG.warning("Selected ESP32 interface not detected")
@@ -23,7 +24,13 @@ def run_probe(port, *, scan=scan_usb, serial_factory=None, exchange=exchange_aut
             connection.rts = False
             connection.port = port.upper()
             connection.open()
-            # Discard preexisting boot diagnostics, never retry a failed exchange.
+            # Match the settling/resync sequence demonstrated by the physical
+            # diagnostic. This is a synthetic probe only, not a learner command.
+            sleep(1.5)
+            connection.reset_input_buffer()
+            if connection.write(b"\n") != 1:
+                raise OSError("Incomplete probe resynchronization")
+            sleep(0.6)
             connection.reset_input_buffer()
             return bool(exchange(connection, "probe-only", bytes(range(32))))
     except Exception:
