@@ -15,6 +15,7 @@ from tools.teacher_sessions import TeacherSessions
 from tools.teacher_decks import TeacherDecks
 from tools.teacher_registry import TeacherRegistry
 from tools.teacher_device_enrollment import DeviceEnrollment
+from tools.credential_migration import migrate_legacy
 from tools.windows_credential_protection import WindowsProtector
 from tools.teacher_usb_discovery import scan_usb, scan_result
 from tools.teacher_usb_identity import identify, identity_panel
@@ -105,11 +106,14 @@ class TeacherWeb:
 
     def dashboard(self, token, notice=""):
         user = self.sessions.require(token)
+        enrollment_admin = self.enrollment is not None and self.accounts.role(user) == "admin"
         return views.workspace(user, self.accounts.role(user),
                                self.decks.list_decks(token), self.csrf(token), notice,
                                minimum=self.accounts.minimum_password_length, test_mode=self.test_mode,
                                assignments=self.registry.list_assignments(token) if self.registry else None,
-                               enrollment=self.enrollment.pending(token) if self.enrollment and self.accounts.role(user) == "admin" else None)
+                               enrollment=self.enrollment.pending(token) if enrollment_admin else None,
+                               credential_storage=self.enrollment.storage_status(token) if enrollment_admin else None,
+                               can_migrate=bool(enrollment_admin and self.enrollment.protector is not None))
 
     def __call__(self, env, start):
         # Exact host and origin checks prevent DNS rebinding and cross-site writes.
@@ -126,7 +130,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -158,7 +162,12 @@ class TeacherWeb:
                     raise PermissionError("USB identification is test-only")
                 self.sessions.require(token, "admin")
                 return self.respond(start, "200 OK", views.page("Learner identification", identity_panel(identify(data["port"]))))
-            if path == "/enrollment":
+            if path == "/protect-credential":
+                if not self.enrollment:
+                    raise PermissionError("Migration is test-only")
+                migrate_legacy(self.enrollment, token, data["device_id"],
+                               confirmed=data.get("confirm") == "yes")
+            elif path == "/enrollment":
                 if not self.enrollment:
                     raise PermissionError("Enrollment is test-only")
                 self.enrollment.prepare(token, data["device_id"])
