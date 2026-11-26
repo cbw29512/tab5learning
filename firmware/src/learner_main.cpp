@@ -106,6 +106,7 @@ bool was_touching=false;
 bool geometry_ok=false;
 DisplayStartupRefresh startup_refresh;
 BatteryMonitor battery;
+BatteryRuntime battery_runtime;
 
 void tile(const LearnerTile& t, uint32_t color) {
   M5.Display.fillRoundRect(t.x,t.y,t.w,t.h,18,color);
@@ -207,9 +208,12 @@ void render() {
   M5.Display.setTextSize(4);
   M5.Display.drawString(heading(),260,40);
   render_learner_battery(battery.status);
+  M5.Display.setTextSize(4);
+  M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   if (navigation.help_open) {
     M5.Display.drawString("Choose a subject from Home.",48,180);
     M5.Display.drawString("Tap Go back to continue.",48,250);
+    render_battery_runtime(battery_runtime);
     tile(learner_back,TFT_DARKGREY);
   } else if (navigation.screen==LearnerScreen::Home) {
     const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY};
@@ -260,7 +264,8 @@ void setup() {
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
   else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
   notice.newest=preview_badge_count(math); // Never replay restored awards.
-  sample_learner_battery(battery,millis());
+  battery_runtime.observe(millis(),navigation);
+  sample_learner_battery(battery,battery_runtime,millis());
   render();
   startup_refresh.begin(millis());
   Serial.println("READY,POCKET_LEARNER_PREVIEW,1");
@@ -268,6 +273,7 @@ void setup() {
 
 void loop() {
   M5.update();
+  battery_runtime.observe(millis(),navigation);
   learner_usb_identity_poll();
   const bool touching=M5.Touch.getCount()>0;
   // Stop retries immediately when a learner interacts; never overwrite ink.
@@ -282,6 +288,7 @@ void loop() {
     LearnerAction action;
     if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) {
+      battery_runtime.observe(millis(),navigation);
       if (navigation.screen!=LearnerScreen::Reading || navigation.help_open) reading_leave();
       render();
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {
@@ -321,8 +328,11 @@ void loop() {
   }
   if(!touching) scratch_release(scratch);
   // Defer PMIC reads and regional flush while a finger is drawing or tapping.
-  if(geometry_ok && !touching && battery.due(millis()) &&
-      sample_learner_battery(battery,millis())) refresh_learner_battery(battery.status);
+  if(geometry_ok && !touching && battery.due(millis())) {
+    if(sample_learner_battery(battery,battery_runtime,millis()))
+      refresh_learner_battery(battery.status);
+    if(navigation.help_open) refresh_battery_runtime(battery_runtime);
+  }
   const bool visible=notice.visible;
   award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);
   if(visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) render_notice();

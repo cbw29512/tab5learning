@@ -2,7 +2,7 @@
 #include <cstdint>
 
 // Read-only status; never command the charger or infer a remaining runtime.
-enum class BatteryCharge { Unknown, Charging, NotCharging, Full };
+enum class BatteryCharge { Unknown, Charging, NotCharging, Full, Discharging };
 struct BatteryStatus {
   int percent=-1;
   BatteryCharge charge=BatteryCharge::Unknown;
