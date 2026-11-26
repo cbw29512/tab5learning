@@ -1,5 +1,5 @@
 #pragma once
-#include <nvs.h>
+#include "math_journal_partition.h"
 #include <cstdio>
 #include <cstring>
 #include "math_snapshot.h"
@@ -10,6 +10,7 @@ enum class JournalFailure { None, Full, Storage, Conflict };
 // logical attempt IDs, after a legacy checkpoint migration.
 class MathJournal {
   friend class MathJournalRestorer;
+  const MathJournalTarget target;
   nvs_handle_t handle=0;
   bool opened=false, ready=false, exporting=false;
   unsigned last=0, limit=0;
@@ -18,7 +19,7 @@ class MathJournal {
   AttemptBytes work{}, readback{};
   JournalFailure error=JournalFailure::None;
   static void key_for(unsigned slot,char (&key)[12]) {
-    snprintf(key,sizeof(key),"a%03u",slot);
+    math_journal_key(slot,key);
   }
   bool fail(JournalFailure reason) {
     ready=false; error=reason;
@@ -59,7 +60,7 @@ class MathJournal {
     return math_encode(a,x)&&math_encode(b,y)&&x==y;
   }
  public:
-  MathJournal()=default;
+  explicit MathJournal(MathJournalTarget storage= MathJournalTarget::Factory):target(storage) {}
   MathJournal(const MathJournal&)=delete;
   MathJournal& operator=(const MathJournal&)=delete;
   ~MathJournal() { if(opened) nvs_close(handle); }
@@ -69,22 +70,20 @@ class MathJournal {
     ready=false; last=0; error=JournalFailure::None;
     if(opened) { nvs_close(handle); opened=false; }
     auto bad=[this](JournalFailure reason) { fail(reason); return JournalLoad::Error; };
-    const auto opened_result=nvs_open("pljournal",NVS_READWRITE,&handle);
+    const auto opened_result=math_journal_open(target,handle);
     if(opened_result!=ESP_OK) return bad(opened_result==ESP_ERR_NVS_NOT_ENOUGH_SPACE?
       JournalFailure::Full:JournalFailure::Storage);
     opened=true;
-    nvs_stats_t stats{};
-    if(nvs_get_stats(nullptr,&stats)!=ESP_OK||!stats.total_entries||stats.total_entries>1000000)
-      return bad(JournalFailure::Storage);
-    // Every attempt needs at least one entry; this bounds gap scanning by
-    // the actual partition, not an arbitrary attempt count.
-    limit=static_cast<unsigned>(stats.total_entries);
+    if(!math_journal_limit(target,limit)) return bad(JournalFailure::Storage);
+    const bool staging=target==MathJournalTarget::DedicatedStaging;
+    if(staging&&!math_journal_staging_keys(limit)) return bad(JournalFailure::Conflict);
     MathPractice state, old;
     const auto base=checkpoint(handle,"basev1",state);
-    const auto prior=legacy(old);
+    // An isolated destination must never infer progress from default NVS.
+    const auto prior=staging?ESP_ERR_NVS_NOT_FOUND:legacy(old);
     if((base!=ESP_OK&&base!=ESP_ERR_NVS_NOT_FOUND)||
        (prior!=ESP_OK&&prior!=ESP_ERR_NVS_NOT_FOUND)) return bad(JournalFailure::Storage);
-    if(base==ESP_OK&&(prior!=ESP_OK||!same(state,old))) return bad(JournalFailure::Conflict);
+    if(!staging&&base==ESP_OK&&(prior!=ESP_OK||!same(state,old))) return bad(JournalFailure::Conflict);
     origin=state;
     bool old_matches=prior!=ESP_OK||!old.attempts||same(state,old), gap=false;
     for(unsigned slot=1;slot<=limit;++slot) {

@@ -29,3 +29,6 @@ does not enable encryption. No real student data until approved.
 References: ESP-IDF 5.4 partition table and NVS documentation:
 https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32p4/api-guides/partition-tables.html
 https://docs.espressif.com/projects/esp-idf/en/v5.4.4/esp32p4/api-reference/storage/nvs_flash.html
+
+## Internal journal target
+`MathJournalTarget::DedicatedStaging` opens only an already initialized `pllearning` partition. It does not initialize or erase NVS, copy legacy progress, or authorize activation. The default learner continues to use the factory journal. Both targets share the 4096-record PLMB V1 ceiling; the staging namespace enumerates keys before replay to reject unexpected/out-of-range records. This is an upper bound, not promised usable capacity. Exact-copy migration and durable cutover policy are still required. No installation instructions are authorized by this candidate.

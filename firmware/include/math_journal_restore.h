@@ -12,13 +12,13 @@ struct MathRestoreImage {
 enum class MathRestoreResult { Complete, Unavailable, Invalid, Conflict, Stale, Full, Interrupted };
 
 class MathJournalRestorer {
-  static constexpr unsigned max_records=4096;
+  static constexpr unsigned max_records=math_journal_max_records;
   static bool next(const MathRestoreImage& image,std::size_t& pos,
                    AttemptBytes& bytes,std::size_t& n) {
     if(pos>image.size||image.size-pos<2) return false;
     n=image.data[pos]+256u*image.data[pos+1]; pos+=2;
     if(n<28||n>bytes.size()||n>image.size-pos) return false;
-    bytes={}; std::memcpy(bytes.data(),image.data+pos,n); pos+=n;
+    bytes.fill(0); std::memcpy(bytes.data(),image.data+pos,n); pos+=n;
     return true;
   }
  public:
@@ -44,11 +44,11 @@ class MathJournalRestorer {
     // Preflight the complete staged history and the exact stored prefix.
     std::size_t pos=0, suffix=0;
     for(unsigned slot=1;slot<=image.manifest.count;++slot) {
-      AttemptBytes bytes{}; std::size_t n=0;
+      auto& bytes=journal.work; std::size_t n=0;
       if(!next(image,pos,bytes,n)||!verifier.record(slot,bytes,n)) return R::Invalid;
       if(slot<=journal.last) {
         char key[12]; journal.key_for(slot,key);
-        AttemptBytes existing{}; auto length=existing.size();
+        auto& existing=journal.readback; existing.fill(0); auto length=existing.size();
         if(journal.read(journal.handle,key,existing.data(),length)!=ESP_OK||
            length!=n||existing!=bytes) return R::Conflict;
         suffix=pos;
@@ -66,7 +66,7 @@ class MathJournalRestorer {
     // an ambiguous write locks the journal until begin() reconciles it.
     pos=suffix;
     for(unsigned slot=journal.last+1;slot<=image.manifest.count;++slot) {
-      AttemptBytes bytes{}; std::size_t n=0;
+      auto& bytes=journal.work; std::size_t n=0;
       auto state=journal.current;
       if(!next(image,pos,bytes,n)||!attempt_replay(bytes,n,state)) {
         journal.fail(JournalFailure::Conflict); return R::Invalid;
