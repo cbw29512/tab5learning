@@ -14,6 +14,8 @@ from tools.teacher_sessions import TeacherSessions
 from tools.teacher_decks import TeacherDecks
 from tools.flashcard_deck import import_csv, MAX_BYTES
 from tools import teacher_web_views as views
+from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
+                                        login_challenge, valid_login_challenge)
 
 LOG = logging.getLogger(__name__)
 BIND_ADDRESS = "127.0.0.1"
@@ -37,10 +39,10 @@ class TeacherWeb:
         return hmac.new(self.csrf_key, token.encode(), hashlib.sha256).hexdigest()
 
     @staticmethod
-    def token(env):
+    def token(env, name=COOKIE):
         try:
             cookies = SimpleCookie(env.get("HTTP_COOKIE", ""))
-            return cookies[COOKIE].value if COOKIE in cookies else None
+            return cookies[name].value if name in cookies else None
         except CookieError:
             return None
 
@@ -83,6 +85,12 @@ class TeacherWeb:
             raise ValueError("Repeated field")
         return {k: v[0] for k, v in data.items()}
 
+    def login_page(self, start, notice="", status="200 OK"):
+        nonce, proof = login_challenge(self.csrf_key)
+        cookie = f"{LOGIN_COOKIE}={nonce}; Path=/login; HttpOnly; SameSite=Strict; Max-Age={LOGIN_TTL}"
+        return self.respond(start, status, views.login(notice, test_mode=self.test_mode, csrf=proof),
+                            headers=[("Set-Cookie", cookie)])
+
     def dashboard(self, token, notice=""):
         user = self.sessions.require(token)
         return views.workspace(user, self.accounts.role(user),
@@ -96,25 +104,29 @@ class TeacherWeb:
                 return self.respond(start, "403 Forbidden", "Local access only.")
             method, path = env["REQUEST_METHOD"], env["PATH_INFO"]
             token = self.token(env)
+            if method == "GET" and path == "/login":
+                return self.login_page(start)
             if method == "GET" and path == "/":
                 try:
                     body = self.dashboard(token)
                 except PermissionError:
-                    body = views.login(test_mode=self.test_mode)
+                    return self.login_page(start)
                 return self.respond(start, "200 OK", body)
             if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout"}:
                 return self.respond(start, "404 Not Found", "Not found.")
-            if env.get("HTTP_ORIGIN") != ORIGIN:
+            if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
                             not env.get("HTTP_ORIGIN"), env.get("HTTP_ORIGIN") == "null")
                 return self.respond(start, "403 Forbidden", views.page(
                     "Request rejected", '<p><a href="/">Return to sign in</a> and submit a fresh form.</p>'))
             data = self.form(env)
             if path == "/login":
+                if not valid_login_challenge(self.csrf_key, self.token(env, LOGIN_COOKIE), data.get("csrf")):
+                    return self.login_page(start, "Login form expired. Please sign in again.", "403 Forbidden")
                 self.sessions.logout(token)
                 new_token = self.sessions.login(data["username"], data["password"])
                 if not new_token:
-                    return self.respond(start, "401 Unauthorized", views.login("Invalid credentials or account locked.", test_mode=self.test_mode))
+                    return self.login_page(start, "Invalid credentials or account locked.", "401 Unauthorized")
                 return self.redirect(start, new_token)
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
