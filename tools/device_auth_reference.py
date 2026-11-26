@@ -15,7 +15,7 @@ DOMAIN = b"TAB5-AUTH-V1\0"
 def proof(key, role, device_id, host_nonce, device_nonce):
     if not isinstance(key, bytes) or len(key) != 32:
         raise ValueError("Expected a 32-byte device credential")
-    if role not in ("device", "host"):
+    if role not in ("device", "host", "ack"):
         raise ValueError("Invalid proof role")
     if any(not isinstance(n, bytes) or len(n) != 32 for n in (host_nonce, device_nonce)):
         raise ValueError("Invalid challenge nonce")
