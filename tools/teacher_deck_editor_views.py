@@ -1,6 +1,8 @@
 """Server-rendered flashcard editor markup."""
 from html import escape
 
+MAX_ROWS = 25
+
 def editor(draft, csrf, *, preview=None, error=""):
     """All user-controlled strings escaped; no scripts or external resources."""
     def attr(s):
