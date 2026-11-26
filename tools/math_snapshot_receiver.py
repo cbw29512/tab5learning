@@ -84,6 +84,10 @@ class MathSnapshotReceiver:
             LOG.warning("Snapshot receive rejected")
             raise
 
+    @property
+    def complete(self):
+        return self._state == "COMPLETE"
+
     def result(self):
         try:
             if self._state != "COMPLETE":

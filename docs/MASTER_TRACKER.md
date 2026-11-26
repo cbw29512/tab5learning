@@ -198,3 +198,6 @@ Native #56 passed at d28b5367; host #388 running at inspection. Added authentica
 
 ## M8 encrypted USB frame and snapshot candidate
 Added explicit AES-GCM protected session mode and Mbed TLS adapter to isolated auth compile probe, Python verified handshake opt-in, shared snapshot sender, OpenSSL-to-Python encrypted snapshot fixture and tamper/replay/expiry tests. No plaintext fallback. Native #56 passed; prior snapshot #390/#57 queued at inspection. Latest CI pending; no physical USB, real records, device writes, teacher operation permission or secure provisioning. Actual serial transport and hardware validation next.
+
+## M8 host encrypted USB stream foundation
+Implemented synthetic-only probe identity host exchange using existing AUTH1–4, protected frames, bounded binary reads and MathSnapshotReceiver. Only complete validated PLMB returned; stream closes on all paths. Added fake fragmented serial end-to-end tests and failure regressions. Prior encrypted #392 queued/#58 pending at inspection; host #388 still running. Latest CI pending. Device-side isolated binary probe, physical COM5 validation, authorization, protected credential provisioning and real archive import remain open. No firmware flash or real data.
