@@ -23,9 +23,10 @@ MAX_FORM = MAX_BYTES * 3 + 4096
 
 
 class TeacherWeb:
-    def __init__(self, directory):
+    def __init__(self, directory, *, test_mode=False):
         directory.mkdir(parents=True, exist_ok=True)
-        self.accounts = AccountStore(directory / "accounts.sqlite")
+        self.test_mode = test_mode
+        self.accounts = AccountStore(directory / "accounts.sqlite", test_mode=test_mode)
         self.sessions = TeacherSessions(self.accounts)
         self.decks = TeacherDecks(directory / "decks.sqlite", self.sessions)
         self.csrf_key = secrets.token_bytes(32)
@@ -82,7 +83,8 @@ class TeacherWeb:
     def dashboard(self, token, notice=""):
         user = self.sessions.require(token)
         return views.workspace(user, self.accounts.role(user),
-                               self.decks.list_decks(token), self.csrf(token), notice)
+                               self.decks.list_decks(token), self.csrf(token), notice,
+                               minimum=self.accounts.minimum_password_length, test_mode=self.test_mode)
 
     def __call__(self, env, start):
         # Exact host and origin checks prevent DNS rebinding and cross-site writes.
@@ -95,7 +97,7 @@ class TeacherWeb:
                 try:
                     body = self.dashboard(token)
                 except PermissionError:
-                    body = views.login()
+                    body = views.login(test_mode=self.test_mode)
                 return self.respond(start, "200 OK", body)
             if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout"}:
                 return self.respond(start, "404 Not Found", "Not found.")
@@ -106,7 +108,7 @@ class TeacherWeb:
                 self.sessions.logout(token)
                 new_token = self.sessions.login(data["username"], data["password"])
                 if not new_token:
-                    return self.respond(start, "401 Unauthorized", views.login("Invalid credentials or account locked."))
+                    return self.respond(start, "401 Unauthorized", views.login("Invalid credentials or account locked.", test_mode=self.test_mode))
                 return self.redirect(start, new_token)
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
