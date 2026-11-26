@@ -27,6 +27,7 @@ ReadingPreview reading;
 #ifdef TAB5_PREVIEW_AUDIO
 ReadingEstimatedHighlight reading_highlight;
 bool reading_follow=false;
+size_t reading_restart_word=0;
 M5ReadingSpeaker reading_backend;
 ReadingSpeakerOutput reading_output(reading_backend);
 ReadingPreviewPlayback reading_audio(reading_output,narration_pcm,
@@ -37,7 +38,7 @@ static_assert(sizeof(narration_cues)/sizeof(narration_cues[0])==reading_words.si
 
 void render_reading() {
 #ifdef TAB5_PREVIEW_AUDIO
-  render_reading_preview(reading,reading_audio.status());
+  render_reading_preview(reading,reading_audio.status(),reading_audio.paused());
 #else
   render_reading_preview(reading);
 #endif
@@ -49,8 +50,19 @@ void reading_touch(int x,int y) {
     reading_audio.stop(); reading_highlight.stop(); reading_follow=false; reading.reset();
   } else if(action==1) {
     if(reading_audio.listen()) {
+      reading_restart_word=0;
       reading.reset();
       reading_follow=reading_highlight.start(narration_cues,reading_words.size(),narration_duration,millis());
+    }
+  } else if(action==3) {
+    if(reading_audio.paused()) {
+      const auto offset=reading_audio.resume_offset();
+      if(reading_audio.resume()) {
+        reading_follow=reading_highlight.start(narration_cues,reading_words.size(),narration_duration,millis(),offset);
+      }
+    } else if(reading_follow && reading_audio.pause(reading_restart_word)) {
+      reading_highlight.stop(); reading_follow=false;
+      reading.selected=static_cast<int>(reading_restart_word);
     }
   }
   else if(!reading_audio.busy() && reading.select(x,y))
@@ -71,6 +83,7 @@ void reading_tick(bool visible) {
   bool changed=reading_audio.poll();
   if(reading_follow) {
     const int next=reading_highlight.update(millis(),reading_output.state()==SpeakerOutputState::Queued);
+    if(next>=0) reading_restart_word=static_cast<size_t>(next);
     if(next!=reading.selected) { reading.selected=next; changed=true; }
     if(!reading_audio.busy()) reading_follow=false;
   }
