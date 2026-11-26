@@ -43,7 +43,18 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     if test_mode:
         notice = "TEST MODE — synthetic data only. " + notice
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
-    rows = "".join(f'<li>{escape(d["title"])} — {len(d["cards"])} cards</li>' for d in decks)
+    latest = {}
+    for deck in decks:
+        key = deck["deck_id"]
+        if key not in latest or deck["version"] > latest[key]["version"]:
+            latest[key] = deck
+    rows = "".join(
+        f'<li>{escape(d["title"])} — {len(d["cards"])} cards · Version {d["version"]}'
+        + (f'<form method="post" action="/decks/edit">{hidden}'
+           f'<input type="hidden" name="deck_id" value="{escape(d["deck_id"], quote=True)}">'
+           '<button>Edit flashcards</button></form>' if len(d["cards"]) <= 25 else
+           '<p><small>Large imported deck — visual editing unavailable.</small></p>')
+        + '</li>' for d in latest.values())
     admin = ""
     if role == "admin":
         admin = f"""<section><h2>Teacher accounts</h2><form method="post" action="/teachers">
