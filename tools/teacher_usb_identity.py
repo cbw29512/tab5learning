@@ -2,6 +2,7 @@
 import logging
 import secrets
 import time
+from contextlib import closing
 from dataclasses import dataclass
 from html import escape
 from tools.teacher_usb_discovery import scan_usb, PORT
@@ -53,8 +54,8 @@ def identify(port, *, scan=scan_usb, serial_factory=None):
             from serial import Serial
             serial_factory = Serial
         # Configure modem control before opening. Never invoke bootloader/reset.
-        with serial_factory(port=None, baudrate=115200, timeout=0.1,
-                            write_timeout=0.5) as connection:
+        with closing(serial_factory(port=None, baudrate=115200, timeout=0.1,
+                                    write_timeout=0.5)) as connection:
             connection.dtr = False
             connection.rts = False
             connection.port = port
