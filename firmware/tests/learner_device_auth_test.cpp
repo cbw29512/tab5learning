@@ -3,6 +3,9 @@
 #include <cassert>
 #include <cstdio>
 #include <string>
+#include <type_traits>
+static_assert(!std::is_copy_constructible<learner_auth::DeviceChallenge>::value);
+static_assert(!std::is_copy_assignable<learner_auth::DeviceChallenge>::value);
 
 using namespace learner_auth;
 bool openssl_hmac(const Bytes& key,const uint8_t* data,std::size_t size,Bytes& out) {
@@ -53,4 +56,13 @@ int main() {
   assert(auth.begin(openssl_hmac,key,"tab5-001",host,device,0,dp));
   auth.cancel();
   assert(!auth.complete(hp,1));
+  assert(!make_proof(openssl_hmac,key,static_cast<Role>(99),"tab5-001",host,device,dp));
+  assert(dp==Bytes{});
+  assert(auth.begin(openssl_hmac,key,"tab5-001",host,device,0,dp));
+  assert(make_proof(openssl_hmac,key,Role::Host,"tab5-001",host,device,hp));
+  auth.expire(10000);
+  assert(auth.pending());
+  auth.expire(10001);
+  assert(!auth.pending());
+  assert(!auth.complete(hp,1)); // even after timer wraps
 }
