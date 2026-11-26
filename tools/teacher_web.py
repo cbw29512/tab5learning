@@ -16,7 +16,9 @@ from tools.flashcard_deck import import_csv, MAX_BYTES
 from tools import teacher_web_views as views
 
 LOG = logging.getLogger(__name__)
-HOST = "127.0.0.1:8765"
+BIND_ADDRESS = "127.0.0.1"
+PORT = 18765
+HOST = f"{BIND_ADDRESS}:{PORT}"
 ORIGIN = "http://" + HOST
 COOKIE = "pocket_teacher"
 MAX_FORM = MAX_BYTES * 3 + 4096
