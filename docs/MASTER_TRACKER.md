@@ -192,3 +192,6 @@ Implemented student selection, scoped generated-key confirmation, encrypted host
 
 ## M8 authenticated USB data frame foundation
 Native #55 passed at 52a0bd92; host #386 still running. Added separate transcript-bound session key derivation, optional verified handshake handoff, paired C++/Python directional frame MAC codecs, expiry and fail-closed ordering. Existing handshake-only transport unchanged; no new USB data dispatch. Tests added for replay, tamper, expiry, reflection, order and invalid handshake. Latest CI pending. Snapshot streaming, operation authorization, confidentiality, cross-language fixture, physical USB and protected provisioning remain open. No device writes.
+
+## M8 read-only mathematics transfer reference
+Native #56 passed at d28b5367; host #388 running at inspection. Added authenticated request/manifest/record/end transfer using existing MathJournal snapshot and HMAC frame session, bounded device buffers and independent host replay; exact completion required. C++ fake-NVS and Python tests including cross-language fixture in CI. No physical USB dispatch, encryption, teacher operation grant or host import integration yet; no real records or device writes. Latest CI pending.

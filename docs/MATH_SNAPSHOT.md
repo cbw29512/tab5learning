@@ -75,3 +75,6 @@ as a whole. No automatic legacy base installation on a blank device. The
 candidate does not allocate staging memory, implement a USB command, verify
 device identity, provision a student or authorize restoration. Not for real
 student data. Physical capacity and power loss remain release gates.
+
+## Authenticated synthetic frame transfer reference
+One snapshot per session. Request 0x31 + 16-byte request ID; manifest 0x32 + ID + base/final 16-byte checkpoints + uint32 LE count; record 0x33 + ID + uint32 LE one-based slot + original V1 bytes; end 0x34 + ID + uint32 LE count. All carried inside existing direction/sequence/HMAC frames. Device uses existing journal snapshot verifier and bounded member buffers; no end if source verification or writer fails. Host stages bounded records and independently replays, publishes PLMB only after exact terminal marker and verified checkpoint. No actual serial route or real student operation authorization; synchronous writer is a test reference only, not a production nonblocking transport. No encryption of frames yet. C++ fake-NVS test exports original ink and emits a fixture consumed by Python in CI, with interrupt and wrong-frame tests. Reconnect/restart after failure; never remove device data. CI pending.

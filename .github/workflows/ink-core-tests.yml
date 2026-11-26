@@ -140,6 +140,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_frame_session_test.cpp -lcrypto -o /tmp/tab5-frame-session-test
           /tmp/tab5-frame-session-test
+      - name: Compile and run authenticated mathematics snapshot reference
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_frame_snapshot_test.cpp -lcrypto -o /tmp/tab5-math-frame-test
+          /tmp/tab5-math-frame-test /tmp/tab5-math-frame-fixture.bin
       - name: Compile and run credential storage reference tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_credential_store_test.cpp -o /tmp/tab5-credential-store-test
@@ -159,4 +163,6 @@ jobs:
       - name: Install protected archive test dependency
         run: python -m pip install -r requirements-archive.txt
       - name: Run Python learning engine and USB regression tests
+        env:
+          TAB5_MATH_FRAME_FIXTURE: /tmp/tab5-math-frame-fixture.bin
         run: python -m unittest discover -s tests -v
