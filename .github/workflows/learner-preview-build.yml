@@ -34,12 +34,17 @@ jobs:
         run: python tools/generate_preview_narration.py firmware/include/preview_narration.generated.h
       - name: Compile native learner preview (no upload)
         run: pio run -d firmware -e learner_preview
+      - name: Compile isolated microphone API probe (no upload)
+        run: pio run -d firmware -e mic_compile_probe
       - name: Record build evidence
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build-evidence
           pio pkg list -d firmware -e learner_preview > build-evidence/packages.txt
+          pio pkg list -d firmware -e mic_compile_probe > build-evidence/mic-probe-packages.txt
+          test -s firmware/.pio/build/mic_compile_probe/firmware.elf
+          sha256sum firmware/.pio/build/mic_compile_probe/firmware.elf > build-evidence/mic-probe-elf.sha256
           for name in firmware.bin bootloader.bin partitions.bin; do
             test -s "firmware/.pio/build/learner_preview/$name"
             cp "firmware/.pio/build/learner_preview/$name" build-evidence/
