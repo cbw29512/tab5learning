@@ -26,7 +26,8 @@ class MathFrameSink final : public MathSnapshotSink {
   // Exactly one operation per sink. No export until a valid request is
   // received. A real dispatcher must also authenticate teacher permissions
   // and provide encrypted transport before calling an export.
-  MathSnapshotResult serve_synthetic(MathJournal& journal,const uint8_t* frame,
+  template<class Source>
+  MathSnapshotResult serve_synthetic(Source& journal,const uint8_t* frame,
                                      std::size_t n,bool synthetic_only) {
     if(used_||!synthetic_only){abort();return MathSnapshotResult::Unavailable;}
     used_=true;
@@ -42,6 +43,8 @@ class MathFrameSink final : public MathSnapshotSink {
     session_.close();requested_=false;
     return result;
   }
+  // Only call before a newly authenticated session; closes any old session.
+  void reset_for_new_connection(){abort();id_.fill(0);used_=false;}
   bool begin(const MathSnapshot& m) noexcept override {
     if(!requested_||begun_||m.count>math_journal_max_records)return false;
     count_=m.count;prefix(snapshot_begin);

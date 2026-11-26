@@ -8,7 +8,7 @@ using NonceSource=bool (*)(Bytes&);
 // Nonblocking transport reference, independent of Arduino and actual USB.
 class AuthTransport {
  public:
-  AuthTransport()=default;
+  explicit AuthTransport(bool handoff=false):handoff_(handoff) {}
   AuthTransport(const AuthTransport&)=delete;
   AuthTransport& operator=(const AuthTransport&)=delete;
 
@@ -29,6 +29,10 @@ class AuthTransport {
       sent_+=written;
       if(sent_==tx_len_) { tx_.fill(0);tx_len_=sent_=0; }
       return;
+    }
+    if(handoff_ready_) {
+      if(uint32_t(now-tx_start_)>=2000)reset();
+      return; // Do not parse binary bytes as authentication lines.
     }
     if(partial_ && uint32_t(now-rx_start_)>=2000) {
       clear_rx();discard_=true;wire_.cancel();
@@ -55,10 +59,18 @@ class AuthTransport {
     }
   }
 
+  // Release only after the entire AUTH4 response was accepted by the stream.
+  bool take_session(Bytes& key,uint32_t now) {
+    key.fill(0);
+    if(!handoff_ready_||tx_len_)return false;
+    if(uint32_t(now-tx_start_)>=2000){reset();return false;}
+    key=handoff_key_;handoff_key_.fill(0);handoff_ready_=false;return true;
+  }
   // Never reset rate limiting on disconnect.
   void reset() {
     wire_.cancel();clear_rx();discard_=false;
     tx_.fill(0);tx_len_=sent_=0;
+    handoff_key_.fill(0);handoff_ready_=false;
   }
  private:
   void clear_rx() {rx_.fill(0);used_=0;partial_=cr_=false;}
@@ -78,14 +90,18 @@ class AuthTransport {
       if(!nonce || !nonce(fresh)) return;
       ok=wire_.begin(rx_.data(),used_,hmac,key,id,fresh,now,reply);
     } else if(used_>=6 && std::memcmp(rx_.data(),"AUTH3,",6)==0) {
-      ok=wire_.finish(rx_.data(),used_,now,reply);
+      ok=wire_.finish(rx_.data(),used_,now,reply,handoff_?&handoff_key_:nullptr);
+      handoff_ready_=handoff_&&ok;
     } else wire_.cancel();
     if(!ok) return;
     const auto n=std::strlen(reply.data());
-    if(n==0||n>max_auth_line) {wire_.cancel();return;}
+    if(n==0||n>max_auth_line) {reset();return;}
     std::memcpy(tx_.data(),reply.data(),n);
     tx_[n]='\n';tx_len_=n+1;sent_=0;tx_start_=now;
   }
+  const bool handoff_;
+  bool handoff_ready_=false;
+  Bytes handoff_key_{};
   DeviceAuthWire wire_;
   AuthLine rx_{};
   std::array<char,max_auth_line+1> tx_{};

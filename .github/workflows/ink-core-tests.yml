@@ -158,6 +158,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_auth_transport_test.cpp -lcrypto -o /tmp/tab5-auth-transport-test
           /tmp/tab5-auth-transport-test
+      - name: Compile and run isolated protected USB probe transport regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/probe_snapshot_transport_test.cpp -lcrypto -o /tmp/tab5-protected-usb-test
+          /tmp/tab5-protected-usb-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:

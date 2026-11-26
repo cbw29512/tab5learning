@@ -201,3 +201,6 @@ Added explicit AES-GCM protected session mode and Mbed TLS adapter to isolated a
 
 ## M8 host encrypted USB stream foundation
 Implemented synthetic-only probe identity host exchange using existing AUTH1–4, protected frames, bounded binary reads and MathSnapshotReceiver. Only complete validated PLMB returned; stream closes on all paths. Added fake fragmented serial end-to-end tests and failure regressions. Prior encrypted #392 queued/#58 pending at inspection; host #388 still running. Latest CI pending. Device-side isolated binary probe, physical COM5 validation, authorization, protected credential provisioning and real archive import remain open. No firmware flash or real data.
+
+## M8 isolated device-side encrypted USB probe
+Added optional auth handoff, deterministic in-memory mathematics fixture, protected HWCDC binary probe with bounded nonblocking input/output, explicit close/disconnect, host regression and native build-only target. No learner NVS/SD access or firmware upload. Prior #394 queued/#59 pending and #392 queued at inspection; #58 cancelled. Latest CI pending. Next verify exact probe compile/test and host physical CLI, then hardware acceptance with preserved learner backup. Real journal integration and operation authorization remain open.
