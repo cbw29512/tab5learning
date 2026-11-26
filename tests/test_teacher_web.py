@@ -173,3 +173,23 @@ class TeacherWebTests(unittest.TestCase):
             csrf = self.login("teacher1", "5678")
             self.assertEqual(self.call("/usb-identify", {"csrf":csrf,"port":"COM5"})[0], 403)
             probe.assert_called_once_with("COM5")
+
+    def test_pending_enrollment_is_admin_only(self):
+        csrf = self.login()
+        self.assertEqual(self.call("/enrollment", {"csrf":csrf,"device_id":"tab5-001"})[0], 403)
+        self.app = TeacherWeb(Path(self.temp.name) / "enrollment-test", test_mode=True)
+        self.app.accounts.create("admin", "1234", "admin", bootstrap=True)
+        csrf = self.login("admin", "1234")
+        form = {"csrf":csrf,"device_id":"tab5-001"}
+        self.assertEqual(self.call("/enrollment", form)[0], 400)
+        self.assertEqual(self.call("/assignments", dict(form, student_id="student-001", grade="1"))[0], 303)
+        self.assertEqual(self.call("/enrollment", dict(form, csrf="bad"))[0], 403)
+        self.assertEqual(self.call("/enrollment", form)[0], 303)
+        page = self.call()[2]
+        self.assertIn("KEY_PENDING (not installed)", page)
+        self.assertIn("Planned — not synced", page)
+        self.assertEqual(self.call("/enrollment", form)[0], 400)
+        self.assertEqual(self.call("/teachers", {"csrf":csrf,"username":"teacher1","password":"5678"})[0], 303)
+        csrf = self.login("teacher1", "5678")
+        self.assertEqual(self.call("/enrollment", dict(form, csrf=csrf))[0], 403)
+        self.assertNotIn("Prepare key for", self.call()[2])
