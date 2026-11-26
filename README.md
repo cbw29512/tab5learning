@@ -2,7 +2,7 @@
 
 An offline-first educational device for **one child per M5Stack Tab5**, with a **Windows teacher manager connected only by USB**.
 
-> **Status:** Planning and requirements baseline. No firmware, teacher application, USB protocol, or handwriting recognition implementation is claimed to be working yet.
+> **Status:** Pre-pilot development. See the specification and master tracker for release gates. Portable ink capture and read-only USB diagnostics are described in [PR #1](https://github.com/cbw29512/tab5learning/pull/1); native firmware and physical acceptance are not certified.
 
 ## Goals
 
@@ -13,11 +13,13 @@ An offline-first educational device for **one child per M5Stack Tab5**, with a *
 - A teacher uses a protected Windows application and a USB data cable to review results, correct assessments, update lessons, and back up records.
 - All original project materials are proprietary. See [LICENSE](LICENSE).
 
-## MVP versus full Version 1
+## Initial integration milestone versus launch MVP
 
-**MVP:** Prove one complete end-to-end learning flow: first-time single-child setup, short starting assessment, offline math practice, finger-written numeric answer capture, a recognition/confirmation workflow, local persistence, teacher review/correction over a physical USB connection, and recalculation of progress after a correction. Any uncertain handwriting recognition must allow manual confirmation; accuracy must be evaluated on the actual hardware.
+**Initial integration milestone:** Prove one complete end-to-end learning flow: first-time single-child setup, short starting assessment, offline math practice, finger-written numeric answer capture, a recognition/confirmation workflow, local persistence, teacher review/correction over a physical USB connection, and recalculation of progress after a correction. Any uncertain handwriting recognition must allow manual confirmation; accuracy must be evaluated on the actual hardware.
 
-**Version 1 expansion (not an MVP promise):** Curriculum coverage across grades 1–3 in math, reading, and spelling; fourth-grade skill challenges; additional learning games; richer handwriting instruction; teacher report exports for a classroom.
+**Launch MVP:** Complete the integration milestone plus reviewed grade 1–3 math, reading and spelling, selected grade 4 skill unlocks, offline read-along, pronunciation and reading assessment with teacher-review fallback, custom lessons, flashcards, activity history, achievements and major milestone certificates. See the [Master Development Tracker](https://chatgpt.com/space/page_02d1380881d08191a124e3becdbf3073) and MVP specification for acceptance gates.
+
+**Later expansion:** Additional learning games, comprehensive grade 4 content, richer handwriting instruction and classroom-wide reporting.
 
 ## Architecture and specifications
 
