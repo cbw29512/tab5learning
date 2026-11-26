@@ -22,6 +22,7 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 #include "math_submission.h"
+#include "learner_battery_ui.h"
 
 namespace {
 LearnerNavigation navigation;
@@ -104,6 +105,7 @@ MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
 bool geometry_ok=false;
 DisplayStartupRefresh startup_refresh;
+BatteryMonitor battery;
 
 void tile(const LearnerTile& t, uint32_t color) {
   M5.Display.fillRoundRect(t.x,t.y,t.w,t.h,18,color);
@@ -204,6 +206,7 @@ void render() {
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   M5.Display.setTextSize(4);
   M5.Display.drawString(heading(),260,40);
+  render_learner_battery(battery.status);
   if (navigation.help_open) {
     M5.Display.drawString("Choose a subject from Home.",48,180);
     M5.Display.drawString("Tap Go back to continue.",48,250);
@@ -257,6 +260,7 @@ void setup() {
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
   else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
   notice.newest=preview_badge_count(math); // Never replay restored awards.
+  sample_learner_battery(battery,millis());
   render();
   startup_refresh.begin(millis());
   Serial.println("READY,POCKET_LEARNER_PREVIEW,1");
@@ -316,6 +320,9 @@ void loop() {
     math_ink_sample(scratch,detail.x,detail.y,false);
   }
   if(!touching) scratch_release(scratch);
+  // Defer PMIC reads and regional flush while a finger is drawing or tapping.
+  if(geometry_ok && !touching && battery.due(millis()) &&
+      sample_learner_battery(battery,millis())) refresh_learner_battery(battery.status);
   const bool visible=notice.visible;
   award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);
   if(visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) render_notice();

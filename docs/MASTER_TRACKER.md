@@ -156,3 +156,6 @@ User reaffirmed grade 12 as the long-term goal, with college-level learning a po
 
 ## Grade 1 closed beta priority
 User agrees incremental grade packages allow earlier beta. Added BETA_RELEASE.md: prioritize engineering integration followed by full Grade 1 core curriculum and all device/teacher acceptance gates. Grade 2–4 content is not a beta blocker; current Grade 1 coverage is 0/4 accepted, not ready for real student data. Track beta separately from commercial scope. Grade 1 included and paid later grades is a proposed model pending final commercial approval; preserve earlier commercial baseline until confirmed. Grade 12 goal and possible college expansion unchanged. Documentation only; no payment, code, or firmware changes.
+
+## M1 persistent battery charge tracker
+User requires battery charge display. Added read-only typed battery adapter against pinned M5Unified header, portable five-second wrap-safe polling/unknown state/low warning policy, noninteractive header on all screens and regional refresh deferred during touch. Regression tests for invalid levels, status changes, 20/10 percent warnings, wraparound and geometry. CI pending. Physical charge indication and low-battery save/shutdown acceptance remain open; no charging controls or partition changes. Keep existing verified physical firmware until consolidated release.

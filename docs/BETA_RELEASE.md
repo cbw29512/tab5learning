@@ -9,7 +9,7 @@ User prioritizes getting Pocket Learning into beta sooner by releasing grade-lev
 4. Incremental grade packages toward Grade 12, with possible college extension. No grade-specific limits in the core learning engine.
 
 ## Grade 1 beta acceptance checklist
-- Native offline single-child setup, persistent identity, age-appropriate navigation, touch, battery and restart acceptance.
+- Native offline single-child setup, persistent identity, age-appropriate navigation, touch, battery and restart acceptance. Persistent readable battery level/charge status, nonblocking low-battery warnings, unplug/replug and recovery tests are mandatory.
 - Reviewed Grade 1 coverage across the four core subject areas: instruction, guided and independent practice, assessment, remediation and review; lawful offline assets.
 - Mathematics and handwriting recognition/confirmation, reading/narration, spelling, flashcards, guided camera evidence activity.
 - Easy teacher-authored flashcards, bulk AI-ready CSV authoring, teacher review, individual assignment and authenticated USB transfer.

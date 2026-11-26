@@ -21,6 +21,9 @@ inline constexpr std::array<LearnerTile, 5> learner_tiles{{
 }};
 inline constexpr LearnerTile learner_home{32,24,180,80,LearnerAction::Home,"Home"};
 inline constexpr LearnerTile learner_help{1068,24,180,80,LearnerAction::Help,"Help"};
+// Noninteractive header region; outside the navigation buttons and lesson cards.
+struct LearnerRegion { int x,y,w,h; };
+inline constexpr LearnerRegion learner_battery_region{820,24,236,80};
 inline constexpr LearnerTile learner_back{32,580,1216,108,LearnerAction::Back,"Go back"};
 
 inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action) {

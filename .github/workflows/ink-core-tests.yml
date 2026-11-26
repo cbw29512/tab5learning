@@ -44,6 +44,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_layout_test.cpp -o /tmp/tab5-layout-test
           /tmp/tab5-layout-test
+      - name: Compile and run battery status regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_monitor_test.cpp -o /tmp/tab5-battery-test
+          /tmp/tab5-battery-test
       - name: Compile and run mathematics and checkpoint tests
         run: |
           for suite in math_practice math_checkpoint preview_badges; do
