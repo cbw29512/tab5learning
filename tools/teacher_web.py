@@ -14,6 +14,7 @@ from tools.teacher_sessions import TeacherSessions
 from tools.teacher_decks import TeacherDecks
 from tools.teacher_registry import TeacherRegistry
 from tools.teacher_usb_discovery import scan_usb, scan_result
+from tools.teacher_usb_identity import identify, identity_panel
 from tools.flashcard_deck import import_csv, MAX_BYTES
 from tools import teacher_web_views as views
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
@@ -116,7 +117,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -142,7 +143,12 @@ class TeacherWeb:
                 if not self.test_mode:
                     raise PermissionError("USB discovery is test-only")
                 self.sessions.require(token, "admin")
-                return self.respond(start, "200 OK", views.page("USB discovery", scan_result(scan_usb())))
+                return self.respond(start, "200 OK", views.page("USB discovery", scan_result(scan_usb(), self.csrf(token))))
+            if path == "/usb-identify":
+                if not self.test_mode:
+                    raise PermissionError("USB identification is test-only")
+                self.sessions.require(token, "admin")
+                return self.respond(start, "200 OK", views.page("Learner identification", identity_panel(identify(data["port"]))))
             if path == "/assignments":
                 if not self.registry:
                     raise PermissionError("Registry is test-only")
