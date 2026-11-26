@@ -12,7 +12,7 @@ void learner_usb_identity_poll() {
     if(parser.feed(static_cast<unsigned char>(raw),nonce)) {
       // A disconnected or stalled host must not block the learner loop.
       char reply[80]{};
-      const int n=snprintf(reply,sizeof(reply),"LEARNER,1,%s,POCKET_LEARNER_PREVIEW\n",nonce);
+      const int n=snprintf(reply,sizeof(reply),"LEARNER,1,%s,TAB5_LEARNER\n",nonce);
       if(n>0 && n<static_cast<int>(sizeof(reply)) && Serial.availableForWrite()>=n) {
         Serial.write(reinterpret_cast<const uint8_t*>(reply),static_cast<size_t>(n));
       }
