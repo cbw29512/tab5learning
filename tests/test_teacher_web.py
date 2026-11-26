@@ -71,3 +71,20 @@ class TeacherWebTests(unittest.TestCase):
         self.login()
         for path in ("/bootstrap", "/flash", "/reset", "/ssh"):
             self.assertEqual(self.call(path, {"csrf":"x"})[0], 404)
+
+    def test_isolated_short_password_mode(self):
+        # Normal accounts retain the original minimum.
+        with self.assertRaises(ValueError):
+            self.app.accounts.create("shortuser", "1234", "teacher", actor="admin")
+        normal = self.app
+        self.app = TeacherWeb(Path(self.temp.name) / "test", test_mode=True)
+        with self.assertRaises(ValueError):
+            self.app.accounts.create("admin", "123", "admin", bootstrap=True)
+        self.app.accounts.create("admin", "1234", "admin", bootstrap=True)
+        self.assertIn("TEST MODE", self.call()[2])
+        csrf = self.login("admin", "1234")
+        self.assertIn('minlength="4"', self.call()[2])
+        self.assertEqual(self.call("/teachers", {"csrf":csrf,"username":"teacher1","password":"5678"})[0], 303)
+        self.login("teacher1", "5678")
+        self.assertIsNone(normal.accounts.verify("admin", "1234"))
+        self.assertIsNone(normal.accounts.role("teacher1"))
