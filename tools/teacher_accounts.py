@@ -27,7 +27,9 @@ def derive(password, salt):
 
 
 class AccountStore:
-    def __init__(self, path):
+    def __init__(self, path, *, test_mode=False):
+        # Test accounts belong in a separate database selected by the launcher.
+        self.minimum_password_length = 4 if test_mode else 15
         self.path = path
         try:
             with closing(self.connect()) as db, db:
@@ -48,8 +50,8 @@ class AccountStore:
         """Internal storage operation; actor comes from validated local session."""
         try:
             key = username_key(username)
-            if role not in ROLES or not isinstance(password, str) or len(password) < 15:
-                raise ValueError("Invalid role or password shorter than 15 characters")
+            if role not in ROLES or not isinstance(password, str) or len(password) < self.minimum_password_length:
+                raise ValueError(f"Invalid role or password shorter than {self.minimum_password_length} characters")
             salt = secrets.token_bytes(32)
             digest = derive(password, salt)
             with closing(self.connect()) as db, db:
