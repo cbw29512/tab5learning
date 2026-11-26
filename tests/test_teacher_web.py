@@ -1,0 +1,73 @@
+import io
+import tempfile
+import unittest
+from pathlib import Path
+from urllib.parse import urlencode
+
+from tools.teacher_web import TeacherWeb, HOST, ORIGIN
+
+
+class TeacherWebTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.app = TeacherWeb(Path(self.temp.name))
+        self.app.accounts.create("admin", "synthetic-admin-pass", "admin", bootstrap=True)
+        self.cookie = ""
+
+    def call(self, path="/", form=None, **overrides):
+        body = urlencode(form or {}).encode()
+        env = {"HTTP_HOST": HOST, "REMOTE_ADDR": "127.0.0.1",
+               "HTTP_ORIGIN": ORIGIN, "HTTP_COOKIE": self.cookie,
+               "REQUEST_METHOD": "GET" if form is None else "POST",
+               "PATH_INFO": path, "CONTENT_LENGTH": str(len(body)),
+               "CONTENT_TYPE": "application/x-www-form-urlencoded",
+               "wsgi.input": io.BytesIO(body)}
+        env.update(overrides)
+        captured = []
+        result = b"".join(self.app(env, lambda status, headers: captured.extend([status, dict(headers)]))).decode()
+        status, headers = captured
+        if "Set-Cookie" in headers:
+            self.cookie = headers["Set-Cookie"].split(";")[0]
+        return int(status.split()[0]), headers, result
+
+    def login(self, user="admin", password="synthetic-admin-pass"):
+        status, headers, _ = self.call("/login", {"username": user, "password": password})
+        self.assertEqual(status, 303)
+        self.assertIn("HttpOnly", headers["Set-Cookie"])
+        self.assertIn("SameSite=Strict", headers["Set-Cookie"])
+        return self.app.csrf(self.cookie.split("=", 1)[1])
+
+    def test_access_guards_and_logout(self):
+        self.assertIn("Teacher sign in", self.call()[2])
+        self.assertEqual(self.call(HTTP_HOST="evil.example")[0], 403)
+        self.assertEqual(self.call(REMOTE_ADDR="192.0.2.1")[0], 403)
+        self.assertEqual(self.call("/login", {"username":"admin","password":"synthetic-admin-pass"},
+                                   HTTP_ORIGIN="https://evil.example")[0], 403)
+        self.assertEqual(self.call("/decks", {"csrf":"bad"})[0], 403)
+        csrf = self.login()
+        self.assertIn("Teacher dashboard", self.call()[2])
+        self.assertEqual(self.call("/logout", {"csrf":"bad"})[0], 403)
+        self.assertEqual(self.call("/logout", {"csrf":csrf})[0], 303)
+        self.assertIn("Teacher sign in", self.call()[2])
+
+    def test_decks_permissions_and_escaping(self):
+        csrf = self.login()
+        self.assertEqual(self.call("/decks", {"csrf":csrf,"title":"<script>","csv":"front,back\n2+2,4"})[0], 303)
+        page = self.call()[2]
+        self.assertIn("&lt;script&gt;", page)
+        self.assertNotIn("<script>", page)
+        self.assertEqual(self.call("/decks", {"csrf":csrf,"title":"Invalid","csv":"wrong,header"})[0], 400)
+        self.assertEqual(self.call("/teachers", {"csrf":csrf,"username":"teacher1","password":"synthetic-teacher-pass"})[0], 303)
+        csrf = self.login("teacher1", "synthetic-teacher-pass")
+        self.assertNotIn("&lt;script&gt;", self.call()[2])
+        self.assertEqual(self.call("/teachers", {"csrf":csrf,"username":"teacher2","password":"synthetic-teacher-pass"})[0], 403)
+        self.assertEqual(self.call("/decks", {"csrf":csrf,"title":"Reading","csv":"front,back\ncat,animal"})[0], 303)
+        self.assertIn("Reading", self.call()[2])
+        self.login()
+        self.assertIn("Reading", self.call()[2])
+
+    def test_no_web_recovery_or_bootstrap(self):
+        self.login()
+        for path in ("/bootstrap", "/flash", "/reset", "/ssh"):
+            self.assertEqual(self.call(path, {"csrf":"x"})[0], 404)
