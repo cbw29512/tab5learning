@@ -45,3 +45,6 @@ Release remains blocked until these gates and all other MVP gates pass. Record e
 
 ## Forward compatibility gate
 Version 1 contains all reviewed grade 1–4 core packages at delivery. Architecture must permit later grade 5–12 packages and potentially college course outcomes without a four-grade schema ceiling or loss of prior evidence. Future curricula are not release blockers for Version 1. User-reported 512 GB microSD is the intended bulk storage target, subject to physical validation; measure actual package sizes and retention capacity rather than assuming a fixed allocation. See LIFELONG_LEARNING.md for constraints.
+
+## Grade 1 beta priority
+The closed beta requires reviewed complete Grade 1 core coverage (four subject cells), with the other grades developed incrementally. See BETA_RELEASE.md. Separate beta acceptance from commercial launch scope; no weakening of core security, privacy, device or teacher gates. Later paid grade packages are a proposed commercial model, not an implemented or approved purchase system.

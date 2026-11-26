@@ -92,3 +92,6 @@ Record commit SHA, test results, firmware artifact hash and relevant physical ac
 ## Teacher website and maintenance recovery — interface update
 
 The teacher manager is to expose a protected local browser interface (no internet dependency). Technical diagnostics, firmware repair and explicit factory reset are separate SSH maintenance-host operations using a physically attached Tab5 over USB. See [Teacher Studio and SSH maintenance contract](TEACHER_STUDIO_AND_RECOVERY.md) for roles, state schema, recovery distinctions and additional acceptance gates. This supersedes the desktop-only UI assumption without changing the USB-only transport or offline learner requirements. Implementation is pending.
+
+## Grade 1 closed beta milestone — November 26, 2026
+Prioritize a complete Grade 1 curriculum and integrated core functionality for controlled beta testing before building all four grades. See [BETA_RELEASE.md](BETA_RELEASE.md). Grades 2–4 do not block this beta; privacy, hardware, recovery and teacher acceptance remain mandatory. The proposed separately sold grade packages and commercial launch scope await final approval; previous commercial shipping requirements are unchanged for now.

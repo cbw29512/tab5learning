@@ -41,3 +41,6 @@ An offline-first educational device for **one child per M5Stack Tab5**, with a *
 Copyright © 2026 **[OWNER_FULL_LEGAL_NAME]**. All rights reserved.
 
 The owner's legal name is intentionally a placeholder until confirmed. The repository is intended to remain private; this README and the proprietary notice do not make it open source.
+
+## Next release milestone
+The first controlled beta targets a complete Grade 1 curriculum and integrated teacher/student workflows. See [Grade 1 beta acceptance checklist](docs/BETA_RELEASE.md). Later grade content is not a beta blocker; commercial packaging and pricing remain undecided.
