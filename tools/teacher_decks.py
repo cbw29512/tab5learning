@@ -29,10 +29,17 @@ class TeacherDecks:
         try:
             author = self.sessions.require(token)
             validate_deck(deck)
+            if deck["version"] != 1:
+                raise ValueError("New decks must start at version 1; use revise for updates")
             body = json.dumps(deck, ensure_ascii=False, sort_keys=True)
             if len(body.encode("utf-8")) > 2 * 1024 * 1024:
                 raise ValueError("Deck too large")
             with closing(sqlite3.connect(self.path)) as db, db:
+                db.execute("BEGIN IMMEDIATE")
+                # Creation must not attach a new owner to any existing deck history.
+                if db.execute("SELECT 1 FROM decks WHERE deck_id=? LIMIT 1",
+                              (deck["deck_id"],)).fetchone():
+                    raise sqlite3.IntegrityError("Deck ID already exists")
                 db.execute("INSERT INTO decks VALUES (?,?,?,?)",
                            (deck["deck_id"], deck["version"], author, body))
         except (sqlite3.Error, ValueError, PermissionError):
