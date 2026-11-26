@@ -34,7 +34,7 @@ A build passes when all of the following can be demonstrated on the real device:
 - Teacher-added supplemental content: configurable nonnegative extra-credit weights, separate core/bonus/combined grades, optional caps, audited corrections and no advancement solely from bonus points. See [EXTRA_CREDIT.md](EXTRA_CREDIT.md).
 - Learner achievement journey: frequent meaningful micro-goals, current/progress/completed views and immediate nonblocking achievements with increasing difficulty and durable certificates only for designated major milestones, printable through Teacher Studio. See [ACHIEVEMENTS.md](ACHIEVEMENTS.md).
 - Native standalone lifelong-learning architecture and one guided camera evidence activity, subject to hardware/privacy acceptance. See [LIFELONG_LEARNING.md](LIFELONG_LEARNING.md).
-- The original twelve acceptance gates remain required. Full curriculum coverage and production AI assessment are not prerequisites for the first pilot.
+- The original twelve acceptance gates remain required for the engineering pilot. The pilot is not the shipping product. Full reviewed grades 1–4 curriculum coverage in the required subjects is mandatory for launch; production AI assessment is not required where a validated teacher-review fallback is available.
 
 ## Usability acceptance
 
@@ -42,7 +42,7 @@ The child and teacher workflows must pass the observed task gates in [USABILITY_
 
 ## Deferred beyond initial launch
 
-- Comprehensive grade 4 enrichment content and prerequisite mapping beyond selected unlockable skills.
+- Grade 5 and above curriculum content; optional enrichment beyond the approved grades 1–4 coverage.
 - Full handwriting/cursive evaluation, sentence-level recognition, handwriting-quality scores.
 - Classroom-wide reporting and fleet provisioning.
 - Production secure-boot provisioning unless verified as supported by the exact Tab5 configuration.
@@ -83,7 +83,7 @@ The original twelve gates remain the first integration milestone, not the comple
 17. Activity tracking: append-only attempt and correction history, persistent review schedule and explainable mastery.
 18. Rewards: non-blocking achievements, progressively harder milestones and certificates for major accomplishments; no duplicate awards.
 19. Native UI: consistent flex-card sizes and matching scratch-pad dimensions; validate touch, audio, USB and battery operation on the physical Tab5.
-20. Curriculum: reviewed grades 1–3 math, reading and spelling with selected grade 4 skills unlocked by mastery. Exact coverage and thresholds require teacher acceptance.
+20. Curriculum: ship four complete grade-level learning paths (grades 1–4), with reviewed mathematics, English language arts (reading, writing and spelling), science and social studies. All four years of required core material must be available offline at initial delivery. Every grade/subject path includes progressively harder achievements and designated major accomplishment certificates. Advance independently by skill and subject. See [CURRICULUM_RELEASE.md](CURRICULUM_RELEASE.md); exact standards editions, alignment and mastery thresholds require educator review.
 
 ### Release evidence
 
