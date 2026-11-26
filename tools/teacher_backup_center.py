@@ -81,9 +81,10 @@ class BackupCenter:
                       f'<input type="hidden" name="digest" value="{escape(digest)}">'
                       f'<input type="hidden" name="proof" value="{escape(proof)}">'
                       '<button name="action" value="restore">Confirm restore</button></form></section>')
-        return (f'<p class="notice">TEST MODE — synthetic data only. Archives are NOT encrypted.</p>'
+        return (f'<p class="notice">TEST MODE — synthetic data only. Legacy .plta archives are NOT encrypted.</p>'
                 f'<p role="status">{escape(notice)}</p>'
                 '<section><h2>Teaching materials</h2><p>Includes all versions of your saved text flashcards.</p>'
+                '<p><a href="/backups/protected">Create or restore encrypted backups (test)</a></p>'
                 f'<p>Configured location: {escape(str(folder))}</p>'
                 f'<form method="post" action="/backups">{hidden}'
                 '<button name="action" value="save">Back up my flashcards</button></form></section>'

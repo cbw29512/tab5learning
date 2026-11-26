@@ -180,3 +180,6 @@ Added optional test-only dashboard backup/restore UI with locally configured ind
 
 ## M3 portable protected archive candidate
 Corrected malformed prior WSGI test assertion and PermissionError handling in backup center. Added AES-256-GCM PLTE v1 envelope and protected independent file service with separately retained generated recovery key, no plaintext staging, exact digest preview/confirmed restore. Added dependency and regression tests for tampering, wrong key, separate store, owner scope and confirmation. Latest CI pending; prior UI #378/#51 running at inspection. Browser remains synthetic plaintext until protected key UX is integrated. Production security, student evidence, media streaming and Windows recovery still open; no firmware changes.
+
+## M3 encrypted backup center integration
+Implemented synthetic protected browser key generation/retention confirmation, encrypted save, locked listing, key-required preview and exact-digest confirmed restore. No key stored in database or archive folder, no key echo after save/preview. Regression covers CSRF, key mismatch, proof failure, wrong key, separate owner and restore retry. Confirmed cryptography 50.0.2 distribution exists; CI #380/#52 pending at inspection, new CI pending. No actual child records, hardware writes or production readiness. Student progress protected archive and Windows recovery next.
