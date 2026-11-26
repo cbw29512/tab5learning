@@ -40,3 +40,17 @@ Test with representative early readers and teachers, record completion, assistan
 7. Observed usability, hardware/security tests and installable release.
 
 Track every gate as not tested, failed, or passed with evidence. No claim of full usability until observed tasks pass.
+
+## Mandatory simplicity requirement — user reaffirmed November 26
+Ease of use is a release gate, not optional polish. The intended users are children in grades 1–3 and teachers without technical training. Development commands, Git, PowerShell, Python, COM port numbers, cryptographic key management and firmware terminology must not be prerequisites for routine classroom use. Technical maintenance remains separate and restricted.
+
+- Teacher installation: a guided Windows installer and desktop shortcut to Teacher Studio; open the local browser automatically; clear setup instructions, no manual dependency installation or terminal.
+- First assignment: connect the device, select or create the student, confirm the association, then a guided setup action performs permitted security checks and reports verified success. Do not bypass credential or identity verification to reduce clicks.
+- Routine classroom use: connect via USB, recognize the assigned device, show pending lessons and student work, and offer one primary Sync action with visible progress and a verified result. If several devices are present, require explicit correct-device selection. Never sync the wrong student's work.
+- Authoring: visual editor with simple text fields, add/remove cards, preview, save, assign; CSV import optional. Common tasks must not require structured file editing.
+- Recovery: teacher-facing plain-language errors and safe next steps, preserve work, no automatic factory reset, no repeated transfers after ambiguous results without reconciliation. Technical diagnostics available only to authorized maintenance users.
+- Child experience: power on directly to personal dashboard or resumed work, no student login or configuration; prominent Start/Continue, clear consistent large touch controls, simple instructions, immediate nonblocking feedback.
+- Do not expose developer setup, key preparation/migration buttons, raw protocol status, or COM selection as the normal release workflow. Existing prototype UI is transitional; describe progress honestly. Keep detailed technical evidence in restricted maintenance tools/logs, not the default dashboard.
+- Before release, demonstrate installation, first assignment, lesson creation, USB synchronization, disconnect recovery, work review and ordinary child use with representative nontechnical users; observe independent completion and errors against the acceptance tasks above. No release-ready claim based on code tests alone.
+
+When adding a feature, document the ordinary user task, primary action, success confirmation and failure recovery alongside the underlying data and security design. Prefer consolidating technical steps into a guided workflow over adding separate exposed controls.
