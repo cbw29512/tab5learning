@@ -14,9 +14,10 @@ struct nvs_stats_t { std::size_t total_entries=0; };
 namespace FakeNvs {
 using Bytes=std::vector<std::uint8_t>;
 inline std::map<std::string,std::map<std::string,Bytes>> records;
+inline int writes_before_full=-1;
 inline bool fail_open=false,fail_read=false,fail_write=false,ambiguous=false,full=false;
 inline void reset() {
-  records.clear(); fail_open=fail_read=fail_write=ambiguous=full=false;
+  records.clear(); writes_before_full=-1; fail_open=fail_read=fail_write=ambiguous=full=false;
 }
 inline const char* space(nvs_handle_t h) { return h==1?"pljournal":"pocketlearn"; }
 }
@@ -36,7 +37,8 @@ inline esp_err_t nvs_get_blob(nvs_handle_t h,const char* key,void* dst,std::size
   *n=it->second.size(); std::memcpy(dst,it->second.data(),*n); return ESP_OK;
 }
 inline esp_err_t nvs_set_blob(nvs_handle_t h,const char* key,const void* src,std::size_t n) {
-  if(FakeNvs::full) return ESP_ERR_NVS_NOT_ENOUGH_SPACE;
+  if(FakeNvs::full||FakeNvs::writes_before_full==0) return ESP_ERR_NVS_NOT_ENOUGH_SPACE;
+  if(FakeNvs::writes_before_full>0) --FakeNvs::writes_before_full;
   if(FakeNvs::fail_write) return ESP_FAIL;
   auto p=static_cast<const std::uint8_t*>(src);
   FakeNvs::records[FakeNvs::space(h)][key]={p,p+n}; return ESP_OK;

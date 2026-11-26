@@ -57,3 +57,21 @@ records; no overwrite or delete operations. Reads use a transaction and
 revalidate digest and replay. No browser route, device restore, encrypted
 production storage or authenticated device origin; do not use real student
 data. This is an internal reference for a future authorized import.
+
+## Non-destructive device restore candidate
+
+Internal synthetic restore image: existing snapshot manifest plus immutable
+staged length-prefixed V1 record bytes, maximum 4096 records. Caller must
+retain exclusive ownership of the staged buffer for the synchronous call,
+and authenticate identity and the complete input before invoking it.
+Preflight validates all bytes, exact terminal checkpoint, identical legacy
+base and exact persisted prefix. Older history and conflicts are rejected;
+no writes on invalid preflight. Only missing suffix records can be appended.
+Each record uses the existing NVS commit and exact readback. Full storage or
+ambiguous commit leaves a recoverable prefix; the caller must rerun journal
+recovery before retrying, and may not acknowledge full restore until Complete.
+An exact replay is a no-op. The multi-record operation is resumable, not atomic
+as a whole. No automatic legacy base installation on a blank device. The
+candidate does not allocate staging memory, implement a USB command, verify
+device identity, provision a student or authorize restoration. Not for real
+student data. Physical capacity and power loss remain release gates.

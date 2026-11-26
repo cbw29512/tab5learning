@@ -9,6 +9,7 @@ enum class JournalFailure { None, Full, Storage, Conflict };
 // Synthetic preview: retain V1 records and use physical slot numbers, not
 // logical attempt IDs, after a legacy checkpoint migration.
 class MathJournal {
+  friend class MathJournalRestorer;
   nvs_handle_t handle=0;
   bool opened=false, ready=false, exporting=false;
   unsigned last=0, limit=0;
