@@ -222,12 +222,15 @@ void setup() {
   auto cfg=M5.config();
   M5.begin(cfg);
   Serial.begin(115200);
-  // Use the board library for orientation and touch transformation.
+  // Match the physical display probe: let the panel settle before drawing.
+  delay(2000);
   if (M5.Display.width()<M5.Display.height()) M5.Display.setRotation(1);
-  // Physical Tab5 acceptance: default landscape was upside down on the stand.
-  // Rotate by 180 degrees while keeping M5GFX's touch transformation.
-  M5.Display.setRotation((M5.Display.getRotation()+2)%4);
-  Serial.printf("DISPLAY_ROTATION,%u\n",unsigned(M5.Display.getRotation()));
+  M5.Display.setBrightness(128);
+  // Probe B (rotation 3) was confirmed upright on the user's Tab5 stand.
+  // Select it explicitly instead of toggling relative to an unknown default.
+  M5.Display.setRotation(3);
+  Serial.printf("DISPLAY_ROTATION,%u,brightness=%u\n",
+      unsigned(M5.Display.getRotation()), unsigned(M5.Display.getBrightness()));
   geometry_ok=M5.Display.width()==1280 && M5.Display.height()==720;
   if (!geometry_ok) {
     Serial.println("ERR,UNEXPECTED_DISPLAY_GEOMETRY");
