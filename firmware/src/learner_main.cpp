@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include "learner_layout.h"
+#include "learner_usb_identity.h"
 #include "display_startup_refresh.h"
 #include "math_practice.h"
 #include "math_journal.h"
@@ -257,6 +258,7 @@ void setup() {
 
 void loop() {
   M5.update();
+  learner_usb_identity_poll();
   const bool touching=M5.Touch.getCount()>0;
   // Stop retries immediately when a learner interacts; never overwrite ink.
   if (touching) startup_refresh.cancel();
