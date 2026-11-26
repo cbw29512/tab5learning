@@ -90,8 +90,8 @@ class BackupCenter:
                 '<button name="action" value="save">Back up my flashcards</button></form></section>'
                 f'{review}<section><h2>Archive history (up to {MAX_FILES})</h2>'
                 f'<ul>{"".join(rows) or "<li>No readable archives found</li>"}</ul></section>'
-                '<section><h2>Student progress</h2><p>Not yet available. Authenticated USB '
-                'and protected student archives must pass verification first.</p></section>'
+                '<section><h2>Student progress</h2><p><a href="/backups/students">Open encrypted student mathematics backups (test)</a></p>'
+                '<p>Host archive only; authenticated USB and complete student archives remain pending.</p></section>'
                 '<p><a href="/">Return to dashboard</a></p>')
 
     def handle(self, token, csrf, key, data):
