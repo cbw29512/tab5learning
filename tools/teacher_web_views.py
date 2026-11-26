@@ -22,11 +22,12 @@ def page(title, body, notice=""):
             f'<main><h1>{escape(title)}</h1>{banner}{body}</main></body></html>')
 
 
-def login(notice="", *, test_mode=False):
+def login(notice="", *, test_mode=False, csrf=""):
     if test_mode:
         notice = "TEST MODE — synthetic data only. " + notice
-    return page("Teacher sign in", """
+    return page("Teacher sign in", f"""
     <section><form method="post" action="/login">
+    <input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">
     <label for="username">Username</label>
     <input id="username" name="username" required maxlength="64" autocomplete="username">
     <label for="password">Password</label>
