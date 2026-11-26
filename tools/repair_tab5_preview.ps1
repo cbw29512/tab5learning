@@ -4,6 +4,7 @@ param(
     [Parameter(Mandatory=$true)][string]$ExpectedMac,
     [Parameter(Mandatory=$true)][string]$Revision,
     [string]$Port = "COM5",
+    [switch]$SyntheticAuthProbe,
     [switch]$Install
 )
 $ErrorActionPreference = "Stop"
@@ -23,11 +24,17 @@ try {
     if ($LASTEXITCODE -ne 0 -or $head -ne $Revision) { throw "Unexpected source revision." }
     $dirty = git -C $repo status --porcelain
     if ($LASTEXITCODE -ne 0 -or $dirty) { throw "Working tree not clean." }
-    Write-Host "=== BUILD VERIFIED SOURCE REVISION ==="
-    & $pio run -d "$repo\firmware" -e learner_factory_preview
+    # Explicit opt-in: this isolated public-key test is not a learner release.
+    $environment = "learner_factory_preview"
+    if ($SyntheticAuthProbe) {
+        $environment = "auth_usb_probe"
+        Write-Warning "Synthetic authentication probe only. Learner screen will be unavailable until restored. No student data transfer."
+    }
+    Write-Host "=== BUILD VERIFIED SOURCE REVISION: $environment ==="
+    & $pio run -d "$repo\firmware" -e $environment
     if ($LASTEXITCODE -ne 0) { throw "Build failed." }
 
-    $build = "$repo\firmware\.pio\build\learner_factory_preview"
+    $build = "$repo\firmware\.pio\build\$environment"
     $app = "$build\firmware.bin"
     $table = [IO.File]::ReadAllBytes("$build\partitions.bin")
     $old = [IO.File]::ReadAllBytes($Backup)
@@ -75,7 +82,11 @@ try {
     Write-Host "=== APPLICATION-ONLY REPAIR ==="
     & $python $esptool --chip esp32p4 --port $Port --baud 460800 write-flash 0x10000 $app
     if ($LASTEXITCODE -ne 0) { throw "Flash write failed." }
-    Write-Host "FLASH VERIFIED; physical display, touch and reboot acceptance pending."
+    if ($SyntheticAuthProbe) {
+        Write-Host "PROBE FLASH VERIFIED; synthetic handshake and learner restoration still pending."
+    } else {
+        Write-Host "FLASH VERIFIED; physical display, touch and reboot acceptance pending."
+    }
 } catch {
     Write-Error "REPAIR STOPPED: $($_.Exception.Message)"
     exit 1
