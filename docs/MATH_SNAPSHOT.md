@@ -22,3 +22,21 @@ the exact bytes, identity, versions, authorization and integrity; CRC is not an
 authentication mechanism. Never erase device records to free space until a
 separately verified backup and retention policy authorize it. No flash
 partition changes, learner UI changes or real student data in this slice.
+
+## Host preview container (V1)
+
+The local candidate format uses magic bytes PLMB followed by version byte 1,
+base and final 16-byte V1 checkpoints, a little-endian uint32 record count,
+then ordered records each prefixed by a little-endian uint16 byte length,
+and a trailing SHA-256 of all preceding bytes. Order implies physical slot.
+The host implementation independently validates original V1 record CRCs,
+ink bounds, question/choice scoring, sequential checkpoints and final state.
+Nonzero base remains summary-only progress. Host preview limit 4096 records,
+each 28–2588 bytes; this is a parser resource bound, not a retention policy.
+No unbounded file read is implemented.
+
+The container is intentionally not an authenticated or production backup:
+no identity, encryption, transport authorization or persistent file storage is
+implemented here. SHA-256 does not establish provenance. Never expose this
+codec as a teacher import or restore route without the protected identity and
+authorization layer. No device or teacher database changes.
