@@ -144,3 +144,6 @@ User explicitly requires sufficient material to take a child through grades 1–
 
 ## M4 AI-assisted bulk flashcard guide
 User requires minimum-effort AI bulk flashcard creation for teachers across subjects. Added authenticated local dashboard link, copyable configurable-by-editing prompt, paste CSV, complete escaped preview, explicit save with session-bound exact-input proof; existing bounded CSV validator and deck store reused. No AI network calls, no private student information shared, no device assignment or sync. Added helper and WSGI regression tests; CI pending. Metadata fields, large-deck editor, native offline review, USB transfers and durable results remain open.
+
+## M4 configurable AI prompt builder
+Implemented grade 1–4, subject, card count 1–100 and bounded optional teaching notes in the authenticated bulk UI. Generates prompt locally, no external call or persistence of notes. Normalizes CRLF/LF/CR before preview/save to preserve exact canonical content across browser submission. Regression added for all subjects/grades, bounds, escaping, authorization, generate without save and newline roundtrip. CI pending; previous bulk CI #359 running / native #40 pending at inspection. Large-deck editing, structured metadata, native review and authenticated USB still open. No firmware change.

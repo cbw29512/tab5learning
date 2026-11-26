@@ -243,3 +243,14 @@ class TeacherWebTests(unittest.TestCase):
         self.assertEqual(self.call("/decks/bulk", dict(form, action="save", proof=proof, csrf="bad"))[0], 403)
         self.assertEqual(self.call("/decks/bulk", dict(form, action="save", proof=proof))[0], 200)
         self.assertIn("Bulk science", self.call()[2])
+
+    def test_bulk_prompt_generation(self):
+        csrf = self.login()
+        form = dict(csrf=csrf, action="generate", grade="4", subject="Science",
+                    count="50", notes="Parts of a plant")
+        self.assertEqual(self.call("/decks/bulk", dict(form, csrf="bad"))[0], 403)
+        status, _, page = self.call("/decks/bulk", form)
+        self.assertEqual(status, 200)
+        self.assertIn("50 age-appropriate study flashcards for Grade 4 Science", page)
+        self.assertIn("Parts of a plant", page)
+        self.assertIn("No saved decks", self.call()[2])

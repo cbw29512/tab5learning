@@ -7,11 +7,12 @@ from html import escape
 from uuid import uuid4
 
 from tools.flashcard_deck import import_csv, MAX_CARDS, MAX_BYTES
+from tools.teacher_flashcard_prompt import build_prompt, prompt_panel
 
 LOG = logging.getLogger(__name__)
-AI_PROMPT = "Create 30 age-appropriate study flashcards for Grade 3 Mathematics from the lesson notes below.\nReturn ONLY valid UTF-8 CSV, with the exact header front,back.\nUse one question and one short accurate answer per row. Quote both fields using double quotes, and escape any internal double quote by doubling it.\nNo markdown, code fences, numbering, extra columns or commentary.\nUse the supplied material only. Do not invent facts. Avoid duplicate questions. Keep both sides under 120 characters where possible (500 maximum).\nIf there is not enough material for 30 accurate cards, produce fewer.\nLesson notes:\n[Paste non-sensitive teaching material here]"
+AI_PROMPT = build_prompt()
 
-def bulk_form(csrf, title="", text="", *, deck=None, proof="", error=""):
+def bulk_form(csrf, title="", text="", *, deck=None, proof="", error="", prompt_options=None):
     """Escape all generated content and require a deliberate review before save."""
     preview = ""
     if deck is not None:
@@ -25,14 +26,8 @@ def bulk_form(csrf, title="", text="", *, deck=None, proof="", error=""):
                    '<table><thead><tr><th>#</th><th>Question</th><th>Answer</th></tr>'
                    f'</thead><tbody>{rows}</tbody></table></section>')
     # Keep the original input available so teachers can correct errors.
-    return f"""<section><h2>1. Generate cards using your preferred AI</h2>
-    <p>Copy the prompt below, change the grade, subject and card count, and
-    paste your lesson material into your chosen AI tool. Do not share student
-    names, grades, work, identifiers or other private information.</p>
-    <label for="ai-prompt">Copyable prompt</label>
-    <textarea id="ai-prompt" readonly rows="12">{escape(AI_PROMPT)}</textarea>
-    <p>AI is optional. You may also paste CSV from a spreadsheet or write it yourself.
-    Teacher Studio makes no external AI requests.</p></section>
+    panel = prompt_panel(csrf, **(prompt_options or {}))
+    return panel + f"""
     <section><h2>2. Paste and preview</h2>
     <p>Use the exact front,back header. Maximum {MAX_CARDS} cards,
     {MAX_BYTES // 1024} KiB, and 500 characters per side.</p>
@@ -64,6 +59,14 @@ def handle_bulk(data, *, csrf, key, token, decks):
     """Validate and preview; persist only an explicitly reviewed exact input."""
     title, text = data.get("title", ""), data.get("csv", "")
     try:
+        if data.get("action") == "generate":
+            if set(data) != {"csrf", "grade", "subject", "count", "notes", "action"}:
+                raise ValueError("Invalid prompt form")
+            options = {k: data[k] for k in ("grade", "subject", "count", "notes")}
+            return bulk_form(csrf, prompt_options=options), False
+        # HTML textareas normalize line endings on submit. Canonicalize both
+        # preview and save so reviewed content survives the browser round trip.
+        text = text.replace("\r\n", "\n").replace("\r", "\n")
         if set(data) != {"csrf", "title", "csv", "proof", "action"}:
             raise ValueError("Invalid form")
         deck = import_csv(text, uuid4().hex, title)

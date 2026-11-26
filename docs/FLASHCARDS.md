@@ -42,3 +42,6 @@ If there is not enough material for 30 accurate cards, produce fewer.
 Lesson notes:
 [Paste non-sensitive teaching material here]
 ```
+
+### Configurable local prompt builder
+Select grade 1–4, subject (including writing and custom), and 1–100 cards per AI batch; optionally enter up to 12,000 UTF-8 bytes of non-sensitive lesson notes. Generate a copyable prompt locally, with no AI requests or storage of notes. Existing import permits up to 500 cards. Normalize CSV newline conventions before preview/save proof to avoid false mismatch from HTML form serialization. Teacher review remains mandatory in the guided workflow; legacy direct CSV import remains available. No structured deck metadata or device synchronization added.

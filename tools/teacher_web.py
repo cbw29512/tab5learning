@@ -151,7 +151,7 @@ class TeacherWeb:
                             not env.get("HTTP_ORIGIN"), env.get("HTTP_ORIGIN") == "null")
                 return self.respond(start, "403 Forbidden", views.page(
                     "Request rejected", '<p><a href="/">Return to sign in</a> and submit a fresh form.</p>'))
-            data = self.form(env, max_fields=FORM_FIELDS if path == "/decks/new" else 5)
+            data = self.form(env, max_fields=FORM_FIELDS if path == "/decks/new" else (6 if path == "/decks/bulk" else 5))
             if path == "/login":
                 if not valid_login_challenge(self.csrf_key, self.token(env, LOGIN_COOKIE), data.get("csrf")):
                     return self.login_page(start, "Login form expired. Please sign in again.", "403 Forbidden")
