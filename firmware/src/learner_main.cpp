@@ -224,6 +224,10 @@ void setup() {
   Serial.begin(115200);
   // Use the board library for orientation and touch transformation.
   if (M5.Display.width()<M5.Display.height()) M5.Display.setRotation(1);
+  // Physical Tab5 acceptance: default landscape was upside down on the stand.
+  // Rotate by 180 degrees while keeping M5GFX's touch transformation.
+  M5.Display.setRotation((M5.Display.getRotation()+2)%4);
+  Serial.printf("DISPLAY_ROTATION,%u\n",unsigned(M5.Display.getRotation()));
   geometry_ok=M5.Display.width()==1280 && M5.Display.height()==720;
   if (!geometry_ok) {
     Serial.println("ERR,UNEXPECTED_DISPLAY_GEOMETRY");
