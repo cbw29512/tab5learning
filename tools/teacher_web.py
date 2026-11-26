@@ -13,6 +13,7 @@ from tools.teacher_accounts import AccountStore
 from tools.teacher_sessions import TeacherSessions
 from tools.teacher_decks import TeacherDecks
 from tools.teacher_registry import TeacherRegistry
+from tools.teacher_device_enrollment import DeviceEnrollment
 from tools.teacher_usb_discovery import scan_usb, scan_result
 from tools.teacher_usb_identity import identify, identity_panel
 from tools.flashcard_deck import import_csv, MAX_BYTES
@@ -37,6 +38,7 @@ class TeacherWeb:
         self.sessions = TeacherSessions(self.accounts)
         self.decks = TeacherDecks(directory / "decks.sqlite", self.sessions)
         self.registry = TeacherRegistry(directory / "registry.sqlite", self.sessions) if test_mode else None
+        self.enrollment = DeviceEnrollment(directory / "credentials.sqlite", self.sessions, self.registry) if test_mode else None
         self.csrf_key = secrets.token_bytes(32)
 
     def csrf(self, token):
@@ -100,7 +102,8 @@ class TeacherWeb:
         return views.workspace(user, self.accounts.role(user),
                                self.decks.list_decks(token), self.csrf(token), notice,
                                minimum=self.accounts.minimum_password_length, test_mode=self.test_mode,
-                               assignments=self.registry.list_assignments(token) if self.registry else None)
+                               assignments=self.registry.list_assignments(token) if self.registry else None,
+                               enrollment=self.enrollment.pending(token) if self.enrollment and self.accounts.role(user) == "admin" else None)
 
     def __call__(self, env, start):
         # Exact host and origin checks prevent DNS rebinding and cross-site writes.
@@ -117,7 +120,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -149,7 +152,11 @@ class TeacherWeb:
                     raise PermissionError("USB identification is test-only")
                 self.sessions.require(token, "admin")
                 return self.respond(start, "200 OK", views.page("Learner identification", identity_panel(identify(data["port"]))))
-            if path == "/assignments":
+            if path == "/enrollment":
+                if not self.enrollment:
+                    raise PermissionError("Enrollment is test-only")
+                self.enrollment.prepare(token, data["device_id"])
+            elif path == "/assignments":
                 if not self.registry:
                     raise PermissionError("Registry is test-only")
                 self.registry.create(token, data["student_id"], data["device_id"], int(data["grade"]))
