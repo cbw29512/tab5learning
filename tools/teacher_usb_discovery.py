@@ -56,7 +56,7 @@ def scan_panel(csrf):
     <button>Scan connected devices</button></form></section>"""
 
 
-def scan_result(snapshot):
+def scan_result(snapshot, csrf=None):
     messages = {
         "detected": "ESP32 USB candidates detected",
         "empty": "No matching USB interfaces found",
@@ -65,6 +65,10 @@ def scan_result(snapshot):
     }
     rows = "".join(f"<li>{escape(port)} — USB 303A:1001</li>" for port in snapshot.ports)
     limit = "<p>Scan limit reached; results may be incomplete.</p>" if snapshot.limited else ""
+    actions = ""
+    if csrf is not None:
+        from tools.teacher_usb_identity import identity_form
+        actions = "".join(identity_form(port, csrf) for port in snapshot.ports)
     return f"""<section><h2>{messages[snapshot.status]}</h2><ul>{rows}</ul>{limit}
     <p>USB identity is not authenticated. No assignment has been synced.
-    No serial port was opened.</p><p><a href="/">Return to dashboard</a></p></section>"""
+    No serial port was opened during discovery.</p>{actions}<p><a href="/">Return to dashboard</a></p></section>"""
