@@ -136,6 +136,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_auth_wire_test.cpp -lcrypto -o /tmp/tab5-auth-wire-test
           /tmp/tab5-auth-wire-test
+      - name: Compile and run authenticated data frame reference
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_frame_session_test.cpp -lcrypto -o /tmp/tab5-frame-session-test
+          /tmp/tab5-frame-session-test
       - name: Compile and run credential storage reference tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_credential_store_test.cpp -o /tmp/tab5-credential-store-test

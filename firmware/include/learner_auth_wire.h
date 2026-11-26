@@ -1,5 +1,6 @@
 #pragma once
 #include "learner_device_auth.h"
+#include "learner_frame_session.h"
 #include <cstdio>
 
 namespace learner_auth {
@@ -34,10 +35,10 @@ inline void encode_hex(const Bytes& value,char (&out)[65]) {
 // Portable complete-frame handler, not a serial transport or write permission.
 class DeviceAuthWire {
  public:
-  void cancel() { challenge_.cancel(); ack_.fill(0); }
+  void cancel() { challenge_.cancel(); ack_.fill(0); session_.fill(0); }
   void expire(uint32_t now) {
     challenge_.expire(now);
-    if(!challenge_.pending()) ack_.fill(0);
+    if(!challenge_.pending()) {ack_.fill(0);session_.fill(0);}
   }
   bool begin(const char* frame,std::size_t len,Hmac hmac,const Bytes& key,
              const char* expected_id,const Bytes& fresh_nonce,uint32_t now,AuthLine& reply) {
@@ -50,7 +51,8 @@ class DeviceAuthWire {
     Bytes host{},device_proof{};
     if(!decode_hex(frame+7+id_len,64,host)||
        !challenge_.begin(hmac,key,expected_id,host,fresh_nonce,now,device_proof)||
-       !make_proof(hmac,key,Role::Ack,expected_id,host,fresh_nonce,ack_)) {
+       !make_proof(hmac,key,Role::Ack,expected_id,host,fresh_nonce,ack_)||
+       !derive_session_key(hmac,key,expected_id,host,fresh_nonce,session_)) {
       cancel(); return false;
     }
     char nonce_hex[65]{},proof_hex[65]{};
@@ -59,8 +61,9 @@ class DeviceAuthWire {
     if(n!=135) { cancel(); reply.fill(0); return false; }
     return true;
   }
-  bool finish(const char* frame,std::size_t len,uint32_t now,AuthLine& reply) {
+  bool finish(const char* frame,std::size_t len,uint32_t now,AuthLine& reply,Bytes* authenticated_key=nullptr) {
     reply.fill(0);
+    if(authenticated_key) authenticated_key->fill(0);
     Bytes proof{};
     if(!frame||len!=70||std::memcmp(frame,"AUTH3,",6)!=0||
        !decode_hex(frame+6,64,proof)||!challenge_.complete(proof,now)) {
@@ -68,13 +71,14 @@ class DeviceAuthWire {
     }
     char hex[65]{};
     encode_hex(ack_,hex);
-    cancel();
     const int n=std::snprintf(reply.data(),reply.size(),"AUTH4,%s",hex);
-    if(n!=70) { reply.fill(0); return false; }
+    if(n!=70) { cancel(); reply.fill(0); return false; }
+    if(authenticated_key) *authenticated_key=session_;
+    cancel();
     return true;
   }
  private:
   DeviceChallenge challenge_;
-  Bytes ack_{};
+  Bytes ack_{},session_{};
 };
 }

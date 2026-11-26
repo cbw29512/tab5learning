@@ -5,6 +5,7 @@ import re
 import time
 
 from tools.device_auth_reference import HostChallenge, proof
+from tools.device_frame_session import session_key, FrameSession
 
 LOG = logging.getLogger(__name__)
 HEX = re.compile(rb"[0-9a-f]{64}\Z")
@@ -33,11 +34,13 @@ class HostAuthWire:
         self._challenge = HostChallenge.begin(device_id, clock=clock)
         self._state = "NEW"
         self._ack = None
+        self._session_key = None
 
     def cancel(self):
         self._state = "CLOSED"
         self._key = None
         self._ack = None
+        self._session_key = None
         self._challenge.consumed = True
 
     def _require(self, state):
@@ -62,6 +65,8 @@ class HostAuthWire:
             host_proof = self._challenge.complete(self._key, nonce, device_proof, clock=self._clock)
             self._ack = proof(self._key, "ack", self._challenge.device_id,
                               self._challenge.host_nonce, nonce)
+            self._session_key = session_key(self._key, self._challenge.device_id,
+                                            self._challenge.host_nonce, nonce)
             self._key = None
             self._state = "WAIT_ACK"
             return b"AUTH3," + host_proof.hex().encode("ascii")
@@ -70,13 +75,13 @@ class HostAuthWire:
             LOG.warning("Device authentication frame rejected")
             raise
 
-    def receive_ack(self, frame):
+    def receive_ack(self, frame, *, open_session=False):
         try:
             self._require("WAIT_ACK")
             (receipt,) = fields(frame, b"AUTH4", 1)
             if not hmac.compare_digest(self._ack, receipt):
                 raise PermissionError("Authenticated receipt rejected")
-            return True
+            return FrameSession(self._session_key, host=True, clock=self._clock) if open_session else True
         except Exception:
             LOG.warning("Authentication receipt rejected")
             raise

@@ -189,3 +189,6 @@ Added encrypted identity-bound PLSE v1 archive and scoped independent file expor
 
 ## M2/M3 student archive dashboard integration
 Implemented student selection, scoped generated-key confirmation, encrypted host mathematics backup, locked archive listing, exact digest and identity-bound restore preview/confirmation. Added WSGI regressions for wrong student/teacher/key, CSRF, missing source history and no key echo. Native #52 passed at d4b0eb83; latest host #384 still running at inspection, Python step pending. New CI pending. No physical writes, USB sync or actual child records. Next authenticated read-only math snapshot transfer and microSD recovery, with production data security gates.
+
+## M8 authenticated USB data frame foundation
+Native #55 passed at 52a0bd92; host #386 still running. Added separate transcript-bound session key derivation, optional verified handshake handoff, paired C++/Python directional frame MAC codecs, expiry and fail-closed ordering. Existing handshake-only transport unchanged; no new USB data dispatch. Tests added for replay, tamper, expiry, reflection, order and invalid handshake. Latest CI pending. Snapshot streaming, operation authorization, confidentiality, cross-language fixture, physical USB and protected provisioning remain open. No device writes.
