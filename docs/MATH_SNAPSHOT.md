@@ -40,3 +40,20 @@ no identity, encryption, transport authorization or persistent file storage is
 implemented here. SHA-256 does not establish provenance. Never expose this
 codec as a teacher import or restore route without the protected identity and
 authorization layer. No device or teacher database changes.
+
+## Durable host preview archive
+
+Separate synthetic SQLite database, explicit test-mode construction only.
+Current TeacherRegistry planned assignment and active TeacherSessions gate
+every save/load; a planned assignment is not proof of device identity.
+Tables: device/student/base checkpoint (one-to-one), immutable ordered
+attempt bytes (device, slot), immutable receipt (device, count, final,
+container SHA-256, actor, timestamp). Historical receipts reconstruct exact
+prefix snapshots without duplicating attempt BLOBs. Begin immediate -> verify
+existing head and row count -> verify exact prefix extension or exact retry
+-> append new records and receipt -> re-encode/readback -> commit. Reject
+unknown older prefixes, divergent ink, base changes, wrong scope or damaged
+records; no overwrite or delete operations. Reads use a transaction and
+revalidate digest and replay. No browser route, device restore, encrypted
+production storage or authenticated device origin; do not use real student
+data. This is an internal reference for a future authorized import.
