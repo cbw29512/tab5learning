@@ -38,11 +38,15 @@ class NativeProbeTests(unittest.TestCase):
         self.assertTrue(port.closed)
 
     def test_absent_or_invalid_port_never_opened(self):
+        calls = []
+
         def factory(**kw):
-            self.fail("Unexpected serial open")
+            calls.append(kw)
+            raise OSError("Unexpected serial open")
         for name in ("COM5", "COM5;RESET"):
             self.assertFalse(run_probe(name, scan=lambda: UsbSnapshot("empty"),
                                        serial_factory=factory))
+        self.assertEqual(calls, [])
 
     def test_failure_closes_port(self):
         port = Port()
