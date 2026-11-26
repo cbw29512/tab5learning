@@ -44,7 +44,8 @@ class ReadingRecording {
     return true;
   }
   void interrupt() {
-    if(state_==RecordingState::Recording) state_=RecordingState::Incomplete;
+    if(state_==RecordingState::Recording || state_==RecordingState::Review)
+      state_=RecordingState::Incomplete;
   }
   // Call only after hardware capture has fully stopped. Wipe volatile evidence.
   bool discard(bool hardware_idle) {
