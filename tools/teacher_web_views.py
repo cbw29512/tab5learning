@@ -1,5 +1,6 @@
 """Escaped, offline HTML for the local Teacher Studio prototype."""
 from html import escape
+from tools.teacher_registry_views import registry_panel
 
 STYLE = """
 *{box-sizing:border-box}body{margin:0;background:#f4f6fa;color:#17233a;
@@ -37,7 +38,7 @@ def login(notice="", *, test_mode=False, csrf=""):
     </section>""", notice)
 
 
-def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False):
+def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None):
     if test_mode:
         notice = "TEST MODE — synthetic data only. " + notice
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
@@ -49,6 +50,8 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
         <label for="newpass">Initial password ({minimum}+ characters)</label>
         <input id="newpass" name="password" type="password" required minlength="{minimum}" maxlength="256"
         autocomplete="new-password"><button>Create teacher</button></form></section>"""
+    devices = (registry_panel(assignments, csrf) if assignments is not None else
+               "<section><h2>Device and student management</h2><p>Available in isolated test mode only.</p></section>")
     return page("Teacher dashboard", f"""
     <p>Signed in as {escape(username)} ({escape(role)})</p>
     <section><h2>Flashcard library</h2><ul>{rows or '<li>No saved decks</li>'}</ul>
@@ -58,7 +61,5 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     <textarea id="csv" name="csv" rows="8" required>front,back
 </textarea><button>Validate and save deck</button></form></section>
     {admin}
-    <section><h2>Device and student management</h2>
-    <p>USB assignment, progress review, corrections and recovery are not enabled in this prototype.</p>
-    </section><form method="post" action="/logout">{hidden}<button>Sign out</button></form>
+    {devices}<form method="post" action="/logout">{hidden}<button>Sign out</button></form>
     """, notice)
