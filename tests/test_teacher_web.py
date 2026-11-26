@@ -229,3 +229,17 @@ class TeacherWebTests(unittest.TestCase):
         csrf = self.login("teacher1", "5678")
         self.assertEqual(self.call("/protect-credential", dict(form, csrf=csrf))[0], 403)
         protector.protect.assert_called_once()
+
+    def test_bulk_flashcards_review_before_save(self):
+        self.assertIn("Teacher sign in", self.call("/decks/bulk")[2])
+        csrf = self.login()
+        self.assertIn("Copyable prompt", self.call("/decks/bulk")[2])
+        form = dict(csrf=csrf, title="Bulk science", csv="front,back\nSun,star", proof="", action="preview")
+        status, _, page = self.call("/decks/bulk", form)
+        self.assertEqual(status, 200)
+        self.assertIn("Review 1 cards", page)
+        self.assertNotIn("Bulk science", self.call()[2])
+        proof = re.search(r'name="proof" value="([a-f0-9]{64})"', page).group(1)
+        self.assertEqual(self.call("/decks/bulk", dict(form, action="save", proof=proof, csrf="bad"))[0], 403)
+        self.assertEqual(self.call("/decks/bulk", dict(form, action="save", proof=proof))[0], 200)
+        self.assertIn("Bulk science", self.call()[2])

@@ -22,6 +22,7 @@ from tools.teacher_usb_identity import identify, identity_panel
 from tools.flashcard_deck import import_csv, MAX_BYTES
 from tools.teacher_deck_editor import Draft, editor, handle_editor, FORM_FIELDS
 from tools import teacher_web_views as views
+from tools.teacher_bulk_flashcards import bulk_form, handle_bulk
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
                                         login_challenge, valid_login_challenge)
 
@@ -131,13 +132,19 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
+            if method == "GET" and path == "/decks/bulk":
+                try:
+                    self.sessions.require(token)
+                except PermissionError:
+                    return self.login_page(start)
+                return self.respond(start, "200 OK", views.page("Bulk flashcards", bulk_form(self.csrf(token))))
             if method == "GET" and path == "/decks/new":
                 try:
                     self.sessions.require(token)
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", views.page("Create flashcards", editor(Draft.new(), self.csrf(token))))
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit", "/decks/bulk"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -156,6 +163,12 @@ class TeacherWeb:
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
                 raise PermissionError("CSRF mismatch")
+            if path == "/decks/bulk":
+                body, saved = handle_bulk(data, csrf=self.csrf(token), key=self.csrf_key,
+                                          token=token, decks=self.decks)
+                if saved:
+                    return self.respond(start, "200 OK", self.dashboard(token, "Flashcard deck saved successfully."))
+                return self.respond(start, "200 OK", views.page("Bulk flashcards", body))
             if path == "/decks/edit":
                 try:
                     draft = Draft.existing(self.decks.latest(token, data["deck_id"]))

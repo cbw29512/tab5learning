@@ -26,3 +26,19 @@ Teacher-authored or imported supplemental decks are extra credit by default. Ass
 
 ## Visual deck revision
 Teacher selects Edit on a saved deck (latest version only), modifies existing text, previews and saves. Draft carries deck ID and base version. Server rechecks access and base version in a single transaction before appending version + 1; stale submissions retain draft and instruct teacher to reopen latest, never silently overwrite. Original author remains owner, including administrator edits. Old versions remain available to exact-version consumers; dashboard shows latest only. Card IDs of unchanged front/back pairs are retained in original occurrence order; changed/new cards receive fresh IDs. Review evidence must remain pinned to deck/version/card, not inferred across edits. Editor supports up to 25 cards; larger imported decks cannot be edited by this slice, and must not be truncated. No actual assignment, approval, or USB transfer. Existing creation and optional CSV routes remain available.
+
+## AI-assisted bulk authoring (required)
+Teacher Studio provides a local copyable prompt for any grade/subject, a paste-CSV form, bounded validation, full preview and explicit save. Teachers may use their preferred external AI or a local model independently; never share student information. No AI account/API/network dependency in Teacher Studio or Tab5. Prompt uses existing exact front,back CSV format, max 500 cards and 512 KiB, max 500 characters per side. Preview proof binds exact input to session; modified content must be reviewed again. Save creates a text deck, not a device assignment or certification of accuracy. Teacher reviews facts and suitability. Existing manual editor and CSV importer remain. Subject/grade metadata and paginated editing of large decks remain open; use a descriptive title in this slice. No changes to native firmware.
+
+Copyable starter prompt:
+
+```text
+Create 30 age-appropriate study flashcards for Grade 3 Mathematics from the lesson notes below.
+Return ONLY valid UTF-8 CSV, with the exact header front,back.
+Use one question and one short accurate answer per row. Quote both fields using double quotes, and escape any internal double quote by doubling it.
+No markdown, code fences, numbering, extra columns or commentary.
+Use the supplied material only. Do not invent facts. Avoid duplicate questions. Keep both sides under 120 characters where possible (500 maximum).
+If there is not enough material for 30 accurate cards, produce fewer.
+Lesson notes:
+[Paste non-sensitive teaching material here]
+```
