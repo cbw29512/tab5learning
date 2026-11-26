@@ -137,7 +137,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", views.page("Create flashcards", editor(Draft.new(), self.csrf(token))))
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -156,11 +156,17 @@ class TeacherWeb:
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
                 raise PermissionError("CSRF mismatch")
+            if path == "/decks/edit":
+                try:
+                    draft = Draft.existing(self.decks.latest(token, data["deck_id"]))
+                except ValueError as exc:
+                    return self.respond(start, "200 OK", self.dashboard(token, str(exc)))
+                return self.respond(start, "200 OK", views.page("Edit flashcards", editor(draft, self.csrf(token))))
             if path == "/decks/new":
                 draft, preview, error, saved = handle_editor(data, self.csrf(token), self.decks, token)
                 if saved:
                     return self.respond(start, "200 OK", self.dashboard(token, "Flashcard deck saved successfully."))
-                return self.respond(start, "200 OK", views.page("Create flashcards", editor(draft, self.csrf(token), preview=preview, error=error)))
+                return self.respond(start, "200 OK", views.page("Edit flashcards" if draft.base_version else "Create flashcards", editor(draft, self.csrf(token), preview=preview, error=error)))
             if path == "/logout":
                 self.sessions.logout(token)
                 return self.redirect(start, clear=True)
