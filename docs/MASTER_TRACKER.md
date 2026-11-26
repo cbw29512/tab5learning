@@ -171,3 +171,6 @@ User requires saving both children's progress and teacher-created content. Added
 
 ## M3 synthetic teacher-material archive foundation
 Implemented bounded PLTA v1 codec, owner-only all-version text-deck export, preview and explicitly confirmed atomic restore. Reject corrupt archives, wrong owners, conflicts and missing versions; preserve newer versions and exact retries. Added synthetic tests for independent stores, rollback, scope and integrity. No archive file persistence, encryption, UI or student data; production backup gate remains open. CI pending; battery revision #371/#47 running at inspection.
+
+## M3 independent teaching archive files
+Added synthetic-only bounded archive file persistence outside teacher workspace, same-directory staging, flush/readback, no-replace publication, post-publication verification and exact-digest restore preview/approval. Regression tests for separate store roundtrip, old backup preserved, failed publication, corrupt/changed file, wrong owner and unauthorized session. CI pending; prior archive #374 and native #49 still running at inspection. Windows and removable-media power loss acceptance, encryption, UI, full assets and student backup/USB remain open. No actual student data or device writes.
