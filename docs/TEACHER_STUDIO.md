@@ -4,3 +4,7 @@ State: logged out -> first admin setup (empty account DB only) or login -> authe
 ## Local browser MVP slice
 
 Run from repository root with Python 3.12: `python -m tools.run_teacher_web --bootstrap` only if the existing account DB is empty; then `python -m tools.run_teacher_web`. Open http://127.0.0.1:8765/ on the same computer. Existing desktop accounts and decks are shared; use one interface at a time. Bootstrap is console-only. No internet or extra dependencies required. The web adapter validates exact host/origin, uses HttpOnly SameSite cookies and session-bound CSRF tokens, bounds form input, escapes deck titles, and reuses role checks and expiration. Local HTTP is not a deployment configuration for shared networks; do not expose the port. Use synthetic content only. No web flash/reset/SSH endpoints, USB assignment, grading or student data upload yet. Regression tests: `python -m unittest discover -s tests -p test_teacher_web.py -v`. Browser acceptance and CI results pending.
+
+## Local testing credentials
+
+For synthetic-data testing, run `python -m tools.run_teacher_web --test --bootstrap` once, then `python -m tools.run_teacher_web --test`. Test mode accepts passwords of four or more characters, displays a TEST MODE notice, and uses the separate PocketLearningStudioTest directory. Normal mode retains the 15-character minimum and existing account/deck directory. No default password is installed; all credentials are still hashed, and role checks, lockouts and loopback restrictions remain active. Do not use real student data in test mode.
