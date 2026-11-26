@@ -20,6 +20,7 @@ int main() {
   const std::string start="AUTH1,tab5-001,"+hex(host);
   assert(make_proof(openssl_hmac,key,Role::Host,"tab5-001",host,nonce,hp));
   assert(make_proof(openssl_hmac,key,Role::Ack,"tab5-001",host,nonce,ack));
+  assert(hex(ack)=="b391bba6685d02932b43941c3c191ac3760dd2b569f4b394602846ae0b1a9c67");
   const std::string finish="AUTH3,"+hex(hp);
   DeviceAuthWire wire;
   AuthLine reply{};
