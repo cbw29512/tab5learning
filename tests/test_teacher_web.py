@@ -153,3 +153,23 @@ class TeacherWebTests(unittest.TestCase):
             csrf = self.login("teacher1", "5678")
             self.assertEqual(self.call("/usb-scan", {"csrf":csrf})[0], 403)
             scan.assert_called_once()
+
+    def test_usb_identification_authorization(self):
+        from unittest.mock import patch
+        from tools.teacher_usb_identity import IdentityResult
+        csrf = self.login()
+        with patch("tools.teacher_web.identify", return_value=IdentityResult("responding", "COM5")) as probe:
+            self.assertEqual(self.call("/usb-identify", {"csrf":csrf,"port":"COM5"})[0], 403)
+            self.app = TeacherWeb(Path(self.temp.name) / "identity-test", test_mode=True)
+            self.app.accounts.create("admin", "1234", "admin", bootstrap=True)
+            csrf = self.login("admin", "1234")
+            self.assertEqual(self.call("/usb-identify", {"csrf":"bad","port":"COM5"})[0], 403)
+            probe.assert_not_called()
+            status, _, page = self.call("/usb-identify", {"csrf":csrf,"port":"COM5"})
+            self.assertEqual(status, 200)
+            self.assertIn("Learner protocol v1 responding", page)
+            self.assertIn("NOT authenticated", page)
+            self.assertEqual(self.call("/teachers", {"csrf":csrf,"username":"teacher1","password":"5678"})[0], 303)
+            csrf = self.login("teacher1", "5678")
+            self.assertEqual(self.call("/usb-identify", {"csrf":csrf,"port":"COM5"})[0], 403)
+            probe.assert_called_once_with("COM5")
