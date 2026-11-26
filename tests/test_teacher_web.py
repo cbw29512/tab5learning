@@ -133,3 +133,23 @@ class TeacherWebTests(unittest.TestCase):
         self.assertIn("student-001", self.call()[2])
         self.assertEqual(self.call("/assignments", form)[0], 400)
         self.assertEqual(self.call("/assignments", dict(form, student_id="s2", device_id="d2", grade="4"))[0], 400)
+
+    def test_usb_scan_admin_test_mode_only(self):
+        from unittest.mock import patch
+        from tools.teacher_usb_discovery import UsbSnapshot
+        csrf = self.login()
+        with patch("tools.teacher_web.scan_usb", return_value=UsbSnapshot("detected", ("COM5",))) as scan:
+            self.assertEqual(self.call("/usb-scan", {"csrf":csrf})[0], 403)
+            self.app = TeacherWeb(Path(self.temp.name) / "usb-test", test_mode=True)
+            self.app.accounts.create("admin", "1234", "admin", bootstrap=True)
+            csrf = self.login("admin", "1234")
+            self.assertEqual(self.call("/usb-scan", {"csrf":"bad"})[0], 403)
+            scan.assert_not_called()
+            status, _, page = self.call("/usb-scan", {"csrf":csrf})
+            self.assertEqual(status, 200)
+            self.assertIn("COM5", page)
+            self.assertIn("No assignment has been synced", page)
+            self.assertEqual(self.call("/teachers", {"csrf":csrf,"username":"teacher1","password":"5678"})[0], 303)
+            csrf = self.login("teacher1", "5678")
+            self.assertEqual(self.call("/usb-scan", {"csrf":csrf})[0], 403)
+            scan.assert_called_once()
