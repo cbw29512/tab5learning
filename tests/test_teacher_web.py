@@ -1,4 +1,5 @@
 import io
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -31,8 +32,14 @@ class TeacherWebTests(unittest.TestCase):
             self.cookie = headers["Set-Cookie"].split(";")[0]
         return int(status.split()[0]), headers, result
 
-    def login(self, user="admin", password="synthetic-admin-pass"):
-        status, headers, _ = self.call("/login", {"username": user, "password": password})
+    def login_form(self, user="admin", password="synthetic-admin-pass"):
+        status, _, page = self.call("/login")
+        self.assertEqual(status, 200)
+        proof = re.search(r'name="csrf" value="([a-f0-9]{64})"', page).group(1)
+        return {"username": user, "password": password, "csrf": proof}
+
+    def login(self, user="admin", password="synthetic-admin-pass", **headers_override):
+        status, headers, _ = self.call("/login", self.login_form(user, password), **headers_override)
         self.assertEqual(status, 303)
         self.assertIn("HttpOnly", headers["Set-Cookie"])
         self.assertIn("SameSite=Strict", headers["Set-Cookie"])
@@ -93,8 +100,21 @@ class TeacherWebTests(unittest.TestCase):
         status, headers, _ = self.call()
         self.assertEqual(status, 200)
         self.assertEqual(headers["Referrer-Policy"], "same-origin")
-        form = {"username":"admin","password":"synthetic-admin-pass"}
         for origin in ("null", "", "http://127.0.0.1:8765"):
-            self.assertEqual(self.call("/login", form, HTTP_ORIGIN=origin)[0], 403)
-        self.login()
+            self.assertEqual(self.call("/login", {"username":"admin","password":"synthetic-admin-pass"},
+                                       HTTP_ORIGIN=origin)[0], 403)
+        for origin in ("null", "", None):
+            csrf = self.login(HTTP_ORIGIN=origin)
+            self.assertIn("Teacher dashboard", self.call()[2])
+            self.assertEqual(self.call("/logout", {"csrf":csrf}, HTTP_ORIGIN=origin)[0], 303)
+
+    def test_login_challenge_blocks_cross_site_and_invalid_proof(self):
+        form = self.login_form()
+        self.assertEqual(self.call("/login", form, HTTP_ORIGIN="http://127.0.0.1:8765")[0], 403)
+        self.assertEqual(self.call("/login", form, HTTP_ORIGIN="null", HTTP_SEC_FETCH_SITE="cross-site")[0], 403)
+        self.assertEqual(self.call("/login", form, HTTP_ORIGIN="null", HTTP_REFERER="https://evil.example/")[0], 403)
+        form["csrf"] = "bad"
+        self.assertEqual(self.call("/login", form, HTTP_ORIGIN="null")[0], 403)
+        self.login(HTTP_ORIGIN="null")
         self.assertIn("Teacher dashboard", self.call()[2])
+
