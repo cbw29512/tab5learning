@@ -88,6 +88,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_estimated_highlight_test.cpp -o /tmp/tab5-reading-highlight-test
           /tmp/tab5-reading-highlight-test
+      - name: Compile and run oral reading recording regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_recording_test.cpp -o /tmp/tab5-reading-recording-test
+          /tmp/tab5-reading-recording-test
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
