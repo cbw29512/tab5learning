@@ -1,4 +1,7 @@
 #include "math_frame_snapshot.h"
+#ifdef TEST_PROTECTED_SNAPSHOT
+#include "openssl_gcm_fixture.h"
+#endif
 #include <openssl/hmac.h>
 #include <cassert>
 #include <fstream>
@@ -28,11 +31,20 @@ int main(int argc,char** argv){
   assert(make_math_attempt(state,1,scratch,attempt)&&journal.append(attempt,state,state));
   const auto before=FakeNvs::records;
   Bytes key{};for(unsigned i=0;i<32;++i)key[i]=i;
-  static FrameSession client,device;static SessionFrame request;
+  #ifdef TEST_PROTECTED_SNAPSHOT
+  static ProtectedFrameSession client,device;
+  #else
+  static FrameSession client,device;
+  #endif
+  static SessionFrame request;
   std::size_t n=0;uint8_t message[17]={snapshot_request};
   for(unsigned i=0;i<16;++i)message[1+i]=i;
   auto setup=[&](){
+    #ifdef TEST_PROTECTED_SNAPSHOT
+    assert(client.begin(mac,test_gcm,key,true,0)&&device.begin(mac,test_gcm,key,false,0));
+    #else
     client.begin(mac,key,true,0);device.begin(mac,key,false,0);
+    #endif
     assert(client.send(message,sizeof(message),0,request,n));
   };
   setup();Writer writer;MathFrameSink sink(device,writer);

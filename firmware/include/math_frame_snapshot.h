@@ -18,9 +18,10 @@ class SnapshotFrameWriter {
   virtual bool write(const uint8_t* p,std::size_t n) noexcept=0;
   virtual uint32_t now() const noexcept=0;
 };
+template<class Session=FrameSession>
 class MathFrameSink final : public MathSnapshotSink {
  public:
-  MathFrameSink(FrameSession& session,SnapshotFrameWriter& writer):
+  MathFrameSink(Session& session,SnapshotFrameWriter& writer):
     session_(session),writer_(writer){}
   // Exactly one operation per sink. No export until a valid request is
   // received. A real dispatcher must also authenticate teacher permissions
@@ -75,7 +76,7 @@ class MathFrameSink final : public MathSnapshotSink {
     if(!ok)session_.close();
     return ok;
   }
-  FrameSession& session_;SnapshotFrameWriter& writer_;
+  Session& session_;SnapshotFrameWriter& writer_;
   SnapshotId id_{};
   std::array<uint8_t,21+AttemptBytes{}.size()> payload_{};
   SessionFrame frame_{};

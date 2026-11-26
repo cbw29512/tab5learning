@@ -75,12 +75,17 @@ class HostAuthWire:
             LOG.warning("Device authentication frame rejected")
             raise
 
-    def receive_ack(self, frame, *, open_session=False):
+    def receive_ack(self, frame, *, open_session=False, protected=False):
         try:
             self._require("WAIT_ACK")
             (receipt,) = fields(frame, b"AUTH4", 1)
             if not hmac.compare_digest(self._ack, receipt):
                 raise PermissionError("Authenticated receipt rejected")
+            if protected:
+                if not open_session:
+                    raise ValueError("Protected mode requires a data session")
+                from tools.protected_frame_session import ProtectedFrameSession
+                return ProtectedFrameSession(self._session_key, host=True, clock=self._clock)
             return FrameSession(self._session_key, host=True, clock=self._clock) if open_session else True
         except Exception:
             LOG.warning("Authentication receipt rejected")

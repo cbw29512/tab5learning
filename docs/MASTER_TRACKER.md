@@ -195,3 +195,6 @@ Native #55 passed at 52a0bd92; host #386 still running. Added separate transcrip
 
 ## M8 read-only mathematics transfer reference
 Native #56 passed at d28b5367; host #388 running at inspection. Added authenticated request/manifest/record/end transfer using existing MathJournal snapshot and HMAC frame session, bounded device buffers and independent host replay; exact completion required. C++ fake-NVS and Python tests including cross-language fixture in CI. No physical USB dispatch, encryption, teacher operation grant or host import integration yet; no real records or device writes. Latest CI pending.
+
+## M8 encrypted USB frame and snapshot candidate
+Added explicit AES-GCM protected session mode and Mbed TLS adapter to isolated auth compile probe, Python verified handshake opt-in, shared snapshot sender, OpenSSL-to-Python encrypted snapshot fixture and tamper/replay/expiry tests. No plaintext fallback. Native #56 passed; prior snapshot #390/#57 queued at inspection. Latest CI pending; no physical USB, real records, device writes, teacher operation permission or secure provisioning. Actual serial transport and hardware validation next.
