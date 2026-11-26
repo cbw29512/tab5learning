@@ -22,7 +22,9 @@ def page(title, body, notice=""):
             f'<main><h1>{escape(title)}</h1>{banner}{body}</main></body></html>')
 
 
-def login(notice=""):
+def login(notice="", *, test_mode=False):
+    if test_mode:
+        notice = "TEST MODE — synthetic data only. " + notice
     return page("Teacher sign in", """
     <section><form method="post" action="/login">
     <label for="username">Username</label>
@@ -34,15 +36,17 @@ def login(notice=""):
     </section>""", notice)
 
 
-def workspace(username, role, decks, csrf, notice=""):
+def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False):
+    if test_mode:
+        notice = "TEST MODE — synthetic data only. " + notice
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
     rows = "".join(f'<li>{escape(d["title"])} — {len(d["cards"])} cards</li>' for d in decks)
     admin = ""
     if role == "admin":
         admin = f"""<section><h2>Teacher accounts</h2><form method="post" action="/teachers">
         {hidden}<label for="newname">Username</label><input id="newname" name="username" required maxlength="64">
-        <label for="newpass">Initial password (15+ characters)</label>
-        <input id="newpass" name="password" type="password" required minlength="15" maxlength="256"
+        <label for="newpass">Initial password ({minimum}+ characters)</label>
+        <input id="newpass" name="password" type="password" required minlength="{minimum}" maxlength="256"
         autocomplete="new-password"><button>Create teacher</button></form></section>"""
     return page("Teacher dashboard", f"""
     <p>Signed in as {escape(username)} ({escape(role)})</p>
