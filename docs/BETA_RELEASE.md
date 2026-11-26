@@ -19,3 +19,6 @@ User prioritizes getting Pocket Learning into beta sooner by releasing grade-lev
 
 ## Tracking and expansion
 Track each beta gate by implemented, host-tested, hardware-tested and accepted evidence. Grade 2–4 content development does not block the Grade 1 closed beta. Do not imply the beta is ready or promise dates without measured evidence. Design signed/versioned offline curriculum packages now, preserve progress and certificates when adding later grades. Paid entitlements and payments are separate later commercial work; no mandatory cloud service or subscription in the learner. No pricing decision or payment integration is authorized by this document.
+
+## Mandatory independent backup acceptance
+Teacher can independently back up and restore authorized student progress and their own created flashcards, lessons and assets, including content versions and evidence links. Demonstrate recovery after microSD loss and replacement computer/device. See [TEACHER_BACKUP_RESTORE.md](TEACHER_BACKUP_RESTORE.md). No real student data before security and recovery acceptance.

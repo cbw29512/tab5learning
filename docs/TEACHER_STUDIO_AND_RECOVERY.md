@@ -35,3 +35,6 @@ Status: approved interface direction; implementation and physical acceptance pen
 - Never use actual student records until privacy/security review and authorized recovery/backup safeguards pass.
 
 Initial implementation: use the existing teacher backend and USB transport after reviewing their source. Keep recovery tooling isolated from the web server and student app. Select frameworks and serialization only after examining existing implementation; no new network services on the Tab5.
+
+## Independent educational backups
+Teacher Studio must independently back up and restore both student progress/evidence and teacher-authored materials, with separate controls and scoped permissions. See [TEACHER_BACKUP_RESTORE.md](TEACHER_BACKUP_RESTORE.md) for archive manifests, verification, conflict and replacement-device acceptance. An on-device microSD snapshot alone does not satisfy this requirement.

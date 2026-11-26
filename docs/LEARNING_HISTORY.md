@@ -20,3 +20,6 @@ Replay events to reproduce reports; correct an answer and verify milestone recal
 
 ## Development milestones
 M1 hardware touch/USB verified; M2 durable event journal and recovery; M3 teacher login and deck authoring; M4 flashcards and USB round trip; M5 math/spelling; M6 narrated reading and recording; M7 teacher timeline and milestone reconciliation; M8 integrated security and pilot acceptance. Each requires commit, tests and hardware evidence where relevant. Do not mark complete on specification alone.
+
+## Independent archive
+Student backup must preserve original evidence, corrections, sequence and exact content versions; teacher content backup must exclude student-specific records. Follow TEACHER_BACKUP_RESTORE.md. Never silently replace newer history with an older snapshot.
