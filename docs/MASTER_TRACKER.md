@@ -168,3 +168,6 @@ Battery status/runtime portable regression step passed in host CI #369 at revisi
 
 ## M2/M3/M8 independent teacher backup and restore
 User requires saving both children's progress and teacher-created content. Added TEACHER_BACKUP_RESTORE.md with distinct student and teaching-material archives, optional scoped combined workspace recovery, separate controls, encryption and integrity validation, independent host destination and replacement-device/computer restore acceptance. Mandatory for Grade 1 beta. Existing math snapshot/archive prototype is only a partial foundation; actual protected comprehensive backup and restore, USB, microSD physical validation and key recovery remain open. Documentation only; no device writes or implementation claims.
+
+## M3 synthetic teacher-material archive foundation
+Implemented bounded PLTA v1 codec, owner-only all-version text-deck export, preview and explicitly confirmed atomic restore. Reject corrupt archives, wrong owners, conflicts and missing versions; preserve newer versions and exact retries. Added synthetic tests for independent stores, rollback, scope and integrity. No archive file persistence, encryption, UI or student data; production backup gate remains open. CI pending; battery revision #371/#47 running at inspection.
