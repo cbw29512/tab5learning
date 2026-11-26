@@ -12,13 +12,39 @@ class ReadingPreviewPlayback {
   bool listen() {
     PcmSourceClock clock;
     if (!clock.initialize(rate_, count_)) return false;
-    return start(0, clock.duration_ms());
+    if (!start(0, clock.duration_ms())) return false;
+    passage_=true; paused_=false; resume_ms_=0;
+    return true;
   }
   bool replay(size_t word) {
     if (!cues_ || word >= words_) return false;
-    return start(cues_[word].start_ms, cues_[word].end_ms);
+    if (!start(cues_[word].start_ms, cues_[word].end_ms)) return false;
+    passage_=false; paused_=false; resume_ms_=0;
+    return true;
   }
-  void stop() { if (busy()) output_.stop(); }
+  // Pause is a cancellation followed by a conservative estimated word restart.
+  // The chosen boundary is not a measured hardware playback position.
+  bool pause(size_t word) {
+    if (!passage_ || paused_ || output_.state()!=SpeakerOutputState::Queued ||
+        !cues_ || word>=words_) return false;
+    resume_ms_=cues_[word].start_ms;
+    paused_=true;
+    output_.stop();
+    return true;
+  }
+  bool resume() {
+    if (!paused_ || busy()) return false;
+    PcmSourceClock clock;
+    if (!clock.initialize(rate_,count_) || !start(resume_ms_,clock.duration_ms())) return false;
+    paused_=false; passage_=true;
+    return true;
+  }
+  bool paused() const { return paused_; }
+  uint32_t resume_offset() const { return resume_ms_; }
+  void stop() {
+    if (busy()) output_.stop();
+    paused_=false; passage_=false; resume_ms_=0;
+  }
   bool poll() {
     const auto previous = output_.state();
     output_.poll();
@@ -29,6 +55,7 @@ class ReadingPreviewPlayback {
            output_.state() == SpeakerOutputState::Cancelling;
   }
   const char* status() const {
+    if (paused_ && !busy()) return "Paused";
     switch (output_.state()) {
       case SpeakerOutputState::Queued: return "Audio queued";
       case SpeakerOutputState::Cancelling: return "Stopping audio";
@@ -46,4 +73,6 @@ class ReadingPreviewPlayback {
   uint32_t count_, rate_;
   const ReadingCue* cues_;
   size_t words_;
+  bool passage_=false, paused_=false;
+  uint32_t resume_ms_=0;
 };
