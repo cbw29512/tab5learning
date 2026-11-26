@@ -23,6 +23,7 @@ from tools.flashcard_deck import import_csv, MAX_BYTES
 from tools.teacher_deck_editor import Draft, editor, handle_editor, FORM_FIELDS
 from tools import teacher_web_views as views
 from tools.teacher_bulk_flashcards import bulk_form, handle_bulk
+from tools.teacher_backup_center import BackupCenter
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
                                         login_challenge, valid_login_challenge)
 
@@ -36,12 +37,15 @@ MAX_FORM = MAX_BYTES * 3 + 4096
 
 
 class TeacherWeb:
-    def __init__(self, directory, *, test_mode=False):
+    def __init__(self, directory, *, test_mode=False, backup_dir=None):
+        if backup_dir is not None and not test_mode:
+            raise PermissionError("Backup preview is test-only")
         directory.mkdir(parents=True, exist_ok=True)
         self.test_mode = test_mode
         self.accounts = AccountStore(directory / "accounts.sqlite", test_mode=test_mode)
         self.sessions = TeacherSessions(self.accounts)
         self.decks = TeacherDecks(directory / "decks.sqlite", self.sessions)
+        self.backups = BackupCenter(self.decks, backup_dir, test_mode=True) if backup_dir is not None else None
         self.registry = TeacherRegistry(directory / "registry.sqlite", self.sessions) if test_mode else None
         # Windows test enrollment uses DPAPI for new keys; startup fails closed
         # if the native provider cannot be initialized. Legacy records stay pending.
@@ -112,6 +116,7 @@ class TeacherWeb:
         return views.workspace(user, self.accounts.role(user),
                                self.decks.list_decks(token), self.csrf(token), notice,
                                minimum=self.accounts.minimum_password_length, test_mode=self.test_mode,
+                               backup_enabled=self.backups is not None,
                                assignments=self.registry.list_assignments(token) if self.registry else None,
                                enrollment=self.enrollment.pending(token) if enrollment_admin else None,
                                credential_storage=self.enrollment.storage_status(token) if enrollment_admin else None,
@@ -132,6 +137,11 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
+            if method == "GET" and path == "/backups":
+                if self.backups is None:
+                    raise PermissionError("Backup preview disabled")
+                self.sessions.require(token)
+                return self.respond(start, "200 OK", views.page("Backup & Restore", self.backups.page(token, self.csrf(token))))
             if method == "GET" and path == "/decks/bulk":
                 try:
                     self.sessions.require(token)
@@ -144,7 +154,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", views.page("Create flashcards", editor(Draft.new(), self.csrf(token))))
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit", "/decks/bulk"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit", "/decks/bulk", "/backups"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -163,6 +173,11 @@ class TeacherWeb:
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
                 raise PermissionError("CSRF mismatch")
+            if path == "/backups":
+                if self.backups is None:
+                    raise PermissionError("Backup preview disabled")
+                return self.respond(start, "200 OK", views.page("Backup & Restore",
+                    self.backups.handle(token, self.csrf(token), self.csrf_key, data)))
             if path == "/decks/bulk":
                 body, saved = handle_bulk(data, csrf=self.csrf(token), key=self.csrf_key,
                                           token=token, decks=self.decks)

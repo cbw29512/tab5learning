@@ -40,7 +40,7 @@ def login(notice="", *, test_mode=False, csrf=""):
     </section>""", notice)
 
 
-def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None, enrollment=None, credential_storage=None, can_migrate=False):
+def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None, enrollment=None, credential_storage=None, can_migrate=False, backup_enabled=False):
     if test_mode:
         notice = "TEST MODE — synthetic data only. " + notice
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
@@ -66,6 +66,7 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     devices = (registry_panel(assignments, csrf, enrollment, credential_storage, can_migrate) if assignments is not None else
                "<section><h2>Device and student management</h2><p>Available in isolated test mode only.</p></section>")
     discovery = scan_panel(csrf) if test_mode and role == "admin" else ""
+    backup = ('<section><h2>Backup &amp; Restore</h2><p><a href="/backups">Open teaching backup center (test)</a></p></section>' if backup_enabled else "")
     return page("Teacher dashboard", f"""
     <p>Signed in as {escape(username)} ({escape(role)})</p>
     <section><h2>Flashcard library</h2><ul>{rows or '<li>No saved decks</li>'}</ul>
@@ -76,6 +77,6 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     <label for="csv">Cards (CSV with front,back header)</label>
     <textarea id="csv" name="csv" rows="8" required>front,back
 </textarea><button>Validate and save deck</button></form></details></section>
-    {admin}
+    {backup}{admin}
     {devices}{discovery}<form method="post" action="/logout">{hidden}<button>Sign out</button></form>
     """, notice)

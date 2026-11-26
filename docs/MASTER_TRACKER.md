@@ -174,3 +174,6 @@ Implemented bounded PLTA v1 codec, owner-only all-version text-deck export, prev
 
 ## M3 independent teaching archive files
 Added synthetic-only bounded archive file persistence outside teacher workspace, same-directory staging, flush/readback, no-replace publication, post-publication verification and exact-digest restore preview/approval. Regression tests for separate store roundtrip, old backup preserved, failed publication, corrupt/changed file, wrong owner and unauthorized session. CI pending; prior archive #374 and native #49 still running at inspection. Windows and removable-media power loss acceptance, encryption, UI, full assets and student backup/USB remain open. No actual student data or device writes.
+
+## M3 Teacher Studio backup center
+Added optional test-only dashboard backup/restore UI with locally configured independent folder, owner-specific archive listing, verified save, preview and session-bound digest confirmation. Added integration regression for authorization, CSRF, path traversal, cross-owner access and exact restore retry. Existing native CI #50 passed at f95502f9; host #376 still running at inspection. Latest CI pending. Archive history capped at 200 entries; encrypted portable archives, real student backup, media, Windows testing and physical recovery remain open. No firmware changes.
