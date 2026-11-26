@@ -12,6 +12,7 @@ from uuid import uuid4
 from tools.teacher_accounts import AccountStore
 from tools.teacher_sessions import TeacherSessions
 from tools.teacher_decks import TeacherDecks
+from tools.teacher_registry import TeacherRegistry
 from tools.flashcard_deck import import_csv, MAX_BYTES
 from tools import teacher_web_views as views
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
@@ -33,6 +34,7 @@ class TeacherWeb:
         self.accounts = AccountStore(directory / "accounts.sqlite", test_mode=test_mode)
         self.sessions = TeacherSessions(self.accounts)
         self.decks = TeacherDecks(directory / "decks.sqlite", self.sessions)
+        self.registry = TeacherRegistry(directory / "registry.sqlite", self.sessions) if test_mode else None
         self.csrf_key = secrets.token_bytes(32)
 
     def csrf(self, token):
@@ -95,7 +97,8 @@ class TeacherWeb:
         user = self.sessions.require(token)
         return views.workspace(user, self.accounts.role(user),
                                self.decks.list_decks(token), self.csrf(token), notice,
-                               minimum=self.accounts.minimum_password_length, test_mode=self.test_mode)
+                               minimum=self.accounts.minimum_password_length, test_mode=self.test_mode,
+                               assignments=self.registry.list_assignments(token) if self.registry else None)
 
     def __call__(self, env, start):
         # Exact host and origin checks prevent DNS rebinding and cross-site writes.
@@ -112,7 +115,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -134,7 +137,11 @@ class TeacherWeb:
             if path == "/logout":
                 self.sessions.logout(token)
                 return self.redirect(start, clear=True)
-            if path == "/teachers":
+            if path == "/assignments":
+                if not self.registry:
+                    raise PermissionError("Registry is test-only")
+                self.registry.create(token, data["student_id"], data["device_id"], int(data["grade"]))
+            elif path == "/teachers":
                 self.sessions.create_account(token, data["username"], data["password"], "teacher")
             else:
                 deck = import_csv(data["csv"], uuid4().hex, data["title"])
