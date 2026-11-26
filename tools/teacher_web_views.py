@@ -1,6 +1,7 @@
 """Escaped, offline HTML for the local Teacher Studio prototype."""
 from html import escape
 from tools.teacher_registry_views import registry_panel
+from tools.teacher_deck_editor_views import MAX_ROWS
 from tools.teacher_usb_discovery import scan_panel
 
 STYLE = """
@@ -52,7 +53,7 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
         f'<li>{escape(d["title"])} — {len(d["cards"])} cards · Version {d["version"]}'
         + (f'<form method="post" action="/decks/edit">{hidden}'
            f'<input type="hidden" name="deck_id" value="{escape(d["deck_id"], quote=True)}">'
-           '<button>Edit flashcards</button></form>' if len(d["cards"]) <= 25 else
+           '<button>Edit flashcards</button></form>' if len(d["cards"]) <= MAX_ROWS else
            '<p><small>Large imported deck — visual editing unavailable.</small></p>')
         + '</li>' for d in latest.values())
     admin = ""
