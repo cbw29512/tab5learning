@@ -1,4 +1,4 @@
-"""Explicit physical test of the isolated public-key-vector USB probe only."""
+"""Explicit physical test of the isolated public test-key USB probe only."""
 import argparse
 import logging
 from contextlib import closing
