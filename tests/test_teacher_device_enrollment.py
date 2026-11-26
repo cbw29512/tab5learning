@@ -1,6 +1,7 @@
 import sqlite3
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 from unittest.mock import Mock
 
@@ -18,7 +19,9 @@ class EnrollmentTests(unittest.TestCase):
             service.prepare("session", "TAB5-001")
             service.prepare("session", "tab5-002")
             self.assertEqual(service.pending("session"), {"tab5-001":"KEY_PENDING", "tab5-002":"KEY_PENDING"})
-            with sqlite3.connect(path) as db:
+            # SQLite's transaction context does not close the connection.
+            # Explicit closure releases the Windows file handle before temp cleanup.
+            with closing(sqlite3.connect(path)) as db:
                 keys = [row[0] for row in db.execute("SELECT secret FROM device_credentials")]
             self.assertEqual(len(set(keys)), 2)
             self.assertTrue(all(len(key)==32 for key in keys))
