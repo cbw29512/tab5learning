@@ -52,7 +52,8 @@ class TeacherWeb:
                        ("Cache-Control", "no-store"),
                        ("X-Content-Type-Options", "nosniff"),
                        ("X-Frame-Options", "DENY"),
-                       ("Referrer-Policy", "no-referrer"),
+                       # Preserve Origin for same-origin HTML form POSTs.
+                       ("Referrer-Policy", "same-origin"),
                        ("Content-Security-Policy",
                         "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"),
                        *headers])
@@ -104,7 +105,10 @@ class TeacherWeb:
             if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if env.get("HTTP_ORIGIN") != ORIGIN:
-                return self.respond(start, "403 Forbidden", "Origin rejected.")
+                LOG.warning("Form origin rejected: missing=%s, null=%s",
+                            not env.get("HTTP_ORIGIN"), env.get("HTTP_ORIGIN") == "null")
+                return self.respond(start, "403 Forbidden", views.page(
+                    "Request rejected", '<p><a href="/">Return to sign in</a> and submit a fresh form.</p>'))
             data = self.form(env)
             if path == "/login":
                 self.sessions.logout(token)
