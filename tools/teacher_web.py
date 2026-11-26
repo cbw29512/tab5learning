@@ -1,4 +1,5 @@
 """Loopback-only Teacher Studio HTTP adapter; no USB or flash commands."""
+import csv
 import hashlib
 import hmac
 import logging
@@ -122,7 +123,7 @@ class TeacherWeb:
         except PermissionError:
             LOG.warning("Web operation authorization denied")
             return self.respond(start, "403 Forbidden", "Access denied. Return to the dashboard.")
-        except (ValueError, KeyError, UnicodeError, sqlite3.IntegrityError):
+        except (ValueError, KeyError, UnicodeError, csv.Error, sqlite3.IntegrityError):
             LOG.warning("Invalid web form or duplicate record")
             return self.respond(start, "400 Bad Request", "Invalid form or duplicate record.")
         except Exception:
