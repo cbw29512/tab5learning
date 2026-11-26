@@ -39,7 +39,7 @@ def login(notice="", *, test_mode=False, csrf=""):
     </section>""", notice)
 
 
-def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None, enrollment=None):
+def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None, enrollment=None, credential_storage=None, can_migrate=False):
     if test_mode:
         notice = "TEST MODE — synthetic data only. " + notice
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
@@ -51,7 +51,7 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
         <label for="newpass">Initial password ({minimum}+ characters)</label>
         <input id="newpass" name="password" type="password" required minlength="{minimum}" maxlength="256"
         autocomplete="new-password"><button>Create teacher</button></form></section>"""
-    devices = (registry_panel(assignments, csrf, enrollment) if assignments is not None else
+    devices = (registry_panel(assignments, csrf, enrollment, credential_storage, can_migrate) if assignments is not None else
                "<section><h2>Device and student management</h2><p>Available in isolated test mode only.</p></section>")
     discovery = scan_panel(csrf) if test_mode and role == "admin" else ""
     return page("Teacher dashboard", f"""
