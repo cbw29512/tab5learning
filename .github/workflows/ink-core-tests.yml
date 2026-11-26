@@ -122,6 +122,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_credential_store_test.cpp -o /tmp/tab5-credential-store-test
           /tmp/tab5-credential-store-test
+      - name: Compile and run protected credential NVS adapter tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes/secure -Ifirmware/include firmware/tests/learner_secure_credential_nvs_test.cpp -o /tmp/tab5-secure-nvs-test
+          /tmp/tab5-secure-nvs-test
       - name: Compile and run bounded authentication transport tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_auth_transport_test.cpp -lcrypto -o /tmp/tab5-auth-transport-test
