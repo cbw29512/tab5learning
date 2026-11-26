@@ -23,6 +23,7 @@
 #include <freertos/task.h>
 #include "math_submission.h"
 #include "learner_battery_ui.h"
+#include "battery_notice.h"
 
 namespace {
 LearnerNavigation navigation;
@@ -127,14 +128,31 @@ const char* heading() {
 }
 
 void render_notice() {
-  M5.Display.fillRect(32,108,1216,28,TFT_NAVY);
+  const auto& region=learner_notice_region;
+  M5.Display.fillRect(region.x,region.y,region.w,region.h,TFT_NAVY);
+  const auto warning=battery_notice(battery.status,navigation,storage_error);
+  if(warning!=BatteryNotice::None) {
+    const auto color=warning==BatteryNotice::Low?TFT_YELLOW:TFT_RED;
+    M5.Display.fillRect(region.x,region.y,region.w,region.h,color);
+    M5.Display.setTextSize(2);
+    M5.Display.setTextColor(TFT_BLACK,color);
+    M5.Display.drawString(battery_notice_text(warning),48,112);
+    return;
+  }
   if(!notice.visible || navigation.help_open ||
       navigation.screen!=LearnerScreen::Math) return;
-  M5.Display.fillRect(32,108,1216,28,TFT_DARKGREEN);
+  M5.Display.fillRect(region.x,region.y,region.w,region.h,TFT_DARKGREEN);
   M5.Display.setTextSize(2);
   M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREEN);
   M5.Display.drawString(preview_badges[notice.sequence-1].name,48,112);
   M5.Display.drawString("Achievement unlocked!",400,112);
+}
+void refresh_notice() {
+  const auto& r=learner_notice_region;
+  M5.Display.startWrite();
+  render_notice();
+  M5.Display.endWrite();
+  M5.Display.display(r.x,r.y,r.w,r.h);
 }
 
 void render_journey() {
@@ -208,6 +226,7 @@ void render() {
   M5.Display.setTextSize(4);
   M5.Display.drawString(heading(),260,40);
   render_learner_battery(battery.status);
+  render_notice();
   M5.Display.setTextSize(4);
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   if (navigation.help_open) {
@@ -222,7 +241,6 @@ void render() {
     M5.Display.setTextSize(3);
     if (navigation.screen==LearnerScreen::Math) {
       render_math();
-      render_notice();
     } else if (navigation.screen==LearnerScreen::Reading) {
       render_reading();
     } else if (navigation.screen==LearnerScreen::Journey) {
@@ -329,13 +347,15 @@ void loop() {
   if(!touching) scratch_release(scratch);
   // Defer PMIC reads and regional flush while a finger is drawing or tapping.
   if(geometry_ok && !touching && battery.due(millis())) {
-    if(sample_learner_battery(battery,battery_runtime,millis()))
+    if(sample_learner_battery(battery,battery_runtime,millis())) {
       refresh_learner_battery(battery.status);
+      refresh_notice();
+    }
     if(navigation.help_open) refresh_battery_runtime(battery_runtime);
   }
   const bool visible=notice.visible;
   award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);
-  if(visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) render_notice();
+  if(geometry_ok && visible!=notice.visible && navigation.screen==LearnerScreen::Math && !navigation.help_open) refresh_notice();
   reading_tick(geometry_ok && navigation.screen==LearnerScreen::Reading && !navigation.help_open);
   was_touching=touching;
   M5.delay(10);

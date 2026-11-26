@@ -50,6 +50,8 @@ jobs:
           /tmp/tab5-battery-test
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_runtime_test.cpp -o /tmp/tab5-battery-runtime-test
           /tmp/tab5-battery-runtime-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_notice_test.cpp -o /tmp/tab5-battery-notice-test
+          /tmp/tab5-battery-notice-test
       - name: Compile and run mathematics and checkpoint tests
         run: |
           for suite in math_practice math_checkpoint preview_badges; do

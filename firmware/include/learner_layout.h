@@ -24,6 +24,7 @@ inline constexpr LearnerTile learner_help{1068,24,180,80,LearnerAction::Help,"He
 // Noninteractive header region; outside the navigation buttons and lesson cards.
 struct LearnerRegion { int x,y,w,h; };
 inline constexpr LearnerRegion learner_battery_region{820,24,236,80};
+inline constexpr LearnerRegion learner_notice_region{32,108,1216,28};
 inline constexpr LearnerTile learner_back{32,580,1216,108,LearnerAction::Back,"Go back"};
 
 inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action) {
