@@ -8,7 +8,7 @@
 namespace learner_auth {
 using Bytes = std::array<uint8_t,32>;
 using Hmac = bool (*)(const Bytes&, const uint8_t*, std::size_t, Bytes&);
-enum class Role { Device, Host };
+enum class Role { Device, Host, Ack };
 
 inline bool valid_id(const char* id) {
   if(!id) return false;
@@ -23,9 +23,9 @@ inline bool valid_id(const char* id) {
 inline bool make_proof(Hmac hmac,const Bytes& key,Role role,const char* id,
                        const Bytes& host,const Bytes& device,Bytes& out) {
   out.fill(0);
-  if(!hmac||!valid_id(id)||(role!=Role::Device && role!=Role::Host)) return false;
+  if(!hmac||!valid_id(id)||(role!=Role::Device && role!=Role::Host && role!=Role::Ack)) return false;
   constexpr char domain[]="TAB5-AUTH-V1";
-  const char* label=role==Role::Device?"device":"host";
+  const char* label=role==Role::Device?"device":(role==Role::Host?"host":"ack");
   std::array<uint8_t,sizeof(domain)+7+65+64> transcript{};
   std::size_t used=0;
   auto append=[&](const void* p,std::size_t n) {
