@@ -36,7 +36,7 @@ inline bool math_journal_staging_keys(unsigned limit) {
   while(result==ESP_OK) {
     nvs_entry_info_t info{};
     if(nvs_entry_info(it,&info)!=ESP_OK||info.type!=NVS_TYPE_BLOB) { valid=false; break; }
-    if(std::strcmp(info.key,"basev1")!=0) {
+    if(std::strcmp(info.key,"basev1")!=0&&std::strcmp(info.key,"copyv1")!=0) {
       unsigned slot=0;
       const char* p=info.key;
       if(*p++!='a'||!*p) { valid=false; break; }

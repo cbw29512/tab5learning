@@ -25,7 +25,7 @@ class MathJournalRestorer {
   static MathRestoreResult apply(MathJournal& journal,const MathRestoreImage& image,
                                  MathPractice& out) {
     using R=MathRestoreResult;
-    if(!journal.ready||journal.exporting) return R::Unavailable;
+    if(!journal.ready||journal.exporting||journal.sealed) return R::Unavailable;
     if(image.manifest.count>max_records||image.size>max_records*(2+AttemptBytes{}.size())||
        (image.size&&!image.data)) return R::Invalid;
     journal.exporting=true;

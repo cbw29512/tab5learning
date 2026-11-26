@@ -35,6 +35,7 @@ class MathJournalMigration {
     } guard{source.exporting,dest.exporting};
     if(!base_matches(source)) return R::InvalidSource;
     if(!base_matches(dest)||!math_journal_staging_keys(dest.limit)) return R::Conflict;
+    if(dest.sealed&&(source.last!=dest.last||!source.same(source.origin,dest.origin))) return R::Conflict;
     if(source.last>dest.limit) return R::Full;
     if(dest.last>source.last) return R::Conflict;
     // Only a completely empty destination may adopt a nonzero legacy base.
@@ -93,5 +94,36 @@ class MathJournalMigration {
     if(!verify.complete()) { dest.fail(JournalFailure::Conflict); return R::Conflict; }
     out=dest.current;
     return R::Complete;
+  }
+  // Seal only a verified, exact copy. A failed receipt commit requires
+  // begin() to reconcile; an existing receipt is never overwritten.
+  static R copy_and_seal(MathJournal& source,MathJournal& dest,MathPractice& out) {
+    MathPractice candidate;
+    const auto result=copy(source,dest,candidate);
+    if(result!=R::Complete) return result;
+    MathSnapshot m{}; m.count=dest.last;
+    if(!math_encode(dest.origin,m.base)||!math_encode(dest.current,m.final)) return R::Conflict;
+    MathCopyDigest digest; MathSnapshotVerifier verify;
+    if(!verify.begin(m)) return R::Conflict;
+    for(unsigned slot=1;slot<=dest.last;++slot) {
+      std::size_t n=0;
+      if(!read_record(dest,slot,n)||!verify.record(slot,dest.work,n)) {
+        dest.fail(JournalFailure::Conflict); return R::Conflict;
+      }
+      digest.add(dest.work,n);
+    }
+    if(!verify.complete()) return R::Conflict;
+    const auto expected=math_copy_receipt(m,digest.value());
+    if(dest.sealed) {
+      MathCopyReceipt stored{}; auto n=stored.size();
+      if(dest.read(dest.handle,"copyv1",stored.data(),n)!=ESP_OK||
+         n!=stored.size()||stored!=expected) {
+        dest.fail(JournalFailure::Conflict); return R::Conflict;
+      }
+    } else {
+      if(!dest.write("copyv1",expected.data(),expected.size())) return write_failed(dest);
+      dest.sealed=true;
+    }
+    out=candidate; return R::Complete;
   }
 };

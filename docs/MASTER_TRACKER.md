@@ -4,17 +4,17 @@ Definition of done: installable native Tab5 firmware and Windows Teacher Studio,
 Status vocabulary: specified / implemented / host-tested / hardware-tested / accepted. Host CI does not establish educational effectiveness, physical behavior or release readiness.
 | ID | Deliverable | Current evidence / gap |
 |---|---|---|
-| M1 | Touch, USB, battery and camera hardware | Diagnostic source exists; physical acceptance outstanding |
-| M2 | Durable educational event journal | Host tests passed; device persistence, time quality, evidence payloads and recovery pending |
+| M1 | Touch, USB, battery and camera hardware | Hardware-tested touch, display, unplug and restart on 740b2268; authenticated USB and camera physical acceptance open |
+| M2 | Durable educational event journal | Hardware-tested five math saves and reboot retention on 740b2268; expanded storage, sealed migration, full history and power-loss recovery open |
 | M3 | Teacher Studio | Local account/session/deck tests passed; visual editor integration, student permissions, screen lock pending |
 | M4 | Flashcards | Host import/review/draft tests passed; device lesson and authenticated assignment pending |
-| M5 | Math and spelling | Ink diagnostic only; actual exercises and assessment pending |
+| M5 | Math and spelling | Five-question multiple-choice math prototype and visible ink hardware-tested; digit recognition/confirmation, adaptive curriculum, spelling and teacher correction open |
 | M6 | Narrated reading | Timing validation foundation; licensed assets, playback, capture, review pending |
 | M7 | Timeline and progress | Host projection tested; teacher drilldown and durable milestone transitions pending |
 | M8 | Security/release | USB currently unauthenticated diagnostic only; no real student data; signing, encryption, retention, packaging and pilot gates pending |
 | M9 | Competencies and standards | Graph and mastery recommendation host CI #44 passed; actual standards crosswalk, educator-approved policies and integration pending |
 | M10 | Premium student UX | Navigation state host CI #47 passed; actual rendering, accessibility, audio, resume and user testing pending |
-| M11 | Camera evidence | Specified; native capture and storage pending |
+| M11 | Camera evidence | Required MVP gate; specified only: physical camera probe, preview/capture/retake, durable evidence, authenticated export, teacher review and privacy acceptance open |
 | M12 | Curriculum expansion | K-12/college capable model; coverage audit and later packages pending |
 | M13 | Learner achievement journey | Host projection implemented; native UI, award history and acceptance pending; see ACHIEVEMENTS.md |
 ## Next vertical slice
@@ -135,3 +135,6 @@ Adds explicit factory/default vs dedicated staging target; uses named NVS partit
 
 ## Resumable exact-copy mathematics staging migration
 Added internal exclusive-owner migration from recovered factory journal to dedicated staging journal. Full source preflight and exact destination prefix checks precede any writes; nonzero legacy checkpoint copied only into empty destination. Copies missing suffix using existing commit/readback and bounded journal-owned buffers; verifies exact bytes and terminal state again. Source untouched, no boot selection or activation. Regression covers interrupted capacity, ambiguous commit, repeat/no rewrite, same-grade different ink, corrupt source suffix and legacy-base interruption. CI pending. Physical baseline 740b2268 remains installed (five saves, 4652 stack watermark, battery and reboot retention verified). Durable cutover receipt, tail-loss detection, native staging invocation and physical capacity/latency/stack measurements remain open.
+
+## Sealed staging receipt and release evidence reconciliation
+Added write-once versioned staging receipt with physical count, base/final checkpoint and rolling CRC of length-framed record bodies; checked during dedicated journal recovery. Sealed staging rejects additional append/restore and divergent source; exact retry verifies without rewriting. Regression exercises receipt capacity failure, ambiguous commit, retry, missing tail, corruption and write protection. CRC is corruption detection, not authentication. Missing entire receipt cannot establish prior completion; active boot selection, independent durable cutover/high-water policy and physical acceptance remain open. CI pending. Camera M11 remains mandatory: one guided offline evidence activity with native capture, preview/retake, durable association, authorized USB review, privacy and hardware acceptance. No OCR requirement for initial camera activity. Preserve installed 740b2268 until consolidated verified release. Baseline thicker-ink native #35 passed; host #350 running, intermediate native #36 cancelled; combined #354/#37 running at inspection. No completion percentages; acceptance requires gate-specific evidence.
