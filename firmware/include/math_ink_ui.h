@@ -1,11 +1,12 @@
 #pragma once
 #include <M5Unified.h>
-#include "math_scratchpad.h"
+#include "math_ink_brush.h"
 
-// Coordinates are shared with hit testing; no nested drawable panel.
+// Live samples and redraws use the same clipped brush.
 inline void math_ink_point(const InkPoint& p,const InkPoint* prev) {
-  if(p.stroke_start || !prev) M5.Display.drawPixel(p.x,p.y,TFT_BLACK);
-  else M5.Display.drawLine(prev->x,prev->y,p.x,p.y,TFT_BLACK);
+  math_ink_brush(p,prev,[](int left,int right,int y) {
+    M5.Display.drawLine(left,y,right,y,TFT_BLACK);
+  });
 }
 inline void math_ink_render(const MathScratchpad& s) {
   const auto& c=math_ink_card;
