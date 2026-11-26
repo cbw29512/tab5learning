@@ -38,6 +38,8 @@ jobs:
         run: pio run -d firmware -e mic_compile_probe
       - name: Compile isolated authentication crypto probe (no upload)
         run: pio run -d firmware -e auth_compile_probe
+      - name: Compile isolated synthetic USB authentication probe (no upload)
+        run: pio run -d firmware -e auth_usb_probe
       - name: Record build evidence
         shell: bash
         run: |
@@ -45,6 +47,8 @@ jobs:
           mkdir -p build-evidence
           pio pkg list -d firmware -e learner_preview > build-evidence/packages.txt
           pio pkg list -d firmware -e mic_compile_probe > build-evidence/mic-probe-packages.txt
+          test -s firmware/.pio/build/auth_usb_probe/firmware.elf
+          sha256sum firmware/.pio/build/auth_usb_probe/firmware.elf > build-evidence/auth-usb-probe-elf.sha256
           test -s firmware/.pio/build/auth_compile_probe/firmware.elf
           sha256sum firmware/.pio/build/auth_compile_probe/firmware.elf > build-evidence/auth-probe-elf.sha256
           test -s firmware/.pio/build/mic_compile_probe/firmware.elf
