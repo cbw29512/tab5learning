@@ -88,3 +88,13 @@ class TeacherWebTests(unittest.TestCase):
         self.login("teacher1", "5678")
         self.assertIsNone(normal.accounts.verify("admin", "1234"))
         self.assertIsNone(normal.accounts.role("teacher1"))
+
+    def test_browser_form_referrer_policy(self):
+        status, headers, _ = self.call()
+        self.assertEqual(status, 200)
+        self.assertEqual(headers["Referrer-Policy"], "same-origin")
+        form = {"username":"admin","password":"synthetic-admin-pass"}
+        for origin in ("null", "", "http://127.0.0.1:8765"):
+            self.assertEqual(self.call("/login", form, HTTP_ORIGIN=origin)[0], 403)
+        self.login()
+        self.assertIn("Teacher dashboard", self.call()[2])
