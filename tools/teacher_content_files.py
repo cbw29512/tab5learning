@@ -29,7 +29,7 @@ class RestorePreview:
     summary: RestoreSummary
 
 
-def read_archive(path):
+def read_bounded(path, maximum):
     """Read a bounded regular file, never follow archive-embedded paths."""
     try:
         path = Path(path)
@@ -37,14 +37,21 @@ def read_archive(path):
             raise ValueError("Select a regular archive file")
         with path.open("rb") as stream:
             info = os.fstat(stream.fileno())
-            if not stat.S_ISREG(info.st_mode) or info.st_size > MAX_BYTES:
+            if not stat.S_ISREG(info.st_mode) or info.st_size > maximum:
                 raise ValueError("Invalid archive file size or type")
-            raw = stream.read(MAX_BYTES + 1)
-        decode(raw)
+            raw = stream.read(maximum + 1)
+        if len(raw) > maximum:
+            raise ValueError("Archive file exceeds capacity")
         return raw
     except (OSError, ValueError, TypeError):
         LOG.warning("Teaching archive file read failed")
         raise
+
+
+def read_archive(path):
+    raw = read_bounded(path, MAX_BYTES)
+    decode(raw)
+    return raw
 
 
 def _publish_new(staged, final):
@@ -75,16 +82,18 @@ class PreviewArchiveFiles:
         self.archive = archive
 
     def save(self, token, directory):
+        raw = self.archive.export(token)
+        parsed = decode(raw)
+        return self._save_bytes(directory, raw, len(parsed["decks"]), ".plta", read_archive)
+
+    def _save_bytes(self, directory, raw, versions, suffix, verify):
         staged = None
         try:
-            raw = self.archive.export(token)
-            parsed = decode(raw)
             root = Path(directory).resolve(strict=True)
             workspace = Path(self.archive.decks.path).resolve().parent
             if not root.is_dir() or root == workspace or workspace in root.parents:
                 raise ValueError("Choose a directory outside the teacher workspace")
-            final = root / f"pocket-teaching-test-{uuid4().hex}.plta"
-            # Same-directory staging avoids a cross-filesystem publication.
+            final = root / f"pocket-teaching-test-{uuid4().hex}{suffix}"
             with tempfile.NamedTemporaryFile(dir=root, prefix=".pocket-",
                                              suffix=".tmp", delete=False) as stream:
                 staged = Path(stream.name)
@@ -92,17 +101,14 @@ class PreviewArchiveFiles:
                     raise OSError("Incomplete archive write")
                 stream.flush()
                 os.fsync(stream.fileno())
-            if read_archive(staged) != raw:
+            if verify(staged) != raw:
                 raise ValueError("Staged archive readback mismatch")
             _publish_new(staged, final)
             _sync_directory(root)
-            if read_archive(final) != raw:
+            if verify(final) != raw:
                 raise ValueError("Published archive readback mismatch")
-            return FileReceipt(final, hashlib.sha256(raw).hexdigest(),
-                               len(raw), len(parsed["decks"]))
+            return FileReceipt(final, hashlib.sha256(raw).hexdigest(), len(raw), versions)
         except (OSError, ValueError, PermissionError, TypeError):
-            # A published file with an uncertain result is retained for review.
-            # It never replaces a previous archive.
             LOG.warning("Independent teaching archive save failed")
             raise
         finally:

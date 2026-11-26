@@ -265,7 +265,7 @@ class TeacherWebTests(unittest.TestCase):
         csrf = self.login("admin", "1234")
         self.assertIn("Open teaching backup center", self.call()[2])
         self.assertIn("NOT encrypted", self.call("/backups")[2])
-        self.assertEqual(self.call("/decks", dict(csrf=csrf,title="Test cards",csv="front,back\n2+2,4")))[0],303)
+        self.assertEqual(self.call("/decks", dict(csrf=csrf,title="Test cards",csv="front,back\n2+2,4"))[0],303)
         self.assertEqual(self.call("/backups", dict(csrf="bad", action="save"))[0],403)
         status, _, page = self.call("/backups", dict(csrf=csrf,action="save"))
         self.assertEqual(status,200)

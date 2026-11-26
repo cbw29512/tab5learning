@@ -177,3 +177,6 @@ Added synthetic-only bounded archive file persistence outside teacher workspace,
 
 ## M3 Teacher Studio backup center
 Added optional test-only dashboard backup/restore UI with locally configured independent folder, owner-specific archive listing, verified save, preview and session-bound digest confirmation. Added integration regression for authorization, CSRF, path traversal, cross-owner access and exact restore retry. Existing native CI #50 passed at f95502f9; host #376 still running at inspection. Latest CI pending. Archive history capped at 200 entries; encrypted portable archives, real student backup, media, Windows testing and physical recovery remain open. No firmware changes.
+
+## M3 portable protected archive candidate
+Corrected malformed prior WSGI test assertion and PermissionError handling in backup center. Added AES-256-GCM PLTE v1 envelope and protected independent file service with separately retained generated recovery key, no plaintext staging, exact digest preview/confirmed restore. Added dependency and regression tests for tampering, wrong key, separate store, owner scope and confirmation. Latest CI pending; prior UI #378/#51 running at inspection. Browser remains synthetic plaintext until protected key UX is integrated. Production security, student evidence, media streaming and Windows recovery still open; no firmware changes.

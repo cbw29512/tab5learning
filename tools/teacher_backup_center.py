@@ -116,6 +116,8 @@ class BackupCenter:
                 result = self.files.restore(token, path, expected_sha256=data["digest"], confirmed=True)
                 return self.page(token, csrf, notice=f"Restore verified: {result.new} versions added; {result.existing} already present.")
             raise ValueError("Unknown backup action")
+        except PermissionError:
+            raise
         except (OSError, ValueError) as exc:
             LOG.warning("Teaching backup operation rejected: %s", type(exc).__name__)
             return self.page(token, csrf, notice="Backup or restore failed. Check the archive, storage and conflicts; review again.")
