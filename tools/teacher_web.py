@@ -5,6 +5,7 @@ import hmac
 import logging
 import secrets
 import sqlite3
+import sys
 from http.cookies import SimpleCookie, CookieError
 from urllib.parse import parse_qs
 from uuid import uuid4
@@ -14,6 +15,7 @@ from tools.teacher_sessions import TeacherSessions
 from tools.teacher_decks import TeacherDecks
 from tools.teacher_registry import TeacherRegistry
 from tools.teacher_device_enrollment import DeviceEnrollment
+from tools.windows_credential_protection import WindowsProtector
 from tools.teacher_usb_discovery import scan_usb, scan_result
 from tools.teacher_usb_identity import identify, identity_panel
 from tools.flashcard_deck import import_csv, MAX_BYTES
@@ -38,7 +40,11 @@ class TeacherWeb:
         self.sessions = TeacherSessions(self.accounts)
         self.decks = TeacherDecks(directory / "decks.sqlite", self.sessions)
         self.registry = TeacherRegistry(directory / "registry.sqlite", self.sessions) if test_mode else None
-        self.enrollment = DeviceEnrollment(directory / "credentials.sqlite", self.sessions, self.registry) if test_mode else None
+        # Windows test enrollment uses DPAPI for new keys; startup fails closed
+        # if the native provider cannot be initialized. Legacy records stay pending.
+        protector = WindowsProtector() if test_mode and sys.platform == "win32" else None
+        self.enrollment = DeviceEnrollment(directory / "credentials.sqlite", self.sessions,
+                                           self.registry, protector=protector) if test_mode else None
         self.csrf_key = secrets.token_bytes(32)
 
     def csrf(self, token):
