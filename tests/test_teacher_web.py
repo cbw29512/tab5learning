@@ -193,3 +193,39 @@ class TeacherWebTests(unittest.TestCase):
         csrf = self.login("teacher1", "5678")
         self.assertEqual(self.call("/enrollment", dict(form, csrf=csrf))[0], 403)
         self.assertNotIn("Prepare key for", self.call()[2])
+
+    def test_explicit_credential_migration_action(self):
+        from unittest.mock import Mock, patch
+        csrf = self.login()
+        form = {"csrf": csrf, "device_id": "tab5-001", "confirm": "yes"}
+        self.assertEqual(self.call("/protect-credential", form)[0], 403)
+        self.app = TeacherWeb(Path(self.temp.name) / "migration-test", test_mode=True)
+        self.app.accounts.create("admin", "1234", "admin", bootstrap=True)
+        csrf = self.login("admin", "1234")
+        form["csrf"] = csrf
+        self.assertEqual(self.call("/assignments", {"csrf": csrf, "device_id": "tab5-001",
+                                                  "student_id": "student-001", "grade": "1"})[0], 303)
+        # Prepare a legacy test key deliberately, then inject a mock protection provider.
+        self.app.enrollment.protector = None
+        self.assertEqual(self.call("/enrollment", {"csrf": csrf, "device_id": "tab5-001"})[0], 303)
+        protector = Mock()
+        protector.protect.return_value = b"mock-protected"
+        protector.unprotect.side_effect = lambda *_: protector.protect.call_args.args[0]
+        self.app.enrollment.protector = protector
+        self.assertIn("Protect existing key", self.call()[2])
+        self.assertEqual(self.call("/protect-credential", dict(form, csrf="bad"))[0], 403)
+        self.assertEqual(self.call("/protect-credential", dict(form, confirm="no"))[0], 403)
+        self.assertEqual(self.call("/protect-credential", form, HTTP_ORIGIN="https://evil.example")[0], 403)
+        protector.protect.assert_not_called()
+        with patch("tools.teacher_web.identify") as usb:
+            self.assertEqual(self.call("/protect-credential", form)[0], 303)
+            usb.assert_not_called()
+        page = self.call()[2]
+        self.assertIn("Protected host record (test only)", page)
+        self.assertIn("KEY_PENDING (not installed)", page)
+        self.assertIn("Planned — not synced", page)
+        self.assertNotIn("Protect existing key", page)
+        self.assertEqual(self.call("/teachers", {"csrf": csrf, "username": "teacher1", "password": "5678"})[0], 303)
+        csrf = self.login("teacher1", "5678")
+        self.assertEqual(self.call("/protect-credential", dict(form, csrf=csrf))[0], 403)
+        protector.protect.assert_called_once()
