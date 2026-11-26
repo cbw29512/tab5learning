@@ -45,3 +45,6 @@ Lesson notes:
 
 ### Configurable local prompt builder
 Select grade 1–4, subject (including writing and custom), and 1–100 cards per AI batch; optionally enter up to 12,000 UTF-8 bytes of non-sensitive lesson notes. Generate a copyable prompt locally, with no AI requests or storage of notes. Existing import permits up to 500 cards. Normalize CSV newline conventions before preview/save proof to avoid false mismatch from HTML form serialization. Teacher review remains mandatory in the guided workflow; legacy direct CSV import remains available. No structured deck metadata or device synchronization added.
+
+### Bulk quality review
+Preview reports identical front/back pairs and repeated exact questions with differing answers, using preview row numbers. Teachers may explicitly remove only identical pairs, retaining the first occurrence and order. Conflicting answers are warnings, not automatic grading or deletion. Removal requires the current session-bound preview proof and creates a new preview/proof before saving. Existing CSV validation, limits and manual editing remain. No semantic correctness assessment or automatic approval. Large-deck revision and structured metadata remain pending.

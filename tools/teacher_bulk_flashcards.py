@@ -8,6 +8,7 @@ from uuid import uuid4
 
 from tools.flashcard_deck import import_csv, MAX_CARDS, MAX_BYTES
 from tools.teacher_flashcard_prompt import build_prompt, prompt_panel
+from tools.flashcard_quality import inspect_cards, without_identical_cards
 
 LOG = logging.getLogger(__name__)
 AI_PROMPT = build_prompt()
@@ -16,6 +17,17 @@ def bulk_form(csrf, title="", text="", *, deck=None, proof="", error="", prompt_
     """Escape all generated content and require a deliberate review before save."""
     preview = ""
     if deck is not None:
+        findings = inspect_cards(deck)
+        warnings = []
+        if findings.duplicates:
+            pairs = ", ".join(f"{first}/{later}" for first, later in findings.duplicates)
+            warnings.append(f"<p>{len(findings.duplicates)} identical duplicate cards. "
+                            f"Matching preview rows: {pairs}.</p>"
+                            '<button name="action" value="deduplicate">Remove identical duplicates and preview</button>')
+        if findings.conflicts:
+            pairs = ", ".join(f"{first}/{later}" for first, later in findings.conflicts)
+            warnings.append(f"<p>Repeated questions with different answers: {pairs}. "
+                            "Review and edit the CSV if needed. These cards are never removed automatically.</p>")
         rows = "".join(
             f'<tr><td>{i}</td><td>{escape(card["front"])}</td>'
             f'<td>{escape(card["back"])}</td></tr>'
@@ -23,6 +35,7 @@ def bulk_form(csrf, title="", text="", *, deck=None, proof="", error="", prompt_
         )
         preview = (f'<section><h2>Review {len(deck["cards"])} cards</h2>'
                    '<p>Check accuracy, age appropriateness and duplicates before saving.</p>'
+                   + ''.join(warnings) +
                    '<table><thead><tr><th>#</th><th>Question</th><th>Answer</th></tr>'
                    f'</thead><tbody>{rows}</tbody></table></section>')
     # Keep the original input available so teachers can correct errors.
@@ -71,6 +84,15 @@ def handle_bulk(data, *, csrf, key, token, decks):
             raise ValueError("Invalid form")
         deck = import_csv(text, uuid4().hex, title)
         expected = _proof(key, token, title, text)
+        if data["action"] == "deduplicate":
+            if not hmac.compare_digest(data["proof"], expected):
+                return bulk_form(csrf, title, text, deck=deck, proof=expected,
+                                 error="Content changed. Review again before removing duplicates."), False
+            cleaned, removed = without_identical_cards(deck)
+            deck = import_csv(cleaned, deck["deck_id"], title)
+            return bulk_form(csrf, title, cleaned, deck=deck,
+                             proof=_proof(key, token, title, cleaned),
+                             error=f"Removed {removed} identical duplicate cards. Review the revised deck before saving."), False
         if data["action"] == "preview":
             return bulk_form(csrf, title, text, deck=deck, proof=expected), False
         if data["action"] != "save" or not hmac.compare_digest(data["proof"], expected):

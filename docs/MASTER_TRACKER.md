@@ -147,3 +147,6 @@ User requires minimum-effort AI bulk flashcard creation for teachers across subj
 
 ## M4 configurable AI prompt builder
 Implemented grade 1–4, subject, card count 1–100 and bounded optional teaching notes in the authenticated bulk UI. Generates prompt locally, no external call or persistence of notes. Normalizes CRLF/LF/CR before preview/save to preserve exact canonical content across browser submission. Regression added for all subjects/grades, bounds, escaping, authorization, generate without save and newline roundtrip. CI pending; previous bulk CI #359 running / native #40 pending at inspection. Large-deck editing, structured metadata, native review and authenticated USB still open. No firmware change.
+
+## M4 bulk quality review
+Added exact duplicate and conflicting-answer warnings, explicit proof-bound identical-pair removal, order-preserving CSV reserialization and renewed preview before save. Regression tests cover case-sensitive questions, quoted fields, changed proof, conflicts retained and 500-card boundary. CI pending. Native build #38 passed for sealed staging receipt revision 162e30b1; host #356 still running at inspection. Prompt revision #361/#41 running. Large-deck editing and metadata remain next flashcard authoring gaps; safe storage cutover, camera, full curriculum, USB and all other release gates remain open. No firmware changes.
