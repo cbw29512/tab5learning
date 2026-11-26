@@ -57,11 +57,12 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     return page("Teacher dashboard", f"""
     <p>Signed in as {escape(username)} ({escape(role)})</p>
     <section><h2>Flashcard library</h2><ul>{rows or '<li>No saved decks</li>'}</ul>
-    <form method="post" action="/decks">{hidden}
+    <p><a href="/decks/new" style="display:inline-block;background:#2456a6;color:white;padding:12px 18px;border-radius:6px;text-decoration:none">Create flashcards</a></p>
+    <details><summary>Import cards from CSV (optional)</summary><form method="post" action="/decks">{hidden}
     <label for="title">Deck title</label><input id="title" name="title" required maxlength="120">
     <label for="csv">Cards (CSV with front,back header)</label>
     <textarea id="csv" name="csv" rows="8" required>front,back
-</textarea><button>Validate and save deck</button></form></section>
+</textarea><button>Validate and save deck</button></form></details></section>
     {admin}
     {devices}{discovery}<form method="post" action="/logout">{hidden}<button>Sign out</button></form>
     """, notice)
