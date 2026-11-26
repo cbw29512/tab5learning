@@ -88,3 +88,7 @@ The original twelve gates remain the first integration milestone, not the comple
 ### Release evidence
 
 Record commit SHA, test results, firmware artifact hash and relevant physical acceptance evidence for each gate. The first hardware integration milestone must pass before declaring launch readiness. No cloud speech processing or wireless synchronization is permitted. Do not claim a speech engine is viable until measured on the actual target. Preserve existing firmware and known battery initialization behavior when testing.
+
+## Teacher website and maintenance recovery — interface update
+
+The teacher manager is to expose a protected local browser interface (no internet dependency). Technical diagnostics, firmware repair and explicit factory reset are separate SSH maintenance-host operations using a physically attached Tab5 over USB. See [Teacher Studio and SSH maintenance contract](TEACHER_STUDIO_AND_RECOVERY.md) for roles, state schema, recovery distinctions and additional acceptance gates. This supersedes the desktop-only UI assumption without changing the USB-only transport or offline learner requirements. Implementation is pending.
