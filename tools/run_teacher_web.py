@@ -1,4 +1,4 @@
-"""Run from repo root: python -m tools.run_teacher_web [--bootstrap]."""
+"""Run from repo root: python -m tools.run_teacher_web [--test] [--bootstrap]."""
 import argparse
 import getpass
 import logging
@@ -27,12 +27,16 @@ def main():
         logging.basicConfig(level=logging.INFO)
         parser = argparse.ArgumentParser()
         parser.add_argument("--bootstrap", action="store_true")
+        parser.add_argument("--test", action="store_true", help="Isolated local test data; 4-character minimum")
         args = parser.parse_args()
         directory = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "PocketLearningStudio"
-        app = TeacherWeb(directory)
+        if args.test:
+            directory = directory.with_name("PocketLearningStudioTest")
+            LOG.warning("TEST MODE: synthetic data only; separate account and deck databases")
+        app = TeacherWeb(directory, test_mode=args.test)
         if args.bootstrap:
             user = input("First administrator username: ")
-            password = getpass.getpass("Password (15+ characters): ")
+            password = getpass.getpass(f"Password ({app.accounts.minimum_password_length}+ characters): ")
             if password != getpass.getpass("Confirm password: "):
                 raise ValueError("Passwords do not match")
             app.accounts.create(user, password, "admin", bootstrap=True)
