@@ -118,3 +118,18 @@ class TeacherWebTests(unittest.TestCase):
         self.login(HTTP_ORIGIN="null")
         self.assertIn("Teacher dashboard", self.call()[2])
 
+
+    def test_planned_assignments_only_in_test_mode(self):
+        csrf = self.login()
+        form = {"csrf":csrf,"student_id":"student-001","device_id":"tab5-001","grade":"1"}
+        self.assertEqual(self.call("/assignments", form)[0], 403)
+        self.app = TeacherWeb(Path(self.temp.name) / "registry-test", test_mode=True)
+        self.app.accounts.create("admin", "1234", "admin", bootstrap=True)
+        csrf = self.login("admin", "1234")
+        form["csrf"] = csrf
+        self.assertEqual(self.call("/assignments", dict(form, csrf="bad"))[0], 403)
+        self.assertEqual(self.call("/assignments", form)[0], 303)
+        self.assertIn("Planned — not synced", self.call()[2])
+        self.assertIn("student-001", self.call()[2])
+        self.assertEqual(self.call("/assignments", form)[0], 400)
+        self.assertEqual(self.call("/assignments", dict(form, student_id="s2", device_id="d2", grade="4"))[0], 400)
