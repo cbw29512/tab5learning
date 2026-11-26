@@ -21,7 +21,7 @@ inline bool attempt_encode(const MathAttempt& a,AttemptBytes& b,std::size_t& len
       a.question>=math_questions.size()||a.choice>=4||
       a.result==MathResult::Ignored||a.result>MathResult::Finished||
       a.ink.overflow||a.ink.count>kMaxInkPoints) return false;
-  b={}; b[0]='P';b[1]='A';b[2]=1;b[3]=a.question;b[4]=a.choice;
+  b.fill(0); b[0]='P';b[1]='A';b[2]=1;b[3]=a.question;b[4]=a.choice;
   b[5]=static_cast<std::uint8_t>(a.result);
   b[6]=a.ink.count&255u;b[7]=a.ink.count>>8;
   for(unsigned i=0;i<16;++i) b[8+i]=a.after[i];

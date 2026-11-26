@@ -14,6 +14,8 @@ class MathJournal {
   bool opened=false, ready=false, exporting=false;
   unsigned last=0, limit=0;
   MathPractice current{}, origin{};
+  // Single-owner journal: bounded persistent work buffers, not loop stack.
+  AttemptBytes work{}, readback{};
   JournalFailure error=JournalFailure::None;
   static void key_for(unsigned slot,char (&key)[12]) {
     snprintf(key,sizeof(key),"a%03u",slot);
@@ -34,9 +36,9 @@ class MathJournal {
     auto result=nvs_set_blob(handle,key,src,n);
     if(result==ESP_ERR_NVS_NOT_ENOUGH_SPACE) return fail(JournalFailure::Full);
     if(result!=ESP_OK||nvs_commit(handle)!=ESP_OK) return fail(JournalFailure::Storage);
-    AttemptBytes verify{}; std::size_t size=verify.size();
-    if(read(handle,key,verify.data(),size)!=ESP_OK||size!=n||
-       std::memcmp(src,verify.data(),n)!=0) return fail(JournalFailure::Storage);
+    std::size_t size=readback.size();
+    if(read(handle,key,readback.data(),size)!=ESP_OK||size!=n||
+       std::memcmp(src,readback.data(),n)!=0) return fail(JournalFailure::Storage);
     return true;
   }
   static esp_err_t checkpoint(nvs_handle_t h,const char* key,MathPractice& state) {
@@ -87,7 +89,7 @@ class MathJournal {
     bool old_matches=prior!=ESP_OK||!old.attempts||same(state,old), gap=false;
     for(unsigned slot=1;slot<=limit;++slot) {
       char key[12]; key_for(slot,key);
-      AttemptBytes bytes{}; auto n=bytes.size();
+      auto& bytes=work; bytes.fill(0); auto n=bytes.size();
       const auto result=read(handle,key,bytes.data(),n);
       if(result==ESP_ERR_NVS_NOT_FOUND) { gap=true; continue; }
       if(result!=ESP_OK||gap||!attempt_replay(bytes,n,state)) return bad(JournalFailure::Storage);
@@ -126,7 +128,7 @@ class MathJournal {
     if(!sink.begin(manifest)) return reject(MathSnapshotResult::SinkFailure);
     for(unsigned slot=1;slot<=last;++slot) {
       char key[12]; key_for(slot,key);
-      AttemptBytes bytes{}; auto n=bytes.size();
+      auto& bytes=work; bytes.fill(0); auto n=bytes.size();
       if(read(handle,key,bytes.data(),n)!=ESP_OK||!verifier.record(slot,bytes,n))
         return reject(MathSnapshotResult::Invalid);
       if(!sink.record(slot,bytes,n)) return reject(MathSnapshotResult::SinkFailure);
@@ -139,7 +141,7 @@ class MathJournal {
     if(exporting||!ready||!same(before,current)||before.attempts==UINT32_MAX||a.sequence!=before.attempts+1)
       return false;
     if(last>=limit) return fail(JournalFailure::Full);
-    AttemptBytes bytes{}; std::size_t n=0; auto next=before;
+    auto& bytes=work; std::size_t n=0; auto next=before;
     if(!attempt_encode(a,bytes,n)||!attempt_replay(bytes,n,next)) return false;
     char key[12]; key_for(last+1,key);
     if(!write(key,bytes.data(),n)) return false;

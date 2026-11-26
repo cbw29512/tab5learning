@@ -18,6 +18,10 @@
 #define TAB5_PREVIEW_AUDIO 1
 #endif
 #include <cstdio>
+#include <esp_system.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include "math_submission.h"
 
 namespace {
 LearnerNavigation navigation;
@@ -25,6 +29,7 @@ MathPractice math;
 MathJournal storage;
 AwardNotice notice;
 MathScratchpad scratch;
+MathSubmission submission;
 ReadingPreview reading;
 #ifdef TAB5_PREVIEW_AUDIO
 ReadingEstimatedHighlight reading_highlight;
@@ -229,6 +234,7 @@ void setup() {
   auto cfg=M5.config();
   M5.begin(cfg);
   Serial.begin(115200);
+  Serial.printf("BOOT,RESET_REASON,%d\n",int(esp_reset_reason()));
   // Match the physical display probe: let the panel settle before drawing.
   delay(2000);
   if (M5.Display.width()<M5.Display.height()) M5.Display.setRotation(1);
@@ -287,19 +293,18 @@ void loop() {
       }
       int choice=math_choice_at(detail.x,detail.y);
       if(choice>=0 && !storage_error) {
-        auto next=math;
-        MathAttempt attempt;
-        if(make_math_attempt(math,static_cast<unsigned>(choice),scratch,attempt)) {
-          const auto result=attempt.result;
-          if(storage.append(attempt,math,next)) {
-            const auto before=preview_badge_count(math);
-            math=next; feedback=result;
-            if(result!=MathResult::TryAgain) scratch_clear(scratch);
-            const auto after=preview_badge_count(math);
-            if(after>before) award_notice_offer(notice,after,millis(),true);
-          }
-          else { storage_error=true; Serial.println("ERR,MATH_STORAGE_SAVE"); }
+        Serial.printf("MATH,SUBMIT,STACK_WATERMARK,%u\n",unsigned(uxTaskGetStackHighWaterMark(nullptr)));
+        const auto before=preview_badge_count(math);
+        const auto status=submission.submit(storage,math,scratch,static_cast<unsigned>(choice),feedback);
+        if(status==MathSubmitStatus::Saved) {
+          const auto after=preview_badge_count(math);
+          if(after>before) award_notice_offer(notice,after,millis(),true);
+          Serial.printf("MATH,SAVED,STACK_WATERMARK,%u\n",unsigned(uxTaskGetStackHighWaterMark(nullptr)));
           render();
+        } else if(status==MathSubmitStatus::StorageError) {
+          storage_error=true; Serial.println("ERR,MATH_STORAGE_SAVE"); render();
+        } else {
+          Serial.println("ERR,MATH_SUBMISSION_REJECTED");
         }
       }
     }

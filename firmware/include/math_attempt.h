@@ -16,20 +16,27 @@ inline bool make_math_attempt(const MathPractice& before,unsigned choice,
   if(!math_state_valid(before)||before.finished||choice>=4||
      before.attempts==UINT32_MAX||scratch.ink.overflow||
      scratch.ink.count>kMaxInkPoints) return false;
-  MathAttempt a;
-  auto next=before;
-  a.result=math_answer(next,choice);
-  if(a.result==MathResult::Ignored||!math_encode(next,a.after)) return false;
-  a.sequence=next.attempts;
-  a.question=static_cast<std::uint8_t>(before.index);
-  a.choice=static_cast<std::uint8_t>(choice);
-  a.ink.count=scratch.ink.count;
-  for(std::size_t i=0;i<a.ink.count;++i) {
+  // Validate every point before touching the caller-owned output. Avoid a
+  // second 3 KiB automatic MathAttempt on the embedded loop task stack.
+  for(std::size_t i=0;i<scratch.ink.count;++i) {
     const auto& p=scratch.ink.points[i];
     if(!scratch_inside(p.x,p.y)||(!i&&!p.stroke_start)) return false;
-    a.ink.points[i]={static_cast<std::uint16_t>(p.x-math_ink_card.x),
-                     static_cast<std::uint16_t>(p.y-math_ink_card.y),p.stroke_start};
   }
-  out=a;
+  auto next=before;
+  const auto result=math_answer(next,choice);
+  MathCheckpoint after{};
+  if(result==MathResult::Ignored||!math_encode(next,after)) return false;
+  out.sequence=next.attempts;
+  out.question=static_cast<std::uint8_t>(before.index);
+  out.choice=static_cast<std::uint8_t>(choice);
+  out.result=result; out.after=after;
+  out.ink.count=scratch.ink.count; out.ink.overflow=false;
+  for(std::size_t i=0;i<out.ink.count;++i) {
+    const auto& p=scratch.ink.points[i];
+    out.ink.points[i]={static_cast<std::uint16_t>(p.x-math_ink_card.x),
+                       static_cast<std::uint16_t>(p.y-math_ink_card.y),p.stroke_start};
+  }
+  // Preserve the previous zero-initialized output contract for unused points.
+  for(std::size_t i=out.ink.count;i<kMaxInkPoints;++i) out.ink.points[i]={};
   return true;
 }

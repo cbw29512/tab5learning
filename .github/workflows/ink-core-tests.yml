@@ -62,6 +62,8 @@ jobs:
           /tmp/tab5-journal-test
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_restore_test.cpp -o /tmp/tab5-restore-test
           /tmp/tab5-restore-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_submission_test.cpp -o /tmp/tab5-submission-test
+          /tmp/tab5-submission-test
       - name: Compile and run embedded reading timeline tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_timeline_test.cpp -o /tmp/tab5-reading-timeline-test
