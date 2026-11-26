@@ -4,7 +4,7 @@
 namespace learner_auth {
 bool platform_hmac(const Bytes& key,const uint8_t* data,std::size_t size,Bytes& out) {
   out.fill(0);
-  if(!data || size==0 || size>148) return false;
+  if(!data || size==0 || size>sizeof("TAB5-AUTH-V1")+sizeof("device")+65+64) return false;
   const auto* info=mbedtls_md_info_from_type(MBEDTLS_MD_SHA256);
   if(!info || mbedtls_md_get_size(info)!=out.size()) return false;
   if(mbedtls_md_hmac(info,key.data(),key.size(),data,size,out.data())!=0) {
