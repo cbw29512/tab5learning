@@ -42,3 +42,6 @@ Each grade/subject path includes frequent earned micro-achievements, progressive
 - Teacher sign-off on educational sufficiency, coverage, progression rules and major certificate criteria.
 
 Release remains blocked until these gates and all other MVP gates pass. Record evidence, exact revision, package sizes, test results and explicit remaining gaps in MASTER_TRACKER.md.
+
+## Forward compatibility gate
+Version 1 contains all reviewed grade 1–4 core packages at delivery. Architecture must permit later grade 5–12 packages and potentially college course outcomes without a four-grade schema ceiling or loss of prior evidence. Future curricula are not release blockers for Version 1. User-reported 512 GB microSD is the intended bulk storage target, subject to physical validation; measure actual package sizes and retention capacity rather than assuming a fixed allocation. See LIFELONG_LEARNING.md for constraints.
