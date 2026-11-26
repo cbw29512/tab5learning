@@ -26,5 +26,23 @@ int main() {
   assert(backend.data==pcm+3200 && backend.length==3200);
   backend.pending=0;
   assert(playback.poll() && !playback.busy());
+  // Pause must reject an invalid word and wait for cancellation to settle.
+  assert(playback.listen());
+  assert(!playback.pause(2));
+  assert(playback.pause(1));
+  assert(playback.paused() && playback.resume_offset()==200);
+  assert(!playback.resume());
+  assert(playback.poll());
+  assert(playback.resume());
+  assert(!playback.paused());
+  assert(backend.data==pcm+3200 && backend.length==12800);
+  assert(playback.pause(1));
+  playback.stop();
+  playback.poll();
+  assert(!playback.paused() && !playback.resume());
+  assert(playback.replay(0));
+  assert(!playback.pause(0));
+  playback.stop();
+  playback.poll();
   return 0;
 }
