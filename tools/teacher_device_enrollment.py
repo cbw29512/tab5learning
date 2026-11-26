@@ -105,3 +105,16 @@ class DeviceEnrollment:
         except (ValueError, PermissionError, OSError, sqlite3.Error):
             LOG.warning("Protected credential retrieval rejected")
             raise
+
+    def storage_status(self, token):
+        self.sessions.require(token, "admin")
+        try:
+            with closing(sqlite3.connect(self.path)) as db:
+                result = {row[0]: "legacy" for row in db.execute(
+                    "SELECT device_id FROM device_credentials")}
+                for (device_id,) in db.execute("SELECT device_id FROM protected_device_credentials"):
+                    result[device_id] = "conflict" if device_id in result else "protected"
+                return result
+        except sqlite3.Error:
+            LOG.warning("Credential storage status unavailable")
+            raise
