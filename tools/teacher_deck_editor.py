@@ -1,5 +1,6 @@
 """Server-rendered visual deck editor. Uses the existing immutable deck contract."""
 import logging
+import sqlite3
 from dataclasses import dataclass
 from html import escape
 from uuid import uuid4
@@ -123,7 +124,11 @@ def handle_editor(data, csrf, decks, token):
             return draft, None, str(exc), False
         if action == "preview":
             return draft, deck, "", False
-        decks.save(token, deck)
+        try:
+            decks.save(token, deck)
+        except sqlite3.IntegrityError:
+            LOG.warning("Duplicate visual deck save rejected")
+            return draft, deck, "This deck ID was already saved. Check the flashcard library before creating another copy.", False
         return draft, None, "", True
     else:
         raise ValueError("Unknown editor action")
