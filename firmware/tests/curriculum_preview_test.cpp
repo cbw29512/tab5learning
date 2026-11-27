@@ -3,10 +3,16 @@
 using namespace curriculum_preview;
 int main(){
   static_assert(lesson_count==12);
+  static_assert(lesson_pages(0)==1&&lesson_pages(3)==1&&lesson_pages(4)==2);
+  static_assert(lesson_pages(9)==3&&lesson_pages(10)==4);
+  static_assert(!lesson_page_valid(3,9)&&lesson_page_valid(3,10));
   unsigned visited=0,activities=0;
   Preview p;
   for(unsigned s=0;s<4;++s){
     p.reset();assert(p.choose_subject(s));
+    assert(p.page==0&&p.subject_count()==3);
+    assert(!p.change_page(-1)&&!p.change_page(1));
+    assert(!p.change_page(0)&&p.visible_lesson(3)==nullptr);
     for(unsigned i=0;i<3;++i){
       assert(p.choose_lesson(i));++visited;
       assert(p.current().subject==s);

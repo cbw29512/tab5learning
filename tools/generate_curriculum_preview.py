@@ -16,8 +16,8 @@ KINDS = {"choice":"Choice","instruction":"Instruction","teacher_review":"AdultRe
 def generate(raw):
     try:
         catalog, _ = decode_draft(raw)
-        if any(sum(l["subject"] == s for l in catalog["lessons"]) > 4 for s in SUBJECTS):
-            raise ValueError("Preview supports four lessons per subject")
+        # The native lesson browser now paginates; retain catalog bounds
+        # and per-activity display constraints instead of a four-lesson cap.
         lines = ['#pragma once','// Generated from starter.v2.json. Do not edit by hand.',
                  '#include "curriculum_preview_types.h"','namespace curriculum_preview {']
         def literal(value, width=60, rows=1):
