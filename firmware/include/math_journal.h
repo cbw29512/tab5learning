@@ -10,6 +10,7 @@ enum class JournalFailure { None, Full, Storage, Conflict };
 // logical attempt IDs, after a legacy checkpoint migration.
 class MathJournal {
   friend class MathJournalRestorer;
+  friend class MathJournalExportCursor;
   friend class MathJournalMigration;
   const MathJournalTarget target;
   nvs_handle_t handle=0;

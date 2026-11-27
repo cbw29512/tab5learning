@@ -140,6 +140,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_frame_session_test.cpp -lcrypto -o /tmp/tab5-frame-session-test
           /tmp/tab5-frame-session-test
+      - name: Compile and run incremental journal export regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_journal_export_cursor_test.cpp -o /tmp/tab5-export-cursor-test
+          /tmp/tab5-export-cursor-test
       - name: Compile and run authenticated mathematics snapshot reference
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_frame_snapshot_test.cpp -lcrypto -o /tmp/tab5-math-frame-test
