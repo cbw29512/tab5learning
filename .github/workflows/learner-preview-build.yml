@@ -54,6 +54,8 @@ jobs:
         run: pio run -d firmware -e sd_capacity_probe
       - name: Compile isolated SD write probe (no upload)
         run: pio run -d firmware -e sd_write_probe
+      - name: Compile integrated learner SD evaluation candidate (no upload)
+        run: pio run -d firmware -e learner_sd_eval
       - name: Record build evidence
         shell: bash
         run: |

@@ -29,6 +29,9 @@
 #include "curriculum_resume_store.h"
 #include "curriculum_transition.h"
 #include "curriculum_journey_ui.h"
+#ifdef POCKET_LEARNER_SD_EVAL
+#include "learner_sd_owner.h"
+#endif
 
 namespace {
 LearnerNavigation navigation;
@@ -36,6 +39,9 @@ curriculum_preview::Preview curriculum;
 curriculum_preview::ResumeStore curriculum_resume;
 // Non-owning view; only a qualified, replayed SD owner may bind this.
 curriculum_preview::CompletionLedger* curriculum_completion=nullptr;
+#ifdef POCKET_LEARNER_SD_EVAL
+curriculum_preview::LearnerSdOwner curriculum_sd;
+#endif
 MathPractice math;
 MathJournal storage;
 AwardNotice notice;
@@ -300,6 +306,9 @@ void setup() {
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
   else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
   curriculum_resume.begin(); // Separate bounded resume record; no math writes.
+#ifdef POCKET_LEARNER_SD_EVAL
+  if(curriculum_sd.begin(sd_status)) curriculum_completion=curriculum_sd.view();
+#endif
   notice.newest=preview_badge_count(math); // Never replay restored awards.
   battery_runtime.observe(millis(),navigation);
   sample_learner_battery(battery,battery_runtime,millis());
@@ -342,7 +351,23 @@ void loop() {
       if(curriculum_preview::touch(candidate,detail.x,detail.y)) {
         // Completion backend remains explicitly disabled until the
         // isolated SD write and reboot test is physically accepted.
-        curriculum_preview::commit_transition(curriculum,candidate,curriculum_resume,curriculum_completion);
+#ifdef POCKET_LEARNER_SD_EVAL
+        // A failed SD owner is not permission to silently fall back to
+        // resume-only completion. Navigation remains available.
+        if(candidate.screen==curriculum_preview::Screen::Finished&&
+            (!curriculum_completion||!curriculum_completion->available())){
+          Serial.println("ERR,CURRICULUM_SD_REQUIRED");
+        }else
+#endif
+        {
+          const auto result=curriculum_preview::commit_transition(curriculum,candidate,curriculum_resume,curriculum_completion);
+#ifdef POCKET_LEARNER_SD_EVAL
+          if(result==curriculum_preview::TransitionResult::CompletionError)
+            sd_status=learner_storage::unavailable();
+#else
+          (void)result;
+#endif
+        }
         render();
       }
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {

@@ -38,7 +38,14 @@ inline void page_button(const char* label,int x){
 }
 inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledger=nullptr){
   M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+#ifdef POCKET_LEARNER_SD_EVAL
+  const char* banner=!resume_ok?"Resume storage unavailable - ask your teacher":
+    (!ledger||!ledger->available())?"SD history unavailable - cannot finish lesson":
+    "Grade 1 SD evaluation - completion only; no grades";
+  M5.Display.drawString(banner,48,144);
+#else
   M5.Display.drawString(resume_ok?"Grade 1 draft - resume location saved; no grades":"Resume storage unavailable - ask your teacher",48,144);
+#endif
   if(p.screen==Screen::Subjects){
     for(unsigned i=0;i<4;++i)button(subjects[i],184+90*i,72);
     return;
