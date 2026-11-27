@@ -216,3 +216,6 @@ Operator reported original learner app restored (633,504 bytes, verified hash), 
 
 ## M8 incremental encrypted transfer reference
 Prior cursor CI #401 queued/#63 pending. Added synthetic-only coordinator between existing GCM frame sink and bounded journal cursor, shares request decoder and original snapshot wire schema. Added 100-record encrypted regression with one-frame backpressure and failure paths. This is fake-NVS integration, not learner firmware or public-probe access to student data. Latest tests pending; production grant and maintenance UI next. No flash requested.
+
+## M8 scoped host USB archive ingestion
+Added PreviewUsbSync to connect existing complete verified encrypted exchange and existing durable archive without arbitrary device/student mapping. Explicit test-only confirmation, reserved probe assignment, teacher scope before and after transfer, transactional immutable receipt, exact retry, failure tests. CI #403 queued/#64 pending at inspection; new host tests not yet executed. Production grant/provisioning and maintenance UI not complete; no hardware flash required.
