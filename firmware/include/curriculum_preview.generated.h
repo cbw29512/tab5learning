@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v3.json. Do not edit by hand.
+// Generated from starter.v4.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -162,6 +162,70 @@ inline constexpr Activity activities_19[]={
   {Kind::Instruction,"remediation","At a bakery, the bread is a good. Delivering bread is a service. Think of a shop that offers both a thing and helpful work.","",{"","",""},0,-1},
   {Kind::Choice,"review","A librarian helps someone find a book. What is the helping work?","Helping someone find a book is a service.",{"A service","A good","A map"},3,0},
 };
+inline constexpr Activity activities_20[]={
+  {Kind::Instruction,"instruction","Compare tens first. 42 has four tens and 36 has three tens, so 42 is greater. If the tens match, compare the ones. 42 is less than 45.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which number is greater?","62 has six tens. 26 has two tens.",{"26","62","Both equal"},3,1},
+  {Kind::Choice,"independent","Which number is smaller?","Both have five tens. Three ones are fewer than eight ones.",{"58","Both equal","53"},3,2},
+  {Kind::Choice,"assessment","Choose the true comparison.","Four tens are fewer than seven tens. The open end of the sign faces the greater number.",{"47 > 74","47 < 74","47 = 74"},3,1},
+  {Kind::Instruction,"remediation","Draw tens as sticks and ones as dots. Compare 32 and 35. The tens match, so count the dots. Try 61 and 16 next.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Choose the true comparison.","Eight tens are greater than one ten.",{"81 > 18","81 < 18","81 = 18"},3,0},
+};
+inline constexpr Activity activities_21[]={
+  {Kind::Instruction,"instruction","A number story tells what happens to a group. If 8 birds are joined by 4 more, add to find the total: 8 + 4 = 12. If 3 of the 12 birds leave, subtract: 12 - 3 = 9.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Mia has 7 crayons and gets 5 more. Which equation finds how many she has now?","She gets more crayons, so add 7 and 5.",{"7 - 5 = 2","7 + 5 = 12","5 + 5 = 10"},3,1},
+  {Kind::Choice,"independent","There are 15 toy cars. Six are put away. How many remain?","15 minus 6 is 9.",{"9","11","19"},3,0},
+  {Kind::Choice,"assessment","A basket has 9 pears. Four more are added. How many now?","9 + 4 = 13.",{"5","14","13"},3,2},
+  {Kind::Instruction,"remediation","Draw a group of dots for the starting number. Add dots for objects arriving, or cross out dots for objects leaving. Count the new group.","",{"","",""},0,-1},
+  {Kind::Choice,"review","There are 18 blocks. Seven are removed. Which equation matches?","Removing seven means subtract seven from eighteen.",{"18 + 7 = 25","18 - 7 = 11","18 - 8 = 10"},3,1},
+};
+inline constexpr Activity activities_22[]={
+  {Kind::Instruction,"instruction","Say the short o sound in hot. Read h, o, t slowly. Blend them: hot. Try the same with pot and log.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word has the middle sound in hot?","Hop and hot have the same short o sound.",{"hat","hit","hop"},3,2},
+  {Kind::Choice,"independent","Blend d, o, g. Which word?","The sounds blend into dog.",{"dog","dig","dug"},3,0},
+  {Kind::AdultReview,"assessment","Read these words aloud to an adult: top, log, pot. Then say each sound in mop.","Listen for short o and blending of all three sounds. Accept dialect differences. Give support if needed; do not auto-score speech.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say the sounds in cot slowly, then blend cot. Change the first sound to make dot. Blend again.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word begins with m and has the middle sound in hot?","Mop begins with m and has short o.",{"map","mop","mat"},3,1},
+};
+inline constexpr Activity activities_23[]={
+  {Kind::Instruction,"instruction","Say the short u sound in sun. Read s, u, n. Blend the sounds into sun. Try fun and run.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word has the middle sound in sun?","Cup has the short u sound.",{"sit","cup","cap"},3,1},
+  {Kind::Choice,"independent","Blend b, u, g. Which word?","The three sounds make bug.",{"bag","big","bug"},3,2},
+  {Kind::AdultReview,"assessment","Read mud, rug and cut to an adult. Say the three sounds in hut.","Listen for each sound and blending. Record whether the child needed a model. Accept dialect differences.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say r, u, n. Blend run. Change r to f and blend fun. Try the same change from bug to rug.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word rhymes with sun?","Sun and fun share the ending sound.",{"fun","fan","fin"},3,0},
+};
+inline constexpr Activity activities_24[]={
+  {Kind::Instruction,"instruction","A vibration is a fast back-and-forth movement. With an adult, place a flexible ruler partly over a table edge and press the other end firmly. Gently tap the free end. Watch it move and listen.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What should you watch when the ruler makes a sound?","Watch the back-and-forth movement.",{"Its color","Its movement","Its printed numbers"},3,1},
+  {Kind::Choice,"independent","Which observation supports the idea that movement can make sound?","The movement and sound happen together.",{"A ruler has numbers","A table is brown","A tapped ruler moves and makes sound"},3,2},
+  {Kind::AdultReview,"assessment","With an adult, compare the ruler at rest and after a gentle tap. Tell what you saw and heard. Keep the ruler away from faces.","Look for a comparison of movement and sound in both conditions. Do not claim the child observed anything until the investigation is done.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Repeat gently. Look closely as the ruler slows down. Notice whether the sound changes. Ask an adult for help if you cannot see or hear the change.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What is a vibration?","A vibration is movement back and forth.",{"A back-and-forth movement","A color","A kind of map"},3,0},
+};
+inline constexpr Activity activities_25[]={
+  {Kind::Instruction,"instruction","The amount of daylight can change during the year. At the same place, some days have more hours of daylight than others. An adult can help you record sunrise and sunset times. Never look directly at the Sun.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which example has more daylight?","Fourteen hours is more than ten hours.",{"A day with 10 hours","A day with 14 hours","Both the same"},3,1},
+  {Kind::Choice,"independent","Why record daylight at the same place in different seasons?","Repeated observations can show changes across the year.",{"To measure a pencil","To change the weather","To compare daylight patterns"},3,2},
+  {Kind::AdultReview,"assessment","With an adult, record today's local sunrise and sunset times from a trusted calendar. Plan another observation in a different season.","Check date, place and both times. Mark calendar information as a source, not a direct observation. Full seasonal investigation requires later records.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Imagine two example days. One has 12 hours of daylight; another has 9. Draw a longer bar for 12. Compare their lengths.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What helps us find a pattern?","Records collected across the year support comparison.",{"One guess","Repeated records at the same place","Changing places without recording them"},3,1},
+};
+inline constexpr Activity activities_26[]={
+  {Kind::Instruction,"instruction","A classroom rule helps people learn and work together. Taking turns lets more people speak. Walking indoors helps people move safely. Rules should have a reason.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Why take turns during a group discussion?","Taking turns gives others a chance to speak.",{"So everyone can speak","So nobody can listen","So only one person learns"},3,0},
+  {Kind::Choice,"independent","Two students want the same game. What is a fair first step?","Taking turns can give both students a chance.",{"Hide the game","Agree to take turns","Push the other student"},3,1},
+  {Kind::AdultReview,"assessment","Tell an adult one classroom rule and explain why it helps the group.","Accept a reasonable rule and a clear reason connected to safety, learning or fairness. Ask how the rule could help others.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Think of a busy hallway. Walking gives people time to notice others. A useful rule has a purpose, not just words to remember.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which rule helps keep a shared walkway safe?","A clear walkway helps people move safely.",{"Leave bags in the middle","Run past everyone","Keep the walkway clear"},3,2},
+};
+inline constexpr Activity activities_27[]={
+  {Kind::Instruction,"instruction","A map key explains symbols. In an example key, B means books, D means door and T means table. The symbols help us read a small map without drawing every object.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","In this key, B means books and D means door. Which symbol marks the door?","D stands for door in this example.",{"B","D","T"},3,1},
+  {Kind::Choice,"independent","A new key says P means playground and S means school. Which symbol shows school?","Read the new key: S means school.",{"P","D","S"},3,2},
+  {Kind::AdultReview,"assessment","Draw a simple map of a pretend classroom on paper. Mark two places with symbols and make a key. Ask an adult to use your key.","Check that both symbols match the key and that another person can identify the places. Do not ask for a home address.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Map symbols can change from map to map. Always check the key. A letter on one map may mean something different on another.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What should you check when a map symbol is unfamiliar?","The map key tells what the symbol means.",{"The map key","The page color","The paper size"},3,0},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -183,5 +247,13 @@ inline constexpr Lesson lessons[]={
   {2,"g1-moon-observations",1,"Observe the Moon",activities_17,6},
   {3,"g1-map-route",1,"Follow a simple map",activities_18,6},
   {3,"g1-goods-service-work",1,"How people meet needs",activities_19,6},
+  {0,"g1-compare-two-digit",1,"Compare tens and ones",activities_20,6},
+  {0,"g1-story-problems",1,"Solve number stories",activities_21,6},
+  {1,"g1-short-o",1,"Blend short-o words",activities_22,6},
+  {-1,"g1-short-u",1,"Blend short-u words",activities_23,6},
+  {2,"g1-sound-vibration",1,"Sounds and vibrations",activities_24,6},
+  {2,"g1-seasonal-daylight",1,"Daylight across the year",activities_25,6},
+  {3,"g1-classroom-rules",1,"Rules help us work together",activities_26,6},
+  {3,"g1-map-symbols",1,"Read a map key",activities_27,6},
 };
 }
