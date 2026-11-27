@@ -24,12 +24,12 @@ inline bool fail_open=false,fail_read=false,fail_write=false,ambiguous=false,ful
 inline void reset() {
   records.clear(); writes_before_full=-1; dedicated_initialized=fail_inventory=false; dedicated_entries=64512; fail_open=fail_read=fail_write=ambiguous=full=false;
 }
-inline const char* space(nvs_handle_t h) { return h==3?"dedicated/pljournal":h==1?"pljournal":"pocketlearn"; }
+inline const char* space(nvs_handle_t h) { return h==4?"plcurriculum":h==3?"dedicated/pljournal":h==1?"pljournal":"pocketlearn"; }
 }
 inline esp_err_t nvs_open(const char* ns,int mode,nvs_handle_t* h) {
   if(FakeNvs::fail_open) return ESP_FAIL;
   if(mode==NVS_READONLY&&!FakeNvs::records.count(ns)) return ESP_ERR_NVS_NOT_FOUND;
-  *h=std::strcmp(ns,"pljournal")==0?1:2; return ESP_OK;
+  *h=std::strcmp(ns,"plcurriculum")==0?4:std::strcmp(ns,"pljournal")==0?1:2; return ESP_OK;
 }
 inline void nvs_close(nvs_handle_t) {}
 inline esp_err_t nvs_open_from_partition(const char* part,const char* ns,int mode,nvs_handle_t* h) {

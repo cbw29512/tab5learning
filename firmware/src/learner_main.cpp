@@ -25,10 +25,12 @@
 #include "learner_battery_ui.h"
 #include "battery_notice.h"
 #include "curriculum_preview_ui.h"
+#include "curriculum_resume_store.h"
 
 namespace {
 LearnerNavigation navigation;
 curriculum_preview::Preview curriculum;
+curriculum_preview::ResumeStore curriculum_resume;
 MathPractice math;
 MathJournal storage;
 AwardNotice notice;
@@ -247,7 +249,7 @@ void render() {
     } else if (navigation.screen==LearnerScreen::Reading) {
       render_reading();
     } else if (navigation.screen==LearnerScreen::Curriculum) {
-      curriculum_preview::render(curriculum);
+      curriculum_preview::render(curriculum,curriculum_resume.available());
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
     } else {
@@ -286,6 +288,7 @@ void setup() {
   storage_error=loaded==JournalLoad::Error;
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
   else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
+  curriculum_resume.begin(); // Separate bounded resume record; no math writes.
   notice.newest=preview_badge_count(math); // Never replay restored awards.
   battery_runtime.observe(millis(),navigation);
   sample_learner_battery(battery,battery_runtime,millis());
@@ -314,12 +317,24 @@ void loop() {
       render();
     } else if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) {
-      if(action==LearnerAction::Curriculum || action==LearnerAction::Home) curriculum.reset();
+      if(action==LearnerAction::Curriculum || action==LearnerAction::Home) {
+        curriculum.reset();
+        if(action==LearnerAction::Curriculum) curriculum_resume.restore(curriculum);
+      }
       battery_runtime.observe(millis(),navigation);
       if (navigation.screen!=LearnerScreen::Reading || navigation.help_open) reading_leave();
       render();
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Curriculum) {
-      if(curriculum_preview::touch(curriculum,detail.x,detail.y)) render();
+      // Stage navigation before acknowledging a new resume location. Feedback
+      // is transient; a power loss repeats its activity, never awards credit.
+      auto candidate=curriculum;
+      if(curriculum_preview::touch(candidate,detail.x,detail.y)) {
+        const bool checkpoint=candidate.screen==curriculum_preview::Screen::Activity||
+          candidate.screen==curriculum_preview::Screen::Finished;
+        if(!checkpoint||curriculum_resume.save(candidate)) curriculum=candidate;
+        else Serial.println("ERR,CURRICULUM_ADVANCE_NOT_SAVED");
+        render();
+      }
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {
       reading_touch(detail.x,detail.y);
     }

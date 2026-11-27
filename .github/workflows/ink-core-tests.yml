@@ -34,6 +34,10 @@ jobs:
             firmware/tests/ink_capture_test.cpp \
             -o /tmp/tab5-ink-test
           /tmp/tab5-ink-test
+      - name: Compile and run curriculum resume checkpoint tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/tests/curriculum_resume_test.cpp -o /tmp/tab5-curriculum-resume
+          /tmp/tab5-curriculum-resume
       - name: Compile and run native curriculum preview state tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_preview_test.cpp -o /tmp/tab5-curriculum-test

@@ -36,9 +36,9 @@ inline void page_button(const char* label,int x){
   M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);M5.Display.setTextSize(3);
   M5.Display.drawString(label,x+24,508);
 }
-inline void render(const Preview& p){
+inline void render(const Preview& p,bool resume_ok){
   M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
-  M5.Display.drawString("Grade 1 draft preview - practice only; no progress saved",48,144);
+  M5.Display.drawString(resume_ok?"Grade 1 draft - resume location saved; no grades":"Resume storage unavailable - ask your teacher",48,144);
   if(p.screen==Screen::Subjects){
     for(unsigned i=0;i<4;++i)button(subjects[i],184+90*i,72);
     return;
