@@ -3,6 +3,7 @@
 #include <M5Unified.h>
 #include <SPI.h>
 #include <SD.h>
+#include "learner_storage_format.h"
 
 // Manufacturer-documented Tab5 SPI wiring. Isolated compile/physical probe.
 // No file opens, enumeration, create/delete, format or student storage.
@@ -37,6 +38,9 @@ void setup(){
     snprintf(line,sizeof(line),"Card bytes: %llu",static_cast<unsigned long long>(card));message(line);
     snprintf(line,sizeof(line),"Filesystem bytes: %llu",static_cast<unsigned long long>(total));message(line);
     snprintf(line,sizeof(line),"Used bytes: %llu",static_cast<unsigned long long>(used));message(line);
+    const auto status=learner_storage::measured(total,used);
+    char summary[128];learner_storage::format_summary(status,summary,sizeof(summary));
+    message(summary);message(learner_storage::state_label(status.state));
     message("SD CAPACITY PROBE PASSED");
   }
   SD.end();SPI.end();

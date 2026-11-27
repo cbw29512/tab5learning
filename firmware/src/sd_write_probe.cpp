@@ -4,6 +4,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include "curriculum_sd_fixture.h"
+#include "learner_storage_format.h"
 
 namespace {
 using namespace curriculum_preview;
@@ -62,7 +63,13 @@ void setup(){
   if(!SD.begin(cs,SPI,4000000,"/sd",5,false)){
     message("FAIL: SD mount; never format");SPI.end();return;
   }
-  exercise();SD.end();SPI.end();
+  exercise();
+  // One post-operation sample on the already-mounted card, never a
+  // background FAT scan during touch, audio or learner evidence capture.
+  const auto status=learner_storage::measured(SD.totalBytes(),SD.usedBytes());
+  char summary[128];learner_storage::format_summary(status,summary,sizeof(summary));
+  message(summary);message(learner_storage::state_label(status.state));
+  SD.end();SPI.end();
   message("SD unmounted. No other files touched by app.");
 }
 void loop(){M5.update();M5.delay(100);}

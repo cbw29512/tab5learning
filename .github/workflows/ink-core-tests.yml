@@ -34,6 +34,10 @@ jobs:
             firmware/tests/ink_capture_test.cpp \
             -o /tmp/tab5-ink-test
           /tmp/tab5-ink-test
+      - name: Compile and run storage capacity and admission policy tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_storage_status_test.cpp -o /tmp/tab5-storage-status
+          /tmp/tab5-storage-status
       - name: Compile and run exact synthetic SD fixture tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_sd_fixture_test.cpp -o /tmp/tab5-sd-fixture
