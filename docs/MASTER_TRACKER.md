@@ -219,3 +219,6 @@ Prior cursor CI #401 queued/#63 pending. Added synthetic-only coordinator betwee
 
 ## M8 scoped host USB archive ingestion
 Added PreviewUsbSync to connect existing complete verified encrypted exchange and existing durable archive without arbitrary device/student mapping. Explicit test-only confirmation, reserved probe assignment, teacher scope before and after transfer, transactional immutable receipt, exact retry, failure tests. CI #403 queued/#64 pending at inspection; new host tests not yet executed. Production grant/provisioning and maintenance UI not complete; no hardware flash required.
+
+## M8 teacher mathematics history review
+Added test-only authenticated Teacher Studio history page scoped to planned student/device. Reads latest verified local archive, renders original stroke paths/dots, exact V1 preview question/selected answer/result and independent practice statistics, with ten attempts per page and legacy summary-only warning. Missing/corrupt history marked unavailable rather than zero progress. No USB access, correction, real student import or grading. Added WSGI regressions for exact evidence, paging, authorization, missing archive and production denial. Prior CI #405 queued/#65 pending; new tests pending. Next run local host suite and review actual screen before expanding sync UI.

@@ -66,7 +66,7 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     devices = (registry_panel(assignments, csrf, enrollment, credential_storage, can_migrate) if assignments is not None else
                "<section><h2>Device and student management</h2><p>Available in isolated test mode only.</p></section>")
     discovery = scan_panel(csrf) if test_mode and role == "admin" else ""
-    backup = ('<section><h2>Backup &amp; Restore</h2><p><a href="/backups">Open teaching backup center (test)</a></p></section>' if backup_enabled else "")
+    backup = ('<section><h2>Backup &amp; Restore</h2><p><a href="/backups">Open teaching backup center (test)</a></p><p><a href="/history">Review saved mathematics history (test)</a></p></section>' if backup_enabled else "")
     return page("Teacher dashboard", f"""
     <p>Signed in as {escape(username)} ({escape(role)})</p>
     <section><h2>Flashcard library</h2><ul>{rows or '<li>No saved decks</li>'}</ul>
