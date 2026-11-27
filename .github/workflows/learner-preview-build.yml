@@ -46,6 +46,8 @@ jobs:
         run: pio run -d firmware -e auth_usb_probe
       - name: Compile isolated encrypted synthetic USB snapshot probe (no upload)
         run: pio run -d firmware -e protected_usb_probe
+      - name: Compile isolated SD capacity probe (no upload)
+        run: pio run -d firmware -e sd_capacity_probe
       - name: Record build evidence
         shell: bash
         run: |
