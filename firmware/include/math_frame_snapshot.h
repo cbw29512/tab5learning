@@ -18,6 +18,7 @@ class SnapshotFrameWriter {
   virtual bool write(const uint8_t* p,std::size_t n) noexcept=0;
   virtual uint32_t now() const noexcept=0;
 };
+class SyntheticIncrementalTransfer;
 template<class Session=FrameSession>
 class MathFrameSink final : public MathSnapshotSink {
  public:
@@ -29,18 +30,11 @@ class MathFrameSink final : public MathSnapshotSink {
   template<class Source>
   MathSnapshotResult serve_synthetic(Source& journal,const uint8_t* frame,
                                      std::size_t n,bool synthetic_only) {
-    if(used_||!synthetic_only){abort();return MathSnapshotResult::Unavailable;}
-    used_=true;
-    const uint8_t* p=nullptr;std::size_t size=0;
-    if(!session_.receive(frame,n,writer_.now(),p,size)||size!=17||p[0]!=snapshot_request){
-      abort();return MathSnapshotResult::Unavailable;
-    }
-    std::memcpy(id_.data(),p+1,id_.size());
-    requested_=true;
+    if(!begin_request(frame,n,synthetic_only))return MathSnapshotResult::Unavailable;
     const auto result=journal.snapshot(*this);
     if(result!=MathSnapshotResult::Complete)abort();
     // One snapshot per authenticated connection; reconnect for a retry.
-    session_.close();requested_=false;
+    finish_request();
     return result;
   }
   // Only call before a newly authenticated session; closes any old session.
@@ -70,6 +64,18 @@ class MathFrameSink final : public MathSnapshotSink {
     payload_.fill(0);frame_.fill(0);session_.close();
   }
  private:
+  friend class SyntheticIncrementalTransfer;
+  bool begin_request(const uint8_t* frame,std::size_t n,bool synthetic_only){
+    if(used_||!synthetic_only){abort();return false;}
+    used_=true;
+    const uint8_t* p=nullptr;std::size_t size=0;
+    if(!session_.receive(frame,n,writer_.now(),p,size)||size!=17||p[0]!=snapshot_request){
+      abort();return false;
+    }
+    std::memcpy(id_.data(),p+1,id_.size());
+    requested_=true;return true;
+  }
+  void finish_request(){session_.close();requested_=false;}
   void prefix(uint8_t kind){payload_[0]=kind;std::memcpy(payload_.data()+1,id_.data(),16);}
   bool send(std::size_t n) noexcept {
     std::size_t length=0;

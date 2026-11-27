@@ -213,3 +213,6 @@ Operator-reported Windows COM5 test at a32177a9 succeeded: guarded app-only flas
 
 ## M8 incremental journal export candidate
 Operator reported original learner app restored (633,504 bytes, verified hash), then battery-enabled screen looks good; unplug/charging transitions, precise gauge accuracy, Help diagnostics and retained history not explicitly confirmed. Added one-record-per-ready-poll maintenance export cursor with shared verifier, exclusive journal lock and cancellation/timeout, no storage writes. Added native regression for 100 records, backpressure and failure paths. Not yet wired to USB or live UI; real student authorization, maintenance mode and production provisioning remain pending. CI #62 pending/#399 queued at inspection. No new hardware flash requested.
+
+## M8 incremental encrypted transfer reference
+Prior cursor CI #401 queued/#63 pending. Added synthetic-only coordinator between existing GCM frame sink and bounded journal cursor, shares request decoder and original snapshot wire schema. Added 100-record encrypted regression with one-frame backpressure and failure paths. This is fake-NVS integration, not learner firmware or public-probe access to student data. Latest tests pending; production grant and maintenance UI next. No flash requested.
