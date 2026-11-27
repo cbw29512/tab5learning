@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v4.json. Do not edit by hand.
+// Generated from starter.v5.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -226,6 +226,70 @@ inline constexpr Activity activities_27[]={
   {Kind::Instruction,"remediation","Map symbols can change from map to map. Always check the key. A letter on one map may mean something different on another.","",{"","",""},0,-1},
   {Kind::Choice,"review","What should you check when a map symbol is unfamiliar?","The map key tells what the symbol means.",{"The map key","The page color","The paper size"},3,0},
 };
+inline constexpr Activity activities_28[]={
+  {Kind::Instruction,"instruction","To add 8 + 5, split 5 into 2 and 3. First make 10: 8 + 2 = 10. Then add 3 more. The total is 13.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","You have 9 beads. How many more make 10?","Nine and one make ten.",{"2","1","3"},3,1},
+  {Kind::Choice,"independent","Add 9 + 4. Make ten first.","Nine plus one is ten, and three more makes thirteen.",{"13","12","14"},3,0},
+  {Kind::Choice,"assessment","Add 7 + 6.","Seven plus three makes ten. Three more makes thirteen.",{"12","14","13"},3,2},
+  {Kind::Instruction,"remediation","Draw ten empty boxes. Fill seven. Add three to fill the row. Count any dots left over.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Add 8 + 6.","Eight plus two is ten, then four more makes fourteen.",{"13","14","15"},3,1},
+};
+inline constexpr Activity activities_29[]={
+  {Kind::Instruction,"instruction","34 is three tens and four ones. Ten more is four tens and four ones: 44. Ten less is two tens and four ones: 24.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What is ten more than 23?","Add one ten. The three ones stay the same.",{"24","13","33"},3,2},
+  {Kind::Choice,"independent","What is ten less than 58?","Remove one ten. Eight ones remain.",{"48","57","68"},3,0},
+  {Kind::Choice,"assessment","What is ten more than 76?","Seven tens become eight tens.",{"77","86","66"},3,1},
+  {Kind::Instruction,"remediation","Draw bundles of ten and single dots. Add or remove one whole bundle. Keep the single dots the same.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What is ten less than 91?","Nine tens become eight tens. One one remains.",{"81","90","92"},3,0},
+};
+inline constexpr Activity activities_30[]={
+  {Kind::Instruction,"instruction","The letter e can make the short sound in egg. Blend the sounds in p-e-n to read pen. Say each sound, then slide them together.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word has the short e sound in egg?","Pen has the short e sound.",{"pin","pen","pan"},3,1},
+  {Kind::Choice,"independent","Change the first sound in pet to /w/. Which word do you make?","Changing p to w makes wet.",{"wet","wit","web"},3,0},
+  {Kind::Choice,"assessment","Which word names something you sleep on?","Bed uses the short e sound.",{"bad","bid","bed"},3,2},
+  {Kind::Instruction,"remediation","Say the sounds in red slowly. Blend them. Ask an adult to listen.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word rhymes with ten?","Hen and ten end with the same sounds.",{"tan","hen","tin"},3,1},
+};
+inline constexpr Activity activities_31[]={
+  {Kind::Instruction,"instruction","Mia took a red ball to the park. She rolled it to Sam. Sam rolled it back. A story detail tells who, what or where.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Mia took a red ball to the park. Who took the ball?","The story says Mia took the ball.",{"Sam","Mia","A dog"},3,1},
+  {Kind::Choice,"independent","Mia took a red ball to the park. Where did Mia go?","The story names the park.",{"The park","The store","The school"},3,0},
+  {Kind::Choice,"assessment","Sam rolled the ball back to Mia. What did Sam roll?","The sentence tells us Sam rolled the ball.",{"A book","A toy car","A ball"},3,2},
+  {Kind::Instruction,"remediation","Read a short story again. Point to the words that answer a question. Ask an adult to help if needed.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Lee put a blue cup on the table. What color was the cup?","The sentence says blue cup.",{"Red","Blue","Green"},3,1},
+};
+inline constexpr Activity activities_32[]={
+  {Kind::Instruction,"instruction","A signal can send a message. One quiet clap can mean start. Two claps can mean stop. Both people need to agree on what the signal means.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","If one clap means start, what should you do when you hear one clap?","One clap is the agreed signal for start.",{"Start","Stop","Change the rule"},3,0},
+  {Kind::Choice,"independent","Which tool could send a sound signal?","A bell makes a sound that can carry a message.",{"A silent picture","A small bell","A still shadow"},3,1},
+  {Kind::Choice,"assessment","Your partner cannot tell one clap from two. What could you improve?","A pause helps the listener count the claps.",{"Clap at random","Change the meaning each time","Leave a clear pause"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, agree on two gentle sounds. Test whether a partner can tell the messages apart.","Adult: use safe sound levels. Observe whether the child tests and improves the signal.",{"","",""},0,-1},
+  {Kind::Choice,"review","What makes an agreed signal useful?","Both people need to understand the same meaning.",{"A shared meaning","A secret change","A different rule every time"},3,0},
+};
+inline constexpr Activity activities_33[]={
+  {Kind::Instruction,"instruction","Animals have body parts that help them live. A duck has webbed feet that push water. People can learn from animal parts when designing tools.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which part helps a duck push water?","Webbed feet spread out to push against water.",{"Its feathers","Its webbed feet","Its beak"},3,1},
+  {Kind::Choice,"independent","Which tool is shaped most like a duck foot for pushing water?","A wide fin can push water like a webbed foot.",{"A wide swim fin","A pencil","A spoon handle"},3,0},
+  {Kind::Choice,"assessment","A bird uses its beak to pick up food. Which tool works in a similar way?","Tongs can grasp small objects.",{"A ruler","A blanket","Tongs"},3,2},
+  {Kind::AdultReview,"remediation","Draw a tool that copies an animal part. Explain what the tool could help a person do.","Adult: ask the learner to connect the animal part to the tool's purpose. No automatic score.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why might a designer study animal parts?","Animal structures can inspire useful tools.",{"To copy every color","To learn useful shapes","To change animal names"},3,1},
+};
+inline constexpr Activity activities_34[]={
+  {Kind::Instruction,"instruction","The past already happened. The present is happening now. The future has not happened yet. Yesterday, today and tomorrow help us talk about time.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","You ate breakfast this morning. It is now afternoon. When was breakfast?","Breakfast already happened.",{"The future","The past","Right now"},3,1},
+  {Kind::Choice,"independent","You are reading this sentence now. When are you reading?","The present means now.",{"The present","The past","The future"},3,0},
+  {Kind::Choice,"assessment","Which order is correct?","Yesterday comes before today. Tomorrow comes after today.",{"Tomorrow, today, yesterday","Today, yesterday, tomorrow","Yesterday, today, tomorrow"},3,2},
+  {Kind::AdultReview,"remediation","Tell an adult one thing you did yesterday and one thing you plan to do tomorrow.","Adult: listen for correct time words and event order.",{"","",""},0,-1},
+  {Kind::Choice,"review","A school trip is planned for next week. When is it?","Next week has not happened yet.",{"The past","The future","The present"},3,1},
+};
+inline constexpr Activity activities_35[]={
+  {Kind::Instruction,"instruction","People need things like food and safe shelter. A want is something we would enjoy but can live without. When resources are limited, we make choices.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","You are thirsty. Which is a basic need?","People need water to live.",{"A new toy","A sticker","Safe drinking water"},3,2},
+  {Kind::Choice,"independent","You can choose one snack or one extra toy. You have no food for lunch. Which meets a basic need?","Food meets a need when you are hungry.",{"The snack","The extra toy","Neither choice"},3,0},
+  {Kind::Choice,"assessment","You have time for one activity before bed. What does choosing mean?","A choice can mean giving up another option.",{"You do both at once","You pick one and give up the other","You never choose again"},3,1},
+  {Kind::AdultReview,"remediation","Tell an adult about a choice you could make at a store. Explain why you would choose it.","Adult: listen for a reason tied to needs, wants or limited resources.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which is usually a want rather than a basic need?","An extra toy may be fun, but is not necessary to live.",{"Safe water","Food","An extra toy"},3,2},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -255,5 +319,13 @@ inline constexpr Lesson lessons[]={
   {2,"g1-seasonal-daylight",1,"Daylight across the year",activities_25,6},
   {3,"g1-classroom-rules",1,"Rules help us work together",activities_26,6},
   {3,"g1-map-symbols",1,"Read a map key",activities_27,6},
+  {0,"g1-add-within-20",1,"Make ten to add",activities_28,6},
+  {0,"g1-ten-more-less",1,"Ten more or ten less",activities_29,6},
+  {1,"g1-short-e",1,"Blend short-e words",activities_30,6},
+  {1,"g1-story-details",1,"Find story details",activities_31,6},
+  {2,"g1-sound-messages",1,"Send a sound message",activities_32,6},
+  {2,"g1-animal-parts",1,"Animal parts help animals",activities_33,6},
+  {3,"g1-past-present",1,"Past, present and future",activities_34,6},
+  {3,"g1-needs-wants",1,"Make a careful choice",activities_35,6},
 };
 }
