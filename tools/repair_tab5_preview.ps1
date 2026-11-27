@@ -7,6 +7,7 @@ param(
     [switch]$SyntheticAuthProbe,
     [switch]$ProtectedUsbProbe,
     [switch]$SdCapacityProbe,
+    [switch]$SdWriteProbe,
     [switch]$CardBackupConfirmed,
     [switch]$Install
 )
@@ -28,14 +29,17 @@ try {
     $dirty = git -C $repo status --porcelain
     if ($LASTEXITCODE -ne 0 -or $dirty) { throw "Working tree not clean." }
     # Explicit opt-in: this isolated public-key test is not a learner release.
-    $probeCount = [int]$SyntheticAuthProbe.IsPresent + [int]$ProtectedUsbProbe.IsPresent + [int]$SdCapacityProbe.IsPresent
+    $probeCount = [int]$SyntheticAuthProbe.IsPresent + [int]$ProtectedUsbProbe.IsPresent + [int]$SdCapacityProbe.IsPresent + [int]$SdWriteProbe.IsPresent
     if ($probeCount -gt 1) { throw "Select only one isolated probe." }
-    if ($SdCapacityProbe -and -not $CardBackupConfirmed) {
+    if (($SdCapacityProbe -or $SdWriteProbe) -and -not $CardBackupConfirmed) {
         throw "Independently back up the removable card before the SD probe."
     }
     $environment = "learner_factory_preview"
-    if ($ProtectedUsbProbe -or $SdCapacityProbe) {
-        if ($SdCapacityProbe) {
+    if ($ProtectedUsbProbe -or $SdCapacityProbe -or $SdWriteProbe) {
+        if ($SdWriteProbe) {
+            $environment = "sd_write_probe"
+            Write-Warning "Synthetic SD write probe only; may exclusively create PLTST01.BIN. Existing files preserved. Restore learner afterward."
+        } elseif ($SdCapacityProbe) {
             $environment = "sd_capacity_probe"
             Write-Warning "Temporary capacity probe; learner unavailable until app restored. Mount is not guaranteed block-level read-only."
         } else {
@@ -106,7 +110,9 @@ try {
     Write-Host "=== APPLICATION-ONLY REPAIR ==="
     & $python $esptool --chip esp32p4 --port $Port --baud 460800 write-flash 0x10000 $app
     if ($LASTEXITCODE -ne 0) { throw "Flash write failed." }
-    if ($SdCapacityProbe) {
+    if ($SdWriteProbe) {
+        Write-Host "SD WRITE PROBE FLASH VERIFIED; record first boot and restart evidence, then restore learner."
+    } elseif ($SdCapacityProbe) {
         Write-Host "SD CAPACITY PROBE FLASH VERIFIED; record screen output and restore learner app."
     } elseif ($ProtectedUsbProbe) {
         Write-Host "PROTECTED PROBE FLASH VERIFIED; synthetic transfer and learner restoration still pending."
