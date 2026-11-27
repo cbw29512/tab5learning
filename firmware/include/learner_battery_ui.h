@@ -5,26 +5,29 @@
 #include "learner_layout.h"
 #include "battery_runtime.h"
 
-// The pinned M5Unified driver owns all PMIC operations. Treat unsupported
-// and failed readings as unknown rather than a false charging indication.
-inline BatteryCharge learner_charge_state() {
-  switch(M5.Power.getChargeState()) {
-    case m5::charge_state_t::charging: return BatteryCharge::Charging;
-    case m5::charge_state_t::full: return BatteryCharge::Full;
-    case m5::charge_state_t::not_charging:
-    case m5::charge_state_t::disabled:
-    case m5::charge_state_t::idle: return BatteryCharge::NotCharging;
-    case m5::charge_state_t::discharging: return BatteryCharge::Discharging;
-    default: return BatteryCharge::Unknown;
-  }
-}
+// Read-only diagnostic for the operator-reported inverted charging status.
+// Do not infer USB attachment or charge completion from voltage/percent alone.
+struct BatteryDiagnostic {
+  int raw_state=0;
+  int32_t current_ma=0;
+  int16_t voltage_mv=0;
+};
+inline BatteryDiagnostic learner_battery_diagnostic{};
 inline bool sample_learner_battery(BatteryMonitor& monitor,BatteryRuntime& runtime,std::uint32_t now) {
   const auto percent=M5.Power.getBatteryLevel();
-  const auto charge=learner_charge_state();
+  const auto raw=M5.Power.getChargeState();
+  learner_battery_diagnostic={static_cast<int>(raw),
+      M5.Power.getBatteryCurrent(),M5.Power.getBatteryVoltage()};
+  // Physical report contradicts the driver on this Tab5. Until the current
+  // polarity is verified on hardware, withhold the charging claim and keep
+  // low-battery warnings conservative. This does not control the charger.
+  const auto charge=BatteryCharge::Unknown;
   const bool changed=monitor.update(now,percent,charge);
   runtime.sample(now,monitor.status);
-  if(changed) std::printf("BATTERY,LEVEL,%d,CHARGE,%u\n",monitor.status.percent,
-                         static_cast<unsigned>(charge));
+  std::printf("BATTERY,LEVEL,%d,RAW_STATE,%d,CURRENT_MA,%ld,VOLTAGE_MV,%d\n",
+      monitor.status.percent,learner_battery_diagnostic.raw_state,
+      static_cast<long>(learner_battery_diagnostic.current_ma),
+      static_cast<int>(learner_battery_diagnostic.voltage_mv));
   return changed;
 }
 inline void render_learner_battery(const BatteryStatus& status) {
@@ -47,7 +50,7 @@ inline void render_learner_battery(const BatteryStatus& status) {
   const char* text=status.critical()?"Charge now":status.low()?"Charge soon":
     status.charge==BatteryCharge::Charging?"Charging":
     status.charge==BatteryCharge::Full?"Charged":
-    status.charge==BatteryCharge::Unknown?"Status unknown":
+    status.charge==BatteryCharge::Unknown?"Check power (Help)":
     status.charge==BatteryCharge::Discharging?"On battery draw":"Not charging";
   M5.Display.setTextSize(2);
   M5.Display.drawString(text,r.x+4,r.y+42);
@@ -61,7 +64,7 @@ inline void refresh_learner_battery(const BatteryStatus& status) {
 }
 
 inline void render_battery_runtime(const BatteryRuntime& runtime) {
-  M5.Display.fillRect(48,340,1184,160,TFT_NAVY);
+  M5.Display.fillRect(48,340,1184,208,TFT_NAVY);
   M5.Display.setTextSize(3);
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   char line[100];
@@ -75,10 +78,16 @@ inline void render_battery_runtime(const BatteryRuntime& runtime) {
   M5.Display.drawString(line,48,400);
   M5.Display.setTextSize(2);
   M5.Display.drawString("Session diagnostics only. Not estimated battery life.",48,450);
+  std::snprintf(line,sizeof(line),"Driver state: %d | Current: %ld mA | Voltage: %d mV",
+      learner_battery_diagnostic.raw_state,
+      static_cast<long>(learner_battery_diagnostic.current_ma),
+      static_cast<int>(learner_battery_diagnostic.voltage_mv));
+  M5.Display.drawString(line,48,480);
+  M5.Display.drawString("Raw driver readings; charge direction not verified.",48,510);
 }
 inline void refresh_battery_runtime(const BatteryRuntime& runtime) {
   M5.Display.startWrite();
   render_battery_runtime(runtime);
   M5.Display.endWrite();
-  M5.Display.display(48,340,1184,160);
+  M5.Display.display(48,340,1184,208);
 }
