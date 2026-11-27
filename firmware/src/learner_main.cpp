@@ -31,6 +31,8 @@
 #include "curriculum_journey_ui.h"
 #ifdef POCKET_LEARNER_SD_EVAL
 #include "learner_sd_owner.h"
+#else
+#include "learner_sd_capacity.h"
 #endif
 
 namespace {
@@ -123,7 +125,7 @@ bool geometry_ok=false;
 DisplayStartupRefresh startup_refresh;
 BatteryMonitor battery;
 BatteryRuntime battery_runtime;
-// Until SD write/ownership qualification, no automatic mount or stale guess.
+// Normal preview: a manual capacity snapshot only; no SD evidence writes.
 learner_storage::Status sd_status{};
 
 void tile(const LearnerTile& t, uint32_t color) {
@@ -140,7 +142,7 @@ const char* heading() {
     case LearnerScreen::Spelling: return "Spelling";
     case LearnerScreen::Flashcards: return "Flashcards";
     case LearnerScreen::Journey: return "My Learning Journey";
-    case LearnerScreen::Curriculum: return "Curriculum";
+    case LearnerScreen::Curriculum: return curriculum.screen==curriculum_preview::Screen::Subjects ? "Grade 1" : curriculum_preview::subjects[curriculum.subject];
     default: return "Pocket Learning";
   }
 }
@@ -253,11 +255,17 @@ void render() {
   if (navigation.help_open) {
     M5.Display.drawString("Choose a subject from Home.",48,180);
     M5.Display.drawString("Tap Go back to continue.",48,250);
+#ifndef POCKET_LEARNER_SD_EVAL
+    M5.Display.fillRoundRect(48,280,1184,52,12,TFT_BLUE);
+    M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);
+    M5.Display.setTextSize(3);
+    M5.Display.drawString("Check backed-up SD card",72,294);
+#endif
     render_battery_runtime(battery_runtime);
     learner_storage::render_help(sd_status);
     tile(learner_back,TFT_DARKGREY);
   } else if (navigation.screen==LearnerScreen::Home) {
-    const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY,TFT_DARKGREEN};
+    const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY};
     for (unsigned i=0;i<learner_tiles.size();++i) tile(learner_tiles[i],colors[i]);
   } else {
     M5.Display.setTextSize(3);
@@ -304,7 +312,8 @@ void setup() {
   const auto loaded=storage.begin(math);
   storage_error=loaded==JournalLoad::Error;
   if(storage_error) Serial.println("ERR,MATH_STORAGE_LOAD");
-  else if(loaded==JournalLoad::Restored) navigation.screen=LearnerScreen::Math;
+  // Restore math evidence without reopening a completed prototype. Home is
+  // always the four-subject dashboard, including after a restart.
   curriculum_resume.begin(); // Separate bounded resume record; no math writes.
 #ifdef POCKET_LEARNER_SD_EVAL
   if(curriculum_sd.begin(sd_status)) curriculum_completion=curriculum_sd.view();
@@ -332,12 +341,24 @@ void loop() {
   if (geometry_ok && touching && !was_touching) {
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
+#ifndef POCKET_LEARNER_SD_EVAL
+    if(navigation.help_open && detail.x>=48 && detail.x<1232 &&
+        detail.y>=280 && detail.y<332) {
+      sd_status=learner_storage::check_capacity();
+      render();
+    } else
+#endif
     if (navigation.screen==LearnerScreen::Curriculum && !navigation.help_open &&
+        curriculum.screen!=curriculum_preview::Screen::Lessons &&
         learner_back.hit(detail.x,detail.y) && curriculum.back()) {
       render();
     } else if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) {
-      if(action==LearnerAction::Curriculum || action==LearnerAction::Home) {
+      const auto subject=learner_subject(action);
+      if(subject>=0) {
+        curriculum.reset();
+        curriculum.choose_subject(static_cast<unsigned>(subject));
+      } else if(action==LearnerAction::Curriculum || navigation.screen==LearnerScreen::Home) {
         curriculum.reset();
         if(action==LearnerAction::Curriculum) curriculum_resume.restore(curriculum);
       }
@@ -349,6 +370,15 @@ void loop() {
       // is transient; a power loss repeats its activity, never awards credit.
       auto candidate=curriculum;
       if(curriculum_preview::touch(candidate,detail.x,detail.y)) {
+        // Only resume the exact lesson selected, never redirect a subject or
+        // reopen a finished lesson. Earlier math journal remains unchanged.
+        if(curriculum.screen==curriculum_preview::Screen::Lessons &&
+            candidate.screen==curriculum_preview::Screen::Activity) {
+          curriculum_preview::Preview saved;
+          if(curriculum_resume.restore(saved) &&
+              saved.screen==curriculum_preview::Screen::Activity &&
+              saved.lesson==candidate.lesson) candidate=saved;
+        }
         // Completion backend remains explicitly disabled until the
         // isolated SD write and reboot test is physically accepted.
 #ifdef POCKET_LEARNER_SD_EVAL

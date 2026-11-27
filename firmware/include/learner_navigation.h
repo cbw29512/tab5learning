@@ -2,7 +2,18 @@
 
 // Portable learner navigation: no diagnostic, USB or administrator routes.
 enum class LearnerScreen { Home, Math, Reading, Spelling, Flashcards, Journey, Curriculum };
-enum class LearnerAction { Home, Back, Math, Reading, Spelling, Flashcards, Journey, Help, Curriculum };
+enum class LearnerAction { Home, Back, Math, Reading, Spelling, Flashcards, Journey, Help, Curriculum, SubjectMath, SubjectEla, SubjectScience, SubjectSocial };
+
+// Subject tiles enter the shared curriculum, not the old standalone demos.
+inline constexpr int learner_subject(LearnerAction action) {
+  switch(action) {
+    case LearnerAction::SubjectMath: return 0;
+    case LearnerAction::SubjectEla: return 1;
+    case LearnerAction::SubjectScience: return 2;
+    case LearnerAction::SubjectSocial: return 3;
+    default: return -1;
+  }
+}
 
 struct LearnerNavigation {
   LearnerScreen screen = LearnerScreen::Home;
@@ -31,6 +42,10 @@ inline bool learner_navigate(LearnerNavigation& state, LearnerAction action) {
         case LearnerAction::Reading: state.screen = LearnerScreen::Reading; break;
         case LearnerAction::Spelling: state.screen = LearnerScreen::Spelling; break;
         case LearnerAction::Flashcards: state.screen = LearnerScreen::Flashcards; break;
+        case LearnerAction::SubjectMath:
+        case LearnerAction::SubjectEla:
+        case LearnerAction::SubjectScience:
+        case LearnerAction::SubjectSocial:
         case LearnerAction::Curriculum: state.screen = LearnerScreen::Curriculum; break;
         case LearnerAction::Journey: state.screen = LearnerScreen::Journey; break;
         default: return false;

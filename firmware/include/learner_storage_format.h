@@ -21,7 +21,7 @@ inline void format_capacity(std::uint64_t bytes,char* out,std::size_t n){
 }
 // Compact header labels make meaning and status clear even without color.
 inline void format_header_percent(const Status& s,char* out,std::size_t n){
-  if(!s.known()){std::snprintf(out,n,"--%%");return;}
+  if(!s.known()){std::snprintf(out,n,"%s",s.state==State::NotChecked?"Check":"N/A");return;}
   std::snprintf(out,n,"%u%%",s.free_percent);
 }
 inline const char* header_label(State s){

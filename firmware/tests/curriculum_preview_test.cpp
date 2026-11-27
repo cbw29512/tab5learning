@@ -1,4 +1,5 @@
 #include "curriculum_preview.h"
+#include "learner_layout.h"
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
@@ -6,6 +7,19 @@ int main(){
   static_assert(lesson_pages(0)==1&&lesson_pages(3)==1&&lesson_pages(4)==2);
   static_assert(lesson_pages(9)==3&&lesson_pages(10)==4);
   static_assert(!lesson_page_valid(3,9)&&lesson_page_valid(3,10));
+  // Home tiles must open each subject directly; legacy Math is not a tile.
+  static_assert(learner_tiles.size()==5);
+  for(unsigned s=0;s<4;++s){
+    LearnerNavigation nav;LearnerAction action;
+    const auto& tile=learner_tiles[s];
+    assert(learner_hit(nav,tile.x+1,tile.y+1,action));
+    assert(learner_subject(action)==static_cast<int>(s));
+    assert(learner_navigate(nav,action)&&nav.screen==LearnerScreen::Curriculum);
+    Preview route;assert(route.choose_subject(s)&&route.screen==Screen::Lessons);
+    assert(route.choose_lesson(0)&&route.back()&&route.screen==Screen::Lessons);
+    assert(learner_navigate(nav,LearnerAction::Back)&&nav.screen==LearnerScreen::Home);
+  }
+  assert(learner_subject(learner_tiles[4].action)==-1);
   unsigned visited=0,activities=0;
   Preview p;
   for(unsigned s=0;s<4;++s){

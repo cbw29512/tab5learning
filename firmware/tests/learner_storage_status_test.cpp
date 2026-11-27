@@ -31,7 +31,8 @@ int main(){
   assert(!optional_content_fits(small,std::numeric_limits<std::uint64_t>::max()));
   assert(!optional_content_fits(measured(64000000000ULL,60800000000ULL),1));
   format_header_percent(large,line,sizeof(line));assert(std::strcmp(line,"99%")==0);
-  format_header_percent(initial,line,sizeof(line));assert(std::strcmp(line,"--%")==0);
+  format_header_percent(initial,line,sizeof(line));assert(std::strcmp(line,"Check")==0);
+  format_header_percent(unavailable(),line,sizeof(line));assert(std::strcmp(line,"N/A")==0);
   format_header_percent(measured(64000000000ULL,64000000000ULL),line,sizeof(line));
   assert(std::strcmp(line,"0%")==0);
   assert(std::strcmp(header_label(State::Normal),"SD free")==0);
