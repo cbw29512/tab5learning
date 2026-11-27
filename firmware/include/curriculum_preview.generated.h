@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v2.json. Do not edit by hand.
+// Generated from starter.v3.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -98,6 +98,70 @@ inline constexpr Activity activities_11[]={
   {Kind::Instruction,"remediation","Think of a bakery. Bread is a good. Delivering bread is a service. Practice sorting more examples with an adult.","",{"","",""},0,-1},
   {Kind::Choice,"review","A farmer sells peaches. A mechanic repairs a bicycle. Which example is a good?","Peaches are a tangible good.",{"Peaches","Repair work","Both are services"},3,0},
 };
+inline constexpr Activity activities_12[]={
+  {Kind::Instruction,"instruction","Subtraction can show what is left. Start with 6 dots. Cross out 2. Count the 4 dots that remain. Write 6 - 2 = 4.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Start with 5 counters. Take away 1. How many remain?","Five minus one equals four.",{"4","5","6"},3,0},
+  {Kind::Choice,"independent","Seven birds sit on a fence. Three fly away. How many stay?","Count seven, remove three, and count the four left.",{"3","5","4"},3,2},
+  {Kind::Choice,"assessment","You have 9 crayons. Give away 2. How many remain?","Nine minus two equals seven.",{"8","7","6"},3,1},
+  {Kind::Instruction,"remediation","Draw 8 dots. Cross out 3 dots, then count the dots not crossed out. There are 5 left. Say 8 minus 3 equals 5.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Ten blocks are on a mat. Move 4 off the mat. How many stay?","Ten minus four equals six.",{"6","5","4"},3,0},
+};
+inline constexpr Activity activities_13[]={
+  {Kind::Instruction,"instruction","A missing addend is a number we need to find. In 3 + ? = 5, start at 3 and count on: 4, 5. Two more are needed.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Four plus how many equals six?","Count on from four: five, six. That is two more.",{"1","2","3"},3,1},
+  {Kind::Choice,"independent","Find the missing number: 5 + ? = 8.","Five plus three equals eight.",{"3","2","4"},3,0},
+  {Kind::Choice,"assessment","Find the missing number: 2 + ? = 9.","Count on seven times from two to nine.",{"5","6","7"},3,2},
+  {Kind::Instruction,"remediation","Draw 7 circles. Shade 4. Count the 3 unshaded circles. That shows 4 + 3 = 7 and 7 - 4 = 3.","",{"","",""},0,-1},
+  {Kind::Choice,"review","There are 8 spaces. Three are filled. How many are empty?","Eight minus three equals five.",{"4","5","6"},3,1},
+};
+inline constexpr Activity activities_14[]={
+  {Kind::Instruction,"instruction","The short i sound is in sit. Say the sounds s, i, t slowly, then blend them into sit. Ask an adult to model the sound if needed.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word has the short i sound?","Sit has the short i sound in the middle.",{"sat","sit","sun"},3,1},
+  {Kind::Choice,"independent","Blend p, i, n. Which word?","The sounds blend into pin.",{"pan","pen","pin"},3,2},
+  {Kind::AdultReview,"assessment","Read fin, lip, and bit aloud to an adult. Say each sound first if you need help.","Listen for the short i sound and accurate blending. Record prompted and independent reading separately.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say m, i, t slowly with an adult. Blend the sounds into mit, a practice sound pattern. Now try m, i, x to read mix.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word starts with f, has short i, and ends with t?","The sounds f, i, t blend into fit.",{"fit","fat","fan"},3,0},
+};
+inline constexpr Activity activities_15[]={
+  {Kind::Instruction,"instruction","Say cap. The last sound is p. Replace p with t. The word becomes cat. The first two sounds stay the same.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Change the last sound of mat from t to p.","Keep m and a, and change t to p: map.",{"map","pat","man"},3,0},
+  {Kind::Choice,"independent","Change the last sound of pan from n to t.","Keep p and a, and change n to t: pat.",{"tan","pan","pat"},3,2},
+  {Kind::AdultReview,"assessment","Say tap. Change the last sound to n. Then say the new word to an adult.","Expected word: tan. Observe whether the learner changes only the final sound; accept a spoken response.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say bag and bat slowly. The first two sounds match. Point to the last letter of each word as an adult reads them aloud.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Change the last sound of ram from m to t.","Keep r and a, and change m to t: rat.",{"mat","rat","ran"},3,1},
+};
+inline constexpr Activity activities_16[]={
+  {Kind::Instruction,"instruction","A shadow forms when an object blocks light. With an adult, use a flashlight aimed at paper, not eyes. Put a book between them.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What makes a shadow on the paper?","The book blocks some light from reaching the paper.",{"A book blocking light","Paper making light","A sound from the book"},3,0},
+  {Kind::Choice,"independent","Which object is most likely to block the flashlight beam?","Cardboard blocks much of the light.",{"Clear plastic","A thick cardboard sheet","An open space"},3,1},
+  {Kind::AdultReview,"assessment","With an adult, move a cardboard shape into and out of a flashlight beam aimed at a wall. Describe what changes.","Look for a shadow when light is blocked and its disappearance when the blocker is removed. No light toward eyes.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Keep the light aimed at the wall. Compare an opaque card with a clear sheet. Describe the shadows with an adult.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What happens when you remove the object that blocks the light?","Light can reach the part of the wall that was blocked.",{"The light stops forever","The wall makes a sound","The shadow from that object disappears"},3,2},
+};
+inline constexpr Activity activities_17[]={
+  {Kind::Instruction,"instruction","We can sometimes see the Moon in daylight or at night. Its visible shape can look different over many days. Observe safely with an adult.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","When might you see the Moon?","The Moon can be visible during the day or night.",{"Only at midnight","In daylight or at night","Only when it rains"},3,1},
+  {Kind::Choice,"independent","Which record helps compare Moon observations?","A dated drawing records what you observed.",{"A drawing and date","A favorite snack","A shoe size"},3,0},
+  {Kind::AdultReview,"assessment","With an adult, look for the Moon from a safe place on two different days. Draw what you see or record not seen.","Compare actual observations; cloud cover or timing can prevent seeing the Moon. Never require looking at the Sun.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","If clouds hide the Moon, write not seen and try another day. A missing observation does not mean the Moon is gone.","",{"","",""},0,-1},
+  {Kind::Choice,"review","The Moon is hidden by clouds today. What should you record?","Record what you actually observed, not a guess.",{"The Moon vanished","It must be midnight","Not seen today"},3,2},
+};
+inline constexpr Activity activities_18[]={
+  {Kind::Instruction,"instruction","A map can show where places are. Imagine a door at the bottom of a map, a desk above it, and a bookshelf to the right of the desk.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","On this map, what is above the door?","The desk is above the door on this map.",{"Bookshelf","Desk","Window"},3,1},
+  {Kind::Choice,"independent","From the desk, which way is the bookshelf?","The bookshelf is to the right of the desk.",{"Right","Left","Below"},3,0},
+  {Kind::AdultReview,"assessment","Draw a map of a pretend room with a door, desk and shelf. Add a key and describe a route between two places.","Check that the key identifies symbols and the described route matches the drawn map. No private addresses.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Draw three squares on paper for the door, desk and shelf. Label each. Trace a route from the door to the desk.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What helps another person understand the symbols on a map?","The key explains what each map symbol means.",{"A snack","A song title","A map key"},3,2},
+};
+inline constexpr Activity activities_19[]={
+  {Kind::Instruction,"instruction","People use goods and services to meet needs. Food is a good. A cook prepares food, which is work. A library lends books and helps readers.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which example is helpful work, or a service?","Fixing a bicycle is work that helps someone.",{"A loaf of bread","A pencil","Fixing a bicycle"},3,2},
+  {Kind::Choice,"independent","Which example is a good?","A coat is a thing that can help keep someone warm.",{"A bus ride","A warm coat","A haircut"},3,1},
+  {Kind::AdultReview,"assessment","Tell an adult about one community worker and a good or service that worker provides.","Listen for a clear example and explanation. Accept varied jobs; do not ask for personal family or income details.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","At a bakery, the bread is a good. Delivering bread is a service. Think of a shop that offers both a thing and helpful work.","",{"","",""},0,-1},
+  {Kind::Choice,"review","A librarian helps someone find a book. What is the helping work?","Helping someone find a book is a service.",{"A service","A good","A map"},3,0},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -111,5 +175,13 @@ inline constexpr Lesson lessons[]={
   {2,"g1-day-night-patterns",1,"Patterns in the sky",activities_9,6},
   {3,"g1-map-features",1,"A map of our classroom",activities_10,6},
   {3,"g1-goods-and-services",1,"Things and helpful work",activities_11,6},
+  {0,"g1-take-away-within-10",1,"Take away from a group",activities_12,6},
+  {0,"g1-missing-addend",1,"Find the missing number",activities_13,6},
+  {1,"g1-short-i",1,"Blend short-i words",activities_14,6},
+  {1,"g1-change-last-sound",1,"Change the last sound",activities_15,6},
+  {2,"g1-shadows",1,"Make and compare shadows",activities_16,6},
+  {2,"g1-moon-observations",1,"Observe the Moon",activities_17,6},
+  {3,"g1-map-route",1,"Follow a simple map",activities_18,6},
+  {3,"g1-goods-service-work",1,"How people meet needs",activities_19,6},
 };
 }

@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'firmware/src/**'
+      - 'curriculum/**'
+      - 'tools/generate_curriculum_preview.py'
+      - 'tools/curriculum_draft.py'
+      - 'tests/test_generate_curriculum_preview.py'
       - 'firmware/include/**'
       - 'firmware/platformio.ini'
       - 'tools/build_reading_narration.py'
