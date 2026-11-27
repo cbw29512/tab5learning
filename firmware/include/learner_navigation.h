@@ -1,8 +1,8 @@
 #pragma once
 
 // Portable learner navigation: no diagnostic, USB or administrator routes.
-enum class LearnerScreen { Home, Math, Reading, Spelling, Flashcards, Journey };
-enum class LearnerAction { Home, Back, Math, Reading, Spelling, Flashcards, Journey, Help };
+enum class LearnerScreen { Home, Math, Reading, Spelling, Flashcards, Journey, Curriculum };
+enum class LearnerAction { Home, Back, Math, Reading, Spelling, Flashcards, Journey, Help, Curriculum };
 
 struct LearnerNavigation {
   LearnerScreen screen = LearnerScreen::Home;
@@ -31,6 +31,7 @@ inline bool learner_navigate(LearnerNavigation& state, LearnerAction action) {
         case LearnerAction::Reading: state.screen = LearnerScreen::Reading; break;
         case LearnerAction::Spelling: state.screen = LearnerScreen::Spelling; break;
         case LearnerAction::Flashcards: state.screen = LearnerScreen::Flashcards; break;
+        case LearnerAction::Curriculum: state.screen = LearnerScreen::Curriculum; break;
         case LearnerAction::Journey: state.screen = LearnerScreen::Journey; break;
         default: return false;
       }

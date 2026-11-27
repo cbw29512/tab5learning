@@ -32,8 +32,12 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y espeak ffmpeg
       - name: Generate prototype narration header
         run: python tools/generate_preview_narration.py firmware/include/preview_narration.generated.h
+      - name: Verify generated curriculum matches source
+        run: python -m unittest discover -s tests -p test_generate_curriculum_preview.py -v
       - name: Compile native learner preview (no upload)
         run: pio run -d firmware -e learner_preview
+      - name: Compile physical factory-layout learner preview (no upload)
+        run: pio run -d firmware -e learner_factory_preview
       - name: Compile isolated microphone API probe (no upload)
         run: pio run -d firmware -e mic_compile_probe
       - name: Compile isolated authentication crypto probe (no upload)

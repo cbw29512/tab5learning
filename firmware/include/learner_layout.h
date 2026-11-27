@@ -12,12 +12,13 @@ struct LearnerTile {
 };
 
 // Fixed landscape reference coordinates; touch and render share this layout.
-inline constexpr std::array<LearnerTile, 5> learner_tiles{{
+inline constexpr std::array<LearnerTile, 6> learner_tiles{{
   {32,156,592,192,LearnerAction::Math,"Math"},
   {656,156,592,192,LearnerAction::Reading,"Reading"},
   {32,368,592,192,LearnerAction::Spelling,"Spelling"},
   {656,368,592,192,LearnerAction::Flashcards,"Flashcards"},
-  {32,580,1216,108,LearnerAction::Journey,"My Learning Journey"}
+  {32,580,592,108,LearnerAction::Journey,"My Learning Journey"},
+  {656,580,592,108,LearnerAction::Curriculum,"Curriculum"}
 }};
 inline constexpr LearnerTile learner_home{32,24,180,80,LearnerAction::Home,"Home"};
 inline constexpr LearnerTile learner_help{1068,24,180,80,LearnerAction::Help,"Help"};

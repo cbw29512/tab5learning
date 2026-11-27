@@ -12,7 +12,7 @@ class BatteryRuntime {
   BatteryStatus prior{};
   LearnerScreen screen=LearnerScreen::Home;
   bool help=false;
-  std::array<std::uint64_t,7> elapsed{};
+  std::array<std::uint64_t,8> elapsed{};
   std::uint64_t discharge=0;
   static unsigned slot(LearnerScreen s,bool overlay) {
     if(overlay) return 6;
@@ -23,6 +23,7 @@ class BatteryRuntime {
       case LearnerScreen::Spelling: return 3;
       case LearnerScreen::Flashcards: return 4;
       case LearnerScreen::Journey: return 5;
+      case LearnerScreen::Curriculum: return 7;
     }
     return 0;
   }

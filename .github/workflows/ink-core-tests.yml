@@ -2,6 +2,7 @@ name: Tab5 Firmware Core and USB Protocol Tests
 on:
   pull_request:
     paths:
+      - "curriculum/**"
       - "firmware/include/**"
       - "firmware/src/**"
       - "firmware/platformio.ini"
@@ -11,6 +12,7 @@ on:
       - ".github/workflows/ink-core-tests.yml"
   push:
     paths:
+      - "curriculum/**"
       - "firmware/include/**"
       - "firmware/src/**"
       - "firmware/platformio.ini"
@@ -32,6 +34,10 @@ jobs:
             firmware/tests/ink_capture_test.cpp \
             -o /tmp/tab5-ink-test
           /tmp/tab5-ink-test
+      - name: Compile and run native curriculum preview state tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_preview_test.cpp -o /tmp/tab5-curriculum-test
+          /tmp/tab5-curriculum-test
       - name: Compile and run learner navigation tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_navigation_test.cpp -o /tmp/tab5-navigation-test

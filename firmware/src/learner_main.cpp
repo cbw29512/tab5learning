@@ -24,9 +24,11 @@
 #include "math_submission.h"
 #include "learner_battery_ui.h"
 #include "battery_notice.h"
+#include "curriculum_preview_ui.h"
 
 namespace {
 LearnerNavigation navigation;
+curriculum_preview::Preview curriculum;
 MathPractice math;
 MathJournal storage;
 AwardNotice notice;
@@ -123,6 +125,7 @@ const char* heading() {
     case LearnerScreen::Spelling: return "Spelling";
     case LearnerScreen::Flashcards: return "Flashcards";
     case LearnerScreen::Journey: return "My Learning Journey";
+    case LearnerScreen::Curriculum: return "Curriculum";
     default: return "Pocket Learning";
   }
 }
@@ -235,7 +238,7 @@ void render() {
     render_battery_runtime(battery_runtime);
     tile(learner_back,TFT_DARKGREY);
   } else if (navigation.screen==LearnerScreen::Home) {
-    const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY};
+    const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY,TFT_DARKGREEN};
     for (unsigned i=0;i<learner_tiles.size();++i) tile(learner_tiles[i],colors[i]);
   } else {
     M5.Display.setTextSize(3);
@@ -243,6 +246,8 @@ void render() {
       render_math();
     } else if (navigation.screen==LearnerScreen::Reading) {
       render_reading();
+    } else if (navigation.screen==LearnerScreen::Curriculum) {
+      curriculum_preview::render(curriculum);
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
     } else {
@@ -304,11 +309,17 @@ void loop() {
   if (geometry_ok && touching && !was_touching) {
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
-    if (learner_hit(navigation,detail.x,detail.y,action) &&
+    if (navigation.screen==LearnerScreen::Curriculum && !navigation.help_open &&
+        learner_back.hit(detail.x,detail.y) && curriculum.back()) {
+      render();
+    } else if (learner_hit(navigation,detail.x,detail.y,action) &&
         learner_navigate(navigation,action)) {
+      if(action==LearnerAction::Curriculum || action==LearnerAction::Home) curriculum.reset();
       battery_runtime.observe(millis(),navigation);
       if (navigation.screen!=LearnerScreen::Reading || navigation.help_open) reading_leave();
       render();
+    } else if (!navigation.help_open && navigation.screen==LearnerScreen::Curriculum) {
+      if(curriculum_preview::touch(curriculum,detail.x,detail.y)) render();
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {
       reading_touch(detail.x,detail.y);
     }
