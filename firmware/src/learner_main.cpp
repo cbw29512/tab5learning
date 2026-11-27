@@ -27,6 +27,7 @@
 #include "battery_notice.h"
 #include "curriculum_preview_ui.h"
 #include "curriculum_resume_store.h"
+#include "curriculum_transition.h"
 
 namespace {
 LearnerNavigation navigation;
@@ -334,10 +335,9 @@ void loop() {
       // is transient; a power loss repeats its activity, never awards credit.
       auto candidate=curriculum;
       if(curriculum_preview::touch(candidate,detail.x,detail.y)) {
-        const bool checkpoint=candidate.screen==curriculum_preview::Screen::Activity||
-          candidate.screen==curriculum_preview::Screen::Finished;
-        if(!checkpoint||curriculum_resume.save(candidate)) curriculum=candidate;
-        else Serial.println("ERR,CURRICULUM_ADVANCE_NOT_SAVED");
+        // Completion backend remains explicitly disabled until the
+        // isolated SD write and reboot test is physically accepted.
+        curriculum_preview::commit_transition(curriculum,candidate,curriculum_resume);
         render();
       }
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {
