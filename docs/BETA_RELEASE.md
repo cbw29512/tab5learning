@@ -22,3 +22,6 @@ Track each beta gate by implemented, host-tested, hardware-tested and accepted e
 
 ## Mandatory independent backup acceptance
 Teacher can independently back up and restore authorized student progress and their own created flashcards, lessons and assets, including content versions and evidence links. Demonstrate recovery after microSD loss and replacement computer/device. See [TEACHER_BACKUP_RESTORE.md](TEACHER_BACKUP_RESTORE.md). No real student data before security and recovery acceptance.
+
+## Adult educator review before child beta
+User plans to provide a populated beta to an actual teacher for review and critique. Use the proposed Grade 1 scope, official-source registry, coverage ledger and completion criteria in [GRADE1_CURRICULUM_REVIEW.md](GRADE1_CURRICULUM_REVIEW.md). Teacher-facing adult evaluation may use synthetic records; no real pupil records or child testing before security, privacy, consent and recovery gates. Four starter lessons are not a complete curriculum. Build sufficient original material across all four subjects before seeking comprehensive sign-off.
