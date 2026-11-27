@@ -28,6 +28,7 @@ from tools.protected_backup_center import ProtectedBackupCenter
 from tools.math_backup_archive import PreviewMathArchive
 from tools.student_backup_center import StudentBackupCenter
 from tools.teacher_history_review import HistoryReview
+from tools.teacher_curriculum_review import curriculum_page
 from tools.probe_sync_center import ProbeSyncCenter
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
                                         login_challenge, valid_login_challenge)
@@ -154,6 +155,12 @@ class TeacherWeb:
                 if self.probe_sync is None:
                     raise PermissionError("Public USB probe disabled")
                 return self.respond(start, "200 OK", views.page("Public USB synchronization", self.probe_sync.page(token, self.csrf(token)) if token else self.probe_sync.page(token, "")))
+            if method == "GET" and (path == "/curriculum" or path.startswith("/curriculum/")):
+                if not self.test_mode:
+                    raise PermissionError("Curriculum draft preview disabled")
+                self.sessions.require(token)
+                selected = None if path == "/curriculum" else path[len("/curriculum/"):]
+                return self.respond(start, "200 OK", views.page("Grade 1 curriculum library", curriculum_page(selected)))
             if method == "GET" and path == "/history":
                 if self.history_review is None:
                     raise PermissionError("History review preview disabled")

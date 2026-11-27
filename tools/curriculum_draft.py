@@ -9,7 +9,7 @@ MAX_BYTES = 1024 * 1024
 MAX_LESSONS = 200
 PHASES = ("instruction", "guided", "independent", "assessment", "remediation", "review")
 SUBJECTS = {"mathematics", "english_language_arts", "science", "social_studies"}
-ID = re.compile(r"[a-z0-9][a-z0-9_-]{0,79}\\Z")
+ID = re.compile(r"[a-z0-9][a-z0-9_-]{0,79}\Z")
 
 
 def fields(obj, expected):

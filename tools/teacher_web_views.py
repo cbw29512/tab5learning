@@ -77,6 +77,6 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     <label for="csv">Cards (CSV with front,back header)</label>
     <textarea id="csv" name="csv" rows="8" required>front,back
 </textarea><button>Validate and save deck</button></form></details></section>
-    {backup}{admin}
+    {'<section><h2>Curriculum library</h2><p><a href="/curriculum">Review Grade 1 draft lessons</a></p></section>' if test_mode else ""}{backup}{admin}
     {devices}{discovery}{'<p><a href="/sync/probe">Public USB synchronization test</a></p>' if probe_enabled and role == "admin" else ""}<form method="post" action="/logout">{hidden}<button>Sign out</button></form>
     """, notice)
