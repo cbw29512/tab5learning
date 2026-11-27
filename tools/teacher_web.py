@@ -28,6 +28,7 @@ from tools.protected_backup_center import ProtectedBackupCenter
 from tools.math_backup_archive import PreviewMathArchive
 from tools.student_backup_center import StudentBackupCenter
 from tools.teacher_history_review import HistoryReview
+from tools.probe_sync_center import ProbeSyncCenter
 from tools.teacher_web_security import (LOGIN_COOKIE, LOGIN_TTL, browser_origin_ok,
                                         login_challenge, valid_login_challenge)
 
@@ -41,7 +42,9 @@ MAX_FORM = MAX_BYTES * 3 + 4096
 
 
 class TeacherWeb:
-    def __init__(self, directory, *, test_mode=False, backup_dir=None):
+    def __init__(self, directory, *, test_mode=False, backup_dir=None, usb_probe=False):
+        if usb_probe and (test_mode is not True or backup_dir is None):
+            raise PermissionError("Public USB probe requires isolated test mode and backup directory")
         if backup_dir is not None and not test_mode:
             raise PermissionError("Backup preview is test-only")
         directory.mkdir(parents=True, exist_ok=True)
@@ -55,6 +58,7 @@ class TeacherWeb:
         self.math_archive = PreviewMathArchive(directory / "math-preview.sqlite", self.sessions, self.registry, test_mode=True) if self.backups is not None else None
         self.student_backups = StudentBackupCenter(self.math_archive, self.backups) if self.math_archive is not None else None
         self.history_review = HistoryReview(self.math_archive) if self.math_archive is not None else None
+        self.probe_sync = ProbeSyncCenter(self.math_archive) if usb_probe is True else None
         # Windows test enrollment uses DPAPI for new keys; startup fails closed
         # if the native provider cannot be initialized. Legacy records stay pending.
         protector = WindowsProtector() if test_mode and sys.platform == "win32" else None
@@ -125,6 +129,7 @@ class TeacherWeb:
                                self.decks.list_decks(token), self.csrf(token), notice,
                                minimum=self.accounts.minimum_password_length, test_mode=self.test_mode,
                                backup_enabled=self.backups is not None,
+                               probe_enabled=self.probe_sync is not None,
                                assignments=self.registry.list_assignments(token) if self.registry else None,
                                enrollment=self.enrollment.pending(token) if enrollment_admin else None,
                                credential_storage=self.enrollment.storage_status(token) if enrollment_admin else None,
@@ -145,6 +150,10 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", body)
+            if method == "GET" and path == "/sync/probe":
+                if self.probe_sync is None:
+                    raise PermissionError("Public USB probe disabled")
+                return self.respond(start, "200 OK", views.page("Public USB synchronization", self.probe_sync.page(token, self.csrf(token)) if token else self.probe_sync.page(token, "")))
             if method == "GET" and path == "/history":
                 if self.history_review is None:
                     raise PermissionError("History review preview disabled")
@@ -177,7 +186,7 @@ class TeacherWeb:
                 except PermissionError:
                     return self.login_page(start)
                 return self.respond(start, "200 OK", views.page("Create flashcards", editor(Draft.new(), self.csrf(token))))
-            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit", "/decks/bulk", "/backups", "/backups/protected", "/backups/students", "/history"}:
+            if method != "POST" or path not in {"/login", "/decks", "/teachers", "/logout", "/assignments", "/usb-scan", "/usb-identify", "/enrollment", "/protect-credential", "/decks/new", "/decks/edit", "/decks/bulk", "/backups", "/backups/protected", "/backups/students", "/history", "/sync/probe"}:
                 return self.respond(start, "404 Not Found", "Not found.")
             if not browser_origin_ok(env, ORIGIN):
                 LOG.warning("Form origin rejected: missing=%s, null=%s",
@@ -196,6 +205,11 @@ class TeacherWeb:
             self.sessions.require(token)
             if not hmac.compare_digest(data.get("csrf", ""), self.csrf(token)):
                 raise PermissionError("CSRF mismatch")
+            if path == "/sync/probe":
+                if self.probe_sync is None:
+                    raise PermissionError("Public USB probe disabled")
+                return self.respond(start, "200 OK", views.page("Public USB synchronization",
+                    self.probe_sync.handle(token, self.csrf(token), data)))
             if path == "/history":
                 if self.history_review is None:
                     raise PermissionError("History review preview disabled")

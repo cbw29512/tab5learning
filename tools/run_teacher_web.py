@@ -29,12 +29,13 @@ def main():
         parser.add_argument("--bootstrap", action="store_true")
         parser.add_argument("--test", action="store_true", help="Isolated local test data; 4-character minimum")
         parser.add_argument("--backup-dir", type=Path, help="Existing independent backup folder; synthetic --test mode only")
+        parser.add_argument("--usb-probe", action="store_true", help="Explicit public synthetic probe test, requires --test and --backup-dir")
         args = parser.parse_args()
         directory = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "PocketLearningStudio"
         if args.test:
             directory = directory.with_name("PocketLearningStudioTest")
             LOG.warning("TEST MODE: synthetic data only; separate account and deck databases")
-        app = TeacherWeb(directory, test_mode=args.test, backup_dir=args.backup_dir)
+        app = TeacherWeb(directory, test_mode=args.test, backup_dir=args.backup_dir, usb_probe=args.usb_probe)
         if args.bootstrap:
             user = input("First administrator username: ")
             password = getpass.getpass(f"Password ({app.accounts.minimum_password_length}+ characters): ")

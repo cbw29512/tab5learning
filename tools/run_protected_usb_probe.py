@@ -3,7 +3,8 @@ import argparse
 import hashlib
 import logging
 
-from tools.teacher_usb_discovery import scan_usb, PORT
+from tools.teacher_usb_discovery import scan_usb
+from tools.probe_serial import open_probe_stream
 from tools.protected_snapshot_transport import exchange_synthetic_snapshot
 from tools.math_backup_codec import decode, checkpoint
 
@@ -30,22 +31,7 @@ def verify_fixture(raw):
 def run_probe(port, *, scan=scan_usb, serial_factory=None):
     connection = None
     try:
-        if not isinstance(port,str) or not PORT.fullmatch(port):
-            raise ValueError("Invalid COM port")
-        port = port.upper()
-        if port not in scan().ports:
-            raise ValueError("Selected ESP32 USB port not detected")
-        if serial_factory is None:
-            from serial import Serial
-            serial_factory = Serial
-        connection = serial_factory(port=None,baudrate=115200,timeout=0.1,
-                                    write_timeout=0.5)
-        connection.dtr = False
-        connection.rts = False
-        connection.port = port
-        connection.open()
-        # Discard stale boot diagnostic bytes before initiating a fresh handshake.
-        connection.reset_input_buffer()
+        connection = open_probe_stream(port, scan=scan, serial_factory=serial_factory)
         raw = exchange_synthetic_snapshot(connection,"probe-only",bytes(range(32)),
                                            test_mode=True)
         return verify_fixture(raw)

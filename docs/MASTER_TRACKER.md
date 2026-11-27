@@ -222,3 +222,6 @@ Added PreviewUsbSync to connect existing complete verified encrypted exchange an
 
 ## M8 teacher mathematics history review
 Added test-only authenticated Teacher Studio history page scoped to planned student/device. Reads latest verified local archive, renders original stroke paths/dots, exact V1 preview question/selected answer/result and independent practice statistics, with ten attempts per page and legacy summary-only warning. Missing/corrupt history marked unavailable rather than zero progress. No USB access, correction, real student import or grading. Added WSGI regressions for exact evidence, paging, authorization, missing archive and production denial. Prior CI #405 queued/#65 pending; new tests pending. Next run local host suite and review actual screen before expanding sync UI.
+
+## M8 browser public-probe synchronization candidate
+Connected explicit opt-in local admin browser workflow to existing protected exchange, strict public fixture and scoped archive. Shared serial opener; reserved assignment; confirmation; verified durable receipt and history review link. No production learner access or flashing from browser. Existing local server is synchronous; progress/cancel and production authorization remain release blockers. CI #407 queued/#66 pending at inspection. Added WSGI tests, not yet run.

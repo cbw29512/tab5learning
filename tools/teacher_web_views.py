@@ -40,7 +40,7 @@ def login(notice="", *, test_mode=False, csrf=""):
     </section>""", notice)
 
 
-def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None, enrollment=None, credential_storage=None, can_migrate=False, backup_enabled=False):
+def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=False, assignments=None, enrollment=None, credential_storage=None, can_migrate=False, backup_enabled=False, probe_enabled=False):
     if test_mode:
         notice = "TEST MODE — synthetic data only. " + notice
     hidden = f'<input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
@@ -78,5 +78,5 @@ def workspace(username, role, decks, csrf, notice="", *, minimum=15, test_mode=F
     <textarea id="csv" name="csv" rows="8" required>front,back
 </textarea><button>Validate and save deck</button></form></details></section>
     {backup}{admin}
-    {devices}{discovery}<form method="post" action="/logout">{hidden}<button>Sign out</button></form>
+    {devices}{discovery}{'<p><a href="/sync/probe">Public USB synchronization test</a></p>' if probe_enabled and role == "admin" else ""}<form method="post" action="/logout">{hidden}<button>Sign out</button></form>
     """, notice)

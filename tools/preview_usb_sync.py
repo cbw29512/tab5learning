@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from tools.math_backup_archive import PreviewMathArchive
 from tools.math_backup_codec import decode
 from tools.protected_snapshot_transport import exchange_synthetic_snapshot
+from tools.run_protected_usb_probe import verify_fixture
 
 LOG = logging.getLogger(__name__)
 PROBE_DEVICE = "probe-only"
@@ -25,10 +26,11 @@ class PreviewSyncReceipt:
 
 
 class PreviewUsbSync:
-    def __init__(self, archive, *, test_mode=False):
+    def __init__(self, archive, *, test_mode=False, public_fixture_only=False):
         if test_mode is not True or not isinstance(archive, PreviewMathArchive):
             raise PermissionError("Synthetic USB archive only")
         self.archive = archive
+        self.public_fixture_only = public_fixture_only
 
     def _scope(self, token):
         # Reuse the archive's teacher/session/assignment checks. The reserved
@@ -45,6 +47,8 @@ class PreviewUsbSync:
             handed_off = True
             raw = exchange_synthetic_snapshot(
                 connection, PROBE_DEVICE, bytes(range(32)), test_mode=True)
+            if self.public_fixture_only:
+                verify_fixture(raw)
             candidate = decode(raw)
             digest = hashlib.sha256(raw).hexdigest()
             # A teacher may have logged out while USB was transferring.
