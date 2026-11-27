@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v5.json. Do not edit by hand.
+// Generated from starter.v6.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -290,6 +290,70 @@ inline constexpr Activity activities_35[]={
   {Kind::AdultReview,"remediation","Tell an adult about a choice you could make at a store. Explain why you would choose it.","Adult: listen for a reason tied to needs, wants or limited resources.",{"","",""},0,-1},
   {Kind::Choice,"review","Which is usually a want rather than a basic need?","An extra toy may be fun, but is not necessary to live.",{"Safe water","Food","An extra toy"},3,2},
 };
+inline constexpr Activity activities_36[]={
+  {Kind::Instruction,"instruction","Measure a pencil with equal-size blocks. Start at one end. Put the blocks in a row with no gaps or overlaps. Count the blocks.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A ribbon is exactly as long as four equal blocks in a row. How long is it?","Four equal blocks span the ribbon.",{"3 blocks","4 blocks","5 blocks"},3,1},
+  {Kind::Choice,"independent","Which row measures length fairly?","Equal units must touch without gaps or overlaps.",{"Equal blocks touching end to end","Blocks with gaps","Blocks piled on top of each other"},3,0},
+  {Kind::Choice,"assessment","A toy is exactly as long as six equal cubes. How many cube lengths is it?","Count all six cubes laid end to end.",{"5","7","6"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, find equal blocks and measure a small object. Show where each block starts and ends.","Adult: observe equal units, alignment, no gaps or overlaps, and accurate counting.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why must the measuring blocks be the same size?","Equal units make the count a meaningful measure.",{"To make them colorful","To use a consistent unit","To make them heavier"},3,1},
+};
+inline constexpr Activity activities_37[]={
+  {Kind::Instruction,"instruction","A clock has a short hour hand and a long minute hand. At a whole hour the minute hand points to 12. The hour hand tells which hour it is.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","The short hand points to 3 and the long hand to 12. What time is it?","The hour is three. A minute hand at 12 means zero minutes.",{"12:03","3:30","3:00"},3,2},
+  {Kind::Choice,"independent","Which digital time means seven o'clock?","Seven o'clock has seven hours and zero minutes.",{"7:00","7:30","12:07"},3,0},
+  {Kind::Choice,"assessment","The short hand points to 9 and the long hand to 12. What time is it?","The short hand gives the hour, nine.",{"12:09","9:00","9:30"},3,1},
+  {Kind::AdultReview,"remediation","Ask an adult to show you a real clock or a paper clock. Find the two hands and show four o'clock.","Adult: verify the hour hand is at four and the minute hand is at twelve. This is not auto-scored.",{"","",""},0,-1},
+  {Kind::Choice,"review","At six o'clock, where does the minute hand point?","At a whole hour the minute hand points to twelve.",{"6","3","12"},3,2},
+};
+inline constexpr Activity activities_38[]={
+  {Kind::Instruction,"instruction","A sentence tells a complete thought. 'The dog runs.' tells who and what happens. 'The dog' alone leaves the thought unfinished.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which is a complete telling sentence?","The red kite flies tells what the kite does.",{"A red kite","The red kite flies.","In the sky"},3,1},
+  {Kind::Choice,"independent","Finish this thought: The cat ...","The cat sleeps is a complete thought.",{"sleeps.","the.","under."},3,0},
+  {Kind::Choice,"assessment","Which sentence adds a detail to 'Birds sing.'?","Small tells us more about the birds.",{"Birds.","Sing birds.","Small birds sing."},3,2},
+  {Kind::AdultReview,"remediation","Say or write a sentence about a favorite game. Add one detail.","Adult: listen for a complete thought and a relevant detail. Writing quality needs human review.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which tells a complete thought?","The cup fell tells what happened.",{"A blue cup","The cup fell.","On the table"},3,1},
+};
+inline constexpr Activity activities_39[]={
+  {Kind::Instruction,"instruction","A telling sentence usually ends with a period. A question ends with a question mark. An excited statement can end with an exclamation mark.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which mark ends 'Where is my hat'?","Where is my hat asks a question.",{".","?","!"},3,1},
+  {Kind::Choice,"independent","Which mark usually ends a calm statement: 'I see a cat'?","A calm telling sentence usually ends with a period.",{".","!","?"},3,0},
+  {Kind::Choice,"assessment","Which mark fits the excited shout 'Wow, we won'?","An exclamation mark can show strong excitement.",{"?",".","!"},3,2},
+  {Kind::Instruction,"remediation","Read a question and a calm statement aloud. Listen to the difference. Write the mark that fits each.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which is a correctly punctuated question?","A question mark ends a question.",{"Can we play.","Can we play?","Can we play!"},3,1},
+};
+inline constexpr Activity activities_40[]={
+  {Kind::Instruction,"instruction","Roots help many plants stay in the ground and take in water. Stems support leaves. Leaves help plants make food using light.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which part usually holds a plant in the soil?","Roots anchor the plant in the soil.",{"Flower","Leaf","Roots"},3,2},
+  {Kind::Choice,"independent","Which part helps hold leaves up toward the light?","The stem supports the leaves.",{"Stem","Seed coat","Petal"},3,0},
+  {Kind::Choice,"assessment","A tall model keeps tipping over. Which plant part could inspire a support design?","Spreading roots can inspire a wider, stable support.",{"Petals","Spreading roots","A leaf tip"},3,1},
+  {Kind::AdultReview,"remediation","Draw a plant and a model base inspired by its roots. Explain how the base could keep the model upright.","Adult: check that the child connects the plant structure to a useful design function.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which part helps many plants take in water from soil?","Roots absorb water from soil.",{"Roots","Flowers","Fruit"},3,0},
+};
+inline constexpr Activity activities_41[]={
+  {Kind::Instruction,"instruction","Young living things often look like their parents, but not exactly alike. A puppy and its parent may both have four legs, but differ in size or markings.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A kitten and its parent both have whiskers. What does that show?","Whiskers are a shared feature.",{"A difference","A similarity","That both are plants"},3,1},
+  {Kind::Choice,"independent","A puppy has a small white patch. Its parent has a larger white patch. What is different?","The patches differ in size.",{"Patch size","Number of legs","Type of animal"},3,0},
+  {Kind::Choice,"assessment","A young bean plant and its parent have leaves, but the young plant is shorter. What is true?","They share leaves but differ in height.",{"They must be identical","They have no shared parts","They are alike in some ways"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, observe pictures of a young animal and its parent or a young plant and its parent. Name a similarity and a difference.","Adult: record the observed features and ask the child what evidence supports the comparison.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which observation is evidence of a difference?","Different heights are an observable difference.",{"Both have leaves","One is taller","Both have stems"},3,1},
+};
+inline constexpr Activity activities_42[]={
+  {Kind::Instruction,"instruction","Long ago, some people sent messages by handwritten letter. Today people still send letters, and many also send electronic messages. Some things change and some stay.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What can people use today that people also used long ago?","Handwritten letters were used in the past and are still used today.",{"A handwritten letter","A tablet app","A video call"},3,0},
+  {Kind::Choice,"independent","A family once used a horse cart. Today it uses a car. What changed?","The method of transportation changed.",{"The need to travel","The way it travels","The idea of a family"},3,1},
+  {Kind::Choice,"assessment","A school used books years ago and still uses books today. What stayed the same?","Books are used in both examples.",{"The year","Every classroom rule","Using books"},3,2},
+  {Kind::AdultReview,"remediation","Ask an adult how they communicated with friends as a child. Compare one way with today.","Adult: help distinguish a personal example from a claim about everyone in the past.",{"","",""},0,-1},
+  {Kind::Choice,"review","What does comparing past and present help us see?","Comparison helps identify changes and continuities.",{"What changed or stayed","Only tomorrow's weather","Only future inventions"},3,0},
+};
+inline constexpr Activity activities_43[]={
+  {Kind::Instruction,"instruction","A historical source can give clues about the past. An old photo may show clothes. A dated letter may tell what someone was doing.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which could show what a school looked like years ago?","A photograph can show a past scene.",{"A dated old school photo","A new blank sheet","An empty box"},3,0},
+  {Kind::Choice,"independent","Which source could tell what someone wrote about a trip?","A letter may describe a person's experiences.",{"A blank notebook","A letter from the trip","A new pencil"},3,1},
+  {Kind::Choice,"assessment","An old photo shows a bus. What can we tell from that photo alone?","The picture shows a bus, but not all the other details.",{"Every person rode the bus","The exact price of the bus","A bus appears in the picture"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, look at a non-private old photo or object. Name one clue it gives and one question you still have.","Adult: distinguish evidence from guesses. Do not collect personal photos or identifying data.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why do people study historical sources?","Historical sources provide clues about past life.",{"To learn about the past","To predict every event","To erase old stories"},3,0},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -327,5 +391,13 @@ inline constexpr Lesson lessons[]={
   {2,"g1-animal-parts",1,"Animal parts help animals",activities_33,6},
   {3,"g1-past-present",1,"Past, present and future",activities_34,6},
   {3,"g1-needs-wants",1,"Make a careful choice",activities_35,6},
+  {0,"g1-measure-length",1,"Measure with equal units",activities_36,6},
+  {0,"g1-clock-hours",1,"Tell time to the hour",activities_37,6},
+  {1,"g1-complete-sentences",1,"Build a complete sentence",activities_38,6},
+  {1,"g1-end-marks",1,"Choose an ending mark",activities_39,6},
+  {2,"g1-plant-parts",1,"Plant parts help plants",activities_40,6},
+  {2,"g1-young-living-things",1,"Young and adult living things",activities_41,6},
+  {3,"g1-life-then-now",1,"Life then and now",activities_42,6},
+  {3,"g1-history-clues",1,"Find clues about the past",activities_43,6},
 };
 }
