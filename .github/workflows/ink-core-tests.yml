@@ -90,6 +90,10 @@ jobs:
           /tmp/tab5-battery-runtime-test
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_notice_test.cpp -o /tmp/tab5-battery-notice-test
           /tmp/tab5-battery-notice-test
+      - name: Compile and run continuous mathematics durable file tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/math_continuous_journal_test.cpp firmware/src/ink_capture.cpp -o /tmp/tab5-math-continuous-journal
+          /tmp/tab5-math-continuous-journal
       - name: Compile and run continuous mathematics bank and record replay tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/math_continuous_test.cpp firmware/src/ink_capture.cpp -o /tmp/tab5-math-continuous
