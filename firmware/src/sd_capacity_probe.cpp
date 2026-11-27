@@ -25,7 +25,7 @@ void setup(){
   SPI.begin(sck,miso,mosi,cs);
   // Explicit format_if_empty=false; lower clock for initial compatibility.
   if(!SD.begin(cs,SPI,4000000,"/sd",5,false)){
-    message("SD mount failed. Do NOT format the card.");return;
+    message("SD mount failed. Do NOT format the card.");SPI.end();return;
   }
   const auto card=SD.cardSize();
   const auto total=SD.totalBytes();

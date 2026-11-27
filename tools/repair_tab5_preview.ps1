@@ -6,6 +6,8 @@ param(
     [string]$Port = "COM5",
     [switch]$SyntheticAuthProbe,
     [switch]$ProtectedUsbProbe,
+    [switch]$SdCapacityProbe,
+    [switch]$CardBackupConfirmed,
     [switch]$Install
 )
 $ErrorActionPreference = "Stop"
@@ -26,12 +28,21 @@ try {
     $dirty = git -C $repo status --porcelain
     if ($LASTEXITCODE -ne 0 -or $dirty) { throw "Working tree not clean." }
     # Explicit opt-in: this isolated public-key test is not a learner release.
-    if ($SyntheticAuthProbe -and $ProtectedUsbProbe) { throw "Select only one synthetic probe." }
+    $probeCount = [int]$SyntheticAuthProbe.IsPresent + [int]$ProtectedUsbProbe.IsPresent + [int]$SdCapacityProbe.IsPresent
+    if ($probeCount -gt 1) { throw "Select only one isolated probe." }
+    if ($SdCapacityProbe -and -not $CardBackupConfirmed) {
+        throw "Independently back up the removable card before the SD probe."
+    }
     $environment = "learner_factory_preview"
-    if ($ProtectedUsbProbe) {
-        $environment = "protected_usb_probe"
-        Write-Warning "Public synthetic encrypted snapshot probe only. Learner screen unavailable until restored."
-        # Require two matching full-flash recovery reads for this temporary firmware.
+    if ($ProtectedUsbProbe -or $SdCapacityProbe) {
+        if ($SdCapacityProbe) {
+            $environment = "sd_capacity_probe"
+            Write-Warning "Temporary capacity probe; learner unavailable until app restored. Mount is not guaranteed block-level read-only."
+        } else {
+            $environment = "protected_usb_probe"
+            Write-Warning "Public synthetic encrypted snapshot probe only. Learner screen unavailable until restored."
+        }
+        # Require two matching full-flash recovery reads for temporary firmware.
         $verification = Join-Path (Split-Path -Parent $Backup) "flash-verification.bin"
         if ((Get-Item -LiteralPath $verification).Length -ne 16777216 -or
             (Get-FileHash -LiteralPath $verification -Algorithm SHA256).Hash -ne
@@ -95,7 +106,9 @@ try {
     Write-Host "=== APPLICATION-ONLY REPAIR ==="
     & $python $esptool --chip esp32p4 --port $Port --baud 460800 write-flash 0x10000 $app
     if ($LASTEXITCODE -ne 0) { throw "Flash write failed." }
-    if ($ProtectedUsbProbe) {
+    if ($SdCapacityProbe) {
+        Write-Host "SD CAPACITY PROBE FLASH VERIFIED; record screen output and restore learner app."
+    } elseif ($ProtectedUsbProbe) {
         Write-Host "PROTECTED PROBE FLASH VERIFIED; synthetic transfer and learner restoration still pending."
     } elseif ($SyntheticAuthProbe) {
         Write-Host "PROBE FLASH VERIFIED; synthetic handshake and learner restoration still pending."
