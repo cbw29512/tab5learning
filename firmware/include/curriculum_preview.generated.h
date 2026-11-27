@@ -250,7 +250,7 @@ inline constexpr Lesson lessons[]={
   {0,"g1-compare-two-digit",1,"Compare tens and ones",activities_20,6},
   {0,"g1-story-problems",1,"Solve number stories",activities_21,6},
   {1,"g1-short-o",1,"Blend short-o words",activities_22,6},
-  {-1,"g1-short-u",1,"Blend short-u words",activities_23,6},
+  {1,"g1-short-u",1,"Blend short-u words",activities_23,6},
   {2,"g1-sound-vibration",1,"Sounds and vibrations",activities_24,6},
   {2,"g1-seasonal-daylight",1,"Daylight across the year",activities_25,6},
   {3,"g1-classroom-rules",1,"Rules help us work together",activities_26,6},

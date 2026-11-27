@@ -2327,8 +2327,14 @@
     },
     {
       "lesson_id": "g1-short-u",
-      "skill_id": "g1-short-u",
       "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-short-u",
+      "prerequisites": [
+        "g1-short-i"
+      ],
       "title": "Blend short-u words",
       "objective": "Blend and identify short-u consonant-vowel-consonant words.",
       "standards": [
@@ -2340,9 +2346,14 @@
           "mapping": "partial_draft"
         }
       ],
-      "prerequisites": [
-        "g1-short-i"
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
       ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
       "activities": [
         {
           "activity_id": "g1-short-u-1",
