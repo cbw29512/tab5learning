@@ -5,6 +5,7 @@ param(
     [Parameter(Mandatory=$true)][string]$Revision,
     [string]$Port = "COM5",
     [switch]$SyntheticAuthProbe,
+    [switch]$ProtectedUsbProbe,
     [switch]$Install
 )
 $ErrorActionPreference = "Stop"
@@ -25,7 +26,19 @@ try {
     $dirty = git -C $repo status --porcelain
     if ($LASTEXITCODE -ne 0 -or $dirty) { throw "Working tree not clean." }
     # Explicit opt-in: this isolated public-key test is not a learner release.
+    if ($SyntheticAuthProbe -and $ProtectedUsbProbe) { throw "Select only one synthetic probe." }
     $environment = "learner_factory_preview"
+    if ($ProtectedUsbProbe) {
+        $environment = "protected_usb_probe"
+        Write-Warning "Public synthetic encrypted snapshot probe only. Learner screen unavailable until restored."
+        # Require two matching full-flash recovery reads for this temporary firmware.
+        $verification = Join-Path (Split-Path -Parent $Backup) "flash-verification.bin"
+        if ((Get-Item -LiteralPath $verification).Length -ne 16777216 -or
+            (Get-FileHash -LiteralPath $verification -Algorithm SHA256).Hash -ne
+            (Get-FileHash -LiteralPath $Backup -Algorithm SHA256).Hash) {
+            throw "Independent full-flash recovery verification failed."
+        }
+    }
     if ($SyntheticAuthProbe) {
         $environment = "auth_usb_probe"
         Write-Warning "Synthetic authentication probe only. Learner screen will be unavailable until restored. No student data transfer."
@@ -82,7 +95,9 @@ try {
     Write-Host "=== APPLICATION-ONLY REPAIR ==="
     & $python $esptool --chip esp32p4 --port $Port --baud 460800 write-flash 0x10000 $app
     if ($LASTEXITCODE -ne 0) { throw "Flash write failed." }
-    if ($SyntheticAuthProbe) {
+    if ($ProtectedUsbProbe) {
+        Write-Host "PROTECTED PROBE FLASH VERIFIED; synthetic transfer and learner restoration still pending."
+    } elseif ($SyntheticAuthProbe) {
         Write-Host "PROBE FLASH VERIFIED; synthetic handshake and learner restoration still pending."
     } else {
         Write-Host "FLASH VERIFIED; physical display, touch and reboot acceptance pending."

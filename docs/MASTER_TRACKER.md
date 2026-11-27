@@ -204,3 +204,6 @@ Implemented synthetic-only probe identity host exchange using existing AUTH1–4
 
 ## M8 isolated device-side encrypted USB probe
 Added optional auth handoff, deterministic in-memory mathematics fixture, protected HWCDC binary probe with bounded nonblocking input/output, explicit close/disconnect, host regression and native build-only target. No learner NVS/SD access or firmware upload. Prior #394 queued/#59 pending and #392 queued at inspection; #58 cancelled. Latest CI pending. Next verify exact probe compile/test and host physical CLI, then hardware acceptance with preserved learner backup. Real journal integration and operation authorization remain open.
+
+## M8 Windows physical preflight and probe CLI
+User reported local protected_usb_probe build success at d1792653: 50,476 bytes RAM, 546,017 bytes flash. Targeted host tests: 14 pass, one C++ fixture skipped, zero failures. Fresh matching 16 MiB dual flash reads reported verified. Added explicit protected probe switch to existing guarded app-only installer and physical CLI verifying exact synthetic evidence. CI #60 pending/#396 queued; no cross-language fixture result or physical encrypted transfer yet. Next local preflight, host CLI test, review before temporary probe installation, restore learner and verify retention.
