@@ -19,6 +19,20 @@ inline void format_capacity(std::uint64_t bytes,char* out,std::size_t n){
     std::snprintf(out,n,"%llu bytes",static_cast<unsigned long long>(bytes));
   }
 }
+// Compact header labels make meaning and status clear even without color.
+inline void format_header_percent(const Status& s,char* out,std::size_t n){
+  if(!s.known()){std::snprintf(out,n,"--%%");return;}
+  std::snprintf(out,n,"%u%%",s.free_percent);
+}
+inline const char* header_label(State s){
+  switch(s){
+    case State::Normal:return "SD free";
+    case State::Low:return "SD low";
+    case State::Critical:return "SD critical";
+    case State::Unavailable:return "SD unavailable";
+    default:return "SD not checked";
+  }
+}
 inline void format_summary(const Status& s,char* out,std::size_t n){
   if(!s.known()){std::snprintf(out,n,"%s",state_label(s.state));return;}
   char free[48],total[48];

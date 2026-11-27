@@ -9,6 +9,13 @@ int main() {
     assert(action==t.action);
     assert(!t.hit(t.x+t.w,t.y));
   }
+  const auto& sd=learner_storage_region;
+  assert(sd.x+sd.w<=learner_battery_region.x);
+  assert(learner_heading_x>=learner_home.x+learner_home.w);
+  // Longest existing heading is 19 characters; default font 6px at size 3.
+  assert(learner_heading_x+20*6*learner_heading_size<sd.x);
+  assert(sd.y+sd.h<=learner_notice_region.y);
+  assert(!learner_hit(nav,sd.x+5,sd.y+5,action));
   assert(!learner_hit(nav,640,250,action));
   learner_navigate(nav,LearnerAction::Math);
   assert(!learner_hit(nav,700,250,action));

@@ -4,7 +4,8 @@
 #include <SPI.h>
 #include <SD.h>
 #include "curriculum_sd_fixture.h"
-#include "learner_storage_format.h"
+#include "learner_storage_ui.h"
+#include "learner_battery_ui.h"
 
 namespace {
 using namespace curriculum_preview;
@@ -55,13 +56,15 @@ void exercise(){
 void setup(){
   M5.begin(M5.config());Serial.begin(115200);delay(2000);
   M5.Display.setRotation(3);M5.Display.setBrightness(128);
-  M5.Display.fillScreen(TFT_NAVY);M5.Display.setCursor(32,40);
+  M5.Display.fillScreen(TFT_NAVY);M5.Display.setCursor(32,144);
   M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   message("Pocket Learning: synthetic SD write probe");
   message("Only /PLTST01.BIN may be created.");
   SPI.begin(sck,miso,mosi,cs);
   if(!SD.begin(cs,SPI,4000000,"/sd",5,false)){
-    message("FAIL: SD mount; never format");SPI.end();return;
+    message("FAIL: SD mount; never format");
+    learner_storage::render_header(learner_storage::unavailable());
+    SPI.end();return;
   }
   exercise();
   // One post-operation sample on the already-mounted card, never a
@@ -71,6 +74,15 @@ void setup(){
   message(summary);message(learner_storage::state_label(status.state));
   SD.end();SPI.end();
   message("SD unmounted. No other files touched by app.");
+  // Render adjacent live readings after diagnostic messages; no added mount
+  // or learner writes, and existing charger code is unchanged.
+  BatteryMonitor battery;BatteryRuntime runtime;
+  sample_learner_battery(battery,runtime,millis());
+  M5.Display.startWrite();
+  learner_storage::render_header(status);
+  render_learner_battery(battery.status);
+  M5.Display.endWrite();
+  M5.Display.display(0,0,M5.Display.width(),M5.Display.height());
 }
 void loop(){M5.update();M5.delay(100);}
 #endif

@@ -23,6 +23,7 @@
 #include <freertos/task.h>
 #include "math_submission.h"
 #include "learner_battery_ui.h"
+#include "learner_storage_ui.h"
 #include "battery_notice.h"
 #include "curriculum_preview_ui.h"
 #include "curriculum_resume_store.h"
@@ -112,6 +113,8 @@ bool geometry_ok=false;
 DisplayStartupRefresh startup_refresh;
 BatteryMonitor battery;
 BatteryRuntime battery_runtime;
+// Until SD write/ownership qualification, no automatic mount or stale guess.
+learner_storage::Status sd_status{};
 
 void tile(const LearnerTile& t, uint32_t color) {
   M5.Display.fillRoundRect(t.x,t.y,t.w,t.h,18,color);
@@ -228,8 +231,9 @@ void render() {
   tile(learner_home,TFT_DARKGREY);
   tile(learner_help,TFT_DARKGREY);
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
-  M5.Display.setTextSize(4);
-  M5.Display.drawString(heading(),260,40);
+  M5.Display.setTextSize(learner_heading_size);
+  M5.Display.drawString(heading(),learner_heading_x,40);
+  learner_storage::render_header(sd_status);
   render_learner_battery(battery.status);
   render_notice();
   M5.Display.setTextSize(4);
@@ -238,6 +242,7 @@ void render() {
     M5.Display.drawString("Choose a subject from Home.",48,180);
     M5.Display.drawString("Tap Go back to continue.",48,250);
     render_battery_runtime(battery_runtime);
+    learner_storage::render_help(sd_status);
     tile(learner_back,TFT_DARKGREY);
   } else if (navigation.screen==LearnerScreen::Home) {
     const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY,TFT_DARKGREEN};
