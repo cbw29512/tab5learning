@@ -78,7 +78,8 @@ class MathJournal {
     opened=true;
     if(!math_journal_limit(target,limit)) return bad(JournalFailure::Storage);
     const bool staging=target==MathJournalTarget::DedicatedStaging;
-    if(staging&&!math_journal_staging_keys(limit)) return bad(JournalFailure::Conflict);
+    unsigned inventoried=0;
+    if(!math_journal_keys(target,limit,inventoried)) return bad(JournalFailure::Conflict);
     MathPractice state, old;
     const auto base=checkpoint(handle,"basev1",state);
     // An isolated destination must never infer progress from default NVS.
@@ -99,6 +100,9 @@ class MathJournal {
       if(staging) digest.add(bytes,n);
       old_matches=old_matches||same(state,old);
     }
+    // Count must agree with the contiguous verified prefix; do not import
+    // a legacy checkpoint if inventory and replay disagree.
+    if(last!=inventoried) return bad(JournalFailure::Conflict);
     if(base!=ESP_OK&&prior==ESP_OK&&old.attempts) {
       if(!last) {
         // Copy the summary, never manufacture missing historical attempts.
@@ -128,6 +132,9 @@ class MathJournal {
     exporting=true;
     struct Guard { bool& flag; ~Guard() { flag=false; } } guard{exporting};
     auto reject=[&sink](MathSnapshotResult reason) { sink.abort(); return reason; };
+    unsigned inventoried=0;
+    if(!math_journal_keys(target,limit,inventoried)||inventoried!=last)
+      return MathSnapshotResult::Invalid;
     MathSnapshot manifest{};
     manifest.count=last;
     MathSnapshotVerifier verifier;

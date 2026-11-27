@@ -18,6 +18,12 @@ class MathJournalExportCursor {
   bool active()const{return owned_;}
   bool start(uint32_t now){
     if(state_!=MathExportState::Idle||!journal_.ready||journal_.exporting)return false;
+    unsigned inventoried=0;
+    if(!math_journal_keys(journal_.target,journal_.limit,inventoried)||inventoried!=journal_.last){
+      result_=MathSnapshotResult::Invalid;state_=MathExportState::Failed;
+      std::printf("ERR,MATH_EXPORT_INVENTORY\n");
+      return false;
+    }
     journal_.exporting=true;owned_=true;started_=now;
     manifest_.count=journal_.last;
     MathPractice persisted;

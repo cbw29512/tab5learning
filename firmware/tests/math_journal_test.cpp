@@ -64,6 +64,11 @@ static void snapshot_tests() {
   assert(journal.snapshot(bad_start)==MathSnapshotResult::SinkFailure&&bad_start.aborted);
   SnapshotSink bad_end; bad_end.fail_commit=true;
   assert(journal.snapshot(bad_end)==MathSnapshotResult::SinkFailure&&bad_end.aborted&&!bad_end.committed);
+  records["pljournal"]["a757"]=records["pljournal"]["a001"];
+  SnapshotSink extra;
+  assert(journal.snapshot(extra)==MathSnapshotResult::Invalid&&!extra.committed);
+  assert(records["pljournal"].count("a757"));
+  records["pljournal"].erase("a757");
   records["pljournal"]["a002"][0]^=1; SnapshotSink corrupt;
   assert(journal.snapshot(corrupt)==MathSnapshotResult::Invalid&&corrupt.aborted&&!corrupt.committed);
   reset(); MathPractice old; math_answer(old,0); math_answer(old,1); seed_legacy(old);

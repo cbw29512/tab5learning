@@ -27,16 +27,20 @@ inline bool math_journal_limit(MathJournalTarget target,unsigned& limit) {
 inline void math_journal_key(unsigned slot,char (&key)[12]) {
   std::snprintf(key,sizeof(key),"a%03u",slot);
 }
-// Inspect actual keys in the staging namespace. Do not silently omit an
-// out-of-range record, noncanonical key, unsupported schema or wrong type.
-inline bool math_journal_staging_keys(unsigned limit) {
+// Inspect actual keys in either journal namespace before replay or export.
+// An out-of-range key, unsupported schema or wrong type is never ignored.
+// The verified factory layout names its default NVS partition "nvs".
+inline bool math_journal_keys(MathJournalTarget target,unsigned limit,unsigned& count) {
+  count=0;
+  const bool staging=target==MathJournalTarget::DedicatedStaging;
   nvs_iterator_t it=nullptr;
-  auto result=nvs_entry_find(math_learning_partition,"pljournal",NVS_TYPE_ANY,&it);
+  auto result=nvs_entry_find(staging?math_learning_partition:"nvs","pljournal",NVS_TYPE_ANY,&it);
   bool valid=true;
   while(result==ESP_OK) {
     nvs_entry_info_t info{};
     if(nvs_entry_info(it,&info)!=ESP_OK||info.type!=NVS_TYPE_BLOB) { valid=false; break; }
-    if(std::strcmp(info.key,"basev1")!=0&&std::strcmp(info.key,"copyv1")!=0) {
+    if(std::strcmp(info.key,"basev1")!=0&&
+       !(staging&&std::strcmp(info.key,"copyv1")==0)) {
       unsigned slot=0;
       const char* p=info.key;
       if(*p++!='a'||!*p) { valid=false; break; }
@@ -45,10 +49,18 @@ inline bool math_journal_staging_keys(unsigned limit) {
         slot=slot*10+unsigned(*p-'0');
       }
       char canonical[12]; math_journal_key(slot,canonical);
-      if(!valid||!slot||slot>limit||std::strcmp(canonical,info.key)!=0) { valid=false; break; }
+      if(!valid||!slot||slot>limit||std::strcmp(canonical,info.key)!=0||count>=limit) {
+        valid=false; break;
+      }
+      ++count;
     }
     result=nvs_entry_next(&it);
   }
   nvs_release_iterator(it);
   return valid&&result==ESP_ERR_NVS_NOT_FOUND;
+}
+
+inline bool math_journal_staging_keys(unsigned limit) {
+  unsigned count=0;
+  return math_journal_keys(MathJournalTarget::DedicatedStaging,limit,count);
 }

@@ -37,4 +37,22 @@ int main() {
   assert(stage.begin(staged)==JournalLoad::Error);
   fail_inventory=true;
   assert(stage.begin(staged)==JournalLoad::Error&&records["pljournal"]==saved);
+  fail_inventory=false;
+  // Factory recovery used to silently ignore a record beyond its slot scan.
+  auto& source=records["pljournal"];
+  source["a757"]=source["a001"];
+  assert(factory.begin(original)==JournalLoad::Error&&factory.failure()==JournalFailure::Conflict);
+  assert(source.count("a757")&&original.attempts==1);
+  source.erase("a757");source["a0001"]=source["a001"];
+  assert(factory.begin(original)==JournalLoad::Error);
+  source.erase("a0001");source["copyv1"]=source["a001"];
+  assert(factory.begin(original)==JournalLoad::Error);
+  source.erase("copyv1");source["unknown"]=source["a001"];
+  assert(factory.begin(original)==JournalLoad::Error);
+  source.erase("unknown");
+  fail_inventory=true;
+  assert(factory.begin(original)==JournalLoad::Error);
+  fail_inventory=false;
+  assert(factory.begin(original)==JournalLoad::Restored&&original.attempts==1);
+  assert(source==saved);
 }

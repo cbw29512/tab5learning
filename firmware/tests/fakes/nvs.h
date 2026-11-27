@@ -43,9 +43,10 @@ inline esp_err_t nvs_get_stats(const char* part,nvs_stats_t* stats) {
 }
 inline esp_err_t nvs_entry_find(const char* part,const char* ns,int,nvs_iterator_t* it) {
   *it=nullptr;
-  if(FakeNvs::fail_inventory||!FakeNvs::dedicated_initialized||std::strcmp(part,"pllearning")||
-     std::strcmp(ns,"pljournal")) return ESP_FAIL;
-  auto& records=FakeNvs::records["dedicated/pljournal"];
+  if(FakeNvs::fail_inventory||!part||std::strcmp(ns,"pljournal")) return ESP_FAIL;
+  const bool dedicated=std::strcmp(part,"pllearning")==0;
+  if(dedicated?!FakeNvs::dedicated_initialized:std::strcmp(part,"nvs")!=0) return ESP_FAIL;
+  auto& records=FakeNvs::records[dedicated?"dedicated/pljournal":"pljournal"];
   if(records.empty()) return ESP_ERR_NVS_NOT_FOUND;
   *it=new FakeIterator{};
   for(const auto& record:records) (*it)->keys.push_back(record.first);
