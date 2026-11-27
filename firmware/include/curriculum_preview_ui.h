@@ -2,7 +2,7 @@
 #include <M5Unified.h>
 #include <cstdio>
 #include <cstring>
-#include "curriculum_preview.h"
+#include "curriculum_progress.h"
 namespace curriculum_preview {
 // Font 0 at size 3: six pixels per character before scaling. Conservative
 // 60-column wrap fits within 1080 pixels; fixed buffer, no String allocations.
@@ -36,7 +36,7 @@ inline void page_button(const char* label,int x){
   M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);M5.Display.setTextSize(3);
   M5.Display.drawString(label,x+24,508);
 }
-inline void render(const Preview& p,bool resume_ok){
+inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledger=nullptr){
   M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   M5.Display.drawString(resume_ok?"Grade 1 draft - resume location saved; no grades":"Resume storage unavailable - ask your teacher",48,144);
   if(p.screen==Screen::Subjects){
@@ -45,7 +45,17 @@ inline void render(const Preview& p,bool resume_ok){
   }
   if(p.screen==Screen::Lessons){
     for(unsigned i=0;i<lessons_per_page;++i){
-      const auto* l=p.visible_lesson(i);if(l)button(l->title,184+90*i,72);
+      const auto* l=p.visible_lesson(i);
+      if(l){
+        const int y=184+90*i;
+        M5.Display.fillRoundRect(48,y,1184,72,12,TFT_BLUE);
+        M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);M5.Display.setTextSize(3);
+        M5.Display.drawString(l->title,72,y+10);
+        const auto status=lesson_progress(ledger,*l);
+        M5.Display.setTextSize(2);
+        M5.Display.setTextColor(status==CompletionLookup::Recorded?TFT_GREEN:TFT_WHITE,TFT_BLUE);
+        M5.Display.drawString(completion_label(status),72,y+42);
+      }
     }
     char label[48];
     std::snprintf(label,sizeof(label),"Page %u of %u",p.page+1,lesson_pages(p.subject_count()));
@@ -58,7 +68,9 @@ inline void render(const Preview& p,bool resume_ok){
   M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   M5.Display.drawString(p.current().title,48,178);
   if(p.screen==Screen::Finished){
-    wrapped("Preview finished. No grade, mastery or achievement was recorded.",48,230,5);
+    const auto saved=lesson_progress(ledger,p.current())==CompletionLookup::Recorded;
+    wrapped(saved?"Lesson completion saved. No grade, mastery or achievement was recorded.":
+                  "Preview finished. No verified completion history or grade was recorded.",48,230,5);
     button("Choose another lesson",488,64);return;
   }
   char label[96];

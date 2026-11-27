@@ -28,11 +28,14 @@
 #include "curriculum_preview_ui.h"
 #include "curriculum_resume_store.h"
 #include "curriculum_transition.h"
+#include "curriculum_journey_ui.h"
 
 namespace {
 LearnerNavigation navigation;
 curriculum_preview::Preview curriculum;
 curriculum_preview::ResumeStore curriculum_resume;
+// Non-owning view; only a qualified, replayed SD owner may bind this.
+curriculum_preview::CompletionLedger* curriculum_completion=nullptr;
 MathPractice math;
 MathJournal storage;
 AwardNotice notice;
@@ -167,8 +170,10 @@ void refresh_notice() {
 void render_journey() {
   M5.Display.setTextSize(3);
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+  curriculum_preview::render_subject_progress(curriculum_completion);
+  M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   if(storage_error) {
-    M5.Display.drawString("Progress unavailable - ask your teacher.",48,180);
+    M5.Display.drawString("Math progress unavailable.",48,180);
     return;
   }
   const auto count=preview_badge_count(math);
@@ -255,7 +260,7 @@ void render() {
     } else if (navigation.screen==LearnerScreen::Reading) {
       render_reading();
     } else if (navigation.screen==LearnerScreen::Curriculum) {
-      curriculum_preview::render(curriculum,curriculum_resume.available());
+      curriculum_preview::render(curriculum,curriculum_resume.available(),curriculum_completion);
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
     } else {
@@ -337,7 +342,7 @@ void loop() {
       if(curriculum_preview::touch(candidate,detail.x,detail.y)) {
         // Completion backend remains explicitly disabled until the
         // isolated SD write and reboot test is physically accepted.
-        curriculum_preview::commit_transition(curriculum,candidate,curriculum_resume);
+        curriculum_preview::commit_transition(curriculum,candidate,curriculum_resume,curriculum_completion);
         render();
       }
     } else if (!navigation.help_open && navigation.screen==LearnerScreen::Reading) {

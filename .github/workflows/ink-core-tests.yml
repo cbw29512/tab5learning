@@ -50,6 +50,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_completion_test.cpp -o /tmp/tab5-curriculum-completion
           /tmp/tab5-curriculum-completion
+      - name: Compile and run curriculum progress projection tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_progress_test.cpp -o /tmp/tab5-curriculum-progress
+          /tmp/tab5-curriculum-progress
       - name: Compile and run curriculum transition recovery tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/tests/curriculum_transition_test.cpp -o /tmp/tab5-curriculum-transition
