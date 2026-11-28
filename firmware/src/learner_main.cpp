@@ -30,6 +30,7 @@
 #include "curriculum_resume_store.h"
 #include "curriculum_transition.h"
 #include "curriculum_journey_ui.h"
+#include "curriculum_continue.h"
 #ifdef POCKET_LEARNER_SD_EVAL
 #include "learner_sd_owner.h"
 #else
@@ -273,7 +274,20 @@ void render() {
     tile(learner_back,TFT_DARKGREY);
   } else if (navigation.screen==LearnerScreen::Home) {
     const uint32_t colors[]={TFT_BLUE,TFT_DARKGREEN,TFT_PURPLE,TFT_MAROON,TFT_DARKGREY};
-    for (unsigned i=0;i<learner_tiles.size();++i) tile(learner_tiles[i],colors[i]);
+    for (unsigned i=0;i<4;++i) tile(learner_tiles[i],colors[i]);
+    curriculum_preview::Preview saved;
+    if(curriculum_preview::continue_target(curriculum_resume,curriculum_completion,saved)){
+      const auto& t=learner_continue;
+      M5.Display.fillRoundRect(t.x,t.y,t.w,t.h,18,TFT_DARKGREEN);
+      M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREEN);M5.Display.setTextSize(3);
+      M5.Display.drawString(t.label,t.x+24,t.y+14);
+      char label[48];
+      std::snprintf(label,sizeof(label),"%.44s",saved.current().title);
+      M5.Display.setTextSize(2);M5.Display.drawString(label,t.x+24,t.y+48);
+      std::snprintf(label,sizeof(label),"Activity %u of %u",unsigned(saved.step+1),unsigned(saved.current().count));
+      M5.Display.drawString(label,t.x+24,t.y+74);
+      tile(learner_journey_compact,TFT_DARKGREY);
+    }else tile(learner_tiles[4],colors[4]);
   } else {
     M5.Display.setTextSize(3);
     if (navigation.screen==LearnerScreen::Math) {
@@ -357,6 +371,9 @@ void loop() {
     }
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
+    curriculum_preview::Preview continue_to;
+    const bool can_continue=navigation.screen==LearnerScreen::Home&&!navigation.help_open&&
+      curriculum_preview::continue_target(curriculum_resume,curriculum_completion,continue_to);
 #ifndef POCKET_LEARNER_SD_EVAL
     if(learner_sd_check_hit(navigation,detail.x,detail.y)) {
       Serial.println("SD,MANUAL_CHECK_REQUEST");
@@ -370,7 +387,7 @@ void loop() {
         (curriculum.grouped||curriculum.screen!=curriculum_preview::Screen::Lessons) &&
         learner_back.hit(detail.x,detail.y) && curriculum.back()) {
       render();
-    } else if (learner_hit(navigation,detail.x,detail.y,action) &&
+    } else if (learner_hit(navigation,detail.x,detail.y,action,can_continue) &&
         learner_navigate(navigation,action)) {
       const auto subject=learner_subject(action);
       if(subject>=0) {
@@ -378,7 +395,7 @@ void loop() {
         curriculum.choose_subject_grouped(static_cast<unsigned>(subject));
       } else if(action==LearnerAction::Curriculum || navigation.screen==LearnerScreen::Home) {
         curriculum.reset();
-        if(action==LearnerAction::Curriculum) curriculum_resume.restore(curriculum);
+        if(action==LearnerAction::Curriculum&&can_continue) curriculum=continue_to;
       }
       battery_runtime.observe(millis(),navigation);
       if (navigation.screen!=LearnerScreen::Reading || navigation.help_open) reading_leave();

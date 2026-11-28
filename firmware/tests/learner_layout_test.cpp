@@ -9,6 +9,12 @@ int main() {
     assert(action==t.action);
     assert(!t.hit(t.x+t.w,t.y));
   }
+  assert(learner_hit(nav,100,600,action,true)&&action==LearnerAction::Curriculum);
+  assert(learner_hit(nav,700,600,action,true)&&action==LearnerAction::Journey);
+  assert(!learner_hit(nav,640,600,action,true));
+  assert(learner_hit(nav,100,600,action,false)&&action==LearnerAction::Journey);
+  assert(learner_continue.x+learner_continue.w<learner_journey_compact.x);
+  assert(learner_journey_compact.x+learner_journey_compact.w<=1280);
   const auto& sd=learner_storage_region;
   assert(sd.x+sd.w<=learner_battery_region.x);
   assert(learner_heading_x>=learner_home.x+learner_home.w);

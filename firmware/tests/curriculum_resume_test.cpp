@@ -1,4 +1,5 @@
 #include "curriculum_resume_store.h"
+#include "curriculum_continue.h"
 #include <cassert>
 using namespace curriculum_preview;
 
@@ -7,6 +8,8 @@ int main(){
   ResumeStore s;
   Preview p{};
   assert(s.begin()==ResumeLoad::Empty&&!s.has_resume());
+  Preview shortcut;
+  assert(!continue_target(s,nullptr,shortcut));
   assert(p.choose_subject(0)&&p.choose_lesson(0));
   assert(s.save(p)&&s.has_resume());
   assert(p.next()&&p.step==1);
@@ -16,6 +19,10 @@ int main(){
   assert(reboot.begin()==ResumeLoad::Restored&&reboot.restore(recovered));
   assert(recovered.lesson==p.lesson&&recovered.step==1);
   assert(recovered.screen==Screen::Activity&&recovered.selected==-1);
+  assert(continue_target(reboot,nullptr,shortcut));
+  assert(shortcut.grouped&&shortcut.unit>=0&&shortcut.lesson==p.lesson&&shortcut.step==1);
+  assert(shortcut.back()&&shortcut.screen==Screen::Lessons);
+  assert(shortcut.visible_lesson(0)==&p.current());
   // Duplicate save must not write; a full store still accepts exact retry.
   FakeNvs::full=true;
   assert(reboot.save(recovered));
@@ -49,6 +56,7 @@ int main(){
   ResumeStore done;assert(done.begin()==ResumeLoad::Restored);
   assert(done.restore(recovered)&&recovered.screen==Screen::Finished);
   assert(recovered.current().subject==1);
+  assert(!continue_target(done,nullptr,shortcut));
   // A commit error is ambiguous; fail closed, require re-read on reboot.
   p.reset();assert(p.choose_subject(2)&&p.choose_lesson(0));
   FakeNvs::ambiguous=true;assert(!done.save(p)&&!done.available());

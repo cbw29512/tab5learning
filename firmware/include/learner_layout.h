@@ -19,6 +19,9 @@ inline constexpr std::array<LearnerTile, 5> learner_tiles{{
   {656,368,592,192,LearnerAction::SubjectSocial,"Social studies"},
   {32,580,1216,108,LearnerAction::Journey,"My Learning Journey"}
 }};
+// Conditional Home shortcut: shown only for a verified unfinished checkpoint.
+inline constexpr LearnerTile learner_continue{32,580,592,108,LearnerAction::Curriculum,"Continue learning"};
+inline constexpr LearnerTile learner_journey_compact{656,580,592,108,LearnerAction::Journey,"My Journey"};
 inline constexpr LearnerTile learner_home{32,24,180,80,LearnerAction::Home,"Home"};
 inline constexpr LearnerTile learner_help{1068,24,180,80,LearnerAction::Help,"Help"};
 // Header regions are outside the navigation buttons and lesson cards.
@@ -38,12 +41,17 @@ inline constexpr LearnerRegion learner_battery_region{820,24,236,80};
 inline constexpr LearnerRegion learner_notice_region{32,108,1216,28};
 inline constexpr LearnerTile learner_back{32,580,1216,108,LearnerAction::Back,"Go back"};
 
-inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action) {
+inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action,bool can_continue=false) {
   if (learner_home.hit(x,y)) { action=learner_home.action; return true; }
   if (learner_help.hit(x,y)||learner_storage_help.hit(x,y)) { action=LearnerAction::Help; return true; }
   if (state.help_open || state.screen != LearnerScreen::Home) {
     if (learner_back.hit(x,y)) { action=learner_back.action; return true; }
     return false;
+  }
+  if(can_continue&&learner_tiles[4].hit(x,y)){
+    if(learner_continue.hit(x,y)){action=learner_continue.action;return true;}
+    if(learner_journey_compact.hit(x,y)){action=learner_journey_compact.action;return true;}
+    return false; // gap is not a touch target
   }
   for (const auto& tile : learner_tiles) {
     if (tile.hit(x,y)) { action=tile.action; return true; }
