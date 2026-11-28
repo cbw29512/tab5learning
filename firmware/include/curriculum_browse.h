@@ -48,6 +48,7 @@ inline bool browse_choose(Preview& p,unsigned row,const CompletionLedger* ledger
   const auto* l=browse_visible(p,row,ledger);
   if(!l)return false;
   p.lesson=static_cast<std::size_t>(l-lessons);p.step=0;p.selected=-1;
+  p.practice_only=false;
   p.reviewing=lesson_progress(ledger,*l)==CompletionLookup::Recorded;
   p.screen=Screen::Activity;return true;
 }

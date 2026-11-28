@@ -5,7 +5,10 @@ namespace curriculum_preview {
 // Fixed regions are disjoint from the activity label, picture marker,
 // prompt, art and the larger answer controls. No animation, timers or writes.
 inline void render_activity_progress(const Preview& p){
-  const auto progress=activity_progress(p);
+  auto progress=activity_progress(p);
+  if(p.practice_only&&progress.valid&&progress.total>=2&&progress.visited>=progress.total-1){
+    progress.visited-=progress.total-2;progress.total=2;
+  }
   if(!progress.valid)return;
   M5.Display.fillRoundRect(650,220,progress_bar_width,12,6,TFT_DARKGREY);
   const auto width=activity_bar_width(progress);

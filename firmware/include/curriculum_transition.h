@@ -1,6 +1,7 @@
 #pragma once
 #include "curriculum_resume_codec.h"
 #include "curriculum_completion_ledger.h"
+#include "curriculum_practice.h"
 
 namespace curriculum_preview {
 // Native UI stages its own valid navigation first. Commit only when
@@ -10,6 +11,12 @@ enum class TransitionResult { Applied, ResumeError, CompletionError };
 template<class Checkpoint>
 TransitionResult commit_transition(Preview& current,const Preview& candidate,
                                    Checkpoint& resume,CompletionLedger* completion=nullptr){
+  if(candidate.practice_only){
+    if(!valid_practice_transition(current,candidate)){
+      std::printf("ERR,CURRICULUM_PRACTICE_TRANSITION\n");return TransitionResult::ResumeError;
+    }
+    current=candidate;return TransitionResult::Applied;
+  }
   // A review is transient and must not replace the active lesson checkpoint.
   if(candidate.reviewing){
     if(candidate.lesson>=lesson_count||candidate.step>=candidate.current().count||

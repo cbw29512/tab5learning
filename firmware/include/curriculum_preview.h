@@ -20,6 +20,7 @@ struct Preview {
   unsigned subject=0,page=0,unit_page=0;
   int unit=-1; // -1 is the legacy flat browser; grouped UI chooses a unit first.
   bool grouped=false;
+  bool practice_only=false; // Optional extra practice; never checkpoint or award.
   bool finished_only=false,reviewing=false; // Transient browser state; never persisted as a grade.
   std::size_t lesson=0,step=0;
   int selected=-1;
@@ -50,7 +51,7 @@ struct Preview {
   bool choose_unit(unsigned row){
     if(screen!=Screen::Units)return false;
     const auto* u=visible_unit(row);if(!u)return false;
-    unit=static_cast<int>(u-units);page=0;finished_only=false;reviewing=false;screen=Screen::Lessons;return true;
+    unit=static_cast<int>(u-units);page=0;finished_only=false;reviewing=false;practice_only=false;screen=Screen::Lessons;return true;
   }
   bool matches(const Lesson& l)const{
     return l.subject==subject&&(unit<0||lesson_units[&l-lessons]==static_cast<unsigned>(unit));
@@ -106,8 +107,8 @@ struct Preview {
     switch(screen){
       case Screen::Subjects:return false;
       case Screen::Units:screen=Screen::Subjects;return true;
-      case Screen::Lessons:screen=grouped?Screen::Units:Screen::Subjects;unit=-1;page=0;finished_only=false;reviewing=false;return true;
-      default:screen=Screen::Lessons;selected=-1;reviewing=false;return true;
+      case Screen::Lessons:screen=grouped?Screen::Units:Screen::Subjects;unit=-1;page=0;finished_only=false;reviewing=false;practice_only=false;return true;
+      default:screen=Screen::Lessons;selected=-1;reviewing=false;practice_only=false;return true;
     }
   }
 };

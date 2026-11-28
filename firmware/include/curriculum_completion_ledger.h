@@ -65,7 +65,7 @@ class CompletionLedger {
   }
   CompletionResult finish(const Preview& p){
     if(!ready)return CompletionResult::Unavailable;
-    if(p.screen!=Screen::Finished||p.lesson>=lesson_count||
+    if(p.practice_only||p.screen!=Screen::Finished||p.lesson>=lesson_count||
        p.step+1!=p.current().count)return CompletionResult::Invalid;
     CompletionKey k{};
     if(!completion_key(p.current(),k))return CompletionResult::Invalid;

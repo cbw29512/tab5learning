@@ -411,7 +411,7 @@ void loop() {
       // Stage navigation before acknowledging a new resume location. Feedback
       // is transient; a power loss repeats its activity, never awards credit.
       auto candidate=curriculum;
-      if(curriculum_preview::touch(candidate,detail.x,detail.y,curriculum_completion)) {
+      if(curriculum_preview::touch(candidate,detail.x,detail.y,curriculum_completion,&curriculum_evidence)) {
         // Only resume the exact lesson selected, never redirect a subject or
         // reopen a finished lesson. Earlier math journal remains unchanged.
         if(curriculum.screen==curriculum_preview::Screen::Lessons &&
@@ -426,7 +426,7 @@ void loop() {
 #ifdef POCKET_LEARNER_SD_EVAL
         // A failed SD owner is not permission to silently fall back to
         // resume-only completion. Navigation remains available.
-        if(candidate.screen==curriculum_preview::Screen::Finished&&
+        if(candidate.screen==curriculum_preview::Screen::Finished&&!candidate.practice_only&&
             (!curriculum_completion||!curriculum_completion->available())){
           Serial.println("ERR,CURRICULUM_SD_REQUIRED");
         }else

@@ -27,6 +27,7 @@ inline std::uint32_t resume_get32(const ResumeBytes& b,unsigned at){
   return value;
 }
 inline bool resume_encode(const Preview& p,ResumeBytes& b){
+  if(p.practice_only)return false;
   if(p.screen!=Screen::Activity&&p.screen!=Screen::Feedback&&p.screen!=Screen::Finished)return false;
   if(p.lesson>=lesson_count)return false;
   const auto& l=p.current();

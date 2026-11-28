@@ -29,7 +29,7 @@ class SessionEvidence {
   // change this boot's first independent response.
   bool observe(const Preview& before,const Preview& after){
     if(before.screen!=Screen::Activity||after.screen!=Screen::Feedback||
-       before.reviewing||after.reviewing||before.lesson!=after.lesson||
+       before.reviewing||after.reviewing||before.practice_only||after.practice_only||before.lesson!=after.lesson||
        before.step!=after.step||after.lesson>=lesson_count||
        after.step>=after.current().count||after.step>=evidence_step_limit)return false;
     const auto& a=after.activity();

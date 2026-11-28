@@ -81,6 +81,35 @@ int main(){
   assert(media.records.size()==1);
   assert(commit_transition(current,review,done,nullptr)==TransitionResult::CompletionError);
   FakeNvs::full=false;
+  // Extra practice is available from first-response errors even without SD.
+  Preview sampled{};assert(sampled.choose_subject(0)&&sampled.choose_lesson(0));
+  while(!independent_choice(sampled.activity())){
+    if(sampled.activity().kind==Kind::Choice)assert(sampled.answer(0)&&sampled.next());
+    else assert(sampled.next());
+  }
+  SessionEvidence session;const auto first=sampled;
+  assert(sampled.answer((unsigned(sampled.activity().answer)+1)%sampled.activity().count));
+  assert(session.observe(first,sampled));
+  sampled.step=sampled.current().count-1;sampled.screen=Screen::Finished;sampled.selected=-1;
+  assert(practice_available(sampled,&session));
+  current=sampled;auto practice=current;assert(start_practice(practice,&session));
+  ResumeBytes bogus_resume{};assert(!resume_encode(practice,bogus_resume));
+  FakeNvs::full=true;
+  assert(commit_transition(current,practice,done,nullptr)==TransitionResult::Applied);
+  unsigned steps=0;
+  while(current.screen!=Screen::Finished){
+    practice=current;
+    if(practice.screen==Screen::Activity&&practice.activity().kind==Kind::Choice)assert(practice.answer(0));
+    else assert(practice.next());
+    assert(commit_transition(current,practice,done,&replay)==TransitionResult::Applied);
+    assert(++steps<=4);
+  }
+  assert(current.practice_only&&!practice_available(current,&session));
+  assert(replay.finish(current)==CompletionResult::Invalid);
+  assert(done.restore(original)&&original.lesson==saved.lesson&&original.step==saved.step);
+  assert(media.records.size()==1);
+  assert(current.back()&&!current.practice_only);
+  FakeNvs::full=false;
   // Current normal preview still saves only location; no completion backend.
   FakeNvs::reset();ResumeStore preview;assert(preview.begin()==ResumeLoad::Empty);
   current=last_activity();assert(commit_transition(current,candidate,preview)==TransitionResult::Applied);

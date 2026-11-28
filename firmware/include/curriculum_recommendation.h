@@ -15,7 +15,7 @@ inline bool prerequisites_completed(std::size_t index,const CompletionLedger* le
   return true;
 }
 inline const Lesson* recommended_after(const Preview& p,const CompletionLedger* ledger){
-  if(p.screen!=Screen::Finished||p.reviewing||p.lesson>=lesson_count||
+  if(p.screen!=Screen::Finished||p.reviewing||p.practice_only||p.lesson>=lesson_count||
      !ledger||!ledger->available()||lesson_progress(ledger,p.current())!=CompletionLookup::Recorded)return nullptr;
   // Prefer same topic, then any eligible lesson in the same subject.
   // Stable catalog order breaks ties; don't automatically change subjects.

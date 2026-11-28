@@ -10,6 +10,7 @@
 #include "curriculum_text_layout.h"
 #include "curriculum_recommendation.h"
 #include "curriculum_session_evidence.h"
+#include "curriculum_practice.h"
 namespace curriculum_preview {
 // A single bounded wrapper also serves the completion notice.
 inline void wrapped(const char* text,int x,int y,unsigned max_lines,unsigned columns=60){
@@ -48,6 +49,10 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
 #else
   M5.Display.drawString(resume_ok?"Grade 1 draft - resume location saved; no grades":"Resume storage unavailable - ask your teacher",48,144);
 #endif
+  if(p.practice_only){
+    M5.Display.fillRect(48,144,1184,20,TFT_NAVY);
+    M5.Display.drawString("Extra practice - no grade or new completion credit",48,144);
+  }
   if(p.screen==Screen::Subjects){
     for(unsigned i=0;i<4;++i)button(subjects[i],184+90*i,72);
     return;
@@ -108,7 +113,11 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   M5.Display.drawString(p.current().title,48,178);
   if(p.screen==Screen::Finished){
     const auto saved=lesson_progress(ledger,p.current())==CompletionLookup::Recorded;
-    render_finish_heading(p.reviewing);
+    render_finish_heading(p.reviewing||p.practice_only);
+    if(p.practice_only){
+      wrapped("Nice practice! Your saved lesson has not changed.",48,340,4);
+      button("Return to lessons",488,64);return;
+    }
     if(evidence&&!p.reviewing){
       const auto sample=evidence->skill(p.lesson);
       const auto hint=practice_hint(sample);
@@ -128,11 +137,16 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
       M5.Display.setTextSize(2);M5.Display.drawString("Suggested next lesson:",48,408);
       M5.Display.setTextSize(3);M5.Display.drawString(suggested->title,48,440);
     }
-    button(p.reviewing?"Return to finished lessons":suggested?"Start next lesson":saved?"See up next":"Choose another lesson",488,64);return;
+    if(practice_available(p,evidence)){
+      page_button("Practice again",48);
+      page_button(suggested?"Start next lesson":"Other lessons",664);
+    }else button(p.reviewing?"Return to finished lessons":suggested?"Start next lesson":saved?"See up next":"Choose another lesson",488,64);
+    return;
   }
   char label[96];
-  std::snprintf(label,sizeof(label),"Activity %u of %u - %s",
-    static_cast<unsigned>(p.step+1),static_cast<unsigned>(p.current().count),p.activity().phase);
+  std::snprintf(label,sizeof(label),p.practice_only?"Practice %u of %u - %s":"Activity %u of %u - %s",
+    static_cast<unsigned>(p.practice_only?p.step-(p.current().count-2)+1:p.step+1),
+    static_cast<unsigned>(p.practice_only?2:p.current().count),p.activity().phase);
   M5.Display.setTextSize(2);M5.Display.drawString(label,48,218);
   render_activity_progress(p);
   M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
@@ -166,7 +180,7 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     }
   }else button(p.activity().kind==Kind::AdultReview?"View adult guidance":"Continue",488,64);
 }
-inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr){
+inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr,const SessionEvidence* evidence=nullptr){
   if(p.screen==Screen::Subjects){
     for(unsigned i=0;i<4;++i)if(hit(x,y,184+90*i,72))return p.choose_subject_grouped(i);
     return false;
@@ -190,6 +204,10 @@ inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr)
   }
   if(!hit(x,y,488,64))return false;
   if(p.screen==Screen::Finished){
+    if(practice_available(p,evidence)){
+      if(x<616)return start_practice(p,evidence);
+      if(x<664)return false; // Gap is not a button.
+    }
     if(start_recommended(p,ledger))return true;
     return browse_after_finish(p,ledger);
   }
