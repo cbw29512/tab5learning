@@ -26,3 +26,6 @@ Topic browser and 52-lesson device flash previously verified; latest 68-lesson b
 
 ## v3 foundational literacy update
 [Current ledger](../curriculum/grade-1/coverage.v3.json) tracks starter.v11: ELA 42 partial / 39 missing, with 13 new candidate indicator mappings. Targeted official SC CCR ELA pages 42–43 reviewed; full reconciliation outstanding. Adult oral and spelling evidence needed. No approved rows, no student data.
+
+## v4 phonics and fluency update
+[Current ledger](../curriculum/grade-1/coverage.v4.json) tracks starter.v12; ELA 51 partial / 30 missing. New mappings are candidates; official full scope and educator approval remain pending. Audio/reading capture and teacher evidence remain incomplete.

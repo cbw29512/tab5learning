@@ -6,7 +6,7 @@ from html import escape
 from tools.curriculum_draft import decode_draft, MAX_BYTES
 
 LOG = logging.getLogger(__name__)
-SOURCE = Path(__file__).resolve().parents[1] / "curriculum" / "grade-1" / "starter.v11.json"
+SOURCE = Path(__file__).resolve().parents[1] / "curriculum" / "grade-1" / "starter.v12.json"
 SUBJECTS = (("mathematics","Mathematics"),("english_language_arts","English language arts"),
             ("science","Science"),("social_studies","Social studies"))
 

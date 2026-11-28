@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v11.json. Do not edit by hand.
+// Generated from starter.v12.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -722,6 +722,86 @@ inline constexpr Activity activities_89[]={
   {Kind::Instruction,"remediation","Say puff slowly. Find the short vowel and two final f letters.","",{"","",""},0,-1},
   {Kind::Choice,"review","Which word is spelled correctly?","Mess uses ss after the short e sound.",{"Mes","Mess","Mese"},3,1},
 };
+inline constexpr Activity activities_90[]={
+  {Kind::Instruction,"instruction","C often sounds like k in cat and like s in city. G often has the sound in goat, but can sound like j in gem. The next letter can give a clue.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word has the soft c sound?","Cent starts with the s sound.",{"Cup","Cent","Cat"},3,1},
+  {Kind::Choice,"independent","Which word has the soft g sound?","Gem starts with the j sound.",{"Gem","Goat","Gum"},3,0},
+  {Kind::AdultReview,"assessment","Read cap, cell, cycle, game, giant and gym. Then spell the word an adult says: cent.","Adult: Check hard and soft sound distinctions and independent spelling; offer support as needed.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read get and give. These words keep the hard g sound even before e or i. A spelling clue is not a rule without exceptions.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word begins with the hard g sound?","Gate starts with the g sound heard in goat.",{"Giant","Gate","Gem"},3,1},
+};
+inline constexpr Activity activities_91[]={
+  {Kind::Instruction,"instruction","Y can spell the long i sound in my, the long e sound in happy, and the short i sound in gym. Listen for the vowel sound in each word.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word ends with y sounding like long i?","Fly has the same vowel sound as my.",{"Baby","Fly","Happy"},3,1},
+  {Kind::Choice,"independent","Which word ends with y sounding like long e?","Puppy ends with the long e sound.",{"Puppy","Dry","Sky"},3,0},
+  {Kind::AdultReview,"assessment","Read my, sky, baby, silly, gym and myth. Spell the word an adult says: dry.","Adult: Check all three vowel sounds and independent spelling; accept natural pronunciation variation.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say my and happy slowly. Listen to how their final y sounds differ.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word has medial y sounding like short i?","Gym has the vowel sound heard in him.",{"Try","Gym","Sunny"},3,1},
+};
+inline constexpr Activity activities_92[]={
+  {Kind::Instruction,"instruction","In mild, host, cold, bolt and kind, a vowel can say its long sound before a group of consonants. Read the whole word with an adult.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word rhymes with cold?","Fold and cold share the old sound.",{"Cod","Fold","Cloud"},3,1},
+  {Kind::Choice,"independent","Which word rhymes with kind?","Find and kind share the ind sound.",{"Find","Fin","Kid"},3,0},
+  {Kind::AdultReview,"assessment","Read mild, host, fold, jolt and kind. Spell the word an adult says: bolt.","Adult: Check each word group and independent spelling; provide support where necessary.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Compare most and cost. The vowel pattern has exceptions. Listen to the whole word and check its meaning.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word rhymes with wild?","Mild and wild share the ild sound.",{"Will","Mild","Wind"},3,1},
+};
+inline constexpr Activity activities_93[]={
+  {Kind::Instruction,"instruction","Some letter groups contain a letter we do not hear: k in knee, w in write, b in lamb, gh in night, and g in sign. Read the whole word.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word begins with a silent k?","Knee begins with kn; the k is not pronounced.",{"Kit","Knee","Kick"},3,1},
+  {Kind::Choice,"independent","Which word ends with a silent b?","Lamb ends in mb; the b is silent.",{"Lamb","Lab","Lip"},3,0},
+  {Kind::AdultReview,"assessment","Read knot, wrap, comb, night and sign. Spell the word an adult says: knee.","Adult: Check accurate pronunciation and silent-letter spelling; do not demand a universal rule.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Compare right and laugh. Gh is silent in right but sounds like f in laugh. Learn the spelling with the word.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word begins with silent w?","Write begins with wr, but we hear r.",{"Wet","Write","Win"},3,1},
+};
+inline constexpr Activity activities_94[]={
+  {Kind::Instruction,"instruction","Common English words ending with the v sound are spelled with ve, as in have, give and save. The final e does not always make the vowel long.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Choose the correct spelling: I can ___ you a book.","Give ends in ve even though its vowel is short.",{"Giv","Give","Givv"},3,1},
+  {Kind::Choice,"independent","Choose the correct spelling: We ___ a dog.","Have ends in ve.",{"Have","Hav","Havv"},3,0},
+  {Kind::AdultReview,"assessment","Read have, give, love, save and five. Spell the word an adult says: give.","Adult: Check final ve and vowel pronunciation; record spelling independently.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read give and five. Both end with ve, but they have different vowel sounds.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which spelling completes: Please ___ the file?","Save ends in ve.",{"Sav","Save","Savv"},3,1},
+};
+inline constexpr Activity activities_95[]={
+  {Kind::Instruction,"instruction","A vowel team can work together, as ai in rain and oa in boat. Some words end with a consonant and le, as in table. Read words in syllables.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word contains a vowel team?","Rain contains ai.",{"Cat","Rain","Cup"},3,1},
+  {Kind::Choice,"independent","Which word ends in a consonant plus le?","Table ends in ble.",{"Table","Rain","Boat"},3,0},
+  {Kind::AdultReview,"assessment","Read raincoat, sailboat, apple and little. Split each into syllables before reading the whole word.","Adult: Check decoding of vowel teams and final consonant-le, with support recorded separately.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read boat and sail. Join sail and boat to read sailboat.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which two parts make raincoat?","Raincoat joins rain and coat.",{"Ran and cot","Rain and coat","Rain and cat"},3,1},
+};
+inline constexpr Activity activities_96[]={
+  {Kind::Instruction,"instruction","We see words like the, said, was, they and come often. Some parts are unexpected. Read the words with an adult, then read a sentence.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word completes: ___ dog ran?","The dog ran is a complete sentence.",{"Was","The","Said"},3,1},
+  {Kind::AdultReview,"independent","Read the, said, was, they and come without an adult reading them first.","Adult: Record independently recognized words; do not score recognition from selection alone.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Read: They said the dog was here. Then read: Come with me.","Adult: Check word accuracy in context; record prompts and corrections.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Look at said. The ai has an unexpected sound here. Read the whole word and try the sentence again.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Read: They come to play. The dog was glad.","Adult: Check accuracy on the target words in a different sentence.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_97[]={
+  {Kind::Instruction,"instruction","Read a sentence slowly first. Reread it in natural groups. Stop at a period. A question may sound different from a statement.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Read: Can Sam run? Which mark tells you it is a question?","A question mark signals a question.",{"Period","Question mark","Comma"},3,1},
+  {Kind::AdultReview,"independent","Read: Sam had a red hat. The wind blew it off. Sam ran to get it.","Adult: Listen for accuracy and natural phrasing, not speed alone. Record prompting.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Read: Kim saw a frog. It sat on a log. Will it jump? Yes! It jumped in the pond.","Adult: Use fresh text. Record word accuracy, phrasing and expression separately.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Ask an adult to model one sentence. Read it again in natural groups, keeping every word.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Reread the frog story. Tell what the frog did at the end.","Adult: Compare oral accuracy and expression with the first attempt and check meaning.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_98[]={
+  {Kind::Instruction,"instruction","If you can read light, you can try night. Keep the ight part and change the first sound. Check the whole word in a sentence.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word shares the spelling pattern in light?","Night and light both end in ight.",{"List","Night","Late"},3,1},
+  {Kind::AdultReview,"independent","Read: A bright light lit the room. The night was dark. Use light to help read bright and night.","Adult: Check decoding from the shared spelling, not context guessing.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Read: Ben found a cold stone. He had to hold it. Use cold to help read hold.","Adult: Check independent transfer and understanding.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read lake, then make. Keep the ake part and change the first sound.","",{"","",""},0,-1},
+  {Kind::Choice,"review","If you know cake, which word has the same ending pattern?","Bake shares the ake spelling pattern.",{"Cat","Bake","Back"},3,1},
+};
+inline constexpr Activity activities_99[]={
+  {Kind::Instruction,"instruction","If a sentence sounds wrong, stop. Look closely at the letters, sound out the word, then reread the sentence. Check that it makes sense.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","The text says: The cat sat on a mat. You read cap instead of cat. What helps fix it?","The last letter t helps you read cat accurately.",{"Skip the word","Check the last letter","Guess a new word"},3,1},
+  {Kind::AdultReview,"independent","Read: A duck swam in the pond. Stop and check any word that does not sound right.","Adult: Observe self-monitoring without deliberately prompting every word.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Read: The small dog slept on a rug. If a word is hard, use its letters and reread.","Adult: Record spontaneous corrections separately from corrections prompted by the adult.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read mat, then map. Look at the final letters and listen to the different sounds.","",{"","",""},0,-1},
+  {Kind::Choice,"review","After correcting a word, what should you do?","Rereading helps confirm the word and sentence make sense.",{"Forget the sentence","Reread to check meaning","Always start the book over"},3,1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -813,6 +893,16 @@ inline constexpr Lesson lessons[]={
   {1,"g1-base-word-endings",1,"Add s and ed to words",activities_87,6},
   {1,"g1-shortened-word-pairs",1,"Join words with an apostrophe",activities_88,6},
   {1,"g1-double-final-letters",1,"Double the last letter",activities_89,6},
+  {1,"g1-hard-soft-c-g",1,"Two sounds for c and g",activities_90,6},
+  {1,"g1-vowel-y",1,"When y is a vowel",activities_91,6},
+  {1,"g1-long-vowel-special",1,"Special long vowel groups",activities_92,6},
+  {1,"g1-silent-letter-groups",1,"Letters we do not hear",activities_93,6},
+  {1,"g1-final-ve",1,"Words ending in ve",activities_94,6},
+  {1,"g1-vowel-teams-le",1,"Vowel teams and final le",activities_95,6},
+  {1,"g1-frequent-word-set",1,"Words we see often",activities_96,6},
+  {1,"g1-read-with-expression",1,"Read a short story smoothly",activities_97,6},
+  {1,"g1-word-family-analogy",1,"Use a word you know",activities_98,6},
+  {1,"g1-check-your-reading",1,"Notice and fix reading errors",activities_99,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -835,6 +925,7 @@ inline constexpr Unit units[]={
   {0,"data","Charts and data"},
   {0,"money","Money"},
   {0,"patterns","Patterns"},
+  {1,"fluency","Reading smoothly"},
 };
 inline constexpr unsigned lesson_units[]={
   1,
@@ -927,5 +1018,15 @@ inline constexpr unsigned lesson_units[]={
   7,
   7,
   7,
+  7,
+  7,
+  7,
+  7,
+  7,
+  7,
+  20,
+  20,
+  20,
+  20,
 };
 }

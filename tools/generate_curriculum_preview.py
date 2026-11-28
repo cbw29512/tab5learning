@@ -7,7 +7,7 @@ from tools.curriculum_draft import decode_draft, MAX_BYTES
 
 LOG = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "curriculum/grade-1/starter.v11.json"
+SOURCE = ROOT / "curriculum/grade-1/starter.v12.json"
 TARGET = ROOT / "firmware/include/curriculum_preview.generated.h"
 SUBJECTS = ("mathematics","english_language_arts","science","social_studies")
 KINDS = {"choice":"Choice","instruction":"Instruction","teacher_review":"AdultReview"}
@@ -33,6 +33,7 @@ UNITS = (
     (0, "data", "Charts and data"),
     (0, "money", "Money"),
     (0, "patterns", "Patterns"),
+    (1, "fluency", "Reading smoothly"),
 )
 UNIT_OVERRIDES = {
     "g1-count-across-tens": "counting",
@@ -60,7 +61,7 @@ def generate(raw):
         catalog, _ = decode_draft(raw)
         # The native lesson browser now paginates; retain catalog bounds
         # and per-activity display constraints instead of a four-lesson cap.
-        lines = ['#pragma once','// Generated from starter.v11.json. Do not edit by hand.',
+        lines = ['#pragma once','// Generated from starter.v12.json. Do not edit by hand.',
                  '#include "curriculum_preview_types.h"','namespace curriculum_preview {']
         def literal(value, width=60, rows=1):
             if not value.isascii() or len(textwrap.wrap(value,width=width)) > rows:
