@@ -100,9 +100,16 @@ int main(){
            (v==&garden&&std::strcmp(l.id,"g1-pictures-explain-details")==0)||
            (v==&coins_views[0]&&std::strcmp(l.id,"g1-count-like-coins")==0)||
            (v==&addition_views[0]&&std::strcmp(l.id,"g1-add-tens-ones")==0)||
-           (v==&subtraction_views[0]&&std::strcmp(l.id,"g1-subtract-tens")==0));
+           (v==&subtraction_views[0]&&std::strcmp(l.id,"g1-subtract-tens")==0)||
+           (v==&hour_views[0]&&std::strcmp(l.id,"g1-clock-hours")==0)||
+           (v==&half_hour_views[0]&&std::strcmp(l.id,"g1-clock-half-hours")==0)||
+           (v==&shares_views[0]&&std::strcmp(l.id,"g1-equal-shares")==0));
   }
-  assert(illustrated==5);
+  assert(illustrated==8);
+  static_assert(!clock_scene(0,false).valid&&!clock_scene(13,true).valid);
+  static_assert(!fraction_scene(6).valid);
+  static_assert(hour_1.count==half_hour_5.count);
+  static_assert(shares_5.count==shares_0.count+2);
   static_assert(coins_0.count==9&&coins_4.count==21); // 2 circles per coin + background
   static_assert(addition_1.count==1+50+4+2); // 24 + 30; 5 rods, 4 ones, plus sign
   static_assert(subtraction_3.count==1+90+70); // 90 - 70; crossed rods

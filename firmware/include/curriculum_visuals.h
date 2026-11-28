@@ -2,6 +2,8 @@
 #include "curriculum_preview.h"
 #include "curriculum_visual_types.h"
 #include "curriculum_math_visuals.h"
+#include "curriculum_clock_visuals.h"
+#include "curriculum_fraction_visuals.h"
 #include <cstdint>
 #include <cstring>
 namespace curriculum_preview {
@@ -33,6 +35,8 @@ inline const Visual* visual_for(const Lesson& l,std::size_t step){
   if(l.revision!=1||step>=l.count||step>=6)return nullptr;
   if(std::strcmp(l.id,"g1-picture-or-words")==0)return &park;
   if(std::strcmp(l.id,"g1-pictures-explain-details")==0)return &garden;
-  return math_visual_for(l,step);
+  if(const auto* scene=math_visual_for(l,step))return scene;
+  if(const auto* scene=clock_visual_for(l,step))return scene;
+  return fraction_visual_for(l,step);
 }
 }
