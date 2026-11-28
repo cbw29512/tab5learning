@@ -86,3 +86,9 @@ USB imports: validate lesson revisions, asset hashes, cue bounds, student scope 
 - Student reassignment does not expose another child's historical data.
 
 This contract specifies logical fields, not a selected embedded storage engine or speech model. Native memory and audio feasibility must be measured on the physical Tab5.
+
+## Draft curriculum resume checkpoint CPR1
+One 96-byte canonical little-endian CRC32-protected blob in separate default NVS namespace `plcurriculum`, key `resume1`: magic/version 4, zero-padded stable lesson ID 80, lesson revision u32, activity index u16, finished flag, reserved zero, CRC32. Store only the last active location, not assessment answers, per-lesson mastery or formal grades. Save on lesson start, advance and completion before visible transition, exact retry no write, feedback transient (repeat same activity if interrupted). Opening Curriculum resumes last active/finished lesson; choosing another replaces the location. Missing is empty; damaged or unsupported revision fails closed, never erased or overwritten by preview. Commit/readback error stops advancement and requires restart/reconciliation. Default NVS shared physical capacity remains limited; one small blob only, not a substitute for approved microSD evidence storage, independent backup or signed curriculum updates.
+
+## Draft curriculum completion events
+See [CURRICULUM_COMPLETION_STORAGE.md](CURRICULUM_COMPLETION_STORAGE.md) for CPL1 first-completion events, distinct from CPR1 resume and formal mastery evidence. Portable reference only; no physical storage adapter approved.

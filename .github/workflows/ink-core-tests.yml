@@ -1,0 +1,245 @@
+name: Tab5 Firmware Core and USB Protocol Tests
+on:
+  pull_request:
+    paths:
+      - "curriculum/**"
+      - "firmware/include/**"
+      - "firmware/src/**"
+      - "firmware/platformio.ini"
+      - "firmware/tests/**"
+      - "tools/**"
+      - "tests/**"
+      - ".github/workflows/ink-core-tests.yml"
+  push:
+    paths:
+      - "curriculum/**"
+      - "firmware/include/**"
+      - "firmware/src/**"
+      - "firmware/platformio.ini"
+      - "firmware/tests/**"
+      - "tools/**"
+      - "tests/**"
+      - ".github/workflows/ink-core-tests.yml"
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and run portable C++ ink buffer tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror \
+            -Ifirmware/include \
+            firmware/src/ink_capture.cpp \
+            firmware/tests/ink_capture_test.cpp \
+            -o /tmp/tab5-ink-test
+          /tmp/tab5-ink-test
+      - name: Compile and run storage capacity and admission policy tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_storage_status_test.cpp -o /tmp/tab5-storage-status
+          /tmp/tab5-storage-status
+      - name: Compile and run exact synthetic SD fixture tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_sd_fixture_test.cpp -o /tmp/tab5-sd-fixture
+          /tmp/tab5-sd-fixture
+      - name: Compile and run curriculum durable file reference tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_completion_file_test.cpp -o /tmp/tab5-curriculum-file
+          /tmp/tab5-curriculum-file
+      - name: Compile and run curriculum completion ledger tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_completion_test.cpp -o /tmp/tab5-curriculum-completion
+          /tmp/tab5-curriculum-completion
+      - name: Compile and run curriculum evaluation file ownership tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_completion_owner_test.cpp -o /tmp/tab5-curriculum-owner
+          /tmp/tab5-curriculum-owner
+      - name: Compile and run curriculum progress projection tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_progress_test.cpp -o /tmp/tab5-curriculum-progress
+          /tmp/tab5-curriculum-progress
+      - name: Compile and run skill history codec and replay tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_skill_history_test.cpp -o /tmp/tab5-skill-history
+          /tmp/tab5-skill-history
+      - name: Compile and run historical skill recommendation tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_historical_recommendation_test.cpp -o /tmp/tab5-history-recommendation
+          /tmp/tab5-history-recommendation
+      - name: Compile and run skill history writer tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_skill_writer_test.cpp -o /tmp/tab5-skill-writer
+          /tmp/tab5-skill-writer
+      - name: Compile and run curriculum transition recovery tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/tests/curriculum_transition_test.cpp -o /tmp/tab5-curriculum-transition
+          /tmp/tab5-curriculum-transition
+      - name: Compile and run curriculum resume checkpoint tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/tests/curriculum_resume_test.cpp -o /tmp/tab5-curriculum-resume
+          /tmp/tab5-curriculum-resume
+      - name: Compile and run native curriculum preview state tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_preview_test.cpp -o /tmp/tab5-curriculum-test
+          /tmp/tab5-curriculum-test
+      - name: Compile and run learner navigation tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_navigation_test.cpp -o /tmp/tab5-navigation-test
+          /tmp/tab5-navigation-test
+      - name: Compile and run achievement notification tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/award_notice_test.cpp -o /tmp/tab5-award-notice-test
+          /tmp/tab5-award-notice-test
+      - name: Compile and run landscape layout tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_layout_test.cpp -o /tmp/tab5-layout-test
+          /tmp/tab5-layout-test
+      - name: Compile and run display refresh policy regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_display_policy_test.cpp -o /tmp/tab5-display-policy
+          /tmp/tab5-display-policy
+      - name: Compile and run battery status regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_monitor_test.cpp -o /tmp/tab5-battery-test
+          /tmp/tab5-battery-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_runtime_test.cpp -o /tmp/tab5-battery-runtime-test
+          /tmp/tab5-battery-runtime-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_notice_test.cpp -o /tmp/tab5-battery-notice-test
+          /tmp/tab5-battery-notice-test
+      - name: Compile and run continuous mathematics durable file tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/math_continuous_journal_test.cpp firmware/src/ink_capture.cpp -o /tmp/tab5-math-continuous-journal
+          /tmp/tab5-math-continuous-journal
+      - name: Compile and run continuous mathematics bank and record replay tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/math_continuous_test.cpp firmware/src/ink_capture.cpp -o /tmp/tab5-math-continuous
+          /tmp/tab5-math-continuous
+      - name: Compile and run mathematics and checkpoint tests
+        run: |
+          for suite in math_practice math_checkpoint preview_badges; do
+            g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include "firmware/tests/${suite}_test.cpp" -o "/tmp/${suite}-test"
+            "/tmp/${suite}-test" || exit 1
+          done
+      - name: Compile and run scratchpad layout tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_scratchpad_test.cpp -o /tmp/tab5-scratchpad-test
+          /tmp/tab5-scratchpad-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/math_ink_brush_test.cpp -o /tmp/tab5-brush-test
+          /tmp/tab5-brush-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_attempt_test.cpp -o /tmp/tab5-attempt-test
+          /tmp/tab5-attempt-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_attempt_codec_test.cpp -o /tmp/tab5-codec-test
+          /tmp/tab5-codec-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_journal_test.cpp -o /tmp/tab5-journal-test
+          /tmp/tab5-journal-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_journal_partition_test.cpp -o /tmp/tab5-partition-test
+          /tmp/tab5-partition-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_journal_migration_test.cpp -o /tmp/tab5-migration-test
+          /tmp/tab5-migration-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_copy_receipt_test.cpp -o /tmp/tab5-copy-receipt-test
+          /tmp/tab5-copy-receipt-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_restore_test.cpp -o /tmp/tab5-restore-test
+          /tmp/tab5-restore-test
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_submission_test.cpp -o /tmp/tab5-submission-test
+          /tmp/tab5-submission-test
+      - name: Compile and run embedded reading timeline tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_timeline_test.cpp -o /tmp/tab5-reading-timeline-test
+          /tmp/tab5-reading-timeline-test
+      - name: Compile and run embedded reading controller tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_controller_test.cpp -o /tmp/tab5-reading-controller-test
+          /tmp/tab5-reading-controller-test
+      - name: Compile and run embedded PCM source clock tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_pcm_clock_test.cpp -o /tmp/tab5-reading-pcm-clock-test
+          /tmp/tab5-reading-pcm-clock-test
+      - name: Compile and run narration speaker output tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_speaker_output_test.cpp -o /tmp/tab5-speaker-output-test
+          /tmp/tab5-speaker-output-test
+      - name: Compile and run reading preview touch tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_preview_test.cpp -o /tmp/tab5-reading-preview-test
+          /tmp/tab5-reading-preview-test
+      - name: Compile and run reading playback regression tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_preview_playback_test.cpp -o /tmp/tab5-reading-playback-test
+          /tmp/tab5-reading-playback-test
+      - name: Compile and run estimated narration highlight regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_estimated_highlight_test.cpp -o /tmp/tab5-reading-highlight-test
+          /tmp/tab5-reading-highlight-test
+      - name: Compile and run oral reading recording regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_recording_test.cpp -o /tmp/tab5-reading-recording-test
+          /tmp/tab5-reading-recording-test
+      - name: Compile and run capture pump regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/reading_capture_pump_test.cpp -o /tmp/tab5-capture-pump-test
+          /tmp/tab5-capture-pump-test
+      - name: Compile and run M5 capture adapter fake hardware regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes/audio -Ifirmware/include firmware/tests/m5_reading_capture_test.cpp -o /tmp/tab5-m5-capture-test
+          /tmp/tab5-m5-capture-test
+      - name: Compile and run learner USB identity parser tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_usb_identity_test.cpp -o /tmp/tab5-usb-identity-test
+          /tmp/tab5-usb-identity-test
+      - name: Compile and run portable device authentication reference
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_device_auth_test.cpp -lcrypto -o /tmp/tab5-device-auth-test
+          /tmp/tab5-device-auth-test
+      - name: Compile and run offline nonce lifecycle regression (fake SDK)
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes/nonce -Ifirmware/include firmware/src/learner_nonce_drbg.cpp firmware/tests/learner_nonce_drbg_test.cpp -o /tmp/tab5-nonce-test
+          /tmp/tab5-nonce-test
+      - name: Compile and run mutual authentication wire tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_auth_wire_test.cpp -lcrypto -o /tmp/tab5-auth-wire-test
+          /tmp/tab5-auth-wire-test
+      - name: Compile and run authenticated data frame reference
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_frame_session_test.cpp -lcrypto -o /tmp/tab5-frame-session-test
+          /tmp/tab5-frame-session-test
+      - name: Compile and run incremental journal export regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_journal_export_cursor_test.cpp -o /tmp/tab5-export-cursor-test
+          /tmp/tab5-export-cursor-test
+      - name: Compile and run incremental encrypted snapshot regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/synthetic_incremental_transfer_test.cpp -lcrypto -o /tmp/tab5-incremental-encrypted-test
+          /tmp/tab5-incremental-encrypted-test
+      - name: Compile and run authenticated mathematics snapshot reference
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_frame_snapshot_test.cpp -lcrypto -o /tmp/tab5-math-frame-test
+          /tmp/tab5-math-frame-test /tmp/tab5-math-frame-fixture.bin
+          g++ -std=c++17 -Wall -Wextra -Werror -DTEST_PROTECTED_SNAPSHOT -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/math_frame_snapshot_test.cpp -lcrypto -o /tmp/tab5-protected-math-test
+          /tmp/tab5-protected-math-test /tmp/tab5-protected-math-fixture.bin
+      - name: Compile and run credential storage reference tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_credential_store_test.cpp -o /tmp/tab5-credential-store-test
+          /tmp/tab5-credential-store-test
+      - name: Compile and run protected credential NVS adapter tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes/secure -Ifirmware/include firmware/tests/learner_secure_credential_nvs_test.cpp -o /tmp/tab5-secure-nvs-test
+          /tmp/tab5-secure-nvs-test
+      - name: Compile and run bounded authentication transport tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_auth_transport_test.cpp -lcrypto -o /tmp/tab5-auth-transport-test
+          /tmp/tab5-auth-transport-test
+      - name: Compile and run isolated protected USB probe transport regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/tests/fakes -Ifirmware/include firmware/src/ink_capture.cpp firmware/tests/probe_snapshot_transport_test.cpp -lcrypto -o /tmp/tab5-protected-usb-test
+          /tmp/tab5-protected-usb-test
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install protected archive test dependency
+        run: python -m pip install -r requirements-archive.txt
+      - name: Run Python learning engine and USB regression tests
+        env:
+          TAB5_MATH_FRAME_FIXTURE: /tmp/tab5-math-frame-fixture.bin
+          TAB5_PROTECTED_MATH_FIXTURE: /tmp/tab5-protected-math-fixture.bin
+        run: python -m unittest discover -s tests -v

@@ -1,0 +1,87 @@
+name: Tab5 learner preview firmware build
+on:
+  pull_request:
+    paths:
+      - 'firmware/src/**'
+      - 'curriculum/**'
+      - 'tools/generate_curriculum_preview.py'
+      - 'tools/curriculum_draft.py'
+      - 'tests/test_generate_curriculum_preview.py'
+      - 'firmware/include/**'
+      - 'firmware/platformio.ini'
+      - 'tools/build_reading_narration.py'
+      - 'tools/generate_preview_narration.py'
+      - 'tests/test_build_reading_narration.py'
+      - '.github/workflows/learner-preview-build.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: learner-preview-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PlatformIO
+        run: python -m pip install platformio==6.1.18
+      - name: Validate narration builder
+        run: python -m unittest discover -s tests -p test_build_reading_narration.py -v
+      - name: Install offline preview audio tools
+        run: sudo apt-get update && sudo apt-get install -y espeak ffmpeg
+      - name: Generate prototype narration header
+        run: python tools/generate_preview_narration.py firmware/include/preview_narration.generated.h
+      - name: Verify generated curriculum matches source
+        run: python -m unittest discover -s tests -p test_generate_curriculum_preview.py -v
+      - name: Compile native learner preview (no upload)
+        run: pio run -d firmware -e learner_preview
+      - name: Compile physical factory-layout learner preview (no upload)
+        run: pio run -d firmware -e learner_factory_preview
+      - name: Compile isolated microphone API probe (no upload)
+        run: pio run -d firmware -e mic_compile_probe
+      - name: Compile isolated authentication crypto probe (no upload)
+        run: pio run -d firmware -e auth_compile_probe
+      - name: Compile isolated synthetic USB authentication probe (no upload)
+        run: pio run -d firmware -e auth_usb_probe
+      - name: Compile isolated encrypted synthetic USB snapshot probe (no upload)
+        run: pio run -d firmware -e protected_usb_probe
+      - name: Compile isolated SD capacity probe (no upload)
+        run: pio run -d firmware -e sd_capacity_probe
+      - name: Compile isolated SD write probe (no upload)
+        run: pio run -d firmware -e sd_write_probe
+      - name: Compile integrated learner SD evaluation candidate (no upload)
+        run: pio run -d firmware -e learner_sd_eval
+      - name: Record build evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build-evidence
+          pio pkg list -d firmware -e learner_preview > build-evidence/packages.txt
+          pio pkg list -d firmware -e mic_compile_probe > build-evidence/mic-probe-packages.txt
+          test -s firmware/.pio/build/protected_usb_probe/firmware.elf
+          sha256sum firmware/.pio/build/protected_usb_probe/firmware.elf > build-evidence/protected-usb-probe-elf.sha256
+          test -s firmware/.pio/build/auth_usb_probe/firmware.elf
+          sha256sum firmware/.pio/build/auth_usb_probe/firmware.elf > build-evidence/auth-usb-probe-elf.sha256
+          test -s firmware/.pio/build/auth_compile_probe/firmware.elf
+          sha256sum firmware/.pio/build/auth_compile_probe/firmware.elf > build-evidence/auth-probe-elf.sha256
+          test -s firmware/.pio/build/mic_compile_probe/firmware.elf
+          sha256sum firmware/.pio/build/mic_compile_probe/firmware.elf > build-evidence/mic-probe-elf.sha256
+          for name in firmware.bin bootloader.bin partitions.bin; do
+            test -s "firmware/.pio/build/learner_preview/$name"
+            cp "firmware/.pio/build/learner_preview/$name" build-evidence/
+          done
+          sha256sum firmware/include/preview_narration.generated.h > build-evidence/narration.sha256
+          git rev-parse HEAD > build-evidence/commit.txt
+          (cd build-evidence && sha256sum *.bin > SHA256SUMS.txt)
+          printf '%s\n' 'BUILD ONLY: NOT APPROVED FOR FLASHING. Silicon compatibility, partition offsets, backup and battery gates outstanding.' > build-evidence/READ_ME_FIRST.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: learner-preview-build-only
+          path: build-evidence/
+          if-no-files-found: error
+          retention-days: 7

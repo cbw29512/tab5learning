@@ -1,0 +1,2932 @@
+{
+  "schema_version": 1,
+  "grade": "1",
+  "catalog": "starter.v11.json",
+  "catalog_revision": 11,
+  "baseline_commit": "76b640857562fe37d7bf0f9d685f052cddc9b404",
+  "scope": "Provisional state indicator inventory; verify against official editions before approval. National crosswalks separate. No accepted indicators or student mastery claims.",
+  "frameworks": {
+    "mathematics": {
+      "edition": "2025 SC CCR Mathematics; approved December 2023, emended July 2026 (Grade 1 pages 23–28)",
+      "url": "https://ed.sc.gov/instruction/standards/mathematics/standards/2025-south-carolina-college-and-career-ready-mathematics-standards/",
+      "secondary": "https://www.ixl.com/standards/south-carolina/math/grade-1",
+      "pages": "23–28; indicator and process-standard reconciliation still pending",
+      "reconciled": false
+    },
+    "english_language_arts": {
+      "edition": "2024 SC CCR ELA; approved 2023, emended August 2025",
+      "url": "https://www.ed.sc.gov/instruction/standards/english-language-arts/standards/2023-sc-ccr-ela-standards-approved/",
+      "secondary": "https://www.ixl.com/standards/south-carolina/ela/grade-1",
+      "pages": "40–50",
+      "reconciled": false
+    },
+    "science": {
+      "edition": "SC CCR Science 2021",
+      "url": "https://www.ed.sc.gov/instruction/standards/science/instructional-resources/first-grade-performance-targets-for-the-south-carolina-college-and-career-ready-science-standards-2021/",
+      "secondary": "https://www.ixl.com/standards/south-carolina/science/grade-1",
+      "pages": "Grade 1 performance targets",
+      "reconciled": false
+    },
+    "social_studies": {
+      "edition": "SC CCR Social Studies 2019",
+      "url": "https://ed.sc.gov/instruction/standards/social-studies/standards/2019-south-carolina-social-studies-college-and-career-ready-standards/",
+      "pages": "13–16; Appendix A review pending",
+      "reconciled": false
+    }
+  },
+  "rows": [
+    {
+      "subject": "mathematics",
+      "indicator": "1.DPSR.1.1",
+      "objective": "Sort into three or more groups",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-compare-data",
+          "revision": 1,
+          "activity_ids": [
+            "g1-compare-data-1",
+            "g1-compare-data-2",
+            "g1-compare-data-3",
+            "g1-compare-data-4",
+            "g1-compare-data-5",
+            "g1-compare-data-6"
+          ]
+        }
+      ],
+      "remaining": "Sort actual items into at least three groups; enforce limits.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.DPSR.1.2",
+      "objective": "Survey and graph data",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-compare-data",
+          "revision": 1,
+          "activity_ids": [
+            "g1-compare-data-1",
+            "g1-compare-data-2",
+            "g1-compare-data-3",
+            "g1-compare-data-4",
+            "g1-compare-data-5",
+            "g1-compare-data-6"
+          ]
+        }
+      ],
+      "remaining": "Create questions and single-unit picture/tally graphs; test interpretation.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.1.1",
+      "objective": "Order three lengths",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-order-lengths",
+          "revision": 1,
+          "activity_ids": [
+            "g1-order-lengths-1",
+            "g1-order-lengths-2",
+            "g1-order-lengths-3",
+            "g1-order-lengths-4",
+            "g1-order-lengths-5",
+            "g1-order-lengths-6"
+          ]
+        }
+      ],
+      "remaining": "Physical direct comparison and varied independent examples still require observed evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.1.2",
+      "objective": "Estimate and measure with equal units",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-measure-length",
+          "revision": 1,
+          "activity_ids": [
+            "g1-measure-length-1",
+            "g1-measure-length-2",
+            "g1-measure-length-3",
+            "g1-measure-length-4",
+            "g1-measure-length-5",
+            "g1-measure-length-6"
+          ]
+        }
+      ],
+      "remaining": "Add estimation before measurement and varied tasks.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.1.3",
+      "objective": "Read and write hour and half-hour times",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-clock-hours",
+          "revision": 1,
+          "activity_ids": [
+            "g1-clock-hours-1",
+            "g1-clock-hours-2",
+            "g1-clock-hours-3",
+            "g1-clock-hours-4",
+            "g1-clock-hours-5",
+            "g1-clock-hours-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-clock-half-hours",
+          "revision": 1,
+          "activity_ids": [
+            "g1-clock-half-hours-1",
+            "g1-clock-half-hours-2",
+            "g1-clock-half-hours-3",
+            "g1-clock-half-hours-4",
+            "g1-clock-half-hours-5",
+            "g1-clock-half-hours-6"
+          ]
+        }
+      ],
+      "remaining": "Interactive analog/digital clocks and written responses.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.1.4",
+      "objective": "Identify and record coin and bill values",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-money-values",
+          "revision": 1,
+          "activity_ids": [
+            "g1-money-values-1",
+            "g1-money-values-2",
+            "g1-money-values-3",
+            "g1-money-values-4",
+            "g1-money-values-5",
+            "g1-money-values-6"
+          ]
+        }
+      ],
+      "remaining": "Actual images or manipulatives, cent-symbol entry and independent identification of all seven denominations pending.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.1.5",
+      "objective": "Total collections of matching coins",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-count-like-coins",
+          "revision": 1,
+          "activity_ids": [
+            "g1-count-like-coins-1",
+            "g1-count-like-coins-2",
+            "g1-count-like-coins-3",
+            "g1-count-like-coins-4",
+            "g1-count-like-coins-5",
+            "g1-count-like-coins-6"
+          ]
+        }
+      ],
+      "remaining": "Physical coin sets and independent written cent notation, varied groups through 100 cents pending.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.2.1",
+      "objective": "Classify polygons",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-shape-attributes",
+          "revision": 1,
+          "activity_ids": [
+            "g1-shape-attributes-1",
+            "g1-shape-attributes-2",
+            "g1-shape-attributes-3",
+            "g1-shape-attributes-4",
+            "g1-shape-attributes-5",
+            "g1-shape-attributes-6"
+          ]
+        }
+      ],
+      "remaining": "Sort mixed polygons and explain reasoning.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.2.2",
+      "objective": "Describe plane and solid shapes",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-shape-attributes",
+          "revision": 1,
+          "activity_ids": [
+            "g1-shape-attributes-1",
+            "g1-shape-attributes-2",
+            "g1-shape-attributes-3",
+            "g1-shape-attributes-4",
+            "g1-shape-attributes-5",
+            "g1-shape-attributes-6"
+          ]
+        }
+      ],
+      "remaining": "All specified shapes including solids; illustrations and construction.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.2.3",
+      "objective": "Recognize shapes in everyday objects",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-flat-solid-shapes",
+          "revision": 1,
+          "activity_ids": [
+            "g1-flat-solid-shapes-1",
+            "g1-flat-solid-shapes-2",
+            "g1-flat-solid-shapes-3",
+            "g1-flat-solid-shapes-4",
+            "g1-flat-solid-shapes-5",
+            "g1-flat-solid-shapes-6"
+          ]
+        }
+      ],
+      "remaining": "All eleven specified shapes need original visuals and varied object classification with explanations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.2.4",
+      "objective": "Distinguish flat and solid shapes",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-flat-solid-shapes",
+          "revision": 1,
+          "activity_ids": [
+            "g1-flat-solid-shapes-1",
+            "g1-flat-solid-shapes-2",
+            "g1-flat-solid-shapes-3",
+            "g1-flat-solid-shapes-4",
+            "g1-flat-solid-shapes-5",
+            "g1-flat-solid-shapes-6"
+          ]
+        }
+      ],
+      "remaining": "All eleven specified shapes need original visuals and varied object classification with explanations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.MGSR.2.5",
+      "objective": "Compare shape attributes",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-shape-attributes",
+          "revision": 1,
+          "activity_ids": [
+            "g1-shape-attributes-1",
+            "g1-shape-attributes-2",
+            "g1-shape-attributes-3",
+            "g1-shape-attributes-4",
+            "g1-shape-attributes-5",
+            "g1-shape-attributes-6"
+          ]
+        }
+      ],
+      "remaining": "Compare pairs of plane or solid shapes across sizes and orientations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.1.1",
+      "objective": "Represent numbers through 100",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-tens-and-ones",
+          "revision": 1,
+          "activity_ids": [
+            "g1-tens-and-ones-1",
+            "g1-tens-and-ones-2",
+            "g1-tens-and-ones-3",
+            "g1-tens-and-ones-4",
+            "g1-tens-and-ones-5",
+            "g1-tens-and-ones-6"
+          ]
+        }
+      ],
+      "remaining": "Write numerals and expanded form with models including 100.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.1.2",
+      "objective": "Explain positional value",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-tens-and-ones",
+          "revision": 1,
+          "activity_ids": [
+            "g1-tens-and-ones-1",
+            "g1-tens-and-ones-2",
+            "g1-tens-and-ones-3",
+            "g1-tens-and-ones-4",
+            "g1-tens-and-ones-5",
+            "g1-tens-and-ones-6"
+          ]
+        }
+      ],
+      "remaining": "Extend to varied numbers 1–99 with independent explanations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.1.3",
+      "objective": "Regroup tens and ones in different ways",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-tens-and-ones",
+          "revision": 1,
+          "activity_ids": [
+            "g1-tens-and-ones-1",
+            "g1-tens-and-ones-2",
+            "g1-tens-and-ones-3",
+            "g1-tens-and-ones-4",
+            "g1-tens-and-ones-5",
+            "g1-tens-and-ones-6"
+          ]
+        }
+      ],
+      "remaining": "Multiple decompositions for a number with models and equations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.1.4",
+      "objective": "Find one or ten more or less",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-ten-more-less",
+          "revision": 1,
+          "activity_ids": [
+            "g1-ten-more-less-1",
+            "g1-ten-more-less-2",
+            "g1-ten-more-less-3",
+            "g1-ten-more-less-4",
+            "g1-ten-more-less-5",
+            "g1-ten-more-less-6"
+          ]
+        }
+      ],
+      "remaining": "Add one-more/one-less and boundary cases.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.2.1",
+      "objective": "Count forward and backward to 120",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-count-across-tens",
+          "revision": 1,
+          "activity_ids": [
+            "g1-count-across-tens-1",
+            "g1-count-across-tens-2",
+            "g1-count-across-tens-3",
+            "g1-count-across-tens-4",
+            "g1-count-across-tens-5",
+            "g1-count-across-tens-6"
+          ]
+        }
+      ],
+      "remaining": "Backward counting and upper-bound sequence coverage.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.2.2",
+      "objective": "Count in fives and tens",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-skip-count",
+          "revision": 1,
+          "activity_ids": [
+            "g1-skip-count-1",
+            "g1-skip-count-2",
+            "g1-skip-count-3",
+            "g1-skip-count-4",
+            "g1-skip-count-5",
+            "g1-skip-count-6"
+          ]
+        }
+      ],
+      "remaining": "Add varied start values, hundred-chart interaction, spoken and written sequences.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.3.1",
+      "objective": "Compare quantities through 100",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-compare-two-digit",
+          "revision": 1,
+          "activity_ids": [
+            "g1-compare-two-digit-1",
+            "g1-compare-two-digit-2",
+            "g1-compare-two-digit-3",
+            "g1-compare-two-digit-4",
+            "g1-compare-two-digit-5",
+            "g1-compare-two-digit-6"
+          ]
+        }
+      ],
+      "remaining": "Include 100, equal representations and comparison words.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.NR.4.1",
+      "objective": "Make equal halves and fourths",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-equal-shares",
+          "revision": 1,
+          "activity_ids": [
+            "g1-equal-shares-1",
+            "g1-equal-shares-2",
+            "g1-equal-shares-3",
+            "g1-equal-shares-4",
+            "g1-equal-shares-5",
+            "g1-equal-shares-6"
+          ]
+        }
+      ],
+      "remaining": "Revise quarters terminology to fourths in a new lesson revision; SC guidance explicitly uses fourths. Add squares and multiple equal partitions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.1",
+      "objective": "Explain true equations",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-equal-sign",
+          "revision": 1,
+          "activity_ids": [
+            "g1-equal-sign-1",
+            "g1-equal-sign-2",
+            "g1-equal-sign-3",
+            "g1-equal-sign-4",
+            "g1-equal-sign-5",
+            "g1-equal-sign-6"
+          ]
+        }
+      ],
+      "remaining": "Varied equation forms and learner explanation.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.2",
+      "objective": "Compose/decompose numbers to 20",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-add-within-20",
+          "revision": 1,
+          "activity_ids": [
+            "g1-add-within-20-1",
+            "g1-add-within-20-2",
+            "g1-add-within-20-3",
+            "g1-add-within-20-4",
+            "g1-add-within-20-5",
+            "g1-add-within-20-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-subtract-within-20",
+          "revision": 1,
+          "activity_ids": [
+            "g1-subtract-within-20-1",
+            "g1-subtract-within-20-2",
+            "g1-subtract-within-20-3",
+            "g1-subtract-within-20-4",
+            "g1-subtract-within-20-5",
+            "g1-subtract-within-20-6"
+          ]
+        }
+      ],
+      "remaining": "Multiple equations for each target number.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.3",
+      "objective": "Solve varied addition/subtraction stories",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-story-problems",
+          "revision": 1,
+          "activity_ids": [
+            "g1-story-problems-1",
+            "g1-story-problems-2",
+            "g1-story-problems-3",
+            "g1-story-problems-4",
+            "g1-story-problems-5",
+            "g1-story-problems-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-missing-addend",
+          "revision": 1,
+          "activity_ids": [
+            "g1-missing-addend-1",
+            "g1-missing-addend-2",
+            "g1-missing-addend-3",
+            "g1-missing-addend-4",
+            "g1-missing-addend-5",
+            "g1-missing-addend-6"
+          ]
+        }
+      ],
+      "remaining": "Expand all specified problem types and unknown positions through 20.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.4",
+      "objective": "Flexible arithmetic within 10",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-add-within-10",
+          "revision": 1,
+          "activity_ids": [
+            "g1-add-within-10-1",
+            "g1-add-within-10-2",
+            "g1-add-within-10-3",
+            "g1-add-within-10-4",
+            "g1-add-within-10-5",
+            "g1-add-within-10-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-take-away-within-10",
+          "revision": 1,
+          "activity_ids": [
+            "g1-take-away-within-10-1",
+            "g1-take-away-within-10-2",
+            "g1-take-away-within-10-3",
+            "g1-take-away-within-10-4",
+            "g1-take-away-within-10-5",
+            "g1-take-away-within-10-6"
+          ]
+        }
+      ],
+      "remaining": "Integrate durable continuous practice and evidence of fluency.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.5",
+      "objective": "Addition order does not change sum",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-addition-order",
+          "revision": 1,
+          "activity_ids": [
+            "g1-addition-order-1",
+            "g1-addition-order-2",
+            "g1-addition-order-3",
+            "g1-addition-order-4",
+            "g1-addition-order-5",
+            "g1-addition-order-6"
+          ]
+        }
+      ],
+      "remaining": "Independent sums through 20, manipulatives and oral justification pending.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.6",
+      "objective": "Find unknown numbers in equations",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-missing-addend",
+          "revision": 1,
+          "activity_ids": [
+            "g1-missing-addend-1",
+            "g1-missing-addend-2",
+            "g1-missing-addend-3",
+            "g1-missing-addend-4",
+            "g1-missing-addend-5",
+            "g1-missing-addend-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-equal-sign",
+          "revision": 1,
+          "activity_ids": [
+            "g1-equal-sign-1",
+            "g1-equal-sign-2",
+            "g1-equal-sign-3",
+            "g1-equal-sign-4",
+            "g1-equal-sign-5",
+            "g1-equal-sign-6"
+          ]
+        }
+      ],
+      "remaining": "Include all addition/subtraction unknown positions within 10.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.7",
+      "objective": "Add ones or tens to two-digit numbers",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-add-tens-ones",
+          "revision": 1,
+          "activity_ids": [
+            "g1-add-tens-ones-1",
+            "g1-add-tens-ones-2",
+            "g1-add-tens-ones-3",
+            "g1-add-tens-ones-4",
+            "g1-add-tens-ones-5",
+            "g1-add-tens-ones-6"
+          ]
+        }
+      ],
+      "remaining": "Broader examples, bundling and unbundling, independent equations and explanation still needed.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.1.8",
+      "objective": "Subtract multiples of ten",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-subtract-tens",
+          "revision": 1,
+          "activity_ids": [
+            "g1-subtract-tens-1",
+            "g1-subtract-tens-2",
+            "g1-subtract-tens-3",
+            "g1-subtract-tens-4",
+            "g1-subtract-tens-5",
+            "g1-subtract-tens-6"
+          ]
+        }
+      ],
+      "remaining": "Independent equation writing and varied bundled-stick reasoning pending.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.2.1",
+      "objective": "Create and extend growing shape patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-growing-shape-pattern",
+          "revision": 1,
+          "activity_ids": [
+            "g1-growing-shape-pattern-1",
+            "g1-growing-shape-pattern-2",
+            "g1-growing-shape-pattern-3",
+            "g1-growing-shape-pattern-4",
+            "g1-growing-shape-pattern-5",
+            "g1-growing-shape-pattern-6"
+          ]
+        }
+      ],
+      "remaining": "Actual visual pattern renderer and independent construction with physical shapes required.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "mathematics",
+      "indicator": "1.PAFR.2.2",
+      "objective": "Create and extend repeating patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-repeating-patterns",
+          "revision": 1,
+          "activity_ids": [
+            "g1-repeating-patterns-1",
+            "g1-repeating-patterns-2",
+            "g1-repeating-patterns-3",
+            "g1-repeating-patterns-4",
+            "g1-repeating-patterns-5",
+            "g1-repeating-patterns-6"
+          ]
+        }
+      ],
+      "remaining": "Visual shape sequences, extension by three elements, learner-created examples of all four pattern types pending.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.OE.1",
+      "objective": "Sustained reading and writing",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-opinion-writing",
+          "revision": 1,
+          "activity_ids": [
+            "g1-opinion-writing-1",
+            "g1-opinion-writing-2",
+            "g1-opinion-writing-3",
+            "g1-opinion-writing-4",
+            "g1-opinion-writing-5",
+            "g1-opinion-writing-6"
+          ]
+        }
+      ],
+      "remaining": "Longer grade-appropriate texts and repeated independent writing.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.OE.2",
+      "objective": "Use varied media to learn and share",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Offline visual/audio/digital resources and evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.OE.3",
+      "objective": "Infer meaning from evidence",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-context-clues",
+          "revision": 1,
+          "activity_ids": [
+            "g1-context-clues-1",
+            "g1-context-clues-2",
+            "g1-context-clues-3",
+            "g1-context-clues-4",
+            "g1-context-clues-5",
+            "g1-context-clues-6"
+          ]
+        }
+      ],
+      "remaining": "Extend to story and informational inferences.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.OE.4",
+      "objective": "Collaborate and listen",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Observed discussions with peers/adults.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.OE.5",
+      "objective": "Explain with evidence",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-story-details",
+          "revision": 1,
+          "activity_ids": [
+            "g1-story-details-1",
+            "g1-story-details-2",
+            "g1-story-details-3",
+            "g1-story-details-4",
+            "g1-story-details-5",
+            "g1-story-details-6"
+          ]
+        }
+      ],
+      "remaining": "Require justification from texts, not recognition alone.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.OE.6",
+      "objective": "Follow appropriate formats",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-opinion-writing",
+          "revision": 1,
+          "activity_ids": [
+            "g1-opinion-writing-1",
+            "g1-opinion-writing-2",
+            "g1-opinion-writing-3",
+            "g1-opinion-writing-4",
+            "g1-opinion-writing-5",
+            "g1-opinion-writing-6"
+          ]
+        }
+      ],
+      "remaining": "Review diverse written and oral work formats.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.1.2",
+      "objective": "Produce words with matching initial sounds",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-matching-first-sounds",
+          "revision": 1,
+          "activity_ids": [
+            "g1-matching-first-sounds-1",
+            "g1-matching-first-sounds-2",
+            "g1-matching-first-sounds-3",
+            "g1-matching-first-sounds-4",
+            "g1-matching-first-sounds-5",
+            "g1-matching-first-sounds-6"
+          ]
+        }
+      ],
+      "remaining": "Recorded or teacher-observed oral production across varied initial sounds remains required.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.1.3",
+      "objective": "Recognize and make rhymes",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-rhyme-pairs",
+          "revision": 1,
+          "activity_ids": [
+            "g1-rhyme-pairs-1",
+            "g1-rhyme-pairs-2",
+            "g1-rhyme-pairs-3",
+            "g1-rhyme-pairs-4",
+            "g1-rhyme-pairs-5",
+            "g1-rhyme-pairs-6"
+          ]
+        }
+      ],
+      "remaining": "Oral production and discrimination.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.1.4",
+      "objective": "Add/remove syllables",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-add-remove-syllables",
+          "revision": 1,
+          "activity_ids": [
+            "g1-add-remove-syllables-1",
+            "g1-add-remove-syllables-2",
+            "g1-add-remove-syllables-3",
+            "g1-add-remove-syllables-4",
+            "g1-add-remove-syllables-5",
+            "g1-add-remove-syllables-6"
+          ]
+        }
+      ],
+      "remaining": "Varied oral-only compound and noncompound tasks and observed independent production needed.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.1.5",
+      "objective": "Blend and split onset/rime across syllables",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-longer-word-sound-parts",
+          "revision": 1,
+          "activity_ids": [
+            "g1-longer-word-sound-parts-1",
+            "g1-longer-word-sound-parts-2",
+            "g1-longer-word-sound-parts-3",
+            "g1-longer-word-sound-parts-4",
+            "g1-longer-word-sound-parts-5",
+            "g1-longer-word-sound-parts-6"
+          ]
+        }
+      ],
+      "remaining": "Adult audio model and independent oral blending/segmenting across more words required.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.1.7",
+      "objective": "Change beginning or ending phonemes",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-change-last-sound",
+          "revision": 1,
+          "activity_ids": [
+            "g1-change-last-sound-1",
+            "g1-change-last-sound-2",
+            "g1-change-last-sound-3",
+            "g1-change-last-sound-4",
+            "g1-change-last-sound-5",
+            "g1-change-last-sound-6"
+          ]
+        }
+      ],
+      "remaining": "Oral addition, deletion and substitution across target lengths.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.2.1",
+      "objective": "Locate book features",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Actual books and interactive contents/glossary.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.4.a",
+      "objective": "Decode and spell closed, open and final-e words",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-short-a",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-a-1",
+            "g1-short-a-2",
+            "g1-short-a-3",
+            "g1-short-a-4",
+            "g1-short-a-5",
+            "g1-short-a-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-short-e",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-e-1",
+            "g1-short-e-2",
+            "g1-short-e-3",
+            "g1-short-e-4",
+            "g1-short-e-5",
+            "g1-short-e-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-short-i",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-i-1",
+            "g1-short-i-2",
+            "g1-short-i-3",
+            "g1-short-i-4",
+            "g1-short-i-5",
+            "g1-short-i-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-short-o",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-o-1",
+            "g1-short-o-2",
+            "g1-short-o-3",
+            "g1-short-o-4",
+            "g1-short-o-5",
+            "g1-short-o-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-short-u",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-u-1",
+            "g1-short-u-2",
+            "g1-short-u-3",
+            "g1-short-u-4",
+            "g1-short-u-5",
+            "g1-short-u-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-final-e",
+          "revision": 1,
+          "activity_ids": [
+            "g1-final-e-1",
+            "g1-final-e-2",
+            "g1-final-e-3",
+            "g1-final-e-4",
+            "g1-final-e-5",
+            "g1-final-e-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-initial-final-blends",
+          "revision": 1,
+          "activity_ids": [
+            "g1-initial-final-blends-1",
+            "g1-initial-final-blends-2",
+            "g1-initial-final-blends-3",
+            "g1-initial-final-blends-4",
+            "g1-initial-final-blends-5",
+            "g1-initial-final-blends-6"
+          ]
+        }
+      ],
+      "remaining": "Extend to varied initial and final blends, open syllables and independent decoding and dictation.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.4.b",
+      "objective": "Read r-controlled words",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-vowel-r-words",
+          "revision": 1,
+          "activity_ids": [
+            "g1-vowel-r-words-1",
+            "g1-vowel-r-words-2",
+            "g1-vowel-r-words-3",
+            "g1-vowel-r-words-4",
+            "g1-vowel-r-words-5",
+            "g1-vowel-r-words-6"
+          ]
+        }
+      ],
+      "remaining": "Independent oral reading and spelling across all five patterns with dialect-aware review.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.4.c",
+      "objective": "Decode two-syllable words",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-two-syllable-reading",
+          "revision": 1,
+          "activity_ids": [
+            "g1-two-syllable-reading-1",
+            "g1-two-syllable-reading-2",
+            "g1-two-syllable-reading-3",
+            "g1-two-syllable-reading-4",
+            "g1-two-syllable-reading-5",
+            "g1-two-syllable-reading-6"
+          ]
+        }
+      ],
+      "remaining": "Add explicit vowel teams, consonant-le and varied supported multisyllabic reading and spelling.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.6",
+      "objective": "Change letters to make words",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-change-letters",
+          "revision": 1,
+          "activity_ids": [
+            "g1-change-letters-1",
+            "g1-change-letters-2",
+            "g1-change-letters-3",
+            "g1-change-letters-4",
+            "g1-change-letters-5",
+            "g1-change-letters-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-change-last-sound",
+          "revision": 1,
+          "activity_ids": [
+            "g1-change-last-sound-1",
+            "g1-change-last-sound-2",
+            "g1-change-last-sound-3",
+            "g1-change-last-sound-4",
+            "g1-change-last-sound-5",
+            "g1-change-last-sound-6"
+          ]
+        }
+      ],
+      "remaining": "Addition/deletion and medial letter changes.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.7",
+      "objective": "Split two-syllable words to read",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-two-syllable-reading",
+          "revision": 1,
+          "activity_ids": [
+            "g1-two-syllable-reading-1",
+            "g1-two-syllable-reading-2",
+            "g1-two-syllable-reading-3",
+            "g1-two-syllable-reading-4",
+            "g1-two-syllable-reading-5",
+            "g1-two-syllable-reading-6"
+          ]
+        }
+      ],
+      "remaining": "Add explicit vowel teams, consonant-le and varied supported multisyllabic reading and spelling.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.a",
+      "objective": "Read and spell onset/rime patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-rhyme-pairs",
+          "revision": 1,
+          "activity_ids": [
+            "g1-rhyme-pairs-1",
+            "g1-rhyme-pairs-2",
+            "g1-rhyme-pairs-3",
+            "g1-rhyme-pairs-4",
+            "g1-rhyme-pairs-5",
+            "g1-rhyme-pairs-6"
+          ]
+        }
+      ],
+      "remaining": "Independent decoding and encoding, not only rhyme choices.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.b",
+      "objective": "Read and spell consonant blends",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-initial-final-blends",
+          "revision": 1,
+          "activity_ids": [
+            "g1-initial-final-blends-1",
+            "g1-initial-final-blends-2",
+            "g1-initial-final-blends-3",
+            "g1-initial-final-blends-4",
+            "g1-initial-final-blends-5",
+            "g1-initial-final-blends-6"
+          ]
+        }
+      ],
+      "remaining": "Extend to varied initial and final blends, open syllables and independent decoding and dictation.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.c",
+      "objective": "Read and spell consonant digraphs",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-consonant-digraphs",
+          "revision": 1,
+          "activity_ids": [
+            "g1-consonant-digraphs-1",
+            "g1-consonant-digraphs-2",
+            "g1-consonant-digraphs-3",
+            "g1-consonant-digraphs-4",
+            "g1-consonant-digraphs-5",
+            "g1-consonant-digraphs-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-more-consonant-digraphs",
+          "revision": 1,
+          "activity_ids": [
+            "g1-more-consonant-digraphs-1",
+            "g1-more-consonant-digraphs-2",
+            "g1-more-consonant-digraphs-3",
+            "g1-more-consonant-digraphs-4",
+            "g1-more-consonant-digraphs-5",
+            "g1-more-consonant-digraphs-6"
+          ]
+        }
+      ],
+      "remaining": "Independent dictation and oral discrimination, including th sound variants and wh dialect variation, still required.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.d",
+      "objective": "Read and spell trigraphs",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-three-letter-sounds",
+          "revision": 1,
+          "activity_ids": [
+            "g1-three-letter-sounds-1",
+            "g1-three-letter-sounds-2",
+            "g1-three-letter-sounds-3",
+            "g1-three-letter-sounds-4",
+            "g1-three-letter-sounds-5",
+            "g1-three-letter-sounds-6"
+          ]
+        }
+      ],
+      "remaining": "Adult-supported pronunciation and dictation across new tch/dge words needed.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.e",
+      "objective": "Read and spell letter combinations",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-qu-words",
+          "revision": 1,
+          "activity_ids": [
+            "g1-qu-words-1",
+            "g1-qu-words-2",
+            "g1-qu-words-3",
+            "g1-qu-words-4",
+            "g1-qu-words-5",
+            "g1-qu-words-6"
+          ]
+        }
+      ],
+      "remaining": "Independent dictation and oral reading with additional qu words pending.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.f",
+      "objective": "Read and spell final-e patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-final-e",
+          "revision": 1,
+          "activity_ids": [
+            "g1-final-e-1",
+            "g1-final-e-2",
+            "g1-final-e-3",
+            "g1-final-e-4",
+            "g1-final-e-5",
+            "g1-final-e-6"
+          ]
+        }
+      ],
+      "remaining": "Independent spelling, all target vowels.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.g",
+      "objective": "Read and spell vowel-r patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-vowel-r-words",
+          "revision": 1,
+          "activity_ids": [
+            "g1-vowel-r-words-1",
+            "g1-vowel-r-words-2",
+            "g1-vowel-r-words-3",
+            "g1-vowel-r-words-4",
+            "g1-vowel-r-words-5",
+            "g1-vowel-r-words-6"
+          ]
+        }
+      ],
+      "remaining": "Independent oral reading and spelling across all five patterns with dialect-aware review.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.h",
+      "objective": "Read and spell unchanged-base endings",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-base-word-endings",
+          "revision": 1,
+          "activity_ids": [
+            "g1-base-word-endings-1",
+            "g1-base-word-endings-2",
+            "g1-base-word-endings-3",
+            "g1-base-word-endings-4",
+            "g1-base-word-endings-5",
+            "g1-base-word-endings-6"
+          ]
+        }
+      ],
+      "remaining": "Expand plural and verb endings, all three common ed pronunciations and independent writing.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.i",
+      "objective": "Read and spell contractions",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-shortened-word-pairs",
+          "revision": 1,
+          "activity_ids": [
+            "g1-shortened-word-pairs-1",
+            "g1-shortened-word-pairs-2",
+            "g1-shortened-word-pairs-3",
+            "g1-shortened-word-pairs-4",
+            "g1-shortened-word-pairs-5",
+            "g1-shortened-word-pairs-6"
+          ]
+        }
+      ],
+      "remaining": "Independent reading and writing of all target contractions in sentences needed.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.j",
+      "objective": "Recognize hard/soft c and g",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Explicit examples and exceptions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.k",
+      "objective": "Read vowel y patterns",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Final long i/e and medial short i.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.l",
+      "objective": "Read special long-vowel patterns",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Ild ost old olt ind.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.m",
+      "objective": "Read silent-letter groups",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Kn wr mb gh gn.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.n",
+      "objective": "Double selected final consonants",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-double-final-letters",
+          "revision": 1,
+          "activity_ids": [
+            "g1-double-final-letters-1",
+            "g1-double-final-letters-2",
+            "g1-double-final-letters-3",
+            "g1-double-final-letters-4",
+            "g1-double-final-letters-5",
+            "g1-double-final-letters-6"
+          ]
+        }
+      ],
+      "remaining": "Independent dictation and recognition across all three endings, with exceptions taught separately.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.3.8.o",
+      "objective": "Spell final v sound",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Final ve pattern and age-appropriate examples.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.4.1",
+      "objective": "Recognize high-frequency words",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Reviewed word bank and repeated oral evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.4.2",
+      "objective": "Read connected text fluently",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Narrated passages, recordings, teacher rubric.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.4.3.a",
+      "objective": "Blend and segment while reading text",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-short-a",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-a-1",
+            "g1-short-a-2",
+            "g1-short-a-3",
+            "g1-short-a-4",
+            "g1-short-a-5",
+            "g1-short-a-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-short-i",
+          "revision": 1,
+          "activity_ids": [
+            "g1-short-i-1",
+            "g1-short-i-2",
+            "g1-short-i-3",
+            "g1-short-i-4",
+            "g1-short-i-5",
+            "g1-short-i-6"
+          ]
+        }
+      ],
+      "remaining": "Connected decodable passages and observed reading.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.4.3.b",
+      "objective": "Read unfamiliar words by analogy",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Word families applied in connected reading.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.F.4.3.c",
+      "objective": "Monitor and self-correct reading",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Text plus visuals and oral review.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.1.1",
+      "objective": "Identify characters setting and events",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-story-details",
+          "revision": 1,
+          "activity_ids": [
+            "g1-story-details-1",
+            "g1-story-details-2",
+            "g1-story-details-3",
+            "g1-story-details-4",
+            "g1-story-details-5",
+            "g1-story-details-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-retell-story",
+          "revision": 1,
+          "activity_ids": [
+            "g1-retell-story-1",
+            "g1-retell-story-2",
+            "g1-retell-story-3",
+            "g1-retell-story-4",
+            "g1-retell-story-5",
+            "g1-retell-story-6"
+          ]
+        }
+      ],
+      "remaining": "Varied longer stories and explanations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.1.2",
+      "objective": "Recognize descriptive and sound-based language",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Alliteration, sound words and imagery.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.2.1",
+      "objective": "Retell and identify story lesson",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-retell-story",
+          "revision": 1,
+          "activity_ids": [
+            "g1-retell-story-1",
+            "g1-retell-story-2",
+            "g1-retell-story-3",
+            "g1-retell-story-4",
+            "g1-retell-story-5",
+            "g1-retell-story-6"
+          ]
+        }
+      ],
+      "remaining": "Multiple texts and independent oral/written retell.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.2.2",
+      "objective": "Find informational central idea and details",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-information-main-topic",
+          "revision": 1,
+          "activity_ids": [
+            "g1-information-main-topic-1",
+            "g1-information-main-topic-2",
+            "g1-information-main-topic-3",
+            "g1-information-main-topic-4",
+            "g1-information-main-topic-5",
+            "g1-information-main-topic-6"
+          ]
+        }
+      ],
+      "remaining": "Varied texts, multiple supported details.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.3.1",
+      "objective": "Identify narrator",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Compare speakers at points in a story.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.4.1",
+      "objective": "Distinguish picture information from words",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Illustrated texts.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.5.1",
+      "objective": "Distinguish story and information text",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Paired genres and explanations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.5.2",
+      "objective": "Use text features to locate facts",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Captions, graphs, glossary, contents and maps.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.5.3",
+      "objective": "Distinguish fact and opinion",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-opinion-writing",
+          "revision": 1,
+          "activity_ids": [
+            "g1-opinion-writing-1",
+            "g1-opinion-writing-2",
+            "g1-opinion-writing-3",
+            "g1-opinion-writing-4",
+            "g1-opinion-writing-5",
+            "g1-opinion-writing-6"
+          ]
+        }
+      ],
+      "remaining": "Apply to actual informational texts.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.6.1.a",
+      "objective": "Retell literary beginning middle end",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-retell-story",
+          "revision": 1,
+          "activity_ids": [
+            "g1-retell-story-1",
+            "g1-retell-story-2",
+            "g1-retell-story-3",
+            "g1-retell-story-4",
+            "g1-retell-story-5",
+            "g1-retell-story-6"
+          ]
+        }
+      ],
+      "remaining": "Written retell plus oral evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.6.1.b",
+      "objective": "Retell informational main idea and details",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-information-main-topic",
+          "revision": 1,
+          "activity_ids": [
+            "g1-information-main-topic-1",
+            "g1-information-main-topic-2",
+            "g1-information-main-topic-3",
+            "g1-information-main-topic-4",
+            "g1-information-main-topic-5",
+            "g1-information-main-topic-6"
+          ]
+        }
+      ],
+      "remaining": "Oral and written evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.7.1.a",
+      "objective": "Infer word meaning from context",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-context-clues",
+          "revision": 1,
+          "activity_ids": [
+            "g1-context-clues-1",
+            "g1-context-clues-2",
+            "g1-context-clues-3",
+            "g1-context-clues-4",
+            "g1-context-clues-5",
+            "g1-context-clues-6"
+          ]
+        }
+      ],
+      "remaining": "More varied examples and explanations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.7.1.b",
+      "objective": "Use references to build knowledge",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Offline reference materials and synthesis.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.7.1.c",
+      "objective": "Use references for word meanings",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Glossary/dictionary practice.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.7.1.d",
+      "objective": "Apply acquired vocabulary",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-context-clues",
+          "revision": 1,
+          "activity_ids": [
+            "g1-context-clues-1",
+            "g1-context-clues-2",
+            "g1-context-clues-3",
+            "g1-context-clues-4",
+            "g1-context-clues-5",
+            "g1-context-clues-6"
+          ]
+        }
+      ],
+      "remaining": "Use new vocabulary in speech and writing.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.8.1.a",
+      "objective": "Question and explain word meanings",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-context-clues",
+          "revision": 1,
+          "activity_ids": [
+            "g1-context-clues-1",
+            "g1-context-clues-2",
+            "g1-context-clues-3",
+            "g1-context-clues-4",
+            "g1-context-clues-5",
+            "g1-context-clues-6"
+          ]
+        }
+      ],
+      "remaining": "Learner-generated questions and multiple meanings.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.8.1.b",
+      "objective": "Group related words",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Category sorting.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.8.1.c",
+      "objective": "Define words using category and features",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Oral/written definitions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.9.1",
+      "objective": "Apply phonics and inflection patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-consonant-digraphs",
+          "revision": 1,
+          "activity_ids": [
+            "g1-consonant-digraphs-1",
+            "g1-consonant-digraphs-2",
+            "g1-consonant-digraphs-3",
+            "g1-consonant-digraphs-4",
+            "g1-consonant-digraphs-5",
+            "g1-consonant-digraphs-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-final-e",
+          "revision": 1,
+          "activity_ids": [
+            "g1-final-e-1",
+            "g1-final-e-2",
+            "g1-final-e-3",
+            "g1-final-e-4",
+            "g1-final-e-5",
+            "g1-final-e-6"
+          ]
+        }
+      ],
+      "remaining": "Inflectional morphology and transfer.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.AOR.10.1",
+      "objective": "Use illustrations to explain details",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Actual original/licensed visual resources.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.R.1.1",
+      "objective": "Ask and answer research questions",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-story-details",
+          "revision": 1,
+          "activity_ids": [
+            "g1-story-details-1",
+            "g1-story-details-2",
+            "g1-story-details-3",
+            "g1-story-details-4",
+            "g1-story-details-5",
+            "g1-story-details-6"
+          ]
+        }
+      ],
+      "remaining": "Print and non-print sources; who what when where why how.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.1.1.a",
+      "objective": "State and support an opinion",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-opinion-writing",
+          "revision": 1,
+          "activity_ids": [
+            "g1-opinion-writing-1",
+            "g1-opinion-writing-2",
+            "g1-opinion-writing-3",
+            "g1-opinion-writing-4",
+            "g1-opinion-writing-5",
+            "g1-opinion-writing-6"
+          ]
+        }
+      ],
+      "remaining": "Independent writing across topics.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.1.1.b",
+      "objective": "Link opinion and reason",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Teach and apply transitions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.1.1.c",
+      "objective": "Close opinion writing",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-opinion-writing",
+          "revision": 1,
+          "activity_ids": [
+            "g1-opinion-writing-1",
+            "g1-opinion-writing-2",
+            "g1-opinion-writing-3",
+            "g1-opinion-writing-4",
+            "g1-opinion-writing-5",
+            "g1-opinion-writing-6"
+          ]
+        }
+      ],
+      "remaining": "Teacher-reviewed independent conclusions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.2.1.a",
+      "objective": "Introduce an informational topic",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Original explanatory writing.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.2.1.b",
+      "objective": "Develop information with details",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Facts from reviewed sources.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.2.1.c",
+      "objective": "Conclude information writing",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Independent closing.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.3.1.a",
+      "objective": "Sequence narrative events",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Writing with time-order words.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.3.1.b",
+      "objective": "Describe actions thoughts feelings",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Narrative detail practice.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.3.1.c",
+      "objective": "End a narrative",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Independent narrative closure.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.a",
+      "objective": "Capitalize names and dates",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Writing and correction practice.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.b",
+      "objective": "Use sentence ending marks",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-end-marks",
+          "revision": 1,
+          "activity_ids": [
+            "g1-end-marks-1",
+            "g1-end-marks-2",
+            "g1-end-marks-3",
+            "g1-end-marks-4",
+            "g1-end-marks-5",
+            "g1-end-marks-6"
+          ]
+        }
+      ],
+      "remaining": "Independent writing evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.c",
+      "objective": "Use commas in a list",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Write and edit lists.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.d",
+      "objective": "Use date commas",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Write and edit dates.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.e",
+      "objective": "Use colon in written time",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Written time evidence; coordinate math.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.f",
+      "objective": "Use specified parts of speech",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-complete-sentences",
+          "revision": 1,
+          "activity_ids": [
+            "g1-complete-sentences-1",
+            "g1-complete-sentences-2",
+            "g1-complete-sentences-3",
+            "g1-complete-sentences-4",
+            "g1-complete-sentences-5",
+            "g1-complete-sentences-6"
+          ]
+        }
+      ],
+      "remaining": "Explicit nouns, pronouns, tenses, adjectives, conjunctions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.g",
+      "objective": "Use regular and irregular nouns",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Plural forms and application.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.4.1.h",
+      "objective": "Match subjects and verbs",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Independent agreement practice.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.5.1",
+      "objective": "Plan revise and edit writing",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-complete-sentences",
+          "revision": 1,
+          "activity_ids": [
+            "g1-complete-sentences-1",
+            "g1-complete-sentences-2",
+            "g1-complete-sentences-3",
+            "g1-complete-sentences-4",
+            "g1-complete-sentences-5",
+            "g1-complete-sentences-6"
+          ]
+        }
+      ],
+      "remaining": "Peer/adult suggestions, editing and revision history.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.6.1",
+      "objective": "Print letters with spacing",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "All upper/lowercase letters and teacher-reviewed handwriting.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.7.1",
+      "objective": "Present events orally in order",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-retell-story",
+          "revision": 1,
+          "activity_ids": [
+            "g1-retell-story-1",
+            "g1-retell-story-2",
+            "g1-retell-story-3",
+            "g1-retell-story-4",
+            "g1-retell-story-5",
+            "g1-retell-story-6"
+          ]
+        }
+      ],
+      "remaining": "Actual oral evidence, volume, pronunciation and linking words.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.8.1.a",
+      "objective": "Take turns and respond in discussion",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Structured peer/adult tasks.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.8.1.b",
+      "objective": "Restate others' ideas",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Observed collaborative conversations.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "english_language_arts",
+      "indicator": "ELA.1.C.9.1",
+      "objective": "Listen and ask/answer questions",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Listening comprehension and observed discussion.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-PS4-1",
+      "objective": "Investigate sound and vibration both ways",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-sound-vibration",
+          "revision": 1,
+          "activity_ids": [
+            "g1-sound-vibration-1",
+            "g1-sound-vibration-2",
+            "g1-sound-vibration-3",
+            "g1-sound-vibration-4",
+            "g1-sound-vibration-5",
+            "g1-sound-vibration-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-test-sound-vibration",
+          "revision": 1,
+          "activity_ids": [
+            "g1-test-sound-vibration-1",
+            "g1-test-sound-vibration-2",
+            "g1-test-sound-vibration-3",
+            "g1-test-sound-vibration-4",
+            "g1-test-sound-vibration-5",
+            "g1-test-sound-vibration-6"
+          ]
+        }
+      ],
+      "remaining": "Add safe demonstration of sound causing vibration; record actual results.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-PS4-2",
+      "objective": "Use evidence that illumination enables sight",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-light-observation",
+          "revision": 1,
+          "activity_ids": [
+            "g1-light-observation-1",
+            "g1-light-observation-2",
+            "g1-light-observation-3",
+            "g1-light-observation-4",
+            "g1-light-observation-5",
+            "g1-light-observation-6"
+          ]
+        }
+      ],
+      "remaining": "Physical safe observation, claim and evidence.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-PS4-3",
+      "objective": "Investigate light through materials",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-materials-and-light",
+          "revision": 1,
+          "activity_ids": [
+            "g1-materials-and-light-1",
+            "g1-materials-and-light-2",
+            "g1-materials-and-light-3",
+            "g1-materials-and-light-4",
+            "g1-materials-and-light-5",
+            "g1-materials-and-light-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-shadows",
+          "revision": 1,
+          "activity_ids": [
+            "g1-shadows-1",
+            "g1-shadows-2",
+            "g1-shadows-3",
+            "g1-shadows-4",
+            "g1-shadows-5",
+            "g1-shadows-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-test-light-materials",
+          "revision": 1,
+          "activity_ids": [
+            "g1-test-light-materials-1",
+            "g1-test-light-materials-2",
+            "g1-test-light-materials-3",
+            "g1-test-light-materials-4",
+            "g1-test-light-materials-5",
+            "g1-test-light-materials-6"
+          ]
+        }
+      ],
+      "remaining": "Compare reflective, transparent, translucent and opaque samples with records.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-PS4-4",
+      "objective": "Build a distance communication device",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-sound-messages",
+          "revision": 1,
+          "activity_ids": [
+            "g1-sound-messages-1",
+            "g1-sound-messages-2",
+            "g1-sound-messages-3",
+            "g1-sound-messages-4",
+            "g1-sound-messages-5",
+            "g1-sound-messages-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-light-signals",
+          "revision": 1,
+          "activity_ids": [
+            "g1-light-signals-1",
+            "g1-light-signals-2",
+            "g1-light-signals-3",
+            "g1-light-signals-4",
+            "g1-light-signals-5",
+            "g1-light-signals-6"
+          ]
+        }
+      ],
+      "remaining": "Build and test an actual device, not just choose a signal.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-LS1-1",
+      "objective": "Design solutions inspired by living structures",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-animal-parts",
+          "revision": 1,
+          "activity_ids": [
+            "g1-animal-parts-1",
+            "g1-animal-parts-2",
+            "g1-animal-parts-3",
+            "g1-animal-parts-4",
+            "g1-animal-parts-5",
+            "g1-animal-parts-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-plant-parts",
+          "revision": 1,
+          "activity_ids": [
+            "g1-plant-parts-1",
+            "g1-plant-parts-2",
+            "g1-plant-parts-3",
+            "g1-plant-parts-4",
+            "g1-plant-parts-5",
+            "g1-plant-parts-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-design-from-plants",
+          "revision": 1,
+          "activity_ids": [
+            "g1-design-from-plants-1",
+            "g1-design-from-plants-2",
+            "g1-design-from-plants-3",
+            "g1-design-from-plants-4",
+            "g1-design-from-plants-5",
+            "g1-design-from-plants-6"
+          ]
+        }
+      ],
+      "remaining": "Actual model, tested function and explanation.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-LS1-2",
+      "objective": "Find parent/offspring survival behavior patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-animal-care",
+          "revision": 1,
+          "activity_ids": [
+            "g1-animal-care-1",
+            "g1-animal-care-2",
+            "g1-animal-care-3",
+            "g1-animal-care-4",
+            "g1-animal-care-5",
+            "g1-animal-care-6"
+          ]
+        }
+      ],
+      "remaining": "Compare multiple vetted sources and patterns.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-LS3-1",
+      "objective": "Support similarities/differences with observations",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-young-living-things",
+          "revision": 1,
+          "activity_ids": [
+            "g1-young-living-things-1",
+            "g1-young-living-things-2",
+            "g1-young-living-things-3",
+            "g1-young-living-things-4",
+            "g1-young-living-things-5",
+            "g1-young-living-things-6"
+          ]
+        }
+      ],
+      "remaining": "Multiple observed examples with evidence-based claim.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-ESS1-1",
+      "objective": "Predict sky patterns",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-day-night-patterns",
+          "revision": 1,
+          "activity_ids": [
+            "g1-day-night-patterns-1",
+            "g1-day-night-patterns-2",
+            "g1-day-night-patterns-3",
+            "g1-day-night-patterns-4",
+            "g1-day-night-patterns-5",
+            "g1-day-night-patterns-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-moon-observations",
+          "revision": 1,
+          "activity_ids": [
+            "g1-moon-observations-1",
+            "g1-moon-observations-2",
+            "g1-moon-observations-3",
+            "g1-moon-observations-4",
+            "g1-moon-observations-5",
+            "g1-moon-observations-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-sky-observation-record",
+          "revision": 1,
+          "activity_ids": [
+            "g1-sky-observation-record-1",
+            "g1-sky-observation-record-2",
+            "g1-sky-observation-record-3",
+            "g1-sky-observation-record-4",
+            "g1-sky-observation-record-5",
+            "g1-sky-observation-record-6"
+          ]
+        }
+      ],
+      "remaining": "Include stars and repeated safe observations with predictions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "science",
+      "indicator": "1-ESS1-2",
+      "objective": "Relate daylight length to season",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-seasonal-daylight",
+          "revision": 1,
+          "activity_ids": [
+            "g1-seasonal-daylight-1",
+            "g1-seasonal-daylight-2",
+            "g1-seasonal-daylight-3",
+            "g1-seasonal-daylight-4",
+            "g1-seasonal-daylight-5",
+            "g1-seasonal-daylight-6"
+          ]
+        }
+      ],
+      "remaining": "Seasonal observation record; actual comparison over time.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.H.1",
+      "objective": "Compare South Carolina communities over time",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-life-then-now",
+          "revision": 1,
+          "activity_ids": [
+            "g1-life-then-now-1",
+            "g1-life-then-now-2",
+            "g1-life-then-now-3",
+            "g1-life-then-now-4",
+            "g1-life-then-now-5",
+            "g1-life-then-now-6"
+          ]
+        }
+      ],
+      "remaining": "Actual SC community comparisons and sources.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.H.2",
+      "objective": "Explain and predict outcomes of a current SC event",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Teacher-curated dated offline event and reasonable predictions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.H.3",
+      "objective": "Evaluate historical sources",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-history-clues",
+          "revision": 1,
+          "activity_ids": [
+            "g1-history-clues-1",
+            "g1-history-clues-2",
+            "g1-history-clues-3",
+            "g1-history-clues-4",
+            "g1-history-clues-5",
+            "g1-history-clues-6"
+          ]
+        }
+      ],
+      "remaining": "Actual SC primary and secondary sources.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.G.1",
+      "objective": "Interpret map types and features",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-map-features",
+          "revision": 1,
+          "activity_ids": [
+            "g1-map-features-1",
+            "g1-map-features-2",
+            "g1-map-features-3",
+            "g1-map-features-4",
+            "g1-map-features-5",
+            "g1-map-features-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-map-route",
+          "revision": 1,
+          "activity_ids": [
+            "g1-map-route-1",
+            "g1-map-route-2",
+            "g1-map-route-3",
+            "g1-map-route-4",
+            "g1-map-route-5",
+            "g1-map-route-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-map-symbols",
+          "revision": 1,
+          "activity_ids": [
+            "g1-map-symbols-1",
+            "g1-map-symbols-2",
+            "g1-map-symbols-3",
+            "g1-map-symbols-4",
+            "g1-map-symbols-5",
+            "g1-map-symbols-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-draw-familiar-map",
+          "revision": 1,
+          "activity_ids": [
+            "g1-draw-familiar-map-1",
+            "g1-draw-familiar-map-2",
+            "g1-draw-familiar-map-3",
+            "g1-draw-familiar-map-4",
+            "g1-draw-familiar-map-5",
+            "g1-draw-familiar-map-6"
+          ]
+        }
+      ],
+      "remaining": "Add varied map types, titles and compass rose.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.G.2",
+      "objective": "Locate SC relative to the US",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Original/licensed maps and geographic tools.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.G.3",
+      "objective": "Compare urban suburban rural SC",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Vetted SC examples and photos.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.G.4",
+      "objective": "Compare SC landforms",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "Maps and evidence of rivers, mountains, coast and lakes.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.E.1",
+      "objective": "Compare goods/services across school community state",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-goods-and-services",
+          "revision": 1,
+          "activity_ids": [
+            "g1-goods-and-services-1",
+            "g1-goods-and-services-2",
+            "g1-goods-and-services-3",
+            "g1-goods-and-services-4",
+            "g1-goods-and-services-5",
+            "g1-goods-and-services-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-goods-service-work",
+          "revision": 1,
+          "activity_ids": [
+            "g1-goods-service-work-1",
+            "g1-goods-service-work-2",
+            "g1-goods-service-work-3",
+            "g1-goods-service-work-4",
+            "g1-goods-service-work-5",
+            "g1-goods-service-work-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-goods-near-far",
+          "revision": 1,
+          "activity_ids": [
+            "g1-goods-near-far-1",
+            "g1-goods-near-far-2",
+            "g1-goods-near-far-3",
+            "g1-goods-near-far-4",
+            "g1-goods-near-far-5",
+            "g1-goods-near-far-6"
+          ]
+        }
+      ],
+      "remaining": "Add SC-specific comparison.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.E.2",
+      "objective": "Explain economic change over time",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-life-then-now",
+          "revision": 1,
+          "activity_ids": [
+            "g1-life-then-now-1",
+            "g1-life-then-now-2",
+            "g1-life-then-now-3",
+            "g1-life-then-now-4",
+            "g1-life-then-now-5",
+            "g1-life-then-now-6"
+          ]
+        }
+      ],
+      "remaining": "Explicit goods/service change and reasons.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.E.3",
+      "objective": "Research goods/services across SC settlement types",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-goods-near-far",
+          "revision": 1,
+          "activity_ids": [
+            "g1-goods-near-far-1",
+            "g1-goods-near-far-2",
+            "g1-goods-near-far-3",
+            "g1-goods-near-far-4",
+            "g1-goods-near-far-5",
+            "g1-goods-near-far-6"
+          ]
+        }
+      ],
+      "remaining": "Compare rural suburban urban SC using sources.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.E.4",
+      "objective": "Create a solution to a local economic need",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-needs-wants",
+          "revision": 1,
+          "activity_ids": [
+            "g1-needs-wants-1",
+            "g1-needs-wants-2",
+            "g1-needs-wants-3",
+            "g1-needs-wants-4",
+            "g1-needs-wants-5",
+            "g1-needs-wants-6"
+          ]
+        }
+      ],
+      "remaining": "Design and evaluate a local good/service solution.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.CG.1",
+      "objective": "Cooperate across diverse backgrounds",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-group-discussion",
+          "revision": 1,
+          "activity_ids": [
+            "g1-group-discussion-1",
+            "g1-group-discussion-2",
+            "g1-group-discussion-3",
+            "g1-group-discussion-4",
+            "g1-group-discussion-5",
+            "g1-group-discussion-6"
+          ]
+        },
+        {
+          "lesson_id": "g1-community-responsibility",
+          "revision": 1,
+          "activity_ids": [
+            "g1-community-responsibility-1",
+            "g1-community-responsibility-2",
+            "g1-community-responsibility-3",
+            "g1-community-responsibility-4",
+            "g1-community-responsibility-5",
+            "g1-community-responsibility-6"
+          ]
+        }
+      ],
+      "remaining": "Observed inclusive cooperation on a shared goal.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.CG.2",
+      "objective": "Describe local and state government",
+      "status": "missing",
+      "evidence": [],
+      "remaining": "SC roles, basic structure and functions.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.CG.3",
+      "objective": "Practice responsible citizenship",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-community-responsibility",
+          "revision": 1,
+          "activity_ids": [
+            "g1-community-responsibility-1",
+            "g1-community-responsibility-2",
+            "g1-community-responsibility-3",
+            "g1-community-responsibility-4",
+            "g1-community-responsibility-5",
+            "g1-community-responsibility-6"
+          ]
+        }
+      ],
+      "remaining": "Connect practical actions to local and state government.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    },
+    {
+      "subject": "social_studies",
+      "indicator": "1.CG.4",
+      "objective": "Collaborate on a local/state issue",
+      "status": "partial_draft",
+      "evidence": [
+        {
+          "lesson_id": "g1-group-discussion",
+          "revision": 1,
+          "activity_ids": [
+            "g1-group-discussion-1",
+            "g1-group-discussion-2",
+            "g1-group-discussion-3",
+            "g1-group-discussion-4",
+            "g1-group-discussion-5",
+            "g1-group-discussion-6"
+          ]
+        }
+      ],
+      "remaining": "Actual issue, group resolution and communication.",
+      "educator_review": null,
+      "hardware_acceptance": null
+    }
+  ]
+}

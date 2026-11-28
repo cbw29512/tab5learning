@@ -1,0 +1,83 @@
+import json
+import unittest
+from pathlib import Path
+from tools.curriculum_draft import decode_draft
+from tools.teacher_curriculum_review import curriculum_page, SOURCE
+from tools.teacher_web import TeacherWeb
+import test_teacher_web as harness
+
+
+class GradeOneLibraryTests(unittest.TestCase):
+    def test_catalog_revisions_and_counts(self):
+        old, _ = decode_draft(SOURCE.with_name("starter.v1.json").read_bytes())
+        new, _ = decode_draft(SOURCE.read_bytes())
+        self.assertEqual(new["revision"], 16)
+        short_u = next(x for x in new["lessons"] if x["lesson_id"] == "g1-short-u")
+        self.assertEqual(short_u["subject"], "english_language_arts")
+        self.assertEqual(short_u["unit"], "phonics")
+        self.assertEqual(short_u["prerequisites"], ["g1-short-i"])
+        self.assertEqual(len(new["lessons"]), 127)
+        self.assertEqual(sum(len(x["activities"]) for x in new["lessons"]), 762)
+        self.assertEqual(old["lessons"], new["lessons"][:4])
+        previous, _ = decode_draft(SOURCE.with_name("starter.v2.json").read_bytes())
+        self.assertEqual(previous["lessons"], new["lessons"][:12])
+        v3, _ = decode_draft(SOURCE.with_name("starter.v3.json").read_bytes())
+        self.assertEqual(v3["lessons"], new["lessons"][:20])
+        v4, _ = decode_draft(SOURCE.with_name("starter.v4.json").read_bytes())
+        self.assertEqual(v4["lessons"], new["lessons"][:28])
+        v5, _ = decode_draft(SOURCE.with_name("starter.v5.json").read_bytes())
+        self.assertEqual(v5["lessons"], new["lessons"][:36])
+        v6, _ = decode_draft(SOURCE.with_name("starter.v6.json").read_bytes())
+        self.assertEqual(v6["lessons"], new["lessons"][:44])
+        v7, _ = decode_draft(SOURCE.with_name("starter.v7.json").read_bytes())
+        self.assertEqual(v7["lessons"], new["lessons"][:52])
+        v8, _ = decode_draft(SOURCE.with_name("starter.v8.json").read_bytes())
+        self.assertEqual(v8["lessons"], new["lessons"][:60])
+        v9, _ = decode_draft(SOURCE.with_name("starter.v9.json").read_bytes())
+        self.assertEqual(v9["lessons"], new["lessons"][:68])
+        v10, _ = decode_draft(SOURCE.with_name("starter.v10.json").read_bytes())
+        self.assertEqual(v10["lessons"], new["lessons"][:78])
+        v11, _ = decode_draft(SOURCE.with_name("starter.v11.json").read_bytes())
+        self.assertEqual(v11["lessons"], new["lessons"][:90])
+        v12, _ = decode_draft(SOURCE.with_name("starter.v12.json").read_bytes())
+        self.assertEqual(v12["lessons"], new["lessons"][:100])
+        v13, _ = decode_draft(SOURCE.with_name("starter.v13.json").read_bytes())
+        self.assertEqual(v13["lessons"], new["lessons"][:109])
+        v14, _ = decode_draft(SOURCE.with_name("starter.v14.json").read_bytes())
+        self.assertEqual(v14["lessons"], new["lessons"][:120])
+        v15, _ = decode_draft(SOURCE.with_name("starter.v15.json").read_bytes())
+        self.assertEqual(v15["lessons"], new["lessons"][:125])
+        for subject in {l["subject"] for l in new["lessons"]}:
+            self.assertEqual(sum(l["subject"] == subject for l in new["lessons"]), {"mathematics": 27, "english_language_arts": 61, "science": 17, "social_studies": 22}[subject])
+        self.assertEqual({x["subject"] for x in new["lessons"]}, {x["subject"] for x in old["lessons"]})
+
+    def test_preview(self):
+        self.assertIn("127 draft lessons", curriculum_page())
+        self.assertIn("/curriculum/coverage", curriculum_page())
+        coverage = curriculum_page("coverage")
+        self.assertIn("135 of 135 provisional objectives", coverage)
+        self.assertIn("0 approved", coverage)
+        self.assertIn("1.DPSR.1.1", coverage)
+        self.assertIn("/curriculum/g1-compare-data", coverage)
+        page = curriculum_page("g1-tens-and-ones")
+        self.assertIn("1.NR.1.2",page)
+        self.assertIn("Four tens",page)
+        with self.assertRaises(ValueError):
+            curriculum_page("../../accounts.sqlite")
+
+    def test_web_access(self):
+        web = harness.TeacherWebTests()
+        web.setUp()
+        self.addCleanup(web.doCleanups)
+        web.login()
+        self.assertEqual(web.call("/curriculum")[0],403)
+        web.app = TeacherWeb(Path(web.temp.name)/"curriculum", test_mode=True)
+        web.app.accounts.create("admin","1234","admin",bootstrap=True)
+        web.cookie = ""
+        self.assertEqual(web.call("/curriculum")[0],403)
+        web.login("admin","1234")
+        self.assertIn("Review Grade 1 draft lessons",web.call()[2])
+        self.assertIn("127 draft lessons",web.call("/curriculum")[2])
+        self.assertIn("135 of 135 provisional objectives", web.call("/curriculum/coverage")[2])
+        self.assertIn("1.E.1",web.call("/curriculum/g1-goods-and-services")[2])
+        self.assertEqual(web.call("/curriculum/unknown")[0],400)

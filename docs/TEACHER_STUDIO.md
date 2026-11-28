@@ -1,0 +1,14 @@
+# Teacher Studio — desktop MVP slice
+State: logged out -> first admin setup (empty account DB only) or login -> authenticated workspace -> logout/expiration. Deck draft -> validation -> explicit local save. Deck identity and version are immutable; no overwrite. Local SQLite content store is scoped to author; administrators may inspect all decks. No student records or USB import in this slice. Tkinter desktop UI is offline, using Python standard library. Windows launch: from repository root run python -m tools.teacher_studio. Use synthetic content until OS access controls and encryption are validated. No student data in repo. Future: version editing, approval/assignment, student authorization, USB signing and progress views.
+
+## Local browser MVP slice
+
+Run from repository root with Python 3.12: `python -m tools.run_teacher_web --bootstrap` only if the existing account DB is empty; then `python -m tools.run_teacher_web`. Open http://127.0.0.1:18765/ on the same computer. Existing desktop accounts and decks are shared; use one interface at a time. Bootstrap is console-only. No internet or extra dependencies required. The web adapter validates exact host/origin, uses HttpOnly SameSite cookies and session-bound CSRF tokens, bounds form input, escapes deck titles, and reuses role checks and expiration. Local HTTP is not a deployment configuration for shared networks; do not expose the port. Use synthetic content only. No web flash/reset/SSH endpoints, USB assignment, grading or student data upload yet. Regression tests: `python -m unittest discover -s tests -p test_teacher_web.py -v`. Browser acceptance and CI results pending.
+
+## Local testing credentials
+
+For synthetic-data testing, run `python -m tools.run_teacher_web --test --bootstrap` once, then `python -m tools.run_teacher_web --test`. Test mode accepts passwords of four or more characters, displays a TEST MODE notice, and uses the separate PocketLearningStudioTest directory. Normal mode retains the 15-character minimum and existing account/deck directory. No default password is installed; all credentials are still hashed, and role checks, lockouts and loopback restrictions remain active. Do not use real student data in test mode.
+
+Teacher Studio uses dedicated loopback port 18765 to avoid sharing a browser origin with Pocket DM on port 8765. Do not clear Pocket DM site storage. The listener and HTTP host/origin checks share one configuration.
+
+Browser compatibility: login now requires a ten-minute, cookie-bound signed form token. All authenticated writes require their session CSRF token. Missing or null Origin alone is not a reason to deny a correctly tokenized request; explicit foreign origins, referrers and cross-origin Fetch Metadata are still rejected. Local host checks remain mandatory. Open the root URL after restarting, not a cached /login submission.

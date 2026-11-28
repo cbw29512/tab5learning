@@ -1,0 +1,50 @@
+# Flashcards — approved product direction
+
+## Definition of done
+A teacher signs into the local Windows manager, creates or imports a deck, previews and approves it, assigns it to a student or class, and transfers it to each device over authenticated USB. The student practices offline, resumes after reboot, and the teacher retrieves results. This is a required MVP gate alongside math, reading and spelling.
+
+## Data contract
+- Deck: immutable deck_id, version, title, subject, grade band, author, asset manifest, license/attribution.
+- Card: card_id, deck version, skill IDs, prompt text/media, answer text/media, response mode (self-review, choice, numeric ink, spelling ink, oral), accepted answers, optional hint.
+- Assignment: assignment_id, student_id, deck version, teacher_id, sequence, optional due date.
+- Review event: attempt_id, student_id, card_id/version, response, assessment source, outcome (independent, assisted, missed, uncertain, self-rated), sequence, optional timestamp, policy version.
+- Review state: derived next-due date/session, interval, streak, last reviewed event. Rebuild from append-only events and teacher corrections.
+
+## State and policy
+SELECT -> PROMPT -> RESPONSE -> FEEDBACK -> DURABLE REVIEW -> NEXT. Self-rating is practice evidence, not a formal grade. Uncertain handwriting or speech goes to review, not automatic failure. Proposed intervals: missed later in same session, assisted next day, independent 3 days, repeated success 7 then 30 days; teacher configurable, not validated educational thresholds. Bound retries and daily workload. When clock unreliable, use session ordering and flag calendar due dates for reconciliation.
+
+## Authoring and distribution
+Teacher creates front/back cards, images, audio, hints and accepted answers; imports bounded CSV (spreadsheet export). Local AI may draft content but requires teacher approval. Preserve asset rights. Classroom assignment expands to individually authorized USB transfers, no network. Deck updates retain historical attempts and pin old versions as needed. No real student data in repository. Admin credentials and signing keys remain outside GitHub.
+
+## Adaptive integration
+Reading, spelling and math can suggest practice cards from reviewed errors; keep source skill and attempt provenance. Students can practice built-in or assigned decks. Home screen: Math, Reading, Spelling, Flashcards; library accessible within Reading. Daily practice shows due items without punitive streaks or rankings.
+
+## Tests
+Reject malformed decks, duplicate IDs, invalid assets and unauthorized imports. Verify restart recovery, duplicate USB operation handling, old-version reviews, teacher corrections, bounded retries, clock loss, self-rating separation, and no wireless services. Hardware and recognition quality remain unverified.
+
+Teacher-authored or imported supplemental decks are extra credit by default. Assignment weights and classroom reporting follow [EXTRA_CREDIT.md](EXTRA_CREDIT.md); self-rating alone cannot earn graded credit or establish mastery.
+
+## Visual deck revision
+Teacher selects Edit on a saved deck (latest version only), modifies existing text, previews and saves. Draft carries deck ID and base version. Server rechecks access and base version in a single transaction before appending version + 1; stale submissions retain draft and instruct teacher to reopen latest, never silently overwrite. Original author remains owner, including administrator edits. Old versions remain available to exact-version consumers; dashboard shows latest only. Card IDs of unchanged front/back pairs are retained in original occurrence order; changed/new cards receive fresh IDs. Review evidence must remain pinned to deck/version/card, not inferred across edits. Editor supports up to 25 cards; larger imported decks cannot be edited by this slice, and must not be truncated. No actual assignment, approval, or USB transfer. Existing creation and optional CSV routes remain available.
+
+## AI-assisted bulk authoring (required)
+Teacher Studio provides a local copyable prompt for any grade/subject, a paste-CSV form, bounded validation, full preview and explicit save. Teachers may use their preferred external AI or a local model independently; never share student information. No AI account/API/network dependency in Teacher Studio or Tab5. Prompt uses existing exact front,back CSV format, max 500 cards and 512 KiB, max 500 characters per side. Preview proof binds exact input to session; modified content must be reviewed again. Save creates a text deck, not a device assignment or certification of accuracy. Teacher reviews facts and suitability. Existing manual editor and CSV importer remain. Subject/grade metadata and paginated editing of large decks remain open; use a descriptive title in this slice. No changes to native firmware.
+
+Copyable starter prompt:
+
+```text
+Create 30 age-appropriate study flashcards for Grade 3 Mathematics from the lesson notes below.
+Return ONLY valid UTF-8 CSV, with the exact header front,back.
+Use one question and one short accurate answer per row. Quote both fields using double quotes, and escape any internal double quote by doubling it.
+No markdown, code fences, numbering, extra columns or commentary.
+Use the supplied material only. Do not invent facts. Avoid duplicate questions. Keep both sides under 120 characters where possible (500 maximum).
+If there is not enough material for 30 accurate cards, produce fewer.
+Lesson notes:
+[Paste non-sensitive teaching material here]
+```
+
+### Configurable local prompt builder
+Select grade 1–4, subject (including writing and custom), and 1–100 cards per AI batch; optionally enter up to 12,000 UTF-8 bytes of non-sensitive lesson notes. Generate a copyable prompt locally, with no AI requests or storage of notes. Existing import permits up to 500 cards. Normalize CSV newline conventions before preview/save proof to avoid false mismatch from HTML form serialization. Teacher review remains mandatory in the guided workflow; legacy direct CSV import remains available. No structured deck metadata or device synchronization added.
+
+### Bulk quality review
+Preview reports identical front/back pairs and repeated exact questions with differing answers, using preview row numbers. Teachers may explicitly remove only identical pairs, retaining the first occurrence and order. Conflicting answers are warnings, not automatic grading or deletion. Removal requires the current session-bound preview proof and creates a new preview/proof before saving. Existing CSV validation, limits and manual editing remain. No semantic correctness assessment or automatic approval. Large-deck revision and structured metadata remain pending.

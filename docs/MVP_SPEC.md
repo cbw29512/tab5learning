@@ -23,9 +23,26 @@ A build passes when all of the following can be demonstrated on the real device:
 11. **Security review:** Wireless features are disabled in the learner application. Unauthorized content imports are rejected. Firmware update protections and physical tamper risks are documented and tested to the extent supported by the hardware.
 12. **Tests and release evidence:** Automated tests cover answer scoring, corrections, mastery recomputation, schema validation, duplicate USB operations, and corrupted/partial transfers; a manual hardware checklist documents touch and USB behavior.
 
+## Expanded MVP acceptance gates (approved)
+
+- Flashcards: teacher-authored text decks, CSV import, approval, individual assignment, offline review, durable results and authenticated USB round trip. Images/audio and other response modes use versioned content packages and must be validated before release.
+- Reading: at least one licensed illustrated narrated story, synchronized highlighting, explicit recording and teacher-reviewed oral reading. Automated speech scoring remains experimental until validated.
+- Spelling: at least one spoken word set with handwritten response and teacher correction.
+- Teacher Studio: protected local login, deck and lesson creation, assignment, progress review and backup. No network dependency.
+- Mandatory educational interaction journal, teacher drilldown, milestone evidence and correction-driven recalculation: see [Learning history](LEARNING_HISTORY.md). Test durable sequence ordering, idempotence, recovery and privacy controls.
+- Shared learning history: reviewed errors can suggest practice cards; uncertain recognition and self-ratings must not become formal grades.
+- Teacher-added supplemental content: configurable nonnegative extra-credit weights, separate core/bonus/combined grades, optional caps, audited corrections and no advancement solely from bonus points. See [EXTRA_CREDIT.md](EXTRA_CREDIT.md).
+- Learner achievement journey: frequent meaningful micro-goals, current/progress/completed views and immediate nonblocking achievements with increasing difficulty and durable certificates only for designated major milestones, printable through Teacher Studio. See [ACHIEVEMENTS.md](ACHIEVEMENTS.md).
+- Native standalone lifelong-learning architecture and one guided camera evidence activity, subject to hardware/privacy acceptance. See [LIFELONG_LEARNING.md](LIFELONG_LEARNING.md).
+- The original twelve acceptance gates remain required for the engineering pilot. The pilot is not the shipping product. Full reviewed grades 1–4 curriculum coverage in the required subjects is mandatory for launch; production AI assessment is not required where a validated teacher-review fallback is available.
+
+## Usability acceptance
+
+The child and teacher workflows must pass the observed task gates in [USABILITY_AUDIT.md](USABILITY_AUDIT.md). Automated backend tests alone are insufficient.
+
 ## Deferred beyond initial launch
 
-- Comprehensive grade 4 enrichment content and prerequisite mapping beyond selected unlockable skills.
+- Grade 5 and above curriculum content; optional enrichment beyond the approved grades 1–4 coverage.
 - Full handwriting/cursive evaluation, sentence-level recognition, handwriting-quality scores.
 - Classroom-wide reporting and fleet provisioning.
 - Production secure-boot provisioning unless verified as supported by the exact Tab5 configuration.
@@ -66,8 +83,15 @@ The original twelve gates remain the first integration milestone, not the comple
 17. Activity tracking: append-only attempt and correction history, persistent review schedule and explainable mastery.
 18. Rewards: non-blocking achievements, progressively harder milestones and certificates for major accomplishments; no duplicate awards.
 19. Native UI: consistent flex-card sizes and matching scratch-pad dimensions; validate touch, audio, USB and battery operation on the physical Tab5.
-20. Curriculum: reviewed grades 1–3 math, reading and spelling with selected grade 4 skills unlocked by mastery. Exact coverage and thresholds require teacher acceptance.
+20. Curriculum: ship four complete grade-level learning paths (grades 1–4), with reviewed mathematics, English language arts (reading, writing and spelling), science and social studies. All four years of required core material must be available offline at initial delivery. Every grade/subject path includes progressively harder achievements and designated major accomplishment certificates. Advance independently by skill and subject. See [CURRICULUM_RELEASE.md](CURRICULUM_RELEASE.md); exact standards editions, alignment and mastery thresholds require educator review.
 
 ### Release evidence
 
 Record commit SHA, test results, firmware artifact hash and relevant physical acceptance evidence for each gate. The first hardware integration milestone must pass before declaring launch readiness. No cloud speech processing or wireless synchronization is permitted. Do not claim a speech engine is viable until measured on the actual target. Preserve existing firmware and known battery initialization behavior when testing.
+
+## Teacher website and maintenance recovery — interface update
+
+The teacher manager is to expose a protected local browser interface (no internet dependency). Technical diagnostics, firmware repair and explicit factory reset are separate SSH maintenance-host operations using a physically attached Tab5 over USB. See [Teacher Studio and SSH maintenance contract](TEACHER_STUDIO_AND_RECOVERY.md) for roles, state schema, recovery distinctions and additional acceptance gates. This supersedes the desktop-only UI assumption without changing the USB-only transport or offline learner requirements. Implementation is pending.
+
+## Grade 1 closed beta milestone — November 26, 2026
+Prioritize a complete Grade 1 curriculum and integrated core functionality for controlled beta testing before building all four grades. See [BETA_RELEASE.md](BETA_RELEASE.md). Grades 2–4 do not block this beta; privacy, hardware, recovery and teacher acceptance remain mandatory. The proposed separately sold grade packages and commercial launch scope await final approval; previous commercial shipping requirements are unchanged for now.

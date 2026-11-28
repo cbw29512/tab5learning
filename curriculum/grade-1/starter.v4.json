@@ -1,0 +1,2847 @@
+{
+  "schema_version": 1,
+  "package_id": "grade-1-starter",
+  "revision": 4,
+  "grade_label": "1",
+  "status": "draft",
+  "assets": [],
+  "lessons": [
+    {
+      "lesson_id": "g1-add-within-10",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-add-within-10",
+      "prerequisites": [],
+      "title": "Put groups together",
+      "objective": "Combine two small groups and count the total within ten.",
+      "standards": [
+        {
+          "framework": "Common Core Mathematics",
+          "edition": "2010",
+          "id": "1.OA.C.6",
+          "url": "https://www.thecorestandards.org/Math/Content/1/OA/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-add-within-10-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Addition puts groups together. Imagine two red blocks and three blue blocks. Count all the blocks: 1, 2, 3, 4, 5. We write 2 + 3 = 5.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-add-within-10-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "You have 1 block. Add 2 more. Count them all.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "answer_index": 1,
+          "feedback": "One block and two more make three.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-add-within-10-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Put 4 blocks and 2 blocks together. How many?",
+          "choices": [
+            "5",
+            "6",
+            "7"
+          ],
+          "answer_index": 1,
+          "feedback": "Four plus two equals six.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-add-within-10-4",
+          "phase": "assessment",
+          "kind": "choice",
+          "prompt": "There are 3 apples on a plate. Add 5 apples. How many now?",
+          "choices": [
+            "7",
+            "8",
+            "9"
+          ],
+          "answer_index": 1,
+          "feedback": "Three plus five equals eight.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-add-within-10-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "If you need help, draw one group of dots and then the other. Touch each dot once as you count. Try a new problem.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-add-within-10-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "You have 2 shells and find 4 more. How many shells?",
+          "choices": [
+            "4",
+            "6",
+            "8"
+          ],
+          "answer_index": 1,
+          "feedback": "Two plus four equals six.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-short-a",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-short-a",
+      "prerequisites": [],
+      "title": "Blend short-a words",
+      "objective": "Blend sounds in simple short-a consonant-vowel-consonant words aloud.",
+      "standards": [
+        {
+          "framework": "Common Core ELA",
+          "edition": "2010",
+          "id": "RF.1.3b",
+          "url": "https://www.thecorestandards.org/ELA-Literacy/RF/1/3/b/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-short-a-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "The letter a can make the short sound in cat. Say the sounds in m-a-t slowly, then blend them into mat. Ask an adult to model the sounds if needed.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-a-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "With an adult, say the sounds in s-a-t. Blend them to read sat.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult checks the spoken word, models the sounds if needed, then invites another try.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-short-a-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "Read these words aloud: map, cap, jam.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult records each observed reading separately; do not guess from a tap.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-short-a-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Read these new words aloud: tap, fan, bag.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult reviews actual decoding, not a self-reported score.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-short-a-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Point to one letter at a time, say its sound, then slide your finger across the word and blend. Ask an adult to help.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-a-6",
+          "phase": "review",
+          "kind": "teacher_review",
+          "prompt": "Read these words aloud on a later practice day: nap, rag, ham.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult records observed decoding; no automatic pronunciation score.",
+          "evidence": "teacher_observation"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-light-observation",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "light-and-sound",
+      "skill_id": "g1-light-observation",
+      "prerequisites": [],
+      "title": "Light helps us see",
+      "objective": "Compare an object's visibility in dim and brighter light and describe observed evidence.",
+      "standards": [
+        {
+          "framework": "NGSS",
+          "edition": "2013",
+          "id": "1-PS4-2",
+          "url": "https://www.nextgenscience.org/pe/1-ps4-2-waves-and-their-applications-technologies-information-transfer",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-light-observation-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Light helps your eyes see objects. When light reaches a toy and some light reaches your eyes, you can see the toy. Less light can make details harder to see.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-light-observation-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "With an adult, place a toy on a table. Look at it in dim room light, then turn on a lamp. Stay in a safe, familiar room. Never look directly into a bright light.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult records what the learner observed; do not require a completely dark room.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-light-observation-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "Compare the toy's color and shape before and after the lamp is turned on. Tell an adult one thing that changed.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult records the learner's own observations.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-light-observation-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Explain how the lamp helped you see the toy. Use something you observed as evidence.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult checks that the explanation refers to observations and light, without claiming the full standard is assessed.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-light-observation-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Look again at an object in ordinary room light. With an adult, change the amount of light safely and compare what you can see.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-light-observation-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "What helped make the toy easier to see?",
+          "choices": [
+            "More light",
+            "A louder sound",
+            "A colder room"
+          ],
+          "answer_index": 0,
+          "feedback": "More light can make the toy easier to see.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-community-roles",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "community",
+      "skill_id": "g1-community-roles",
+      "prerequisites": [],
+      "title": "People who help our school",
+      "objective": "Describe how people with responsibility help a school community.",
+      "standards": [
+        {
+          "framework": "C3 Framework",
+          "edition": "2013",
+          "id": "D2.Civ.1.K-2",
+          "url": "https://learninglab.si.edu/standards/D2.Civ.1.K-2/2769",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-community-roles-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A school has people with different responsibilities. A teacher helps children learn. A principal helps organize the school and keep it safe. A crossing guard helps people cross a street safely.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-community-roles-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Who helps you learn a new lesson in class?",
+          "choices": [
+            "A teacher",
+            "A bus driver",
+            "A librarian at a different school"
+          ],
+          "answer_index": 0,
+          "feedback": "A classroom teacher helps guide learning.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-community-roles-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Who usually helps organize the whole school?",
+          "choices": [
+            "A classmate",
+            "A principal",
+            "A visitor"
+          ],
+          "answer_index": 1,
+          "feedback": "A principal helps organize the school.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-community-roles-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Tell an adult one responsibility a school leader has and why it helps the school.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult checks that the explanation names a role and a helpful responsibility.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-community-roles-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Think of a problem at school: a class needs help learning, or a school needs a safe plan. Match each problem to someone who can help.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-community-roles-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Who helps people cross a street safely near school?",
+          "choices": [
+            "A crossing guard",
+            "A classmate",
+            "A cook"
+          ],
+          "answer_index": 0,
+          "feedback": "A crossing guard helps people cross safely.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-count-across-tens",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-count-across-tens",
+      "prerequisites": [],
+      "title": "Count past a ten",
+      "objective": "Count forward and backward through tens using objects and spoken numbers.",
+      "standards": [
+        {
+          "framework": "SC CCR Mathematics",
+          "edition": "2025; emended July 2026",
+          "id": "1.NR.2.1",
+          "url": "https://www.ed.sc.gov/instruction/standards/mathematics/standards/2025-south-carolina-college-and-career-ready-mathematics-standards/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-count-across-tens-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Start at 8 and count on: 8, 9, 10, 11. After 19 comes 20. When counting back from 21, say 21, 20, 19. Use a row of objects to keep your place.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-count-across-tens-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which number comes after 29?",
+          "choices": [
+            "30",
+            "28",
+            "39"
+          ],
+          "answer_index": 0,
+          "feedback": "After 29 comes 30.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-count-across-tens-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Fill the gap: 48, 49, __, 51.",
+          "choices": [
+            "40",
+            "60",
+            "50"
+          ],
+          "answer_index": 2,
+          "feedback": "Fifty follows forty-nine.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-count-across-tens-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Count aloud from 96 through 105, then backward from 82 to 77.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Observe each spoken number and both transitions. Record any prompting separately.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-count-across-tens-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Write 28, 29, 30, 31 on paper. Point at each number as you count both ways. Then try with 58, 59, 60, 61.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-count-across-tens-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Count backward: 71, 70, __.",
+          "choices": [
+            "60",
+            "69",
+            "72"
+          ],
+          "answer_index": 1,
+          "feedback": "One less than 70 is 69.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-tens-and-ones",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-tens-and-ones",
+      "prerequisites": [
+        "g1-count-across-tens"
+      ],
+      "title": "Bundles of ten",
+      "objective": "Use bundles of ten and loose objects to show two-digit numbers.",
+      "standards": [
+        {
+          "framework": "SC CCR Mathematics",
+          "edition": "2025; emended July 2026",
+          "id": "1.NR.1.2",
+          "url": "https://www.ed.sc.gov/instruction/standards/mathematics/standards/2025-south-carolina-college-and-career-ready-mathematics-standards/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 15,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-tens-and-ones-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Gather paper strips with an adult. Put ten strips in a bundle. Two bundles and three loose strips make 23. The 2 means two tens, or twenty. The 3 means three ones.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-tens-and-ones-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "Make 14 using bundles of ten and loose strips.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Observe one bundle of ten and four loose strips; ask the learner to explain.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-tens-and-ones-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "What does the 4 in 46 mean?",
+          "choices": [
+            "Four ones",
+            "Four tens",
+            "Six tens"
+          ],
+          "answer_index": 1,
+          "feedback": "Four tens have a total of forty.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-tens-and-ones-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Build 35 and 53 with bundles. Explain why the same digits give different amounts.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Look for three tens and five ones, then five tens and three ones, and a place-value explanation.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-tens-and-ones-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Unbundle ten strips and count them one by one. Bundle them again. The amount stays ten. Now add two loose strips to make twelve.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-tens-and-ones-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Six tens and two ones make what number?",
+          "choices": [
+            "26",
+            "60",
+            "62"
+          ],
+          "answer_index": 2,
+          "feedback": "Sixty and two make sixty-two.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-rhyme-pairs",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonological-awareness",
+      "skill_id": "g1-rhyme-pairs",
+      "prerequisites": [],
+      "title": "Hear the rhyme",
+      "objective": "Listen for matching endings and produce a rhyming word.",
+      "standards": [
+        {
+          "framework": "SC CCR ELA",
+          "edition": "2023; emended August 2025",
+          "id": "ELA.1.F.1.3",
+          "url": "https://www.ed.sc.gov/instruction/standards/english-language-arts/standards/2023-sc-ccr-ela-standards-approved/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-rhyme-pairs-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Ask an adult to say sun and fun. They end with the same sound. Sun and sit begin alike but do not rhyme. Listen to the end of each word.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-rhyme-pairs-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "Adult says hill, bill, hop. Tell which two rhyme.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Accept hill and bill. Model their matching endings if needed.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-rhyme-pairs-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "Adult says light, night, leaf. Choose the rhyming pair aloud.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Listen for light and night without showing printed choices.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-rhyme-pairs-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Adult says cake. Say a word that rhymes. Then decide if fish and dish rhyme.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Accept a real rhyme such as lake or make; fish and dish rhyme. Record support used.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-rhyme-pairs-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Say boat slowly. Ask an adult to say goat and book. Listen for the ending that sounds like boat.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-rhyme-pairs-6",
+          "phase": "review",
+          "kind": "teacher_review",
+          "prompt": "Adult says shell, bell, cup. Identify the pair and say another rhyme.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Listen for shell and bell and an additional suitable rhyme.",
+          "evidence": "teacher_observation"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-change-letters",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-change-letters",
+      "prerequisites": [
+        "g1-short-a"
+      ],
+      "title": "Make a new word",
+      "objective": "Change letters in printed words and read the resulting words aloud.",
+      "standards": [
+        {
+          "framework": "SC CCR ELA",
+          "edition": "2023; emended August 2025",
+          "id": "ELA.1.F.3.6",
+          "url": "https://www.ed.sc.gov/instruction/standards/english-language-arts/standards/2023-sc-ccr-ela-standards-approved/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-change-letters-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Look at cat. Replace c with m. The new word is mat. Change the last letter of mat to p and you get map. Say the new word each time.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-change-letters-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "Write or arrange the letters p-a-n. Replace p with f and read the new word.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Observe fan and correct letter substitution.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-change-letters-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "Start with sit. Replace i with a. Read the new word.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Observe sat; record if prompting was needed.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-change-letters-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Start with tap. Make top by changing one letter. Then make hop by changing one letter.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Check both new printed words and oral reading; preserve original attempt for later review.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-change-letters-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Use three separate paper letter cards. Move only the letter that must change. Read the sounds, then blend the new word.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-change-letters-6",
+          "phase": "review",
+          "kind": "teacher_review",
+          "prompt": "Start with pin. Change n to t and read the result. Change p to s and read again.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Observe pit and sit; do not score speech automatically.",
+          "evidence": "teacher_observation"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-materials-and-light",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "light-and-sound",
+      "skill_id": "g1-materials-and-light",
+      "prerequisites": [
+        "g1-light-observation"
+      ],
+      "title": "What lets light through?",
+      "objective": "Compare how safe household materials affect a flashlight beam.",
+      "standards": [
+        {
+          "framework": "SC CCR Science",
+          "edition": "2021; 2026-27 performance targets",
+          "id": "1-PS4-3",
+          "url": "https://www.ed.sc.gov/instruction/standards/science/instructional-resources/first-grade-performance-targets-for-the-south-carolina-college-and-career-ready-science-standards-2021/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 15,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-materials-and-light-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "With an adult, shine a small ordinary flashlight at a wall. Hold a clear plastic sheet in front of the light, then paper, then cardboard. Keep the flashlight pointed away from eyes. Different materials change the light that reaches the wall.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-materials-and-light-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "Before testing, predict which material will let the most light reach the wall.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult records prediction; do not mark a prediction wrong before observation.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-materials-and-light-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "Test clear plastic, paper and cardboard one at a time at the same distance. Describe the bright spot or shadow for each.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Record each observed result; adult supports safe setup.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-materials-and-light-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Explain which tested material blocked the most light and point to your observation as evidence.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Look for evidence from the actual investigation, not memorized vocabulary.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-materials-and-light-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Test two materials again while keeping the light and wall in the same places. Compare the patches on the wall.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-materials-and-light-6",
+          "phase": "review",
+          "kind": "teacher_review",
+          "prompt": "Predict what a second piece of cardboard will do. Test and compare.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Check that observation and prediction are distinguished.",
+          "evidence": "teacher_observation"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-day-night-patterns",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "earth-and-sky",
+      "skill_id": "g1-day-night-patterns",
+      "prerequisites": [],
+      "title": "Patterns in the sky",
+      "objective": "Use safe observations across several days to notice recurring sky patterns.",
+      "standards": [
+        {
+          "framework": "SC CCR Science",
+          "edition": "2021; 2026-27 performance targets",
+          "id": "1-ESS1-1",
+          "url": "https://www.ed.sc.gov/instruction/standards/science/instructional-resources/first-grade-performance-targets-for-the-south-carolina-college-and-career-ready-science-standards-2021/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 15,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-day-night-patterns-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Our sky changes during the day and night. Sunlight makes the sky bright in daytime. Many other stars are easier to see at night. The Moon may appear in daytime or at night. Never look directly at the Sun.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-day-night-patterns-2",
+          "phase": "guided",
+          "kind": "teacher_review",
+          "prompt": "With an adult, look at the sky away from the Sun. Describe whether it is bright or dark and whether the Moon is visible.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Record time period and observations, including cloud cover; do not require a clear sky.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-day-night-patterns-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "On another day or evening, record another safe sky observation. Compare the two.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Adult records actual observations without requiring a particular answer.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-day-night-patterns-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Using your observations over several days, predict whether daytime tomorrow will usually be bright or dark. Explain why.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Look for a pattern supported by observed evidence. More observations may be needed.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-day-night-patterns-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw two simple boxes labeled Day and Night. Add only the objects you actually saw. Repeat on another day.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-day-night-patterns-6",
+          "phase": "review",
+          "kind": "teacher_review",
+          "prompt": "Compare two more observations and explain one recurring pattern.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Review actual evidence, including cases when clouds hide the Moon or stars.",
+          "evidence": "teacher_observation"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-map-features",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "geography",
+      "skill_id": "g1-map-features",
+      "prerequisites": [],
+      "title": "A map of our classroom",
+      "objective": "Use a map title and symbols to interpret a simple map.",
+      "standards": [
+        {
+          "framework": "SC CCR Social Studies",
+          "edition": "2019",
+          "id": "1.G.1",
+          "url": "https://www.ed.sc.gov/instruction/standards/social-studies/standards/2019-south-carolina-social-studies-college-and-career-ready-standards/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-map-features-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A map shows where things are. A title tells what the map shows. A key explains symbols. On an imaginary classroom map, a square can mean a desk and a circle can mean a reading rug.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-map-features-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "What helps you learn what a map symbol means?",
+          "choices": [
+            "The date",
+            "The map key",
+            "The door"
+          ],
+          "answer_index": 1,
+          "feedback": "The key explains symbols.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-map-features-3",
+          "phase": "independent",
+          "kind": "teacher_review",
+          "prompt": "Draw a simple map of an imaginary room. Include a door, a desk and a rug. Make a key for your symbols.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Check the learner's map has a meaningful title and consistent symbols.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-map-features-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Ask an adult to draw a different room map with a key. Explain two symbols and what the map is for.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Evaluate use of the key and map purpose, not artistic skill.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-map-features-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw a square and label it desk. Draw another square on your map. Use the key to find what it means.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-map-features-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Which title fits a map showing classroom desks and doors?",
+          "choices": [
+            "The Classroom",
+            "A List of Snacks",
+            "A Story About Cats"
+          ],
+          "answer_index": 0,
+          "feedback": "The title describes the place shown.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-goods-and-services",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "economics",
+      "skill_id": "g1-goods-and-services",
+      "prerequisites": [],
+      "title": "Things and helpful work",
+      "objective": "Distinguish goods from services using school and South Carolina community examples.",
+      "standards": [
+        {
+          "framework": "SC CCR Social Studies",
+          "edition": "2019",
+          "id": "1.E.1",
+          "url": "https://www.ed.sc.gov/instruction/standards/social-studies/standards/2019-south-carolina-social-studies-college-and-career-ready-standards/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-goods-and-services-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A good is a thing someone makes or provides, such as a pencil or an apple. A service is helpful work, such as a bus ride or a haircut. South Carolina communities have both.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-goods-and-services-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which is a service?",
+          "choices": [
+            "A notebook",
+            "A banana",
+            "A bus ride"
+          ],
+          "answer_index": 2,
+          "feedback": "A bus ride is helpful work provided to people.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-goods-and-services-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Which is a good?",
+          "choices": [
+            "A haircut",
+            "A pair of shoes",
+            "A music lesson"
+          ],
+          "answer_index": 1,
+          "feedback": "Shoes are a thing someone can buy or receive.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-goods-and-services-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Name one good and one service available in your South Carolina community. Explain how they differ.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Look for a tangible item and helpful work. Accept local examples; do not request identifying details.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-goods-and-services-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Think of a bakery. Bread is a good. Delivering bread is a service. Practice sorting more examples with an adult.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-goods-and-services-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "A farmer sells peaches. A mechanic repairs a bicycle. Which example is a good?",
+          "choices": [
+            "Peaches",
+            "Repair work",
+            "Both are services"
+          ],
+          "answer_index": 0,
+          "feedback": "Peaches are a tangible good.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-take-away-within-10",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-take-away-within-10",
+      "prerequisites": [
+        "g1-add-within-10"
+      ],
+      "title": "Take away from a group",
+      "objective": "Find how many remain after taking away within ten.",
+      "standards": [
+        {
+          "framework": "Common Core Mathematics",
+          "edition": "2010",
+          "id": "1.OA.C.6",
+          "url": "https://www.thecorestandards.org/Math/Content/1/OA/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-take-away-within-10-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Subtraction can show what is left. Start with 6 dots. Cross out 2. Count the 4 dots that remain. Write 6 - 2 = 4.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-take-away-within-10-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Start with 5 counters. Take away 1. How many remain?",
+          "choices": [
+            "4",
+            "5",
+            "6"
+          ],
+          "answer_index": 0,
+          "feedback": "Five minus one equals four.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-take-away-within-10-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Seven birds sit on a fence. Three fly away. How many stay?",
+          "choices": [
+            "3",
+            "5",
+            "4"
+          ],
+          "answer_index": 2,
+          "feedback": "Count seven, remove three, and count the four left.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-take-away-within-10-4",
+          "phase": "assessment",
+          "kind": "choice",
+          "prompt": "You have 9 crayons. Give away 2. How many remain?",
+          "choices": [
+            "8",
+            "7",
+            "6"
+          ],
+          "answer_index": 1,
+          "feedback": "Nine minus two equals seven.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-take-away-within-10-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw 8 dots. Cross out 3 dots, then count the dots not crossed out. There are 5 left. Say 8 minus 3 equals 5.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-take-away-within-10-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Ten blocks are on a mat. Move 4 off the mat. How many stay?",
+          "choices": [
+            "6",
+            "5",
+            "4"
+          ],
+          "answer_index": 0,
+          "feedback": "Ten minus four equals six.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-missing-addend",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-missing-addend",
+      "prerequisites": [
+        "g1-add-within-10"
+      ],
+      "title": "Find the missing number",
+      "objective": "Use counting on and related subtraction to find a missing addend within ten.",
+      "standards": [
+        {
+          "framework": "Common Core Mathematics",
+          "edition": "2010",
+          "id": "1.OA.C.6",
+          "url": "https://www.thecorestandards.org/Math/Content/1/OA/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-missing-addend-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A missing addend is a number we need to find. In 3 + ? = 5, start at 3 and count on: 4, 5. Two more are needed.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-missing-addend-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Four plus how many equals six?",
+          "choices": [
+            "1",
+            "2",
+            "3"
+          ],
+          "answer_index": 1,
+          "feedback": "Count on from four: five, six. That is two more.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-missing-addend-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Find the missing number: 5 + ? = 8.",
+          "choices": [
+            "3",
+            "2",
+            "4"
+          ],
+          "answer_index": 0,
+          "feedback": "Five plus three equals eight.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-missing-addend-4",
+          "phase": "assessment",
+          "kind": "choice",
+          "prompt": "Find the missing number: 2 + ? = 9.",
+          "choices": [
+            "5",
+            "6",
+            "7"
+          ],
+          "answer_index": 2,
+          "feedback": "Count on seven times from two to nine.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-missing-addend-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw 7 circles. Shade 4. Count the 3 unshaded circles. That shows 4 + 3 = 7 and 7 - 4 = 3.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-missing-addend-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "There are 8 spaces. Three are filled. How many are empty?",
+          "choices": [
+            "4",
+            "5",
+            "6"
+          ],
+          "answer_index": 1,
+          "feedback": "Eight minus three equals five.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-short-i",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-short-i",
+      "prerequisites": [
+        "g1-short-a"
+      ],
+      "title": "Blend short-i words",
+      "objective": "Blend three sounds in regular short-i words.",
+      "standards": [
+        {
+          "framework": "Common Core ELA",
+          "edition": "2010",
+          "id": "RF.1.3b",
+          "url": "https://www.thecorestandards.org/ELA-Literacy/RF/1/3/b/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-short-i-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "The short i sound is in sit. Say the sounds s, i, t slowly, then blend them into sit. Ask an adult to model the sound if needed.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-i-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which word has the short i sound?",
+          "choices": [
+            "sat",
+            "sit",
+            "sun"
+          ],
+          "answer_index": 1,
+          "feedback": "Sit has the short i sound in the middle.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-short-i-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Blend p, i, n. Which word?",
+          "choices": [
+            "pan",
+            "pen",
+            "pin"
+          ],
+          "answer_index": 2,
+          "feedback": "The sounds blend into pin.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-short-i-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Read fin, lip, and bit aloud to an adult. Say each sound first if you need help.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Listen for the short i sound and accurate blending. Record prompted and independent reading separately.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-short-i-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Say m, i, t slowly with an adult. Blend the sounds into mit, a practice sound pattern. Now try m, i, x to read mix.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-i-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Which word starts with f, has short i, and ends with t?",
+          "choices": [
+            "fit",
+            "fat",
+            "fan"
+          ],
+          "answer_index": 0,
+          "feedback": "The sounds f, i, t blend into fit.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-change-last-sound",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-change-last-sound",
+      "prerequisites": [
+        "g1-change-letters"
+      ],
+      "title": "Change the last sound",
+      "objective": "Replace a final sound to build a new regular word.",
+      "standards": [
+        {
+          "framework": "SC CCR ELA",
+          "edition": "2023; emended August 2025",
+          "id": "ELA.1.F.3.6",
+          "url": "https://www.ed.sc.gov/instruction/standards/english-language-arts/standards/2023-sc-ccr-ela-standards-approved/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-change-last-sound-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Say cap. The last sound is p. Replace p with t. The word becomes cat. The first two sounds stay the same.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-change-last-sound-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Change the last sound of mat from t to p.",
+          "choices": [
+            "map",
+            "pat",
+            "man"
+          ],
+          "answer_index": 0,
+          "feedback": "Keep m and a, and change t to p: map.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-change-last-sound-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Change the last sound of pan from n to t.",
+          "choices": [
+            "tan",
+            "pan",
+            "pat"
+          ],
+          "answer_index": 2,
+          "feedback": "Keep p and a, and change n to t: pat.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-change-last-sound-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Say tap. Change the last sound to n. Then say the new word to an adult.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Expected word: tan. Observe whether the learner changes only the final sound; accept a spoken response.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-change-last-sound-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Say bag and bat slowly. The first two sounds match. Point to the last letter of each word as an adult reads them aloud.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-change-last-sound-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Change the last sound of ram from m to t.",
+          "choices": [
+            "mat",
+            "rat",
+            "ran"
+          ],
+          "answer_index": 1,
+          "feedback": "Keep r and a, and change m to t: rat.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-shadows",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "light-and-sound",
+      "skill_id": "g1-shadows",
+      "prerequisites": [
+        "g1-materials-and-light"
+      ],
+      "title": "Make and compare shadows",
+      "objective": "Observe how an opaque object blocks light and creates a shadow.",
+      "standards": [
+        {
+          "framework": "SC CCR Science",
+          "edition": "2021; 2026-27 performance targets",
+          "id": "1-PS4-3",
+          "url": "https://www.ed.sc.gov/instruction/standards/science/instructional-resources/first-grade-performance-targets-for-the-south-carolina-college-and-career-ready-science-standards-2021/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-shadows-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A shadow forms when an object blocks light. With an adult, use a flashlight aimed at paper, not eyes. Put a book between them.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-shadows-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "What makes a shadow on the paper?",
+          "choices": [
+            "A book blocking light",
+            "Paper making light",
+            "A sound from the book"
+          ],
+          "answer_index": 0,
+          "feedback": "The book blocks some light from reaching the paper.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-shadows-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Which object is most likely to block the flashlight beam?",
+          "choices": [
+            "Clear plastic",
+            "A thick cardboard sheet",
+            "An open space"
+          ],
+          "answer_index": 1,
+          "feedback": "Cardboard blocks much of the light.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-shadows-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "With an adult, move a cardboard shape into and out of a flashlight beam aimed at a wall. Describe what changes.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Look for a shadow when light is blocked and its disappearance when the blocker is removed. No light toward eyes.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-shadows-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Keep the light aimed at the wall. Compare an opaque card with a clear sheet. Describe the shadows with an adult.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-shadows-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "What happens when you remove the object that blocks the light?",
+          "choices": [
+            "The light stops forever",
+            "The wall makes a sound",
+            "The shadow from that object disappears"
+          ],
+          "answer_index": 2,
+          "feedback": "Light can reach the part of the wall that was blocked.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-moon-observations",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "earth-and-sky",
+      "skill_id": "g1-moon-observations",
+      "prerequisites": [
+        "g1-day-night-patterns"
+      ],
+      "title": "Observe the Moon",
+      "objective": "Describe observations of the Moon over more than one day.",
+      "standards": [
+        {
+          "framework": "SC CCR Science",
+          "edition": "2021; 2026-27 performance targets",
+          "id": "1-ESS1-1",
+          "url": "https://www.ed.sc.gov/instruction/standards/science/instructional-resources/first-grade-performance-targets-for-the-south-carolina-college-and-career-ready-science-standards-2021/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-moon-observations-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "We can sometimes see the Moon in daylight or at night. Its visible shape can look different over many days. Observe safely with an adult.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-moon-observations-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "When might you see the Moon?",
+          "choices": [
+            "Only at midnight",
+            "In daylight or at night",
+            "Only when it rains"
+          ],
+          "answer_index": 1,
+          "feedback": "The Moon can be visible during the day or night.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-moon-observations-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Which record helps compare Moon observations?",
+          "choices": [
+            "A drawing and date",
+            "A favorite snack",
+            "A shoe size"
+          ],
+          "answer_index": 0,
+          "feedback": "A dated drawing records what you observed.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-moon-observations-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "With an adult, look for the Moon from a safe place on two different days. Draw what you see or record not seen.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Compare actual observations; cloud cover or timing can prevent seeing the Moon. Never require looking at the Sun.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-moon-observations-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "If clouds hide the Moon, write not seen and try another day. A missing observation does not mean the Moon is gone.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-moon-observations-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "The Moon is hidden by clouds today. What should you record?",
+          "choices": [
+            "The Moon vanished",
+            "It must be midnight",
+            "Not seen today"
+          ],
+          "answer_index": 2,
+          "feedback": "Record what you actually observed, not a guess.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-map-route",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "geography",
+      "skill_id": "g1-map-route",
+      "prerequisites": [
+        "g1-map-features"
+      ],
+      "title": "Follow a simple map",
+      "objective": "Use map symbols and relative directions to describe a short route.",
+      "standards": [
+        {
+          "framework": "SC CCR Social Studies",
+          "edition": "2019",
+          "id": "1.G.1",
+          "url": "https://www.ed.sc.gov/instruction/standards/social-studies/standards/2019-south-carolina-social-studies-college-and-career-ready-standards/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-map-route-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A map can show where places are. Imagine a door at the bottom of a map, a desk above it, and a bookshelf to the right of the desk.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-map-route-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "On this map, what is above the door?",
+          "choices": [
+            "Bookshelf",
+            "Desk",
+            "Window"
+          ],
+          "answer_index": 1,
+          "feedback": "The desk is above the door on this map.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-map-route-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "From the desk, which way is the bookshelf?",
+          "choices": [
+            "Right",
+            "Left",
+            "Below"
+          ],
+          "answer_index": 0,
+          "feedback": "The bookshelf is to the right of the desk.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-map-route-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Draw a map of a pretend room with a door, desk and shelf. Add a key and describe a route between two places.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Check that the key identifies symbols and the described route matches the drawn map. No private addresses.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-map-route-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw three squares on paper for the door, desk and shelf. Label each. Trace a route from the door to the desk.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-map-route-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "What helps another person understand the symbols on a map?",
+          "choices": [
+            "A snack",
+            "A song title",
+            "A map key"
+          ],
+          "answer_index": 2,
+          "feedback": "The key explains what each map symbol means.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-goods-service-work",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "economics",
+      "skill_id": "g1-goods-service-work",
+      "prerequisites": [
+        "g1-goods-and-services"
+      ],
+      "title": "How people meet needs",
+      "objective": "Distinguish goods from services in everyday community examples.",
+      "standards": [
+        {
+          "framework": "SC CCR Social Studies",
+          "edition": "2019",
+          "id": "1.E.1",
+          "url": "https://www.ed.sc.gov/instruction/standards/social-studies/standards/2019-south-carolina-social-studies-college-and-career-ready-standards/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-goods-service-work-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "People use goods and services to meet needs. Food is a good. A cook prepares food, which is work. A library lends books and helps readers.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-goods-service-work-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which example is helpful work, or a service?",
+          "choices": [
+            "A loaf of bread",
+            "A pencil",
+            "Fixing a bicycle"
+          ],
+          "answer_index": 2,
+          "feedback": "Fixing a bicycle is work that helps someone.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-goods-service-work-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Which example is a good?",
+          "choices": [
+            "A bus ride",
+            "A warm coat",
+            "A haircut"
+          ],
+          "answer_index": 1,
+          "feedback": "A coat is a thing that can help keep someone warm.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-goods-service-work-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Tell an adult about one community worker and a good or service that worker provides.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Listen for a clear example and explanation. Accept varied jobs; do not ask for personal family or income details.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-goods-service-work-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "At a bakery, the bread is a good. Delivering bread is a service. Think of a shop that offers both a thing and helpful work.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-goods-service-work-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "A librarian helps someone find a book. What is the helping work?",
+          "choices": [
+            "A service",
+            "A good",
+            "A map"
+          ],
+          "answer_index": 0,
+          "feedback": "Helping someone find a book is a service.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-compare-two-digit",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-compare-two-digit",
+      "prerequisites": [
+        "g1-tens-and-ones"
+      ],
+      "title": "Compare tens and ones",
+      "objective": "Compare two two-digit numbers using place value.",
+      "standards": [
+        {
+          "framework": "Common Core Mathematics",
+          "edition": "2010",
+          "id": "1.NBT.B.3",
+          "url": "https://www.khanacademy.org/standards/CCSS.Math/1.NBT",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 15,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-compare-two-digit-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Compare tens first. 42 has four tens and 36 has three tens, so 42 is greater. If the tens match, compare the ones. 42 is less than 45.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-compare-two-digit-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which number is greater?",
+          "choices": [
+            "26",
+            "62",
+            "Both equal"
+          ],
+          "answer_index": 1,
+          "feedback": "62 has six tens. 26 has two tens.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-compare-two-digit-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Which number is smaller?",
+          "choices": [
+            "58",
+            "Both equal",
+            "53"
+          ],
+          "answer_index": 2,
+          "feedback": "Both have five tens. Three ones are fewer than eight ones.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-compare-two-digit-4",
+          "phase": "assessment",
+          "kind": "choice",
+          "prompt": "Choose the true comparison.",
+          "choices": [
+            "47 > 74",
+            "47 < 74",
+            "47 = 74"
+          ],
+          "answer_index": 1,
+          "feedback": "Four tens are fewer than seven tens. The open end of the sign faces the greater number.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-compare-two-digit-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw tens as sticks and ones as dots. Compare 32 and 35. The tens match, so count the dots. Try 61 and 16 next.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-compare-two-digit-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Choose the true comparison.",
+          "choices": [
+            "81 > 18",
+            "81 < 18",
+            "81 = 18"
+          ],
+          "answer_index": 0,
+          "feedback": "Eight tens are greater than one ten.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-story-problems",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "mathematics",
+      "unit": "number-and-operations",
+      "skill_id": "g1-story-problems",
+      "prerequisites": [
+        "g1-add-within-10",
+        "g1-take-away-within-10"
+      ],
+      "title": "Solve number stories",
+      "objective": "Choose addition or subtraction and solve simple change stories within twenty.",
+      "standards": [
+        {
+          "framework": "Common Core Mathematics",
+          "edition": "2010",
+          "id": "1.OA.A.1",
+          "url": "https://www.khanacademy.org/standards/CCSS.Math/1.OA.A",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-story-problems-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A number story tells what happens to a group. If 8 birds are joined by 4 more, add to find the total: 8 + 4 = 12. If 3 of the 12 birds leave, subtract: 12 - 3 = 9.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-story-problems-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Mia has 7 crayons and gets 5 more. Which equation finds how many she has now?",
+          "choices": [
+            "7 - 5 = 2",
+            "7 + 5 = 12",
+            "5 + 5 = 10"
+          ],
+          "answer_index": 1,
+          "feedback": "She gets more crayons, so add 7 and 5.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-story-problems-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "There are 15 toy cars. Six are put away. How many remain?",
+          "choices": [
+            "9",
+            "11",
+            "19"
+          ],
+          "answer_index": 0,
+          "feedback": "15 minus 6 is 9.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-story-problems-4",
+          "phase": "assessment",
+          "kind": "choice",
+          "prompt": "A basket has 9 pears. Four more are added. How many now?",
+          "choices": [
+            "5",
+            "14",
+            "13"
+          ],
+          "answer_index": 2,
+          "feedback": "9 + 4 = 13.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-story-problems-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Draw a group of dots for the starting number. Add dots for objects arriving, or cross out dots for objects leaving. Count the new group.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-story-problems-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "There are 18 blocks. Seven are removed. Which equation matches?",
+          "choices": [
+            "18 + 7 = 25",
+            "18 - 7 = 11",
+            "18 - 8 = 10"
+          ],
+          "answer_index": 1,
+          "feedback": "Removing seven means subtract seven from eighteen.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-short-o",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-short-o",
+      "prerequisites": [
+        "g1-short-i"
+      ],
+      "title": "Blend short-o words",
+      "objective": "Blend and identify short-o consonant-vowel-consonant words.",
+      "standards": [
+        {
+          "framework": "Common Core ELA",
+          "edition": "2010",
+          "id": "RF.1.3b",
+          "url": "https://www.thecorestandards.org/ELA-Literacy/RF/1/3/b/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-short-o-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Say the short o sound in hot. Read h, o, t slowly. Blend them: hot. Try the same with pot and log.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-o-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which word has the middle sound in hot?",
+          "choices": [
+            "hat",
+            "hit",
+            "hop"
+          ],
+          "answer_index": 2,
+          "feedback": "Hop and hot have the same short o sound.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-short-o-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Blend d, o, g. Which word?",
+          "choices": [
+            "dog",
+            "dig",
+            "dug"
+          ],
+          "answer_index": 0,
+          "feedback": "The sounds blend into dog.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-short-o-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Read these words aloud to an adult: top, log, pot. Then say each sound in mop.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Listen for short o and blending of all three sounds. Accept dialect differences. Give support if needed; do not auto-score speech.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-short-o-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Say the sounds in cot slowly, then blend cot. Change the first sound to make dot. Blend again.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-o-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Which word begins with m and has the middle sound in hot?",
+          "choices": [
+            "map",
+            "mop",
+            "mat"
+          ],
+          "answer_index": 1,
+          "feedback": "Mop begins with m and has short o.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-short-u",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "english_language_arts",
+      "unit": "phonics",
+      "skill_id": "g1-short-u",
+      "prerequisites": [
+        "g1-short-i"
+      ],
+      "title": "Blend short-u words",
+      "objective": "Blend and identify short-u consonant-vowel-consonant words.",
+      "standards": [
+        {
+          "framework": "Common Core ELA",
+          "edition": "2010",
+          "id": "RF.1.3b",
+          "url": "https://www.thecorestandards.org/ELA-Literacy/RF/1/3/b/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; educator review pending; partial standards mapping",
+      "activities": [
+        {
+          "activity_id": "g1-short-u-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "Say the short u sound in sun. Read s, u, n. Blend the sounds into sun. Try fun and run.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-u-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which word has the middle sound in sun?",
+          "choices": [
+            "sit",
+            "cup",
+            "cap"
+          ],
+          "answer_index": 1,
+          "feedback": "Cup has the short u sound.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-short-u-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Blend b, u, g. Which word?",
+          "choices": [
+            "bag",
+            "big",
+            "bug"
+          ],
+          "answer_index": 2,
+          "feedback": "The three sounds make bug.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-short-u-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Read mud, rug and cut to an adult. Say the three sounds in hut.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Listen for each sound and blending. Record whether the child needed a model. Accept dialect differences.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-short-u-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Say r, u, n. Blend run. Change r to f and blend fun. Try the same change from bug to rug.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-short-u-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Which word rhymes with sun?",
+          "choices": [
+            "fun",
+            "fan",
+            "fin"
+          ],
+          "answer_index": 0,
+          "feedback": "Sun and fun share the ending sound.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-sound-vibration",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "light-and-sound",
+      "skill_id": "g1-sound-vibration",
+      "prerequisites": [],
+      "title": "Sounds and vibrations",
+      "objective": "Observe that some vibrating objects produce sound.",
+      "standards": [
+        {
+          "framework": "NGSS",
+          "edition": "2013",
+          "id": "1-PS4-1",
+          "url": "https://www.nextgenscience.org/topic-arrangement/1waves-light-and-sound",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-sound-vibration-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A vibration is a fast back-and-forth movement. With an adult, place a flexible ruler partly over a table edge and press the other end firmly. Gently tap the free end. Watch it move and listen.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-sound-vibration-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "What should you watch when the ruler makes a sound?",
+          "choices": [
+            "Its color",
+            "Its movement",
+            "Its printed numbers"
+          ],
+          "answer_index": 1,
+          "feedback": "Watch the back-and-forth movement.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-sound-vibration-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Which observation supports the idea that movement can make sound?",
+          "choices": [
+            "A ruler has numbers",
+            "A table is brown",
+            "A tapped ruler moves and makes sound"
+          ],
+          "answer_index": 2,
+          "feedback": "The movement and sound happen together.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-sound-vibration-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "With an adult, compare the ruler at rest and after a gentle tap. Tell what you saw and heard. Keep the ruler away from faces.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Look for a comparison of movement and sound in both conditions. Do not claim the child observed anything until the investigation is done.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-sound-vibration-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Repeat gently. Look closely as the ruler slows down. Notice whether the sound changes. Ask an adult for help if you cannot see or hear the change.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-sound-vibration-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "What is a vibration?",
+          "choices": [
+            "A back-and-forth movement",
+            "A color",
+            "A kind of map"
+          ],
+          "answer_index": 0,
+          "feedback": "A vibration is movement back and forth.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-seasonal-daylight",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "science",
+      "unit": "earth-and-sky",
+      "skill_id": "g1-seasonal-daylight",
+      "prerequisites": [
+        "g1-day-night-patterns"
+      ],
+      "title": "Daylight across the year",
+      "objective": "Compare example daylight observations and plan repeated seasonal observations.",
+      "standards": [
+        {
+          "framework": "NGSS",
+          "edition": "2013",
+          "id": "1-ESS1-2",
+          "url": "https://www.nextgenscience.org/practice/planning-and-carrying-out-investigations?page=2",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 15,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-seasonal-daylight-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "The amount of daylight can change during the year. At the same place, some days have more hours of daylight than others. An adult can help you record sunrise and sunset times. Never look directly at the Sun.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-seasonal-daylight-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Which example has more daylight?",
+          "choices": [
+            "A day with 10 hours",
+            "A day with 14 hours",
+            "Both the same"
+          ],
+          "answer_index": 1,
+          "feedback": "Fourteen hours is more than ten hours.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-seasonal-daylight-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Why record daylight at the same place in different seasons?",
+          "choices": [
+            "To measure a pencil",
+            "To change the weather",
+            "To compare daylight patterns"
+          ],
+          "answer_index": 2,
+          "feedback": "Repeated observations can show changes across the year.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-seasonal-daylight-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "With an adult, record today's local sunrise and sunset times from a trusted calendar. Plan another observation in a different season.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Check date, place and both times. Mark calendar information as a source, not a direct observation. Full seasonal investigation requires later records.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-seasonal-daylight-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Imagine two example days. One has 12 hours of daylight; another has 9. Draw a longer bar for 12. Compare their lengths.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-seasonal-daylight-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "What helps us find a pattern?",
+          "choices": [
+            "One guess",
+            "Repeated records at the same place",
+            "Changing places without recording them"
+          ],
+          "answer_index": 1,
+          "feedback": "Records collected across the year support comparison.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-classroom-rules",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "community",
+      "skill_id": "g1-classroom-rules",
+      "prerequisites": [
+        "g1-community-roles"
+      ],
+      "title": "Rules help us work together",
+      "objective": "Explain how shared rules support safety and fairness.",
+      "standards": [
+        {
+          "framework": "C3 Framework",
+          "edition": "2013",
+          "id": "D2.Civ.3.K-2",
+          "url": "https://app2.curriculumtrak.com/client/benchmark/available_standards_list.cfm?sdpid=635",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 10,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult read-aloud support where appropriate; audio asset not included"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-classroom-rules-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A classroom rule helps people learn and work together. Taking turns lets more people speak. Walking indoors helps people move safely. Rules should have a reason.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-classroom-rules-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "Why take turns during a group discussion?",
+          "choices": [
+            "So everyone can speak",
+            "So nobody can listen",
+            "So only one person learns"
+          ],
+          "answer_index": 0,
+          "feedback": "Taking turns gives others a chance to speak.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-classroom-rules-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "Two students want the same game. What is a fair first step?",
+          "choices": [
+            "Hide the game",
+            "Agree to take turns",
+            "Push the other student"
+          ],
+          "answer_index": 1,
+          "feedback": "Taking turns can give both students a chance.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-classroom-rules-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Tell an adult one classroom rule and explain why it helps the group.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Accept a reasonable rule and a clear reason connected to safety, learning or fairness. Ask how the rule could help others.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-classroom-rules-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Think of a busy hallway. Walking gives people time to notice others. A useful rule has a purpose, not just words to remember.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-classroom-rules-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "Which rule helps keep a shared walkway safe?",
+          "choices": [
+            "Leave bags in the middle",
+            "Run past everyone",
+            "Keep the walkway clear"
+          ],
+          "answer_index": 2,
+          "feedback": "A clear walkway helps people move safely.",
+          "evidence": "selected_choice"
+        }
+      ]
+    },
+    {
+      "lesson_id": "g1-map-symbols",
+      "revision": 1,
+      "grade_label": "1",
+      "subject": "social_studies",
+      "unit": "geography",
+      "skill_id": "g1-map-symbols",
+      "prerequisites": [
+        "g1-map-features"
+      ],
+      "title": "Read a map key",
+      "objective": "Interpret simple map symbols using a key.",
+      "standards": [
+        {
+          "framework": "C3 Framework",
+          "edition": "2013",
+          "id": "D2.Geo.2.K-2",
+          "url": "https://education.nationalgeographic.org/resource/mapping-the-classroom/",
+          "mapping": "partial_draft"
+        }
+      ],
+      "minutes": 12,
+      "accessibility": [
+        "Plain text; no timed responses",
+        "Adult support for reading and hands-on activities"
+      ],
+      "review_state": "draft",
+      "review_date": null,
+      "provenance": "Original Pocket Learning draft; distribution rights and educator review pending",
+      "activities": [
+        {
+          "activity_id": "g1-map-symbols-1",
+          "phase": "instruction",
+          "kind": "instruction",
+          "prompt": "A map key explains symbols. In an example key, B means books, D means door and T means table. The symbols help us read a small map without drawing every object.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-map-symbols-2",
+          "phase": "guided",
+          "kind": "choice",
+          "prompt": "In this key, B means books and D means door. Which symbol marks the door?",
+          "choices": [
+            "B",
+            "D",
+            "T"
+          ],
+          "answer_index": 1,
+          "feedback": "D stands for door in this example.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-map-symbols-3",
+          "phase": "independent",
+          "kind": "choice",
+          "prompt": "A new key says P means playground and S means school. Which symbol shows school?",
+          "choices": [
+            "P",
+            "D",
+            "S"
+          ],
+          "answer_index": 2,
+          "feedback": "Read the new key: S means school.",
+          "evidence": "selected_choice"
+        },
+        {
+          "activity_id": "g1-map-symbols-4",
+          "phase": "assessment",
+          "kind": "teacher_review",
+          "prompt": "Draw a simple map of a pretend classroom on paper. Mark two places with symbols and make a key. Ask an adult to use your key.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "Check that both symbols match the key and that another person can identify the places. Do not ask for a home address.",
+          "evidence": "teacher_observation"
+        },
+        {
+          "activity_id": "g1-map-symbols-5",
+          "phase": "remediation",
+          "kind": "instruction",
+          "prompt": "Map symbols can change from map to map. Always check the key. A letter on one map may mean something different on another.",
+          "choices": [],
+          "answer_index": null,
+          "feedback": "",
+          "evidence": "none"
+        },
+        {
+          "activity_id": "g1-map-symbols-6",
+          "phase": "review",
+          "kind": "choice",
+          "prompt": "What should you check when a map symbol is unfamiliar?",
+          "choices": [
+            "The map key",
+            "The page color",
+            "The paper size"
+          ],
+          "answer_index": 0,
+          "feedback": "The map key tells what the symbol means.",
+          "evidence": "selected_choice"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# Name, Type, SubType, Offset, Size, Flags
+nvs,data,nvs,0x9000,0x6000,
+phy_init,data,phy,0xf000,0x1000,
+factory,app,factory,0x10000,0x400000,
+model,data,spiffs,0x410000,0x800000,
+# Candidate only; not referenced by any upload or normal learner environment.
+pllearning,data,nvs,0xc10000,0x200000,
+plsecure,data,nvs,0xe10000,0x3000,
+plseckeys,data,nvs_keys,0xe13000,0x1000,encrypted
