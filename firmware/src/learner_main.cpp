@@ -42,6 +42,8 @@ namespace {
 LearnerNavigation navigation;
 curriculum_preview::Preview curriculum;
 curriculum_preview::ResumeStore curriculum_resume;
+// Volatile evidence, intentionally lost at reboot; no new student-data writes.
+curriculum_preview::SessionEvidence curriculum_evidence;
 // Non-owning view; only a qualified, replayed SD owner may bind this.
 curriculum_preview::CompletionLedger* curriculum_completion=nullptr;
 #ifdef POCKET_LEARNER_SD_EVAL
@@ -298,7 +300,7 @@ void render() {
     } else if (navigation.screen==LearnerScreen::Reading) {
       render_reading();
     } else if (navigation.screen==LearnerScreen::Curriculum) {
-      curriculum_preview::render(curriculum,curriculum_resume.available(),curriculum_completion);
+      curriculum_preview::render(curriculum,curriculum_resume.available(),curriculum_completion,&curriculum_evidence);
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
     } else if(navigation.screen==LearnerScreen::Achievements){
@@ -430,7 +432,10 @@ void loop() {
         }else
 #endif
         {
+          const auto before=curriculum;
           const auto result=curriculum_preview::commit_transition(curriculum,candidate,curriculum_resume,curriculum_completion);
+          if(result==curriculum_preview::TransitionResult::Applied)
+            curriculum_evidence.observe(before,curriculum);
 #ifdef POCKET_LEARNER_SD_EVAL
           if(result==curriculum_preview::TransitionResult::CompletionError)
             sd_status=learner_storage::unavailable();

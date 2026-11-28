@@ -4,6 +4,7 @@
 #include "curriculum_answer_layout.h"
 #include "curriculum_feedback.h"
 #include "curriculum_text_layout.h"
+#include "curriculum_session_evidence.h"
 #include <string>
 #include <cassert>
 using namespace curriculum_preview;
@@ -34,6 +35,8 @@ int main(){
     assert(learner_navigate(nav,LearnerAction::Back)&&nav.screen==LearnerScreen::Home);
   }
   assert(learner_subject(learner_tiles[4].action)==-1);
+  SessionEvidence evidence;
+  unsigned independent_count=0;
   unsigned visited=0,activities=0;
   Preview p;
   for(unsigned s=0;s<4;++s){
@@ -79,7 +82,12 @@ int main(){
           assert(answer_index(a.count,48,answer_rect(a.count).y)==-1);
           assert(!p.next());assert(!p.answer(a.count));
           assert(a.answer>=0&&unsigned(a.answer)<a.count);
+          const auto before=p;
           assert(p.answer(unsigned(a.answer)));assert(p.screen==Screen::Feedback);
+          const bool scored=independent_choice(a);
+          assert(evidence.observe(before,p)==scored);
+          if(scored)++independent_count;
+          assert(!evidence.observe(before,p));
           assert(feedback_tone(p)==FeedbackTone::Correct);
           Preview incorrect=p;
           incorrect.selected=(a.answer+1)%a.count;
@@ -102,7 +110,32 @@ int main(){
     assert(!p.change_page(-1));
     assert(p.back());assert(!p.back());
   }
-  assert(visited==127&&activities==762);
+  assert(visited==127&&activities==762&&independent_count==166);
+  unsigned observed=0;
+  for(std::size_t i=0;i<lesson_count;++i){
+    const auto e=evidence.skill(i);
+    assert(e.correct==e.observed&&e.observed==e.possible);
+    assert(practice_hint(e)==(e.observed?PracticeHint::AnswersCorrect:PracticeHint::NoEvidence));
+    observed+=e.observed;
+  }
+  assert(observed==166);
+  SessionEvidence fresh;
+  Preview sample;
+  assert(sample.choose_subject(0)&&sample.choose_lesson(0));
+  while(!independent_choice(sample.activity())){
+    if(sample.activity().kind==Kind::Choice)assert(sample.answer(0)&&sample.next());
+    else assert(sample.next());
+  }
+  const auto before=sample;
+  assert(sample.answer((unsigned(sample.activity().answer)+1)%sample.activity().count));
+  auto review=sample;review.reviewing=true;
+  assert(!fresh.observe(before,review));
+  assert(fresh.observe(before,sample));
+  assert(practice_hint(fresh.skill(sample.lesson))==PracticeHint::PracticeSuggested);
+  sample.selected=sample.activity().answer;
+  assert(!fresh.observe(before,sample)&&fresh.skill(sample.lesson).correct==0);
+  assert(practice_hint({1,1,2})==PracticeHint::IncompleteEvidence);
+  assert(SessionEvidence{}.skill(sample.lesson).observed==0);
   // Every lesson remains reachable exactly once through the real grouped path.
   bool reached[lesson_count]={};unsigned total=0;
   for(unsigned s=0;s<4;++s){

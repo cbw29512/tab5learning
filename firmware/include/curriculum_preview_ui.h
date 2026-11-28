@@ -9,6 +9,7 @@
 #include "curriculum_topic_ui.h"
 #include "curriculum_text_layout.h"
 #include "curriculum_recommendation.h"
+#include "curriculum_session_evidence.h"
 namespace curriculum_preview {
 // A single bounded wrapper also serves the completion notice.
 inline void wrapped(const char* text,int x,int y,unsigned max_lines,unsigned columns=60){
@@ -37,7 +38,7 @@ inline void page_button(const char* label,int x){
   M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);M5.Display.setTextSize(3);
   M5.Display.drawString(label,x+24,508);
 }
-inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledger=nullptr){
+inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledger=nullptr,const SessionEvidence* evidence=nullptr){
   M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
 #ifdef POCKET_LEARNER_SD_EVAL
   const char* banner=!resume_ok?"Resume storage unavailable - ask your teacher":
@@ -108,6 +109,18 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   if(p.screen==Screen::Finished){
     const auto saved=lesson_progress(ledger,p.current())==CompletionLookup::Recorded;
     render_finish_heading(p.reviewing);
+    if(evidence&&!p.reviewing){
+      const auto sample=evidence->skill(p.lesson);
+      const auto hint=practice_hint(sample);
+      if(hint!=PracticeHint::NoEvidence){
+        char line[100];
+        std::snprintf(line,sizeof(line),"This session: %u of %u first answers correct%s",
+          sample.correct,sample.observed,hint==PracticeHint::PracticeSuggested?" - more practice may help":"");
+        M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_DARKGREEN);
+        M5.Display.drawString(line,76,292);
+        M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+      }
+    }
     wrapped(p.reviewing?"Nice practice! No new completion or grade was recorded.":saved?"Your lesson completion is saved. Keep learning!":
                   "Nice effort! Completion history is not available yet. No grade was recorded.",48,340,4);
     const auto* suggested=recommended_after(p,ledger);
