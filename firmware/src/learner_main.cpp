@@ -142,7 +142,10 @@ const char* heading() {
     case LearnerScreen::Spelling: return "Spelling";
     case LearnerScreen::Flashcards: return "Flashcards";
     case LearnerScreen::Journey: return "My Learning Journey";
-    case LearnerScreen::Curriculum: return curriculum.screen==curriculum_preview::Screen::Subjects ? "Grade 1" : curriculum_preview::subjects[curriculum.subject];
+    case LearnerScreen::Curriculum:
+      if(curriculum.screen==curriculum_preview::Screen::Subjects)return "Grade 1";
+      if(curriculum.unit>=0)return curriculum_preview::units[curriculum.unit].title;
+      return curriculum_preview::subjects[curriculum.subject];
     default: return "Pocket Learning";
   }
 }
@@ -349,7 +352,9 @@ void loop() {
     } else
 #endif
     if (navigation.screen==LearnerScreen::Curriculum && !navigation.help_open &&
-        curriculum.screen!=curriculum_preview::Screen::Lessons &&
+        curriculum.screen!=curriculum_preview::Screen::Units &&
+        curriculum.screen!=curriculum_preview::Screen::Subjects &&
+        (curriculum.grouped||curriculum.screen!=curriculum_preview::Screen::Lessons) &&
         learner_back.hit(detail.x,detail.y) && curriculum.back()) {
       render();
     } else if (learner_hit(navigation,detail.x,detail.y,action) &&
@@ -357,7 +362,7 @@ void loop() {
       const auto subject=learner_subject(action);
       if(subject>=0) {
         curriculum.reset();
-        curriculum.choose_subject(static_cast<unsigned>(subject));
+        curriculum.choose_subject_grouped(static_cast<unsigned>(subject));
       } else if(action==LearnerAction::Curriculum || navigation.screen==LearnerScreen::Home) {
         curriculum.reset();
         if(action==LearnerAction::Curriculum) curriculum_resume.restore(curriculum);
@@ -377,7 +382,7 @@ void loop() {
           curriculum_preview::Preview saved;
           if(curriculum_resume.restore(saved) &&
               saved.screen==curriculum_preview::Screen::Activity &&
-              saved.lesson==candidate.lesson) candidate=saved;
+              saved.lesson==candidate.lesson) candidate.step=saved.step; // Retain selected unit and page.
         }
         // Completion backend remains explicitly disabled until the
         // isolated SD write and reboot test is physically accepted.

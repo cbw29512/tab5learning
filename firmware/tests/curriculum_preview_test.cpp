@@ -57,4 +57,31 @@ int main(){
     assert(p.back());assert(!p.back());
   }
   assert(visited==52&&activities==312);
+  // Every lesson remains reachable exactly once through the real grouped path.
+  bool reached[lesson_count]={};unsigned total=0;
+  for(unsigned s=0;s<4;++s){
+    Preview g;assert(g.choose_subject_grouped(s)&&g.screen==Screen::Units);
+    for(unsigned up=0;up<lesson_pages(g.units_in_subject());++up){
+      if(up)assert(g.change_page(1));
+      for(unsigned ur=0;ur<lessons_per_page;++ur){
+        const auto* u=g.visible_unit(ur);if(!u){assert(!g.choose_unit(ur));continue;}
+        assert(g.choose_unit(ur)&&g.screen==Screen::Lessons&&g.page==0);
+        assert(g.filtered_count()>0);
+        for(unsigned lp=0;lp<lesson_pages(g.filtered_count());++lp){
+          if(lp)assert(g.change_page(1));
+          for(unsigned lr=0;lr<lessons_per_page;++lr){
+            if(!g.visible_lesson(lr)){assert(!g.choose_lesson(lr));continue;}
+            assert(g.choose_lesson(lr)&&g.current().subject==s);
+            assert(lesson_units[g.lesson]==static_cast<unsigned>(u-units));
+            assert(!reached[g.lesson]);reached[g.lesson]=true;++total;
+            assert(g.back()&&g.screen==Screen::Lessons&&g.page==lp);
+          }
+        }
+        assert(!g.change_page(1));
+        assert(g.back()&&g.screen==Screen::Units&&g.unit_page==up&&g.unit==-1);
+      }
+    }
+    assert(!g.change_page(1));assert(g.back()&&g.screen==Screen::Subjects);
+  }
+  assert(total==lesson_count);
 }

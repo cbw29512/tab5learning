@@ -50,6 +50,18 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     for(unsigned i=0;i<4;++i)button(subjects[i],184+90*i,72);
     return;
   }
+  if(p.screen==Screen::Units){
+    for(unsigned i=0;i<lessons_per_page;++i){
+      const auto* u=p.visible_unit(i);if(u)button(u->title,184+90*i,72);
+    }
+    char label[48];
+    std::snprintf(label,sizeof(label),"Topics %u of %u",p.unit_page+1,lesson_pages(p.units_in_subject()));
+    M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);M5.Display.setTextSize(2);
+    M5.Display.drawString(label,48,454);
+    if(p.unit_page>0)page_button("Previous page",48);
+    if(lesson_page_valid(p.unit_page+1,p.units_in_subject()))page_button("Next page",664);
+    return;
+  }
   if(p.screen==Screen::Lessons){
     for(unsigned i=0;i<lessons_per_page;++i){
       const auto* l=p.visible_lesson(i);
@@ -65,11 +77,11 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
       }
     }
     char label[48];
-    std::snprintf(label,sizeof(label),"Page %u of %u",p.page+1,lesson_pages(p.subject_count()));
+    std::snprintf(label,sizeof(label),"Page %u of %u",p.page+1,lesson_pages(p.filtered_count()));
     M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);M5.Display.setTextSize(2);
     M5.Display.drawString(label,48,454);
     if(p.page>0)page_button("Previous page",48);
-    if(lesson_page_valid(p.page+1,p.subject_count()))page_button("Next page",664);
+    if(lesson_page_valid(p.page+1,p.filtered_count()))page_button("Next page",664);
     return;
   }
   M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
@@ -99,12 +111,12 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
 }
 inline bool touch(Preview& p,int x,int y){
   if(p.screen==Screen::Subjects){
-    for(unsigned i=0;i<4;++i)if(hit(x,y,184+90*i,72))return p.choose_subject(i);
+    for(unsigned i=0;i<4;++i)if(hit(x,y,184+90*i,72))return p.choose_subject_grouped(i);
     return false;
   }
-  if(p.screen==Screen::Lessons){
+  if(p.screen==Screen::Lessons||p.screen==Screen::Units){
     for(unsigned i=0;i<lessons_per_page;++i)
-      if(hit(x,y,184+90*i,72))return p.choose_lesson(i);
+      if(hit(x,y,184+90*i,72))return p.screen==Screen::Units?p.choose_unit(i):p.choose_lesson(i);
     if(y>=488&&y<552){
       if(x>=48&&x<616)return p.change_page(-1);
       if(x>=664&&x<1232)return p.change_page(1);

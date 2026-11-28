@@ -11,6 +11,11 @@ struct Activity {
   unsigned count;
   int answer;
 };
+struct Unit {
+  unsigned subject;
+  const char* key;
+  const char* title;
+};
 struct Lesson {
   unsigned subject;
   const char* id;

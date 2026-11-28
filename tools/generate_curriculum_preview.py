@@ -11,6 +11,45 @@ SOURCE = ROOT / "curriculum/grade-1/starter.v7.json"
 TARGET = ROOT / "firmware/include/curriculum_preview.generated.h"
 SUBJECTS = ("mathematics","english_language_arts","science","social_studies")
 KINDS = {"choice":"Choice","instruction":"Instruction","teacher_review":"AdultReview"}
+# Presentation-only categories; older broad catalog units retain their IDs.
+UNITS = (
+    (0, "counting", "Counting"),
+    (0, "number-and-operations", "Addition and subtraction"),
+    (0, "place-value", "Tens and ones"),
+    (0, "geometry", "Shapes"),
+    (0, "measurement", "Measurement"),
+    (0, "time", "Time"),
+    (1, "phonological-awareness", "Sounds and rhymes"),
+    (1, "phonics", "Word sounds and spelling"),
+    (1, "comprehension", "Reading stories"),
+    (1, "writing", "Writing"),
+    (2, "light-and-sound", "Light and sound"),
+    (2, "earth-and-sky", "Earth and sky"),
+    (2, "life-science", "Plants and animals"),
+    (3, "community", "Community and citizenship"),
+    (3, "geography", "Maps and places"),
+    (3, "economics", "Needs and choices"),
+    (3, "history", "Past and present"),
+)
+UNIT_OVERRIDES = {
+    "g1-count-across-tens": "counting",
+    "g1-tens-and-ones": "place-value",
+    "g1-compare-two-digit": "place-value",
+    "g1-clock-hours": "time",
+    "g1-clock-half-hours": "time",
+}
+UNIT_ALIASES = {"waves": "light-and-sound", "civics": "community"}
+
+
+def unit_index(lesson):
+    try:
+        key = UNIT_OVERRIDES.get(lesson["lesson_id"], lesson["unit"])
+        key = UNIT_ALIASES.get(key, key)
+        subject = SUBJECTS.index(lesson["subject"])
+        return next(i for i, (s, k, _) in enumerate(UNITS) if (s, k) == (subject, key))
+    except (ValueError, StopIteration):
+        LOG.error("Unmapped preview unit: %s", lesson["lesson_id"])
+        raise ValueError("Unmapped preview unit") from None
 
 
 def generate(raw):
@@ -43,6 +82,14 @@ def generate(raw):
         lines.append("}")
         # Match the exact C++ array terminator, then namespace terminator.
         lines[-1]="};"
+        lines.append("inline constexpr Unit units[]={")
+        for subject, key, label in UNITS:
+            lines.append(f'  {{{subject},{literal(key)},{literal(label)}}},')
+        lines.append("};")
+        lines.append("inline constexpr unsigned lesson_units[]={")
+        for lesson in catalog["lessons"]:
+            lines.append(f"  {unit_index(lesson)},")
+        lines.append("};")
         lines.append("}")
         return "\n".join(lines)+"\n"
     except Exception:
