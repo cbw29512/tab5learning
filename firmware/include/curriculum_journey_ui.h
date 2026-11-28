@@ -1,6 +1,6 @@
 #pragma once
 #include <M5Unified.h>
-#include "curriculum_progress.h"
+#include "curriculum_topic_ui.h"
 
 namespace curriculum_preview {
 // Right half of My Learning Journey, independent of math badges.
@@ -24,6 +24,6 @@ inline void render_subject_progress(const CompletionLedger* ledger){
     }
   }
   M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
-  M5.Display.drawString("Lesson completion is not mastery.",656,530);
+  render_topic_milestones(ledger);
 }
 }

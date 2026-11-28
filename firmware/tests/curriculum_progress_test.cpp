@@ -21,6 +21,16 @@ int main(){
     assert(!p.known&&p.total==(s==0?27u:s==1?61u:s==2?17u:22u)&&p.completed==0);
   }
   assert(!subject_progress(nullptr,4).known);
+  unsigned topic_total=0,nonempty=0;
+  for(unsigned u=0;u<unit_count;++u){
+    const auto p=topic_progress(nullptr,u);
+    assert(!p.known&&!topic_finished(p));
+    topic_total+=p.total;if(p.total)++nonempty;
+  }
+  assert(topic_total==lesson_count);
+  assert(!topic_progress(nullptr,unit_count).known);
+  assert(!topic_finished({0,0,true}));
+  assert(topic_milestones(nullptr).total==nonempty&&!topic_milestones(nullptr).known);
   Media media;CompletionLedger ledger(media);
   assert(!subject_progress(&ledger,0).known);
   assert(ledger.begin());
@@ -37,6 +47,9 @@ int main(){
   assert(ledger.finish(lesson)==CompletionResult::AlreadyRecorded);
   assert(subject_progress(&ledger,0).completed==1);
   assert(subject_progress(&ledger,1).completed==0);
+  const auto unit=lesson_units[lesson.lesson];
+  assert(topic_progress(&ledger,unit).completed==1);
+  assert(topic_milestones(&ledger).known);
   // Historical revision remains in the ledger without increasing current progress.
   CompletionEvent historical{};assert(completion_decode(media.records[0],historical));
   historical.key.revision=99;historical.sequence=2;
@@ -54,7 +67,20 @@ int main(){
   browser.page=999;browse_clamp(browser,&ledger);assert(browser.page==8);
   assert(!browse_page(browser,1,&ledger));
   assert(browse_count(browser,nullptr)==27&&!browse_filter(browser,true,nullptr));
+  // Finish the remaining lessons in one topic and replay the ledger.
+  for(std::size_t i=0;i<lesson_count;++i){
+    if(lesson_units[i]!=unit||i==lesson.lesson)continue;
+    Preview done{};
+    done.lesson=i;done.step=done.current().count-1;done.screen=Screen::Finished;
+    assert(ledger.finish(done)==CompletionResult::Saved);
+    assert(ledger.finish(done)==CompletionResult::AlreadyRecorded);
+  }
+  assert(topic_finished(topic_progress(&ledger,unit)));
+  assert(topic_milestones(&ledger).completed==1);
+  CompletionLedger reopened(media);assert(reopened.begin());
+  assert(topic_milestones(&reopened).completed==1);
   media.invalid=true;assert(!ledger.begin());
+  assert(!topic_milestones(&ledger).known&&!topic_finished(topic_progress(&ledger,unit)));
   browser.finished_only=true;browse_clamp(browser,&ledger);
   assert(!browser.finished_only&&browse_count(browser,&ledger)==27);
   assert(!subject_progress(&ledger,0).known);

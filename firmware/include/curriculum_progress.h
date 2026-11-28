@@ -27,6 +27,38 @@ inline SubjectProgress subject_progress(const CompletionLedger* ledger,unsigned 
   if(!result.known)result.completed=0;
   return result;
 }
+// Read-only topic milestones: current revision completion, never mastery.
+inline SubjectProgress topic_progress(const CompletionLedger* ledger,unsigned unit){
+  SubjectProgress result{};
+  if(unit>=unit_count)return result;
+  result.known=ledger&&ledger->available();
+  for(std::size_t i=0;i<lesson_count;++i){
+    if(lesson_units[i]!=unit)continue;
+    ++result.total;
+    if(!result.known)continue;
+    const auto state=lesson_progress(ledger,lessons[i]);
+    if(state==CompletionLookup::Unavailable)result.known=false;
+    else if(state==CompletionLookup::Recorded)++result.completed;
+  }
+  if(!result.known)result.completed=0;
+  return result;
+}
+inline bool topic_finished(const SubjectProgress& p){
+  return p.known&&p.total>0&&p.completed==p.total;
+}
+inline SubjectProgress topic_milestones(const CompletionLedger* ledger){
+  SubjectProgress result{};
+  result.known=ledger&&ledger->available();
+  for(unsigned u=0;u<unit_count;++u){
+    const auto p=topic_progress(ledger,u);
+    if(!p.total)continue;
+    ++result.total;
+    if(!p.known)result.known=false;
+    if(topic_finished(p))++result.completed;
+  }
+  if(!result.known)result.completed=0;
+  return result;
+}
 inline const char* completion_label(CompletionLookup state){
   switch(state){
     case CompletionLookup::Recorded:return "Completed";

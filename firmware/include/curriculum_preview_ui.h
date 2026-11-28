@@ -6,6 +6,7 @@
 #include "curriculum_visual_ui.h"
 #include "curriculum_answer_layout.h"
 #include "curriculum_feedback_ui.h"
+#include "curriculum_topic_ui.h"
 namespace curriculum_preview {
 // Font 0 at size 3: six pixels per character before scaling. Conservative
 // 60-column wrap fits within 1080 pixels; fixed buffer, no String allocations.
@@ -58,7 +59,7 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     for(unsigned i=0;i<lessons_per_page;++i){
       const auto* u=p.visible_unit(i);if(!u)continue;
       const int y=184+90*i;
-      button(u->title,y,72);
+      render_topic_tile(*u,y,ledger);
       if(std::strcmp(u->key,"visual-reading")==0)draw_visual_at(park,1044,y+11,3);
     }
     char label[48];
