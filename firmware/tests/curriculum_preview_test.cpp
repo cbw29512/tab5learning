@@ -89,13 +89,25 @@ int main(){
   for(const auto& l:lessons){
     const auto* v=visual_for(l,0);if(!v)continue;
     ++illustrated;assert(v->count>0&&l.count==6);
-    for(unsigned i=0;i<l.count;++i)assert(visual_for(l,i)==v);
+    for(unsigned i=0;i<l.count;++i){
+      const auto* scene=visual_for(l,i);assert(scene&&scene->count>0);
+      if(l.subject==1)assert(scene==v);
+      else if(i)assert(scene!=visual_for(l,i-1));
+    }
     assert(!visual_for(l,l.count));
     auto changed=l;++changed.revision;assert(!visual_for(changed,0));
     assert((v==&park&&std::strcmp(l.id,"g1-picture-or-words")==0)||
-           (v==&garden&&std::strcmp(l.id,"g1-pictures-explain-details")==0));
+           (v==&garden&&std::strcmp(l.id,"g1-pictures-explain-details")==0)||
+           (v==&coins_views[0]&&std::strcmp(l.id,"g1-count-like-coins")==0)||
+           (v==&addition_views[0]&&std::strcmp(l.id,"g1-add-tens-ones")==0)||
+           (v==&subtraction_views[0]&&std::strcmp(l.id,"g1-subtract-tens")==0));
   }
-  assert(illustrated==2);
+  assert(illustrated==5);
+  static_assert(coins_0.count==9&&coins_4.count==21); // 2 circles per coin + background
+  static_assert(addition_1.count==1+50+4+2); // 24 + 30; 5 rods, 4 ones, plus sign
+  static_assert(subtraction_3.count==1+90+70); // 90 - 70; crossed rods
+  static_assert(!coin_scene(11,5).valid&&!subtraction_scene(3,4).valid);
+  static_assert(!addition_scene(100,1).valid);
   // The physical path to pictures starts at the first reading topic page.
   Preview featured;assert(featured.choose_subject_grouped(1));
   assert(featured.visible_unit(0)&&std::strcmp(featured.visible_unit(0)->key,"visual-reading")==0);

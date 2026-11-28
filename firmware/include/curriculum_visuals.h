@@ -1,13 +1,11 @@
 #pragma once
 #include "curriculum_preview.h"
+#include "curriculum_visual_types.h"
+#include "curriculum_math_visuals.h"
 #include <cstdint>
 #include <cstring>
 namespace curriculum_preview {
 // Original geometric illustrations in flash; no external decoder or storage writes.
-struct VisualRect { int x,y,w,h,radius; std::uint16_t color; };
-struct Visual { const VisualRect* shapes; std::size_t count; };
-inline constexpr int visual_x=48,visual_y=250,visual_w=500,visual_h=148;
-inline constexpr int visual_text_x=620,visual_columns=32;
 inline constexpr VisualRect park_shapes[]={
   {0,0,500,148,0,0x9E7F}, {0,108,500,40,0,0x67E0},
   {380,5,34,34,17,0xFFE0}, {65,45,20,72,0,0x8200},
@@ -26,12 +24,6 @@ inline constexpr VisualRect garden_shapes[]={
   {85,34,20,20,10,0xFFE0}, {240,29,20,20,10,0xFFE0},
   {395,36,20,20,10,0xFFE0}
 };
-template<std::size_t N> constexpr bool visual_bounds(const VisualRect (&s)[N]){
-  for(const auto& r:s)
-    if(r.x<0||r.y<0||r.w<=0||r.h<=0||r.x+r.w>visual_w||
-       r.y+r.h>visual_h||r.radius<0||2*r.radius>r.w||2*r.radius>r.h)return false;
-  return true;
-}
 static_assert(visual_bounds(park_shapes)&&visual_bounds(garden_shapes));
 static_assert(visual_y+visual_h<=408&&visual_text_x+visual_columns*18<=1232);
 inline constexpr Visual park{park_shapes,sizeof(park_shapes)/sizeof(*park_shapes)};
@@ -41,6 +33,6 @@ inline const Visual* visual_for(const Lesson& l,std::size_t step){
   if(l.revision!=1||step>=l.count||step>=6)return nullptr;
   if(std::strcmp(l.id,"g1-picture-or-words")==0)return &park;
   if(std::strcmp(l.id,"g1-pictures-explain-details")==0)return &garden;
-  return nullptr;
+  return math_visual_for(l,step);
 }
 }
