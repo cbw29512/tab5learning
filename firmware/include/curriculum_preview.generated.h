@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v12.json. Do not edit by hand.
+// Generated from starter.v13.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -802,6 +802,78 @@ inline constexpr Activity activities_99[]={
   {Kind::Instruction,"remediation","Read mat, then map. Look at the final letters and listen to the different sounds.","",{"","",""},0,-1},
   {Kind::Choice,"review","After correcting a word, what should you do?","Rereading helps confirm the word and sentence make sense.",{"Forget the sentence","Reread to check meaning","Always start the book over"},3,1},
 };
+inline constexpr Activity activities_100[]={
+  {Kind::Instruction,"instruction","A title names a book. The author writes its words. The illustrator makes its pictures. Contents list sections and pages. A glossary explains words.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Pretend cover: Pond Life. Written by Mia Reed. Pictures by Jay Lin. Who is the author?","Mia Reed wrote the words.",{"Jay Lin","Mia Reed","Pond Life"},3,1},
+  {Kind::Choice,"independent","Where can you find the meaning of a difficult word in some books?","A glossary lists words and meanings.",{"Glossary","Cover title","Author name"},3,0},
+  {Kind::AdultReview,"assessment","Find the title, author, illustrator, contents and glossary in a book an adult provides.","Adult: Choose a book with all five features. Ask the learner to point to each without prompts. Record support.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Use a contents page with an adult. Choose a section and turn to its listed page.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which feature tells the starting page for each chapter?","The contents page lists sections and their starting pages.",{"Illustrator name","Table of contents","Title"},3,1},
+};
+inline constexpr Activity activities_101[]={
+  {Kind::Instruction,"instruction","A caption tells about a picture. A map shows places. A graph shows amounts. The contents and glossary help you find information in a book.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Contents: Frogs page 4, Turtles page 8, Fish page 12. Where would you look for turtle facts?","The contents lists turtles on page 8.",{"Page 12","Page 8","Page 4"},3,1},
+  {Kind::Choice,"independent","A picture caption says: This frog lives near ponds. What fact did the caption give?","The caption tells where this frog lives.",{"It lives near ponds.","It is ten years old.","It lives in the sea."},3,0},
+  {Kind::AdultReview,"assessment","With an adult, use an information book's graph, map or caption to answer a question.","Adult: Ask which feature was used and what fact it gave. Repeat for all required features across sessions.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read a contents page. Ask an adult to help you turn to a listed page, then read its caption.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which feature helps compare how many books each class read?","A graph can show and compare amounts.",{"Author name","Graph","Book title"},3,1},
+};
+inline constexpr Activity activities_102[]={
+  {Kind::Instruction,"instruction","A story tells events involving characters. An information text teaches facts about a topic. Both may be about the same thing, such as a rabbit.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Text A: Pip the rabbit lost his carrot and looked under a log. Is it mainly a story or information?","Pip is a character who does things in a story.",{"Information","Story","A map"},3,1},
+  {Kind::Choice,"independent","Text B: Rabbits have long ears. They eat many kinds of plants. What kind of text is this?","These sentences give facts about rabbits.",{"Information","Story","A recipe"},3,0},
+  {Kind::AdultReview,"assessment","Explain how these differ: A fox chased its hat. Foxes have excellent hearing.","Adult: Check that the learner identifies events in the story and factual information in the other text.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read one story and one short information paragraph with an adult. Find a character in the story and a fact in the paragraph.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which opening most clearly begins an information text?","Bears are mammals gives a fact about a topic.",{"Once a bear found a crown.","Bears are mammals.","A bear wished it could fly."},3,1},
+};
+inline constexpr Activity activities_103[]={
+  {Kind::Instruction,"instruction","The narrator tells a story. A character may tell what happened using I. A narrator outside the story may use names or words like he and she.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Mia tells the story: I found a blue shell. Who says I?","Mia is telling what she did.",{"The shell","Mia","A bird"},3,1},
+  {Kind::Choice,"independent","Ben tells the next part: I put the shell in a box. Who is telling this part?","Ben is the narrator of this part.",{"Ben","Mia","The box"},3,0},
+  {Kind::AdultReview,"assessment","Read: I am Jo. I planted a seed. Next part, told by Dad: I watered Jo's seed. Who narrates each part? Explain.","Adult: Check Jo then Dad and an explanation using names or speaker labels.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read: Ana walked to the pond. The narrator names Ana rather than saying I am Ana.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which sentence sounds like a character is telling their own story?","I suggests the person is describing their own experience.",{"Lena saw a bird.","I saw a bird.","Lena likes birds."},3,1},
+};
+inline constexpr Activity activities_104[]={
+  {Kind::Instruction,"instruction","Buzz can imitate a sound. Silly snakes slide repeats the first sound. Cold, wet grass helps you imagine how something feels. Writers use these words to make scenes vivid.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word imitates a sound?","Splash sounds like water moving.",{"Soft","Splash","Green"},3,1},
+  {Kind::Choice,"independent","Which phrase repeats the first sound?","Busy, bees and buzz start with the b sound.",{"Busy bees buzz","A blue kite flew","The cat sat down"},3,0},
+  {Kind::AdultReview,"assessment","Read: Crunch! I stepped on crisp leaves. Explain which word helps you hear the scene and which helps you imagine the leaves.","Adult: Check sound imitation and sensory description; ask how they affect the scene.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say the phrase tiny turtles tiptoe. Listen to the repeated first sound. Imagine how the turtles move.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which phrase helps you imagine how something feels?","Rough and cold describe sensations.",{"A cup is here","A rough, cold stone","A stone has a name"},3,1},
+};
+inline constexpr Activity activities_105[]={
+  {Kind::Instruction,"instruction","A glossary gives meanings. Mini glossary: burrow - a hole used by an animal; pond - a small body of water; twig - a small branch.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A rabbit hides in a burrow. Use the glossary: what is a burrow?","The glossary says a burrow is a hole used by an animal.",{"A small branch","An animal's hole","A body of water"},3,1},
+  {Kind::Choice,"independent","Mini glossary: nest - an animal's shelter; seed - a part that can grow into a plant. Which word means shelter?","The entry for nest explains that meaning.",{"Nest","Seed","Pond"},3,0},
+  {Kind::AdultReview,"assessment","Use an adult-provided children's glossary to find the meaning of one unfamiliar word. Say the meaning and use the word in a sentence.","Adult: Check that the word was located and its meaning used correctly.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Find twig in the mini glossary again: a twig is a small branch. Say a sentence using twig.","",{"","",""},0,-1},
+  {Kind::Choice,"review","If you need the meaning of an unfamiliar word, which reference helps?","A glossary gives word meanings.",{"A list of page numbers","A glossary","An author name"},3,1},
+};
+inline constexpr Activity activities_106[]={
+  {Kind::Instruction,"instruction","Reference A: A frog is an amphibian. Many frogs begin life in water. Reference B: A tadpole grows legs as it develops. Together these facts help explain a frog's life.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which reference gives the detail about growing legs?","Reference B tells how a tadpole develops legs.",{"A","B","Neither"},3,1},
+  {Kind::Choice,"independent","Reference A: Bees visit flowers. Reference B: Bees collect nectar. Which statement uses both?","The first statement combines both supplied facts.",{"Bees visit flowers and collect nectar.","Bees live in ponds.","Flowers collect bees."},3,0},
+  {Kind::AdultReview,"assessment","Read two short fact sources about a familiar animal with an adult. Tell one fact from each and explain how they fit together.","Adult: Check both facts against sources and record the learner's explanation.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read the two frog references again. Tell where many frogs begin life and one change a tadpole undergoes.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Why read two sources about one topic?","Related sources can help build a fuller understanding.",{"To ignore the first one","To learn more related facts","To make all words shorter"},3,1},
+};
+inline constexpr Activity activities_107[]={
+  {Kind::Instruction,"instruction","Apple and pear are fruits. Carrot and lettuce are vegetables. A category is a group of things that share something in common.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which belongs with apple and pear?","A peach is a fruit.",{"Chair","Peach","Sock"},3,1},
+  {Kind::Choice,"independent","Which group contains only animals?","Dogs, cats and rabbits are animals.",{"Dog, cat, rabbit","Dog, shoe, cat","Chair, bed, table"},3,0},
+  {Kind::AdultReview,"assessment","Sort these words: hat, coat, spoon, fork, socks, cup. Explain the groups. Try another sensible grouping.","Adult: Accept supported categories such as clothing and eating/drinking items. Ask why each belongs.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Think of two things used for drawing. Name the category they share.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word does not belong with pencil, crayon and marker?","A banana is not a writing or drawing tool.",{"Pen","Banana","Chalk"},3,1},
+};
+inline constexpr Activity activities_108[]={
+  {Kind::Instruction,"instruction","A useful definition tells a group and a feature. A bicycle is a vehicle with two wheels that you pedal. Vehicle is the group; two wheels and pedaling describe it.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which is the clearest definition of a robin?","The definition names a group and a feature.",{"A thing","A bird with a reddish chest","Something outside"},3,1},
+  {Kind::Choice,"independent","Which definition best explains a spoon?","It tells what kind of object a spoon is and how it is used.",{"A tool with a small bowl for scooping","Something shiny","A round thing"},3,0},
+  {Kind::AdultReview,"assessment","Define a pencil and a duck. Name a group for each and at least one useful feature.","Adult: Accept accurate categories and features in the learner's own words; record prompting.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say a definition of a ball. Start with its group and describe its round shape or use.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which definition best explains a glove?","It names a group and a useful distinguishing feature.",{"Something in a drawer","Clothing that covers a hand","A thing with a color"},3,1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -903,6 +975,15 @@ inline constexpr Lesson lessons[]={
   {1,"g1-read-with-expression",1,"Read a short story smoothly",activities_97,6},
   {1,"g1-word-family-analogy",1,"Use a word you know",activities_98,6},
   {1,"g1-check-your-reading",1,"Notice and fix reading errors",activities_99,6},
+  {1,"g1-parts-of-a-book",1,"Find the parts of a book",activities_100,6},
+  {1,"g1-text-feature-facts",1,"Find facts with text features",activities_101,6},
+  {1,"g1-story-or-facts",1,"Story or information?",activities_102,6},
+  {1,"g1-who-tells-the-story",1,"Who is telling the story?",activities_103,6},
+  {1,"g1-sound-and-sense-words",1,"Words that bring stories to life",activities_104,6},
+  {1,"g1-use-a-glossary",1,"Look up a new word",activities_105,6},
+  {1,"g1-learn-from-reference",1,"Put facts together",activities_106,6},
+  {1,"g1-word-groups",1,"Sort words into groups",activities_107,6},
+  {1,"g1-define-by-features",1,"Explain what a word means",activities_108,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -926,6 +1007,8 @@ inline constexpr Unit units[]={
   {0,"money","Money"},
   {0,"patterns","Patterns"},
   {1,"fluency","Reading smoothly"},
+  {1,"book-reference","Books and reference skills"},
+  {1,"vocabulary","Words and meanings"},
 };
 inline constexpr unsigned lesson_units[]={
   1,
@@ -1028,5 +1111,14 @@ inline constexpr unsigned lesson_units[]={
   20,
   20,
   20,
+  21,
+  21,
+  8,
+  8,
+  22,
+  21,
+  21,
+  22,
+  22,
 };
 }

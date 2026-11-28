@@ -29,3 +29,6 @@ Topic browser and 52-lesson device flash previously verified; latest 68-lesson b
 
 ## v4 phonics and fluency update
 [Current ledger](../curriculum/grade-1/coverage.v4.json) tracks starter.v12; ELA 51 partial / 30 missing. New mappings are candidates; official full scope and educator approval remain pending. Audio/reading capture and teacher evidence remain incomplete.
+
+## v5 comprehension and reference skills
+[Current ledger](../curriculum/grade-1/coverage.v5.json) tracks starter.v13; ELA 60 partial / 21 missing. Nine new candidate indicators. Visual-only objectives AOR.4.1 and AOR.10.1 remain missing until actual visual assets are provided. Full official enumeration and educator review pending. No accepted rows.
