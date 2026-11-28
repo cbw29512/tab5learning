@@ -242,6 +242,7 @@ void render_math() {
 }
 
 void render() {
+  curriculum_preview::browse_clamp(curriculum,curriculum_completion);
   // Submit the complete frame together and explicitly flush its framebuffer.
   M5.Display.startWrite();
   M5.Display.fillScreen(TFT_NAVY);
@@ -375,11 +376,11 @@ void loop() {
       // Stage navigation before acknowledging a new resume location. Feedback
       // is transient; a power loss repeats its activity, never awards credit.
       auto candidate=curriculum;
-      if(curriculum_preview::touch(candidate,detail.x,detail.y)) {
+      if(curriculum_preview::touch(candidate,detail.x,detail.y,curriculum_completion)) {
         // Only resume the exact lesson selected, never redirect a subject or
         // reopen a finished lesson. Earlier math journal remains unchanged.
         if(curriculum.screen==curriculum_preview::Screen::Lessons &&
-            candidate.screen==curriculum_preview::Screen::Activity) {
+            candidate.screen==curriculum_preview::Screen::Activity&&!candidate.reviewing) {
           curriculum_preview::Preview saved;
           if(curriculum_resume.restore(saved) &&
               saved.screen==curriculum_preview::Screen::Activity &&

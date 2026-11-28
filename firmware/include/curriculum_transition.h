@@ -10,6 +10,15 @@ enum class TransitionResult { Applied, ResumeError, CompletionError };
 template<class Checkpoint>
 TransitionResult commit_transition(Preview& current,const Preview& candidate,
                                    Checkpoint& resume,CompletionLedger* completion=nullptr){
+  // A review is transient and must not replace the active lesson checkpoint.
+  if(candidate.reviewing){
+    if(candidate.lesson>=lesson_count||candidate.step>=candidate.current().count||
+       !completion||completion->lookup(candidate.current())!=CompletionLookup::Recorded){
+      std::printf("ERR,CURRICULUM_REVIEW_UNVERIFIED\n");
+      return TransitionResult::CompletionError;
+    }
+    current=candidate;return TransitionResult::Applied;
+  }
   const bool checkpoint=candidate.screen==Screen::Activity||candidate.screen==Screen::Finished;
   if(checkpoint){
     // Verify the checkpoint shape before any completion write.

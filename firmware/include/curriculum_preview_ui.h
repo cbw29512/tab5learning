@@ -2,7 +2,7 @@
 #include <M5Unified.h>
 #include <cstdio>
 #include <cstring>
-#include "curriculum_progress.h"
+#include "curriculum_browse.h"
 #include "curriculum_visual_ui.h"
 namespace curriculum_preview {
 // Font 0 at size 3: six pixels per character before scaling. Conservative
@@ -68,8 +68,10 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     return;
   }
   if(p.screen==Screen::Lessons){
+    const bool known=browse_known(p,ledger);
+    const auto count=browse_count(p,ledger);
     for(unsigned i=0;i<lessons_per_page;++i){
-      const auto* l=p.visible_lesson(i);
+      const auto* l=browse_visible(p,i,ledger);
       if(l){
         const int y=184+90*i;
         M5.Display.fillRoundRect(48,y,1184,72,12,TFT_BLUE);
@@ -83,20 +85,32 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
       }
     }
     char label[48];
-    std::snprintf(label,sizeof(label),"Page %u of %u",p.page+1,lesson_pages(p.filtered_count()));
+    std::snprintf(label,sizeof(label),"Page %u of %u",p.page+1,lesson_pages(count));
     M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);M5.Display.setTextSize(2);
     M5.Display.drawString(label,48,454);
+    if(known){
+      M5.Display.fillRoundRect(410,442,388,38,6,p.finished_only?TFT_DARKGREY:TFT_BLUE);
+      M5.Display.fillRoundRect(812,442,420,38,6,p.finished_only?TFT_BLUE:TFT_DARKGREY);
+      M5.Display.setTextColor(TFT_WHITE,p.finished_only?TFT_DARKGREY:TFT_BLUE);
+      M5.Display.drawString("Up next",430,453);
+      M5.Display.setTextColor(TFT_WHITE,p.finished_only?TFT_BLUE:TFT_DARKGREY);
+      M5.Display.drawString("Finished lessons",832,453);
+      if(count==0){
+        M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+        M5.Display.drawString(p.finished_only?"No finished lessons yet":"All lessons in this topic finished",48,210);
+      }
+    }else M5.Display.drawString("All lessons - history unavailable",410,454);
     if(p.page>0)page_button("Previous page",48);
-    if(lesson_page_valid(p.page+1,p.filtered_count()))page_button("Next page",664);
+    if(lesson_page_valid(p.page+1,count))page_button("Next page",664);
     return;
   }
   M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   M5.Display.drawString(p.current().title,48,178);
   if(p.screen==Screen::Finished){
     const auto saved=lesson_progress(ledger,p.current())==CompletionLookup::Recorded;
-    wrapped(saved?"Lesson completion saved. No grade, mastery or achievement was recorded.":
+    wrapped(p.reviewing?"Review finished. No new completion or grade was recorded.":saved?"Lesson completion saved. No grade, mastery or achievement was recorded.":
                   "Preview finished. No verified completion history or grade was recorded.",48,230,5);
-    button("Choose another lesson",488,64);return;
+    button(p.reviewing?"Return to finished lessons":saved?"See up next":"Choose another lesson",488,64);return;
   }
   char label[96];
   std::snprintf(label,sizeof(label),"Activity %u of %u - %s",
@@ -127,17 +141,21 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     for(unsigned i=0;i<p.activity().count;++i)button(p.activity().choices[i],408+48*i,44);
   }else button(p.activity().kind==Kind::AdultReview?"View adult guidance":"Continue",488,64);
 }
-inline bool touch(Preview& p,int x,int y){
+inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr){
   if(p.screen==Screen::Subjects){
     for(unsigned i=0;i<4;++i)if(hit(x,y,184+90*i,72))return p.choose_subject_grouped(i);
     return false;
   }
   if(p.screen==Screen::Lessons||p.screen==Screen::Units){
+    if(p.screen==Screen::Lessons&&y>=442&&y<480){
+      if(x>=410&&x<798)return browse_filter(p,false,ledger);
+      if(x>=812&&x<1232)return browse_filter(p,true,ledger);
+    }
     for(unsigned i=0;i<lessons_per_page;++i)
-      if(hit(x,y,184+90*i,72))return p.screen==Screen::Units?p.choose_unit(i):p.choose_lesson(i);
+      if(hit(x,y,184+90*i,72))return p.screen==Screen::Units?p.choose_unit(i):browse_choose(p,i,ledger);
     if(y>=488&&y<552){
-      if(x>=48&&x<616)return p.change_page(-1);
-      if(x>=664&&x<1232)return p.change_page(1);
+      if(x>=48&&x<616)return p.screen==Screen::Units?p.change_page(-1):browse_page(p,-1,ledger);
+      if(x>=664&&x<1232)return p.screen==Screen::Units?p.change_page(1):browse_page(p,1,ledger);
     }
     return false;
   }
@@ -146,7 +164,7 @@ inline bool touch(Preview& p,int x,int y){
     return false;
   }
   if(!hit(x,y,488,64))return false;
-  if(p.screen==Screen::Finished)return p.back();
+  if(p.screen==Screen::Finished)return browse_after_finish(p,ledger);
   return p.next();
 }
 }

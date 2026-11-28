@@ -1,4 +1,4 @@
-#include "curriculum_progress.h"
+#include "curriculum_browse.h"
 #include <cassert>
 #include <vector>
 using namespace curriculum_preview;
@@ -44,7 +44,19 @@ int main(){
   assert(ledger.begin()&&ledger.verified_count()==2);
   assert(subject_progress(&ledger,0).completed==1);
   assert(lesson_progress(&ledger,lesson.current())==CompletionLookup::Recorded);
+  Preview browser;assert(browser.choose_subject(0));
+  assert(browse_count(browser,&ledger)==26);
+  assert(browse_filter(browser,true,&ledger)&&browse_count(browser,&ledger)==1);
+  assert(browse_visible(browser,0,&ledger)==&lesson.current());
+  assert(browse_choose(browser,0,&ledger)&&browser.reviewing&&browser.step==0);
+  assert(browser.back()&&!browser.reviewing&&browser.finished_only);
+  assert(browse_filter(browser,false,&ledger)&&browse_count(browser,&ledger)==26);
+  browser.page=999;browse_clamp(browser,&ledger);assert(browser.page==8);
+  assert(!browse_page(browser,1,&ledger));
+  assert(browse_count(browser,nullptr)==27&&!browse_filter(browser,true,nullptr));
   media.invalid=true;assert(!ledger.begin());
+  browser.finished_only=true;browse_clamp(browser,&ledger);
+  assert(!browser.finished_only&&browse_count(browser,&ledger)==27);
   assert(!subject_progress(&ledger,0).known);
   assert(lesson_progress(&ledger,lesson.current())==CompletionLookup::Unavailable);
 }

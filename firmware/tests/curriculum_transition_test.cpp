@@ -71,6 +71,16 @@ int main(){
   assert(current.screen==Screen::Finished&&media.records.size()==1);
   ResumeStore done;assert(done.begin()==ResumeLoad::Restored&&done.restore(current));
   assert(current.page==1&&current.screen==Screen::Finished);
+  // Reviewing a verified completion never writes a second ledger entry or
+  // changes the existing resume checkpoint, even if NVS cannot write.
+  const auto saved=current;auto review=current;review.reviewing=true;
+  review.screen=Screen::Activity;review.step=0;
+  FakeNvs::full=true;
+  assert(commit_transition(current,review,done,&replay)==TransitionResult::Applied);
+  Preview original;assert(done.restore(original)&&original.step==saved.step&&original.screen==saved.screen);
+  assert(media.records.size()==1);
+  assert(commit_transition(current,review,done,nullptr)==TransitionResult::CompletionError);
+  FakeNvs::full=false;
   // Current normal preview still saves only location; no completion backend.
   FakeNvs::reset();ResumeStore preview;assert(preview.begin()==ResumeLoad::Empty);
   current=last_activity();assert(commit_transition(current,candidate,preview)==TransitionResult::Applied);
