@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v10.json. Do not edit by hand.
+// Generated from starter.v11.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -626,6 +626,102 @@ inline constexpr Activity activities_77[]={
   {Kind::AdultReview,"remediation","Build repeating rows with an adult using two or three shapes. Try one of each, two then one, and one then two.","Adult: ask for the repeating group and three correct extensions for each of four patterns.",{"","",""},0,-1},
   {Kind::Choice,"review","Circle, triangle, square, circle, triangle, square. Next three?","The same three-shape group repeats.",{"Square, triangle, circle","Circle, triangle, square","Circle, square, triangle"},3,1},
 };
+inline constexpr Activity activities_78[]={
+  {Kind::Instruction,"instruction","Ask an adult to say big, boat and bat. Listen to the first sound. They begin with the same sound, even though the rest of each word is different.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Listen as an adult says sun, sock, map. Which word begins like sun?","Sun and sock start with the same sound.",{"Map","Sock","Neither"},3,1},
+  {Kind::AdultReview,"independent","An adult says fish. Say two other words that begin with the same sound.","Adult: Accept real words beginning with the f sound, such as fan and foot. Do not show examples before the response.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","An adult says moon. Say two different words with the same first sound.","Adult: Check independently produced words with the m sound, not matching letters alone.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say milk and map slowly. Listen to the first sound, then say one more word with that sound.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","An adult says top. Make a short phrase with two words starting with its first sound.","Adult: Check spoken alliteration; record prompting separately.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_79[]={
+  {Kind::Instruction,"instruction","Clap the beats in cupcake: cup, cake. Say cupcake without cup and you get cake. Add sun before shine and you get sunshine.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Say bedtime without bed. What remains?","Removing bed leaves time.",{"Bed","Time","Night"},3,1},
+  {Kind::AdultReview,"independent","An adult says pan. Add cake after pan. Say the new word.","Adult: Check spoken pancake without showing the written answer.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","An adult says football. Ask the learner to say it without ball. Then say rain and ask them to add coat.","Adult: Check foot and raincoat; note prompting.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Clap the two parts of sunset. Say sun, then set, then sunset.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","An adult says pencil. Say the first syllable, then the second. Say it again without the first syllable.","Adult: Check the remaining spoken syllable; accept pronunciation variants.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_80[]={
+  {Kind::Instruction,"instruction","An adult says the first sound of sunny, then the remaining sounds separately. Join the parts to say sunny. Try splitting bunny into its first sound and the rest.","",{"","",""},0,-1},
+  {Kind::AdultReview,"guided","Listen to an adult say the b sound, then unny. Join them.","Adult: Check bunny; pronounce sounds without adding an extra vowel.",{"","",""},0,-1},
+  {Kind::AdultReview,"independent","Say funny. Split off its first sound, then say the remaining sounds.","Adult: Check the f sound followed by unny.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","An adult says the p sound followed by uppy. Join the parts. Then split the word puppy into its first sound and the rest.","Adult: Check puppy and its onset/rime split without printed cues.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Listen to the first sound of happy and then the remaining sounds. Join them slowly and say happy.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Say a longer word such as messy after an adult. Split off its first sound.","Adult: Check the m sound and the remaining sounds.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_81[]={
+  {Kind::Instruction,"instruction","In stop, s and t each keep a sound. In hand, n and d each keep a sound. Read both sounds smoothly without leaving one out.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word starts with the blend st?","Stop starts with s and t, each with its own sound.",{"Top","Stop","Shop"},3,1},
+  {Kind::Choice,"independent","Which word ends with the blend nd?","Hand ends in the sounds n and d.",{"Hand","Hat","Ham"},3,0},
+  {Kind::AdultReview,"assessment","Read flag, spin and desk aloud. Then spell the word an adult says: camp.","Adult: Check both consonants in each blend; use separate oral reading and spelling evidence.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say the sounds in best slowly. Join them without dropping the s or t.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word ends in the blend mp?","Camp ends with m and p.",{"Cat","Camp","Cap"},3,1},
+};
+inline constexpr Activity activities_82[]={
+  {Kind::Instruction,"instruction","Two letters can make one sound: th in thin, wh in when, ph in phone, ck in duck, and ng in sing. Read the two letters together.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word ends in ck?","Duck ends in the ck sound spelling.",{"Sing","Duck","Thin"},3,1},
+  {Kind::Choice,"independent","Which word ends in ng?","Ring ends in ng.",{"Ring","Rip","Rib"},3,0},
+  {Kind::AdultReview,"assessment","Read thin, this, when, phone and duck. Have an adult say ring for you to spell.","Adult: Check oral decoding and spelling; accept natural regional wh pronunciation.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Point to th in thin and this. Listen as an adult says both words; the th sounds differ slightly.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word starts with ph?","Phone begins with ph, which represents the f sound.",{"Fish","Phone","Fan"},3,1},
+};
+inline constexpr Activity activities_83[]={
+  {Kind::Instruction,"instruction","The letter r changes vowel sounds in many words. Read car, her, bird, fork and turn with an adult. Notice ar, er, ir, or and ur.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word contains ar?","Car uses ar.",{"Fork","Car","Bird"},3,1},
+  {Kind::Choice,"independent","Which word contains ur?","Turn uses ur.",{"Turn","Her","Corn"},3,0},
+  {Kind::AdultReview,"assessment","Read park, fern, bird, horn and burn aloud. Spell the word an adult says: curl.","Adult: Check each vowel-r pattern in oral reading and independent spelling; accept natural dialect.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Sort car, star and park together. Read each word aloud with an adult.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word contains ir?","Bird contains ir.",{"Farm","Bird","Fork"},3,1},
+};
+inline constexpr Activity activities_84[]={
+  {Kind::Instruction,"instruction","Every syllable has a vowel sound. Split rabbit into rab and bit. Read each part, then join them. Cupcake has cup and cake.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","How many syllables are in cupcake?","Cup and cake are two syllables.",{"One","Two","Three"},3,1},
+  {Kind::Choice,"independent","Which split helps read sunset?","Sun and set are two complete syllables.",{"Sun-set","S-unset","Sunse-t"},3,0},
+  {Kind::AdultReview,"assessment","Read rabbit, robot, cupcake, carpet, raincoat and table in parts with adult help.","Adult: Note decoding of closed, open, final-e, vowel-r, vowel-team and consonant-le syllables; keep support separate.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read rain and coat separately, then join raincoat. Find the vowel sound in each part.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word is made of two parts, bed and room?","Bedroom joins bed and room.",{"Bed","Bedroom","Room"},3,1},
+};
+inline constexpr Activity activities_85[]={
+  {Kind::Instruction,"instruction","Three letters may work together to spell one sound. Tch in match spells the ch sound. Dge in badge spells the j sound.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word ends in tch?","Match uses tch for its last sound.",{"Map","Match","Mash"},3,1},
+  {Kind::Choice,"independent","Which word ends in dge?","Bridge ends in dge.",{"Bridge","Brick","Bring"},3,0},
+  {Kind::AdultReview,"assessment","Read catch, pitch, badge and edge with an adult. Spell the word the adult says: patch.","Adult: Provide support as needed; record independent and prompted spelling separately.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say catch slowly. Find its last sound and trace the three letters that spell it.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word uses dge?","Fudge ends in dge.",{"Back","Fudge","Fish"},3,1},
+};
+inline constexpr Activity activities_86[]={
+  {Kind::Instruction,"instruction","In many English words, q is followed by u. In quit, quick and quiz, qu represents two sounds that blend together.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word begins with qu?","Quit starts with qu.",{"Kit","Quit","Cat"},3,1},
+  {Kind::Choice,"independent","Which word begins with qu?","Quiz starts with qu.",{"Quiz","Fizz","Zip"},3,0},
+  {Kind::AdultReview,"assessment","Read quick, quack and quiz aloud. Spell the word an adult says: quit.","Adult: Check reading of the initial sounds and independent spelling of qu.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Point to q and u in quick. Say the sounds together and then read the whole word.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word has qu?","Quack begins with qu.",{"Duck","Quack","Crack"},3,1},
+};
+inline constexpr Activity activities_87[]={
+  {Kind::Instruction,"instruction","Add s to cat to make cats. Add ed to jump to make jumped. The base word stays the same. The ending changes the meaning.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word means more than one cat?","Adding s makes cats.",{"Cat","Cats","Catching"},3,1},
+  {Kind::Choice,"independent","What is the base word in jumped?","Jump stays the same when ed is added.",{"Jump","Jumps","Jum"},3,0},
+  {Kind::AdultReview,"assessment","Read dogs, cats, jumped, played and rested. Spell the word an adult says: helped.","Adult: Check base word and ending; notice different ending sounds without requiring pronunciation terminology.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say play, then played. Find the letters that were added.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word shows that help happened earlier?","Helped uses ed to show a past action.",{"Helps","Helped","Help"},3,1},
+};
+inline constexpr Activity activities_88[]={
+  {Kind::Instruction,"instruction","A contraction joins two words and leaves out letters. I am becomes I'm. She is becomes she's. An apostrophe marks missing letters.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which contraction means I am?","I'm joins I and am.",{"I'd","I'm","I'll"},3,1},
+  {Kind::Choice,"independent","Which contraction means is not?","Isn't joins is and not.",{"Isn't","It's","I'm"},3,0},
+  {Kind::AdultReview,"assessment","Read: She's here. He's finished his work. I am not late. Write contractions for I am and has not.","Adult: Check I'm and hasn't; explain that he's can mean he is or he has depending on the sentence.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Write she is, then she's. Find the apostrophe where a letter was removed.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What does hasn't mean?","Hasn't joins has and not.",{"Had not","Has not","Have not"},3,1},
+};
+inline constexpr Activity activities_89[]={
+  {Kind::Instruction,"instruction","Many short one-syllable words end with doubled f, l or s after a short vowel: puff, hill and pass. Two letters spell one final sound.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which spelling is correct for a small hill?","Hill ends with ll after a short vowel.",{"Hil","Hill","Hile"},3,1},
+  {Kind::Choice,"independent","Which spelling completes: I can pass the ball?","Pass ends in ss.",{"Pass","Pas","Pase"},3,0},
+  {Kind::AdultReview,"assessment","Read puff, cliff, bell and mess. Spell the word an adult says: fill.","Adult: Check independent spelling, especially the doubled final letter.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Say puff slowly. Find the short vowel and two final f letters.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word is spelled correctly?","Mess uses ss after the short e sound.",{"Mes","Mess","Mese"},3,1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -705,6 +801,18 @@ inline constexpr Lesson lessons[]={
   {0,"g1-subtract-tens",1,"Take away whole tens",activities_75,6},
   {0,"g1-growing-shape-pattern",1,"Growing shape patterns",activities_76,6},
   {0,"g1-repeating-patterns",1,"Repeat a shape pattern",activities_77,6},
+  {1,"g1-matching-first-sounds",1,"Words with matching first sounds",activities_78,6},
+  {1,"g1-add-remove-syllables",1,"Add and remove syllables",activities_79,6},
+  {1,"g1-longer-word-sound-parts",1,"Join sound parts in longer words",activities_80,6},
+  {1,"g1-initial-final-blends",1,"Blend two consonants",activities_81,6},
+  {1,"g1-more-consonant-digraphs",1,"Read more two-letter sounds",activities_82,6},
+  {1,"g1-vowel-r-words",1,"Read vowels with r",activities_83,6},
+  {1,"g1-two-syllable-reading",1,"Read words in two parts",activities_84,6},
+  {1,"g1-three-letter-sounds",1,"Read tch and dge",activities_85,6},
+  {1,"g1-qu-words",1,"Read words with qu",activities_86,6},
+  {1,"g1-base-word-endings",1,"Add s and ed to words",activities_87,6},
+  {1,"g1-shortened-word-pairs",1,"Join words with an apostrophe",activities_88,6},
+  {1,"g1-double-final-letters",1,"Double the last letter",activities_89,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -807,5 +915,17 @@ inline constexpr unsigned lesson_units[]={
   2,
   19,
   19,
+  6,
+  6,
+  6,
+  7,
+  7,
+  7,
+  7,
+  7,
+  7,
+  7,
+  7,
+  7,
 };
 }
