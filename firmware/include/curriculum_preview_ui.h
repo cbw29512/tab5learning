@@ -8,6 +8,7 @@
 #include "curriculum_feedback_ui.h"
 #include "curriculum_topic_ui.h"
 #include "curriculum_text_layout.h"
+#include "curriculum_recommendation.h"
 namespace curriculum_preview {
 // A single bounded wrapper also serves the completion notice.
 inline void wrapped(const char* text,int x,int y,unsigned max_lines,unsigned columns=60){
@@ -109,7 +110,12 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     render_finish_heading(p.reviewing);
     wrapped(p.reviewing?"Nice practice! No new completion or grade was recorded.":saved?"Your lesson completion is saved. Keep learning!":
                   "Nice effort! Completion history is not available yet. No grade was recorded.",48,340,4);
-    button(p.reviewing?"Return to finished lessons":saved?"See up next":"Choose another lesson",488,64);return;
+    const auto* suggested=recommended_after(p,ledger);
+    if(suggested){
+      M5.Display.setTextSize(2);M5.Display.drawString("Suggested next lesson:",48,408);
+      M5.Display.setTextSize(3);M5.Display.drawString(suggested->title,48,440);
+    }
+    button(p.reviewing?"Return to finished lessons":suggested?"Start next lesson":saved?"See up next":"Choose another lesson",488,64);return;
   }
   char label[96];
   std::snprintf(label,sizeof(label),"Activity %u of %u - %s",
@@ -170,7 +176,10 @@ inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr)
     return index>=0&&p.answer(static_cast<unsigned>(index));
   }
   if(!hit(x,y,488,64))return false;
-  if(p.screen==Screen::Finished)return browse_after_finish(p,ledger);
+  if(p.screen==Screen::Finished){
+    if(start_recommended(p,ledger))return true;
+    return browse_after_finish(p,ledger);
+  }
   return p.next();
 }
 }

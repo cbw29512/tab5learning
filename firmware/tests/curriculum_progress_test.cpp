@@ -1,5 +1,6 @@
 #include "curriculum_browse.h"
 #include "curriculum_achievements.h"
+#include "curriculum_recommendation.h"
 #include <cassert>
 #include <vector>
 using namespace curriculum_preview;
@@ -37,6 +38,10 @@ int main(){
   Media media;CompletionLedger ledger(media);
   assert(!subject_progress(&ledger,0).known);
   assert(ledger.begin());
+  for(std::size_t i=0;i<lesson_count;++i){
+    assert(prerequisites_completed(i,&ledger)==(lesson_prerequisite_offsets[i]==lesson_prerequisite_offsets[i+1]));
+    assert(!prerequisites_completed(i,nullptr));
+  }
   for(const auto& def:achievements)assert(achievement_progress(def,grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Locked);
   auto p=subject_progress(&ledger,0);
   assert(p.known&&p.total==27&&p.completed==0);
@@ -49,6 +54,13 @@ int main(){
   }
   assert(ledger.finish(lesson)==CompletionResult::Saved);
   assert(ledger.finish(lesson)==CompletionResult::AlreadyRecorded);
+  assert(!recommended_after(lesson,nullptr));
+  const auto* next=recommended_after(lesson,&ledger);
+  assert(next&&next->subject==lesson.current().subject);
+  assert(prerequisites_completed(static_cast<std::size_t>(next-lessons),&ledger));
+  Preview routed=lesson;assert(start_recommended(routed,&ledger));
+  assert(routed.screen==Screen::Activity&&routed.grouped&&routed.step==0&& &routed.current()==next);
+  Preview review=lesson;review.reviewing=true;assert(!recommended_after(review,&ledger));
   assert(grade_progress(&ledger).completed==1);
   assert(achievement_progress(achievements[0],grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Earned);
   assert(achievement_progress(achievements[1],grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Locked);
@@ -93,6 +105,8 @@ int main(){
     const auto r=reopened.finish(done);assert(r==CompletionResult::Saved||r==CompletionResult::AlreadyRecorded);
   }
   assert(grade_progress(&reopened).completed==lesson_count);
+  assert(!recommended_after(lesson,&reopened));
+  for(std::size_t i=0;i<lesson_count;++i)assert(prerequisites_completed(i,&reopened));
   for(const auto& def:achievements){const auto a=achievement_progress(def,grade_progress(&reopened),topic_milestones(&reopened));assert(a.state==AchievementState::Earned&&a.completed==a.target);}
   assert(ledger.begin());
   media.invalid=true;assert(!ledger.begin());

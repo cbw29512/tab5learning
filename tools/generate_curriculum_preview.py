@@ -100,6 +100,19 @@ def generate(raw):
         for lesson in catalog["lessons"]:
             lines.append(f"  {unit_index(lesson)},")
         lines.append("};")
+        # Compact adjacency table: offsets delimit each lesson's direct prerequisites.
+        indices = {lesson["lesson_id"]: i for i, lesson in enumerate(catalog["lessons"])}
+        offsets, prerequisites = [0], []
+        for lesson in catalog["lessons"]:
+            prerequisites.extend(indices[key] for key in lesson["prerequisites"])
+            offsets.append(len(prerequisites))
+        lines.append("inline constexpr unsigned lesson_prerequisite_offsets[]={")
+        lines.extend(f"  {value}," for value in offsets)
+        lines.append("};")
+        lines.append("inline constexpr unsigned lesson_prerequisites[]={")
+        # Sentinel keeps the array nonempty even for a catalog without prerequisites.
+        lines.extend(f"  {value}," for value in prerequisites + [len(indices)])
+        lines.append("};")
         lines.append("}")
         return "\n".join(lines)+"\n"
     except Exception:
