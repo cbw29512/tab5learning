@@ -62,6 +62,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_skill_history_test.cpp -o /tmp/tab5-skill-history
           /tmp/tab5-skill-history
+      - name: Compile and run historical skill recommendation tests
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_historical_recommendation_test.cpp -o /tmp/tab5-history-recommendation
+          /tmp/tab5-history-recommendation
       - name: Compile and run skill history writer tests
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/curriculum_skill_writer_test.cpp -o /tmp/tab5-skill-writer

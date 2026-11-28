@@ -13,12 +13,17 @@ class SkillHistoryReader {
 struct SkillHistorySample {
   bool known=false;
   unsigned observations=0,correct=0,sessions=0;
+  unsigned error_sessions=0,recent_error_sessions=0;
 };
 class SkillHistoryWriter;
 class SkillHistoryReplay {
   friend class SkillHistoryWriter; // Publish a new record only after exact durable readback.
   struct Seen { CompletionKey key{}; unsigned step=0; };
-  struct Count { unsigned observed=0,correct=0,sessions=0,last_session=0; };
+  struct Count {
+    unsigned observed=0,correct=0,sessions=0,last_session=0;
+    unsigned error_sessions=0,recent_error_sessions=0,prior_error_run=0;
+    bool session_error=false;
+  };
   std::array<Seen,256> seen{};
   std::array<Count,lesson_count> counts{};
   unsigned seen_count=0,records=0;
@@ -44,8 +49,20 @@ class SkillHistoryReplay {
       if(!(key==e.lesson))continue;
       if(e.step>=lessons[i].count||!independent_choice(lessons[i].activities[e.step]))
         return fail("activity");
-      auto& c=counts[i];++c.observed;if(e.correct)++c.correct;
-      if(c.last_session!=session){++c.sessions;c.last_session=session;}
+      auto& c=counts[i];
+      // Track consecutive contributing sessions with at least one error.
+      // Sessions that never sampled this skill do not change its streak.
+      if(c.last_session!=session){
+        ++c.sessions;c.last_session=session;
+        c.prior_error_run=c.recent_error_sessions;
+        c.recent_error_sessions=0;c.session_error=false;
+      }
+      ++c.observed;
+      if(e.correct)++c.correct;
+      else if(!c.session_error){
+        c.session_error=true;++c.error_sessions;
+        c.recent_error_sessions=c.prior_error_run+1;
+      }
       break;
     }
     // Historical or retired revisions are preserved in the source but
@@ -74,7 +91,7 @@ class SkillHistoryReplay {
   unsigned verified_count()const{return ready?records:0;}
   SkillHistorySample skill(std::size_t index)const{
     if(!ready||index>=lesson_count)return {};
-    const auto& c=counts[index];return {true,c.observed,c.correct,c.sessions};
+    const auto& c=counts[index];return {true,c.observed,c.correct,c.sessions,c.error_sessions,c.recent_error_sessions};
   }
 };
 }

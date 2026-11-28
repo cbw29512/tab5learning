@@ -42,6 +42,7 @@ int main(){
   assert(skill_decode(m.records[1],e)&&e.session==2&&e.sequence==2);
   auto p=second.skill(before.lesson);
   assert(p.known&&p.observations==2&&p.correct==1&&p.sessions==2);
+  assert(p.error_sessions==1&&p.recent_error_sessions==0);
   // Append may succeed physically but return an error: stop; don't retry.
   SkillHistoryWriter uncertain(m);assert(uncertain.begin());m.ambiguous=true;
   assert(uncertain.observe(before,after)==SkillWriteResult::Unavailable);

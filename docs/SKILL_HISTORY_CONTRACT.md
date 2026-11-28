@@ -55,3 +55,7 @@ or length failure disables the owner; no retries or truncation. Controlled reope
 with a fresh owner reconstructs valid committed records. Capacity returns Full
 without deleting anything. This abstract backend is not an ESP/FAT implementation
 or authorization to collect real student data.
+
+## Historical practice projection
+
+Replay and incremental writer now count contributing sessions with errors and consecutive contributing sessions containing an error. Multiple errors within one session count once. A subsequent contributing session with only correct responses resets the current error streak; an unobserved session does not. The advisory policy suggests practice for recent errors and labels recurring difficulty only after at least four observations and two consecutive contributing error sessions. These are provisional development thresholds, not validated mastery metrics or dates. It ranks eligible practice within the requested subject, prioritizing recurring errors, then longer error streaks and stable catalog order. No history means no historical recommendation. No live student UI or SD connection enabled.

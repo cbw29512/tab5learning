@@ -33,6 +33,7 @@ int main(){
   media.add({4,2,historic,a,false});
   assert(replay.begin(media)&&replay.verified_count()==4);
   auto p=replay.skill(0);assert(p.known&&p.observations==3&&p.correct==2&&p.sessions==2);
+  assert(p.error_sessions==1&&p.recent_error_sessions==0);
   SkillHistoryReplay reopened;assert(reopened.begin(media)&&reopened.skill(0).observations==3);
   assert(!reopened.skill(lesson_count).known);
   media.add({5,2,key,a,false}); // duplicate within session
@@ -48,6 +49,15 @@ int main(){
   auto saved=media.records[0];media.records[0][98]^=1;
   assert(!replay.begin(media));media.records[0]=saved;
   assert(replay.begin(media)&&replay.skill(0).correct==2);
+  media.add({5,3,key,a,false});
+  media.add({6,3,key,b,false}); // two errors in one session count once
+  media.add({7,4,key,a,false});
+  assert(replay.begin(media));p=replay.skill(0);
+  assert(p.error_sessions==3&&p.recent_error_sessions==2);
+  media.add({8,5,key,a,true});
+  assert(replay.begin(media)&&replay.skill(0).recent_error_sessions==0);
+  media.add({9,5,key,b,false});
+  assert(replay.begin(media)&&replay.skill(0).recent_error_sessions==3);
   first.session=0;assert(!skill_encode(first,bytes));
   first.session=1;first.step=evidence_step_limit;assert(!skill_encode(first,bytes));
 }
