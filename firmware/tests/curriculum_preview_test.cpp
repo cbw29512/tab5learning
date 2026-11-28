@@ -56,6 +56,12 @@ int main(){
         const auto& a=p.activity();
         const bool visual=visual_for(p.current(),p.step)!=nullptr;
         for(bool feedback:{false,true}){
+          // Instruction activities advance directly and have no feedback screen.
+          // Check that contract instead of requiring text that is never rendered.
+          if(feedback&&a.kind==Kind::Instruction){
+            assert(a.feedback&&a.feedback[0]=='\0');
+            continue;
+          }
           const auto* text=feedback?a.feedback:a.prompt;
           const auto layout=activity_text_layout(text,visual,feedback);
           const auto count=wrap_lines(text,layout.columns,[&](const char* line,unsigned){
