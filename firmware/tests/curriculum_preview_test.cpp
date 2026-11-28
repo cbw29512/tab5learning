@@ -2,6 +2,7 @@
 #include "learner_layout.h"
 #include "curriculum_visuals.h"
 #include "curriculum_answer_layout.h"
+#include "curriculum_feedback.h"
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
@@ -43,6 +44,10 @@ int main(){
       while(p.screen!=Screen::Finished){
         assert(p.screen==Screen::Activity);++activities;
         const auto& a=p.activity();
+        const auto progress=activity_progress(p);
+        assert(progress.valid&&progress.visited==p.step+1&&progress.total==p.current().count);
+        assert(activity_bar_width(progress)>0&&activity_bar_width(progress)<=progress_bar_width);
+        assert(feedback_tone(p)==FeedbackTone::Invalid);
         if(a.kind==Kind::Choice){
           assert(large_answers(p)&&a.count>=2&&a.count<=answer_max);
           for(unsigned k=0;k<a.count;++k){
@@ -57,13 +62,20 @@ int main(){
           assert(!p.next());assert(!p.answer(a.count));
           assert(a.answer>=0&&unsigned(a.answer)<a.count);
           assert(p.answer(unsigned(a.answer)));assert(p.screen==Screen::Feedback);
+          assert(feedback_tone(p)==FeedbackTone::Correct);
+          Preview incorrect=p;
+          incorrect.selected=(a.answer+1)%a.count;
+          assert(feedback_tone(incorrect)==FeedbackTone::Learn);
+          incorrect.selected=-1;assert(feedback_tone(incorrect)==FeedbackTone::Invalid);
           assert(!p.answer(0));assert(p.next());
         }else if(a.kind==Kind::AdultReview){
           assert(!p.answer(0));assert(p.next()&&p.screen==Screen::Feedback);
-          assert(p.selected==-1);assert(p.next());
+          assert(p.selected==-1&&feedback_tone(p)==FeedbackTone::Guidance);assert(p.next());
         }else assert(p.next());
       }
+      assert(activity_bar_width(activity_progress(p))==progress_bar_width);
       assert(!p.next());assert(p.back());
+      assert(!activity_progress(p).valid);
     }
     assert(!p.choose_lesson(rows));
     }

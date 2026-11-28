@@ -5,6 +5,7 @@
 #include "curriculum_browse.h"
 #include "curriculum_visual_ui.h"
 #include "curriculum_answer_layout.h"
+#include "curriculum_feedback_ui.h"
 namespace curriculum_preview {
 // Font 0 at size 3: six pixels per character before scaling. Conservative
 // 60-column wrap fits within 1080 pixels; fixed buffer, no String allocations.
@@ -109,15 +110,17 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   M5.Display.drawString(p.current().title,48,178);
   if(p.screen==Screen::Finished){
     const auto saved=lesson_progress(ledger,p.current())==CompletionLookup::Recorded;
-    wrapped(p.reviewing?"Review finished. No new completion or grade was recorded.":saved?"Lesson completion saved. No grade, mastery or achievement was recorded.":
-                  "Preview finished. No verified completion history or grade was recorded.",48,230,5);
+    render_finish_heading(p.reviewing);
+    wrapped(p.reviewing?"Nice practice! No new completion or grade was recorded.":saved?"Your lesson completion is saved. Keep learning!":
+                  "Nice effort! Completion history is not available yet. No grade was recorded.",48,340,4);
     button(p.reviewing?"Return to finished lessons":saved?"See up next":"Choose another lesson",488,64);return;
   }
   char label[96];
   std::snprintf(label,sizeof(label),"Activity %u of %u - %s",
     static_cast<unsigned>(p.step+1),static_cast<unsigned>(p.current().count),p.activity().phase);
   M5.Display.setTextSize(2);M5.Display.drawString(label,48,218);
-  M5.Display.setTextSize(3);
+  render_activity_progress(p);
+  M5.Display.setTextSize(3);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   const auto* visual=visual_for(p.current(),p.step);
   if(visual){
     std::printf("CURRICULUM,VISUAL,%s,%u,%u\n",p.current().id,
@@ -130,10 +133,9 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   if(p.screen==Screen::Feedback){
     const int text_x=visual?visual_text_x:48;
     if(visual)draw_visual(*visual);
-    if(p.activity().kind==Kind::Choice){
-      M5.Display.drawString(p.selected==p.activity().answer?"Correct":"Practice this again",text_x,250);
-    }else M5.Display.drawString("Adult guidance - not graded",text_x,250);
+    render_feedback_heading(p,text_x);
     wrapped(p.activity().feedback,text_x,290,visual?4:5,visual?visual_columns:60);
+    render_correct_answer(p);
     button("Continue",488,64);return;
   }
   if(visual)draw_visual(*visual);
