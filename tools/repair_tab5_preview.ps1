@@ -14,9 +14,11 @@ param(
 $ErrorActionPreference = "Stop"
 try {
     $repo = Split-Path -Parent $PSScriptRoot
-    $pio = "$HOME\.platformio\penv\Scripts\platformio.exe"
-    $python = "$HOME\.platformio\penv\Scripts\python.exe"
-    $esptool = "$HOME\.platformio\packages\tool-esptoolpy\esptool.py"
+    . (Join-Path $PSScriptRoot "tab5_tools.ps1")
+    $tools = Get-Tab5Tools
+    $pio = $tools.Pio
+    $python = $tools.Python
+    $esptool = $tools.Esp
     if ($Revision -notmatch '^[a-fA-F0-9]{40}$') { throw "Full revision required." }
     if ($ExpectedMac -notmatch '^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$') { throw "Invalid device identity." }
     if ((Get-Item -LiteralPath $Backup).Length -ne 16777216) { throw "Invalid backup length." }

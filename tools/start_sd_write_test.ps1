@@ -8,8 +8,10 @@ param(
 $ErrorActionPreference = "Stop"
 try {
     $repo = Split-Path -Parent $PSScriptRoot
-    $python = "$HOME\.platformio\penv\Scripts\python.exe"
-    $esptool = "$HOME\.platformio\packages\tool-esptoolpy\esptool.py"
+    . (Join-Path $PSScriptRoot "tab5_tools.ps1")
+    $tools = Get-Tab5Tools
+    $python = $tools.Python
+    $esptool = $tools.Esp
     $shell = Join-Path $PSHOME "powershell.exe"
     $installer = Join-Path $PSScriptRoot "repair_tab5_preview.ps1"
     if ($Revision -notmatch '^[a-fA-F0-9]{40}$' -or
@@ -47,8 +49,10 @@ try {
     $backup = Join-Path $recovery "flash-backup.bin"
     $verify = Join-Path $recovery "flash-verification.bin"
     Write-Host "RECOVERY FOLDER: $recovery"
+    # Keep the chip in its loader between independent reads, preventing the
+    # running learner from modifying NVS between the two snapshots.
     foreach ($file in @($backup,$verify)) {
-        & $python $esptool --chip esp32p4 --port $Port --baud 460800 read-flash 0x0 0x1000000 $file
+        & $python $esptool --chip esp32p4 --port $Port --baud 460800 --after no-reset read-flash 0x0 0x1000000 $file
         if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $file).Length -ne 16777216) {
             throw "Independent flash read failed. Preserve recovery folder."
         }
@@ -74,6 +78,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Guarded install failed; preserve recovery files." }
     Write-Host "Record first screen, then restart normally and record second screen."
     Write-Host "Restore the pre-probe learner from: $recovery"
+    Write-Host "Use tools/restore_tab5_application.ps1 -RecoveryFolder `"$recovery`" -ExpectedMac $ExpectedMac -Port $Port"
 } catch {
     Write-Host "SD TEST STOPPED: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
