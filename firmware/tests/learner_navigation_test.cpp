@@ -22,6 +22,15 @@ int main() {
     assert(learner_navigate(state, LearnerAction::Back));
     assert(state.screen == LearnerScreen::Home);
   }
+  assert(!learner_navigate(state,LearnerAction::Achievements));
+  assert(learner_navigate(state,LearnerAction::Journey));
+  assert(learner_navigate(state,LearnerAction::Achievements));
+  assert(state.screen==LearnerScreen::Achievements);
+  assert(learner_navigate(state,LearnerAction::Help));
+  assert(!learner_navigate(state,LearnerAction::Achievements));
+  assert(learner_navigate(state,LearnerAction::Back)&&state.screen==LearnerScreen::Achievements);
+  assert(learner_navigate(state,LearnerAction::Back)&&state.screen==LearnerScreen::Journey);
+  assert(learner_navigate(state,LearnerAction::Back)&&state.screen==LearnerScreen::Home);
   assert(!learner_navigate(state, LearnerAction::Back));
   assert(learner_navigate(state, LearnerAction::Help));
   assert(!learner_navigate(state, LearnerAction::Reading));

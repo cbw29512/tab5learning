@@ -22,7 +22,8 @@ class BatteryRuntime {
       case LearnerScreen::Reading: return 2;
       case LearnerScreen::Spelling: return 3;
       case LearnerScreen::Flashcards: return 4;
-      case LearnerScreen::Journey: return 5;
+      case LearnerScreen::Journey:
+      case LearnerScreen::Achievements: return 5; // shared journey diagnostics
       case LearnerScreen::Curriculum: return 7;
     }
     return 0;

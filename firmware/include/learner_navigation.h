@@ -1,8 +1,8 @@
 #pragma once
 
 // Portable learner navigation: no diagnostic, USB or administrator routes.
-enum class LearnerScreen { Home, Math, Reading, Spelling, Flashcards, Journey, Curriculum };
-enum class LearnerAction { Home, Back, Math, Reading, Spelling, Flashcards, Journey, Help, Curriculum, SubjectMath, SubjectEla, SubjectScience, SubjectSocial };
+enum class LearnerScreen { Home, Math, Reading, Spelling, Flashcards, Journey, Curriculum, Achievements };
+enum class LearnerAction { Home, Back, Math, Reading, Spelling, Flashcards, Journey, Help, Curriculum, SubjectMath, SubjectEla, SubjectScience, SubjectSocial, Achievements };
 
 // Subject tiles enter the shared curriculum, not the old standalone demos.
 inline constexpr int learner_subject(LearnerAction action) {
@@ -29,11 +29,15 @@ inline bool learner_navigate(LearnerNavigation& state, LearnerAction action) {
       break;
     case LearnerAction::Back:
       if (state.help_open) state.help_open = false;
+      else if(state.screen==LearnerScreen::Achievements)state.screen=LearnerScreen::Journey;
       else state.screen = LearnerScreen::Home;
       break;
     case LearnerAction::Help:
       state.help_open = true;
       break;
+    case LearnerAction::Achievements:
+      if(state.help_open||state.screen!=LearnerScreen::Journey)return false;
+      state.screen=LearnerScreen::Achievements;break;
     default:
       // Subject controls are available from home, not through a help overlay.
       if (state.screen != LearnerScreen::Home || state.help_open) return false;

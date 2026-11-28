@@ -5,7 +5,7 @@
 #include <initializer_list>
 int main(){
   LearnerNavigation nav;
-  for(auto screen:{LearnerScreen::Home,LearnerScreen::Curriculum,LearnerScreen::Journey,
+  for(auto screen:{LearnerScreen::Home,LearnerScreen::Curriculum,LearnerScreen::Journey,LearnerScreen::Achievements,
                    LearnerScreen::Spelling,LearnerScreen::Flashcards}){
     nav.screen=screen;
     assert(display_refresh_policy(nav,false)==DisplayRefresh::None);

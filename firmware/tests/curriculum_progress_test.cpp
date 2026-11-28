@@ -1,4 +1,5 @@
 #include "curriculum_browse.h"
+#include "curriculum_achievements.h"
 #include <cassert>
 #include <vector>
 using namespace curriculum_preview;
@@ -31,9 +32,12 @@ int main(){
   assert(!topic_progress(nullptr,unit_count).known);
   assert(!topic_finished({0,0,true}));
   assert(topic_milestones(nullptr).total==nonempty&&!topic_milestones(nullptr).known);
+  assert(grade_progress(nullptr).total==lesson_count&&!grade_progress(nullptr).known);
+  for(const auto& def:achievements)assert(achievement_progress(def,grade_progress(nullptr),topic_milestones(nullptr)).state==AchievementState::Unknown);
   Media media;CompletionLedger ledger(media);
   assert(!subject_progress(&ledger,0).known);
   assert(ledger.begin());
+  for(const auto& def:achievements)assert(achievement_progress(def,grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Locked);
   auto p=subject_progress(&ledger,0);
   assert(p.known&&p.total==27&&p.completed==0);
   Preview lesson;
@@ -45,6 +49,9 @@ int main(){
   }
   assert(ledger.finish(lesson)==CompletionResult::Saved);
   assert(ledger.finish(lesson)==CompletionResult::AlreadyRecorded);
+  assert(grade_progress(&ledger).completed==1);
+  assert(achievement_progress(achievements[0],grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Earned);
+  assert(achievement_progress(achievements[1],grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Locked);
   assert(subject_progress(&ledger,0).completed==1);
   assert(subject_progress(&ledger,1).completed==0);
   const auto unit=lesson_units[lesson.lesson];
@@ -79,8 +86,18 @@ int main(){
   assert(topic_milestones(&ledger).completed==1);
   CompletionLedger reopened(media);assert(reopened.begin());
   assert(topic_milestones(&reopened).completed==1);
+  assert(achievement_progress(achievements[2],grade_progress(&reopened),topic_milestones(&reopened)).state==AchievementState::Earned);
+  // Every current lesson completed; historic revision and replays never inflate totals.
+  for(std::size_t i=0;i<lesson_count;++i){
+    Preview done{};done.lesson=i;done.step=done.current().count-1;done.screen=Screen::Finished;
+    const auto r=reopened.finish(done);assert(r==CompletionResult::Saved||r==CompletionResult::AlreadyRecorded);
+  }
+  assert(grade_progress(&reopened).completed==lesson_count);
+  for(const auto& def:achievements){const auto a=achievement_progress(def,grade_progress(&reopened),topic_milestones(&reopened));assert(a.state==AchievementState::Earned&&a.completed==a.target);}
+  assert(ledger.begin());
   media.invalid=true;assert(!ledger.begin());
   assert(!topic_milestones(&ledger).known&&!topic_finished(topic_progress(&ledger,unit)));
+  assert(achievement_progress(achievements[0],grade_progress(&ledger),topic_milestones(&ledger)).state==AchievementState::Unknown);
   browser.finished_only=true;browse_clamp(browser,&ledger);
   assert(!browser.finished_only&&browse_count(browser,&ledger)==27);
   assert(!subject_progress(&ledger,0).known);

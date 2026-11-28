@@ -30,6 +30,7 @@
 #include "curriculum_resume_store.h"
 #include "curriculum_transition.h"
 #include "curriculum_journey_ui.h"
+#include "curriculum_achievements_ui.h"
 #include "curriculum_continue.h"
 #ifdef POCKET_LEARNER_SD_EVAL
 #include "learner_sd_owner.h"
@@ -145,6 +146,7 @@ const char* heading() {
     case LearnerScreen::Spelling: return "Spelling";
     case LearnerScreen::Flashcards: return "Flashcards";
     case LearnerScreen::Journey: return "My Learning Journey";
+    case LearnerScreen::Achievements: return "My Achievements";
     case LearnerScreen::Curriculum:
       if(curriculum.screen==curriculum_preview::Screen::Subjects)return "Grade 1";
       if(curriculum.unit>=0)return curriculum_preview::units[curriculum.unit].title;
@@ -185,6 +187,7 @@ void render_journey() {
   M5.Display.setTextSize(3);
   M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   curriculum_preview::render_subject_progress(curriculum_completion);
+  tile(learner_achievements,TFT_BLUE);
   M5.Display.setTextSize(2);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
   if(storage_error) {
     M5.Display.drawString("Math progress unavailable.",48,180);
@@ -298,6 +301,8 @@ void render() {
       curriculum_preview::render(curriculum,curriculum_resume.available(),curriculum_completion);
     } else if (navigation.screen==LearnerScreen::Journey) {
       render_journey();
+    } else if(navigation.screen==LearnerScreen::Achievements){
+      curriculum_preview::render_achievements(curriculum_completion);
     } else {
       M5.Display.drawString("Lesson integration pending.",48,180);
     }

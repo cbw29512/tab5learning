@@ -21,6 +21,11 @@ int main() {
   assert(learner_hit(choice_nav,100,600,action,false,false)&&action==LearnerAction::Back);
   assert(learner_navigate(choice_nav,LearnerAction::Help));
   assert(learner_hit(choice_nav,100,600,action,false,true)&&action==LearnerAction::Back);
+  LearnerNavigation journey_nav;assert(learner_navigate(journey_nav,LearnerAction::Journey));
+  assert(learner_hit(journey_nav,49,445,action)&&action==LearnerAction::Achievements);
+  assert(!learner_hit(journey_nav,600,445,action));
+  assert(learner_navigate(journey_nav,LearnerAction::Help));
+  assert(!learner_hit(journey_nav,49,445,action));
   const auto& sd=learner_storage_region;
   assert(sd.x+sd.w<=learner_battery_region.x);
   assert(learner_heading_x>=learner_home.x+learner_home.w);
