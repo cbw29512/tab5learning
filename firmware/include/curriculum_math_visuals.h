@@ -57,47 +57,65 @@ constexpr MathScene subtraction_scene(unsigned total,unsigned removed){
 // g1-count-like-coins, revision 1: exact activity order, verified against catalog.
 inline constexpr auto coins_0=coin_scene(4,5);
 static_assert(coins_0.valid);
+inline constexpr auto coins_0_packed=pack_scene<coins_0>();
 inline constexpr auto coins_1=coin_scene(3,10);
 static_assert(coins_1.valid);
+inline constexpr auto coins_1_packed=pack_scene<coins_1>();
 inline constexpr auto coins_2=coin_scene(6,1);
 static_assert(coins_2.valid);
+inline constexpr auto coins_2_packed=pack_scene<coins_2>();
 inline constexpr auto coins_3=coin_scene(8,5);
 static_assert(coins_3.valid);
+inline constexpr auto coins_3_packed=pack_scene<coins_3>();
 inline constexpr auto coins_4=coin_scene(10,10);
 static_assert(coins_4.valid);
+inline constexpr auto coins_4_packed=pack_scene<coins_4>();
 inline constexpr auto coins_5=coin_scene(5,5);
 static_assert(coins_5.valid);
-inline constexpr Visual coins_views[]={coins_0.view(),coins_1.view(),coins_2.view(),coins_3.view(),coins_4.view(),coins_5.view()};
+inline constexpr auto coins_5_packed=pack_scene<coins_5>();
+inline constexpr Visual coins_views[]={packed_view(coins_0_packed),packed_view(coins_1_packed),packed_view(coins_2_packed),packed_view(coins_3_packed),packed_view(coins_4_packed),packed_view(coins_5_packed)};
 
 // g1-add-tens-ones, revision 1: exact activity order, verified against catalog.
 inline constexpr auto addition_0=addition_scene(36,4);
 static_assert(addition_0.valid);
+inline constexpr auto addition_0_packed=pack_scene<addition_0>();
 inline constexpr auto addition_1=addition_scene(24,30);
 static_assert(addition_1.valid);
+inline constexpr auto addition_1_packed=pack_scene<addition_1>();
 inline constexpr auto addition_2=addition_scene(32,5);
 static_assert(addition_2.valid);
+inline constexpr auto addition_2_packed=pack_scene<addition_2>();
 inline constexpr auto addition_3=addition_scene(48,5);
 static_assert(addition_3.valid);
+inline constexpr auto addition_3_packed=pack_scene<addition_3>();
 inline constexpr auto addition_4=addition_scene(27,6);
 static_assert(addition_4.valid);
+inline constexpr auto addition_4_packed=pack_scene<addition_4>();
 inline constexpr auto addition_5=addition_scene(65,20);
 static_assert(addition_5.valid);
-inline constexpr Visual addition_views[]={addition_0.view(),addition_1.view(),addition_2.view(),addition_3.view(),addition_4.view(),addition_5.view()};
+inline constexpr auto addition_5_packed=pack_scene<addition_5>();
+inline constexpr Visual addition_views[]={packed_view(addition_0_packed),packed_view(addition_1_packed),packed_view(addition_2_packed),packed_view(addition_3_packed),packed_view(addition_4_packed),packed_view(addition_5_packed)};
 
 // g1-subtract-tens, revision 1: exact activity order, verified against catalog.
 inline constexpr auto subtraction_0=subtraction_scene(6,2);
 static_assert(subtraction_0.valid);
+inline constexpr auto subtraction_0_packed=pack_scene<subtraction_0>();
 inline constexpr auto subtraction_1=subtraction_scene(8,3);
 static_assert(subtraction_1.valid);
+inline constexpr auto subtraction_1_packed=pack_scene<subtraction_1>();
 inline constexpr auto subtraction_2=subtraction_scene(4,1);
 static_assert(subtraction_2.valid);
+inline constexpr auto subtraction_2_packed=pack_scene<subtraction_2>();
 inline constexpr auto subtraction_3=subtraction_scene(9,7);
 static_assert(subtraction_3.valid);
+inline constexpr auto subtraction_3_packed=pack_scene<subtraction_3>();
 inline constexpr auto subtraction_4=subtraction_scene(5,4);
 static_assert(subtraction_4.valid);
+inline constexpr auto subtraction_4_packed=pack_scene<subtraction_4>();
 inline constexpr auto subtraction_5=subtraction_scene(7,7);
 static_assert(subtraction_5.valid);
-inline constexpr Visual subtraction_views[]={subtraction_0.view(),subtraction_1.view(),subtraction_2.view(),subtraction_3.view(),subtraction_4.view(),subtraction_5.view()};
+inline constexpr auto subtraction_5_packed=pack_scene<subtraction_5>();
+inline constexpr Visual subtraction_views[]={packed_view(subtraction_0_packed),packed_view(subtraction_1_packed),packed_view(subtraction_2_packed),packed_view(subtraction_3_packed),packed_view(subtraction_4_packed),packed_view(subtraction_5_packed)};
 inline const Visual* math_visual_for(const Lesson& l,std::size_t step){
   if(l.revision!=1||step>=l.count||step>=6)return nullptr;
   if(std::strcmp(l.id,"g1-count-like-coins")==0)return &coins_views[step];

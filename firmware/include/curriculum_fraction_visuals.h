@@ -31,17 +31,23 @@ constexpr MathScene fraction_scene(unsigned activity){
 }
 inline constexpr auto shares_0=fraction_scene(0);
 static_assert(shares_0.valid);
+inline constexpr auto shares_0_packed=pack_scene<shares_0>();
 inline constexpr auto shares_1=fraction_scene(1);
 static_assert(shares_1.valid);
+inline constexpr auto shares_1_packed=pack_scene<shares_1>();
 inline constexpr auto shares_2=fraction_scene(2);
 static_assert(shares_2.valid);
+inline constexpr auto shares_2_packed=pack_scene<shares_2>();
 inline constexpr auto shares_3=fraction_scene(3);
 static_assert(shares_3.valid);
+inline constexpr auto shares_3_packed=pack_scene<shares_3>();
 inline constexpr auto shares_4=fraction_scene(4);
 static_assert(shares_4.valid);
+inline constexpr auto shares_4_packed=pack_scene<shares_4>();
 inline constexpr auto shares_5=fraction_scene(5);
 static_assert(shares_5.valid);
-inline constexpr Visual shares_views[]={shares_0.view(),shares_1.view(),shares_2.view(),shares_3.view(),shares_4.view(),shares_5.view()};
+inline constexpr auto shares_5_packed=pack_scene<shares_5>();
+inline constexpr Visual shares_views[]={packed_view(shares_0_packed),packed_view(shares_1_packed),packed_view(shares_2_packed),packed_view(shares_3_packed),packed_view(shares_4_packed),packed_view(shares_5_packed)};
 inline const Visual* fraction_visual_for(const Lesson& l,std::size_t step){
   if(l.revision!=1||step>=l.count||step>=6)return nullptr;
   return std::strcmp(l.id,"g1-equal-shares")==0?&shares_views[step]:nullptr;

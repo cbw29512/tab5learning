@@ -106,6 +106,17 @@ int main(){
            (v==&shares_views[0]&&std::strcmp(l.id,"g1-equal-shares")==0));
   }
   assert(illustrated==8);
+  // Packed storage contains only the active primitives. Compare the actual
+  // backing pointers/counts and representative geometry to the source.
+  static_assert(coins_0_packed.size()==coins_0.count&&coins_0_packed.size()<192);
+  static_assert(subtraction_3_packed.size()==subtraction_3.count);
+  static_assert(hour_1_packed.size()==hour_1.count);
+  static_assert(shares_5_packed.size()==shares_5.count);
+  static_assert(coins_views[0].shapes==coins_0_packed.data());
+  static_assert(hour_views[1].shapes==hour_1_packed.data());
+  static_assert(shares_views[5].shapes==shares_5_packed.data());
+  static_assert(coins_0_packed[1].x==coins_0.shapes[1].x&&
+                coins_0_packed[1].color==coins_0.shapes[1].color);
   static_assert(!clock_scene(0,false).valid&&!clock_scene(13,true).valid);
   static_assert(!fraction_scene(6).valid);
   static_assert(hour_1.count==half_hour_5.count);

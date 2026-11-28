@@ -15,8 +15,18 @@ struct MathScene {
     }
     shapes[count++]={x,y,w,h,r,color};
   }
-  constexpr Visual view()const{return {shapes.data(),count};}
 };
+// The large scratch array exists only during constant evaluation. Each final
+// scene stores exactly its used rectangles; no pointers refer to scratch data.
+template<const MathScene& Source> constexpr auto pack_scene(){
+  static_assert(Source.valid&&Source.count>0&&Source.count<=Source.shapes.size());
+  std::array<VisualRect,Source.count> packed{};
+  for(std::size_t i=0;i<Source.count;++i)packed[i]=Source.shapes[i];
+  return packed;
+}
+template<std::size_t N> constexpr Visual packed_view(const std::array<VisualRect,N>& packed){
+  return {packed.data(),N};
+}
 inline constexpr std::uint16_t paper=0xEF7D,ink=0x2104,blue_rod=0x045F,
   green_rod=0x05E0,red_mark=0xC000,muted=0xB596;
 constexpr MathScene math_panel(){
