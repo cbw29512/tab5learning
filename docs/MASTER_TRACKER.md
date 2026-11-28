@@ -408,3 +408,6 @@ Implemented abstract append-and-sync backend contract and one-session writer wit
 
 ## Historical adaptive practice policy
 Added revision-aware error-session aggregates to shared replay/writer, preserving SPE1 bytes. Historical recommendation distinguishes unavailable/empty/insufficient evidence, isolated recent errors and recurring errors (at least four observations across at least two consecutive contributing error sessions). A subsequent correct-only sampled session clears the streak; no sampled evidence is never treated as mastery. Advisory subject-scoped practice suggestions rank recurring errors and streak length, then catalog order; no cross-subject advancement or forced remediation. Provisional thresholds require educator review. Added replay/writer and policy assertions to native CI. No live history UI, no SD writes; hardware qualification and CI execution still pending.
+
+## Local adaptive regression gate
+Added a no-network/no-flash Python runner for 11 portable native suites plus exact generated curriculum consistency, with compiler detection, temporary executables, timeout, warnings-as-errors, fail-closed status and runner unit tests. Documented native and build-only commands in docs/LOCAL_ADAPTIVE_REGRESSION.md. CI remains pending; no test pass claimed from source-only changes. Physical SD qualification remains next mandatory hardware gate.
