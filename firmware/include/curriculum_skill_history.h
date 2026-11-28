@@ -14,7 +14,9 @@ struct SkillHistorySample {
   bool known=false;
   unsigned observations=0,correct=0,sessions=0;
 };
+class SkillHistoryWriter;
 class SkillHistoryReplay {
+  friend class SkillHistoryWriter; // Publish a new record only after exact durable readback.
   struct Seen { CompletionKey key{}; unsigned step=0; };
   struct Count { unsigned observed=0,correct=0,sessions=0,last_session=0; };
   std::array<Seen,256> seen{};

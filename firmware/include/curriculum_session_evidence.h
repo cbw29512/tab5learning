@@ -15,6 +15,16 @@ inline bool independent_choice(const Activity& a){
     (std::strcmp(a.phase,"independent")==0||std::strcmp(a.phase,"assessment")==0);
 }
 inline constexpr unsigned evidence_step_limit=32;
+// Shared admission rule: only genuine independent choice transitions.
+inline bool independent_response(const Preview& before,const Preview& after){
+  if(before.screen!=Screen::Activity||after.screen!=Screen::Feedback||
+     before.reviewing||after.reviewing||before.practice_only||after.practice_only||
+     before.lesson!=after.lesson||before.step!=after.step||after.lesson>=lesson_count||
+     after.step>=after.current().count||after.step>=evidence_step_limit)return false;
+  const auto& a=after.activity();
+  return independent_choice(a)&&a.answer>=0&&unsigned(a.answer)<a.count&&
+    after.selected>=0&&unsigned(after.selected)<a.count;
+}
 constexpr bool evidence_catalog_fits(){
   for(const auto& l:lessons)if(l.count>evidence_step_limit)return false;
   return true;
@@ -28,13 +38,8 @@ class SessionEvidence {
   // repeated answer, review, guided prompt or teacher observation cannot
   // change this boot's first independent response.
   bool observe(const Preview& before,const Preview& after){
-    if(before.screen!=Screen::Activity||after.screen!=Screen::Feedback||
-       before.reviewing||after.reviewing||before.practice_only||after.practice_only||before.lesson!=after.lesson||
-       before.step!=after.step||after.lesson>=lesson_count||
-       after.step>=after.current().count||after.step>=evidence_step_limit)return false;
+    if(!independent_response(before,after))return false;
     const auto& a=after.activity();
-    if(!independent_choice(a)||a.answer<0||unsigned(a.answer)>=a.count||
-       after.selected<0||unsigned(after.selected)>=a.count)return false;
     auto& record=records[after.lesson];
     const auto bit=std::uint32_t{1}<<after.step;
     if(record.observed&bit)return false;

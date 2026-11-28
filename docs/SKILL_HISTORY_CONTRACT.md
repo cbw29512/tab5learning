@@ -1,6 +1,6 @@
 # Skill history reference contract (SPE1)
 
-Status: development-only codec and read-only replay. No firmware SD owner or
+Status: development-only codec, replay and abstract append writer. No firmware SD owner or
 student-data write path is enabled. Keep CPL1 completion and CPR1 resume unchanged.
 
 ## Definition of done for persistent skill history
@@ -42,3 +42,16 @@ The caller must exclude concurrent writers; length checks alone cannot
 detect same-length external modifications. The future writer must allocate
 session numbers durably, with no gaps from empty boots and explicit recovery
 after uncertain writes. No calendar or adaptive promotion yet.
+
+## Reference writer
+
+One exclusive owner per evidence session; begin once, replay the exact file,
+allocate the next session number only in memory, and commit it on the first
+response. Admit only valid independent Activity-to-Feedback transitions, reject
+practice/review and repeat observations. The backend must append one record and
+sync. Verify expected byte length before and after, exact readback, then publish
+incremental replay and mark the response observed. Any ambiguous append, readback
+or length failure disables the owner; no retries or truncation. Controlled reopen
+with a fresh owner reconstructs valid committed records. Capacity returns Full
+without deleting anything. This abstract backend is not an ESP/FAT implementation
+or authorization to collect real student data.
