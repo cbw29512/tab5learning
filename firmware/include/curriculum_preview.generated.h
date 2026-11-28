@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v7.json. Do not edit by hand.
+// Generated from starter.v8.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -418,6 +418,70 @@ inline constexpr Activity activities_51[]={
   {Kind::AdultReview,"remediation","With an adult, look at today's weather. Describe one choice your family might make because of it.","Adult: accept a reasonable choice linked to an observed weather condition.",{"","",""},0,-1},
   {Kind::Choice,"review","Why might people in different places make different daily choices?","Different local conditions can affect people's activities.",{"Weather and surroundings can differ.","Everyone has the same weather.","Clothing never depends on weather."},3,0},
 };
+inline constexpr Activity activities_52[]={
+  {Kind::Instruction,"instruction","To solve 14 - 6, take away 4 to reach 10. Then take away 2 more. The answer is 8. We took away 6 in all.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","To solve 13 - 5, first take away 3. How many more must you take away?","Three and two make five.",{"1","2","5"},3,1},
+  {Kind::Choice,"independent","Solve 12 - 4.","Take away two to get ten, then two more to get eight.",{"8","9","7"},3,0},
+  {Kind::Choice,"assessment","Solve 16 - 9.","Take away six to reach ten, then three more to reach seven.",{"6","8","7"},3,2},
+  {Kind::Instruction,"remediation","Draw 15 dots. Cross out 5 to reach 10. Cross out 2 more. Count the dots left.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Solve 15 - 7.","Five plus two is seven; ten minus two is eight.",{"7","8","9"},3,1},
+};
+inline constexpr Activity activities_53[]={
+  {Kind::Instruction,"instruction","Two equal parts of a whole are halves. Four equal parts are quarters, also called fourths. The shares must be equal in size.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A circle is cut into two equal parts. What is one part called?","Each of two equal shares is a half.",{"A quarter","A half","A whole"},3,1},
+  {Kind::Choice,"independent","A rectangle has four equal parts. What is each part called?","Each of four equal shares is a quarter.",{"A quarter","A half","A whole"},3,0},
+  {Kind::Choice,"assessment","A paper circle has two unequal pieces. Are they halves?","Two pieces are halves only when they are equal.",{"Yes, because there are two","Yes, if they are blue","No, halves must be equal"},3,2},
+  {Kind::AdultReview,"remediation","Draw two equal rectangles. Divide one into halves and the other into quarters. Show an adult.","Adult: verify equal-area parts, not just the number of parts.",{"","",""},0,-1},
+  {Kind::Choice,"review","For the same size whole, which share is larger?","Two equal shares are larger than four equal shares of the same whole.",{"One quarter","One half","They are always equal"},3,1},
+};
+inline constexpr Activity activities_54[]={
+  {Kind::Instruction,"instruction","Bees visit flowers. They collect nectar. They can carry pollen from flower to flower. The main topic tells what most of the text is about.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Bees visit flowers and collect nectar. What is the main topic?","Both facts tell about bees.",{"Bees","Cars","Rain"},3,0},
+  {Kind::Choice,"independent","Bees collect nectar and carry pollen. Which is a detail from the text?","The text says bees collect nectar.",{"Bees drive cars.","Bees collect nectar.","Bees wear shoes."},3,1},
+  {Kind::Choice,"assessment","Fish live in water. Many fish use fins to swim. What is the main topic?","The two sentences tell about fish.",{"Flowers","Birds","Fish"},3,2},
+  {Kind::AdultReview,"remediation","Read a short information book with an adult. Tell its topic and two details.","Adult: check that both details are supported by the text.",{"","",""},0,-1},
+  {Kind::Choice,"review","Trees have roots and leaves. Roots take in water. What is the text mostly about?","The sentences describe trees and their parts.",{"Trees","Clouds","Rocks"},3,0},
+};
+inline constexpr Activity activities_55[]={
+  {Kind::Instruction,"instruction","Read: The tiny ant was very small. The words very small help explain tiny. Other words in a sentence can help us understand a new word.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","The puppy was damp after the rain. Its fur was a little wet. What does damp mean?","A little wet is a clue to damp.",{"Dry","A little wet","Very loud"},3,1},
+  {Kind::Choice,"independent","I was glad and smiled when my friend arrived. What does glad mean?","Smiling gives a clue that glad means happy.",{"Happy","Sleepy","Cold"},3,0},
+  {Kind::Choice,"assessment","The path was narrow. Only one person could fit across it. What does narrow mean?","Only one person fitting across suggests a small width.",{"Very long","Very bright","Not wide"},3,2},
+  {Kind::AdultReview,"remediation","Read a sentence with an unfamiliar word to an adult. Point to a clue that helps explain the word.","Adult: ask the learner to explain the clue, not merely guess.",{"","",""},0,-1},
+  {Kind::Choice,"review","The soup was chilly, so I warmed it. What does chilly mean?","Warming the soup suggests it was cold.",{"Hot","Cold","Sweet"},3,1},
+};
+inline constexpr Activity activities_56[]={
+  {Kind::Instruction,"instruction","A fair test changes one thing at a time. Use the same flashlight and wall. Compare clear plastic, wax paper and cardboard in the beam.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What should stay the same when comparing the materials?","Keep the light and distance the same to compare materials.",{"The flashlight and its distance","The material every time","The result every time"},3,0},
+  {Kind::Choice,"independent","Which material would you predict lets the most light through?","Clear plastic usually transmits more light than opaque objects.",{"Thick cardboard","Clear plastic","A solid book"},3,1},
+  {Kind::Choice,"assessment","The wall becomes darker with cardboard in the beam. What did you observe?","The darker wall is evidence that less light reached it.",{"The cardboard made sound","The light became a plant","Less light reached the wall"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, try the three materials. Aim a small flashlight at a wall, never eyes. Record what you actually see.","Adult: review safe setup, one changed variable, observations and a supported conclusion.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why record what happened rather than only your guess?","Actual observations help support an explanation.",{"Observations are evidence","Guesses are always right","Recording changes the material"},3,0},
+};
+inline constexpr Activity activities_57[]={
+  {Kind::Instruction,"instruction","A vibration is a back-and-forth movement. A ruler held on a table may vibrate and make a sound when its free end is gently tapped.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What should you observe when the ruler is tapped gently?","Movement and sound are evidence for the investigation.",{"Its color only","Its movement and sound","Its name"},3,1},
+  {Kind::Choice,"independent","When the ruler stops moving, what would you expect to happen to its sound?","The sound from the vibration stops as the motion dies away.",{"It stops","It grows forever","It changes color"},3,0},
+  {Kind::Choice,"assessment","Which comparison helps you investigate vibration?","Comparing the same object in two states isolates the movement.",{"Two ruler colors only","Two unrelated toys","The same ruler moving and still"},3,2},
+  {Kind::AdultReview,"remediation","With an adult holding a flexible ruler securely at a table edge, gently tap its free end. Keep faces away. Describe what you see and hear.","Adult: supervise gentle motion and safe distance. Record actual movement and sound observations.",{"","",""},0,-1},
+  {Kind::Choice,"review","What is evidence that the ruler vibrates?","Back-and-forth movement is observable evidence of vibration.",{"Its price","Seeing it move back and forth","Its color"},3,1},
+};
+inline constexpr Activity activities_58[]={
+  {Kind::Instruction,"instruction","When a group makes a choice, people can take turns speaking. Listening to each idea helps everyone understand the options.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A classmate is explaining an idea. What should you do?","Listening gives the speaker a chance to explain.",{"Listen and wait your turn","Talk over them","Ignore their words"},3,0},
+  {Kind::Choice,"independent","Two classmates suggest different games. What helps the group decide?","Hearing both ideas helps the group compare choices.",{"Hide one suggestion","Hear both ideas","Shout louder"},3,1},
+  {Kind::Choice,"assessment","Your idea was not chosen. How can you respond respectfully?","People can disagree and still cooperate.",{"Break the game","Stop others from playing","Accept the choice and participate"},3,2},
+  {Kind::AdultReview,"remediation","With an adult or class group, take turns suggesting a shared activity and decide using an agreed rule.","Adult: observe turn-taking, careful listening and following the agreed decision process.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why do discussion rules help?","Fair rules support participation even when opinions differ.",{"They give people a fair chance to speak","They make everyone think alike","They remove every disagreement"},3,0},
+};
+inline constexpr Activity activities_59[]={
+  {Kind::Instruction,"instruction","A map can show where things are from above. Use simple shapes for objects. A map key explains what each symbol means.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What view helps you draw a simple map of a playground?","A view from above shows where objects are placed.",{"From above","From inside a ball","From under the ground"},3,0},
+  {Kind::Choice,"independent","A square means a bench on your map. Where do you explain the symbol?","The key tells readers what the square means.",{"On a clock","In the map key","In a story ending"},3,1},
+  {Kind::Choice,"assessment","A tree is next to a bench in a playground. Where should the symbols go?","The map should show their relative locations.",{"Always far apart","In the same exact spot","Next to each other"},3,2},
+  {Kind::AdultReview,"remediation","Draw an imaginary playground with a path, bench and tree. Add symbols and a key. Show an adult.","Adult: check that symbols match the key and relative positions are consistent. No private addresses.",{"","",""},0,-1},
+  {Kind::Choice,"review","What makes a map useful to another person?","A clear map helps someone understand locations.",{"A clear layout and key","Secret symbols","Random positions"},3,0},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -471,6 +535,14 @@ inline constexpr Lesson lessons[]={
   {2,"g1-light-signals",1,"Send a message with light",activities_49,6},
   {3,"g1-community-responsibility",1,"Everyone can help",activities_50,6},
   {3,"g1-weather-and-people",1,"Weather changes daily choices",activities_51,6},
+  {0,"g1-subtract-within-20",1,"Subtract across ten",activities_52,6},
+  {0,"g1-equal-shares",1,"Halves and quarters",activities_53,6},
+  {1,"g1-information-main-topic",1,"Find the main topic",activities_54,6},
+  {1,"g1-context-clues",1,"Use clues to learn words",activities_55,6},
+  {2,"g1-test-light-materials",1,"Test how light passes",activities_56,6},
+  {2,"g1-test-sound-vibration",1,"Observe a sound vibration",activities_57,6},
+  {3,"g1-group-discussion",1,"Listen and decide together",activities_58,6},
+  {3,"g1-draw-familiar-map",1,"Draw a simple map",activities_59,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -541,6 +613,14 @@ inline constexpr unsigned lesson_units[]={
   7,
   8,
   12,
+  10,
+  13,
+  14,
+  1,
+  3,
+  8,
+  8,
+  10,
   10,
   13,
   14,

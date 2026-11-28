@@ -18,14 +18,14 @@ struct Media:CompletionBackend{
 int main(){
   for(unsigned s=0;s<4;++s){
     auto p=subject_progress(nullptr,s);
-    assert(!p.known&&p.total==13&&p.completed==0);
+    assert(!p.known&&p.total==15&&p.completed==0);
   }
   assert(!subject_progress(nullptr,4).known);
   Media media;CompletionLedger ledger(media);
   assert(!subject_progress(&ledger,0).known);
   assert(ledger.begin());
   auto p=subject_progress(&ledger,0);
-  assert(p.known&&p.total==13&&p.completed==0);
+  assert(p.known&&p.total==15&&p.completed==0);
   Preview lesson;
   assert(lesson.choose_subject(0)&&lesson.change_page(1)&&lesson.choose_lesson(0));
   assert(lesson_progress(&ledger,lesson.current())==CompletionLookup::NotRecorded);
