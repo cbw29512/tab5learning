@@ -4,6 +4,7 @@
 #include "learner_layout.h"
 #include "learner_usb_identity.h"
 #include "display_startup_refresh.h"
+#include "learner_display_policy.h"
 #include "math_practice.h"
 #include "math_journal.h"
 #include "preview_badges.h"
@@ -123,6 +124,7 @@ MathResult feedback=MathResult::Ignored;
 bool was_touching=false;
 bool geometry_ok=false;
 DisplayStartupRefresh startup_refresh;
+DisplayDiagnostics display_diagnostics;
 BatteryMonitor battery;
 BatteryRuntime battery_runtime;
 // Normal preview: a manual capacity snapshot only; no SD evidence writes.
@@ -344,6 +346,15 @@ void loop() {
     Serial.printf("DISPLAY_STARTUP_REFRESH,%u\n", unsigned(startup_refresh.next));
   }
   if (geometry_ok && touching && !was_touching) {
+    const auto brightness=M5.Display.getBrightness();
+    Serial.printf("DISPLAY,TOUCH,BRIGHTNESS,%u,SCREEN,%u\n",unsigned(brightness),unsigned(navigation.screen));
+    // A zero reported backlight is a concrete reason to restore the existing
+    // brightness setting; never infer panel health from a nonzero reading.
+    if(brightness==0){
+      M5.Display.setBrightness(128);
+      Serial.println("DISPLAY,BACKLIGHT_RESTORE");
+      render();
+    }
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
 #ifndef POCKET_LEARNER_SD_EVAL
@@ -445,11 +456,23 @@ void loop() {
   if(!touching) scratch_release(scratch);
   // Defer PMIC reads and regional flush while a finger is drawing or tapping.
   if(geometry_ok && !touching && battery.due(millis())) {
-    if(sample_learner_battery(battery,battery_runtime,millis())) {
-      refresh_learner_battery(battery.status);
-      refresh_notice();
+    const bool changed=sample_learner_battery(battery,battery_runtime,millis());
+    // Home, curriculum, journey and Help use one full-frame commit instead
+    // of independent battery/notice/runtime flushes. Preserve the legacy
+    // reading and scratchpad incremental paths to avoid interrupting ink/audio.
+    switch(display_refresh_policy(navigation,changed)){
+      case DisplayRefresh::Full:
+        Serial.printf("DISPLAY,FULL_REFRESH,BATTERY,%d,BRIGHTNESS,%u\n",battery.status.percent,unsigned(M5.Display.getBrightness()));
+        render();break;
+      case DisplayRefresh::Regions:
+        refresh_learner_battery(battery.status);refresh_notice();break;
+      case DisplayRefresh::None:break;
     }
-    if(navigation.help_open) refresh_battery_runtime(battery_runtime);
+    if(display_diagnostics.due(millis())){
+      Serial.printf("DISPLAY,HEARTBEAT,SCREEN,%u,BRIGHTNESS,%u,STACK,%u\n",
+        unsigned(navigation.screen),unsigned(M5.Display.getBrightness()),
+        unsigned(uxTaskGetStackHighWaterMark(nullptr)));
+    }
   }
   const bool visible=notice.visible;
   award_notice_tick(notice,millis(),navigation.screen==LearnerScreen::Math && !navigation.help_open);

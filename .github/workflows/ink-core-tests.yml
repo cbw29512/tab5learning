@@ -82,6 +82,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_layout_test.cpp -o /tmp/tab5-layout-test
           /tmp/tab5-layout-test
+      - name: Compile and run display refresh policy regression
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/learner_display_policy_test.cpp -o /tmp/tab5-display-policy
+          /tmp/tab5-display-policy
       - name: Compile and run battery status regression
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -Ifirmware/include firmware/tests/battery_monitor_test.cpp -o /tmp/tab5-battery-test
