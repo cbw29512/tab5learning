@@ -7,26 +7,21 @@
 #include "curriculum_answer_layout.h"
 #include "curriculum_feedback_ui.h"
 #include "curriculum_topic_ui.h"
+#include "curriculum_text_layout.h"
 namespace curriculum_preview {
-// Font 0 at size 3: six pixels per character before scaling. Conservative
-// 60-column wrap fits within 1080 pixels; fixed buffer, no String allocations.
+// A single bounded wrapper also serves the completion notice.
 inline void wrapped(const char* text,int x,int y,unsigned max_lines,unsigned columns=60){
-  if(columns==0||columns>60)return;
-  char line[61];unsigned used=0,lines=0;
-  while(*text&&lines<max_lines){
-    while(*text==' ')++text;
-    if(!*text)break;
-    const char* end=text;while(*end&&*end!=' ')++end;
-    auto n=static_cast<unsigned>(end-text);
-    if(n>columns)n=columns;
-    if(used&&used+1+n>columns){
-      line[used]='\0';M5.Display.drawString(line,x,y+30*lines++);
-      used=0;if(lines>=max_lines)return;
-    }
-    if(used)line[used++]=' ';
-    std::memcpy(line+used,text,n);used+=n;text+=n;
-  }
-  if(used&&lines<max_lines){line[used]='\0';M5.Display.drawString(line,x,y+30*lines);}
+  wrap_lines(text,columns,[&](const char* line,unsigned index){
+    if(index<max_lines)M5.Display.drawString(line,x,y+30*index);
+  });
+}
+inline void readable_activity_text(const char* text,int x,int y,bool illustrated,bool feedback){
+  const auto layout=activity_text_layout(text,illustrated,feedback);
+  M5.Display.setTextSize(layout.font);M5.Display.setTextColor(TFT_WHITE,TFT_NAVY);
+  const auto count=wrap_lines(text,layout.columns,[&](const char* line,unsigned index){
+    if(index<layout.lines)M5.Display.drawString(line,x,y+layout.pitch*index);
+  });
+  if(count>layout.lines)std::printf("ERR,CURRICULUM_TEXT_OVERFLOW,%u,%u\n",count,layout.lines);
 }
 inline bool hit(int x,int y,int top,int height){
   return x>=48&&x<1232&&y>=top&&y<top+height;
@@ -135,12 +130,12 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     const int text_x=visual?visual_text_x:48;
     if(visual)draw_visual(*visual);
     render_feedback_heading(p,text_x);
-    wrapped(p.activity().feedback,text_x,290,visual?4:5,visual?visual_columns:60);
+    readable_activity_text(p.activity().feedback,text_x,290,visual!=nullptr,true);
     render_correct_answer(p);
     button("Continue",488,64);return;
   }
   if(visual)draw_visual(*visual);
-  wrapped(p.activity().prompt,visual?visual_text_x:48,250,5,visual?visual_columns:60);
+  readable_activity_text(p.activity().prompt,visual?visual_text_x:48,250,visual!=nullptr,false);
   if(p.activity().kind==Kind::Choice){
     for(unsigned i=0;i<p.activity().count&&i<answer_max;++i){
       const auto r=answer_rect(i);

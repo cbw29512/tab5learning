@@ -3,10 +3,17 @@
 #include "curriculum_visuals.h"
 #include "curriculum_answer_layout.h"
 #include "curriculum_feedback.h"
+#include "curriculum_text_layout.h"
+#include <string>
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
   static_assert(lesson_count==127);
+  std::string reconstructed;
+  assert(wrap_lines("abcdefghijk",4,[&](const char* line,unsigned){reconstructed+=line;})==3);
+  assert(reconstructed=="abcdefghijk");
+  assert(wrap_lines("   ",4,[](const char*,unsigned){})==0);
+  assert(wrap_lines("one two three",0,[](const char*,unsigned){})==0);
   static_assert(answer_rect(0).y>=400&&answer_rect(0).h==64);
   static_assert(answer_rect(2).y+answer_rect(2).h<learner_choice_back.y);
   static_assert(learner_choice_back.y+learner_choice_back.h<=720);
@@ -44,6 +51,17 @@ int main(){
       while(p.screen!=Screen::Finished){
         assert(p.screen==Screen::Activity);++activities;
         const auto& a=p.activity();
+        const bool visual=visual_for(p.current(),p.step)!=nullptr;
+        for(bool feedback:{false,true}){
+          const auto* text=feedback?a.feedback:a.prompt;
+          const auto layout=activity_text_layout(text,visual,feedback);
+          const auto count=wrap_lines(text,layout.columns,[&](const char* line,unsigned){
+            assert(std::strlen(line)<=layout.columns);
+            assert(std::strlen(line)*6*layout.font<=unsigned(visual?612:1184));
+          });
+          assert(count>0&&count<=layout.lines);
+          assert((feedback?290u:250u)+(count-1)*layout.pitch+8*layout.font<=(feedback?448u:408u));
+        }
         const auto progress=activity_progress(p);
         assert(progress.valid&&progress.visited==p.step+1&&progress.total==p.current().count);
         assert(activity_bar_width(progress)>0&&activity_bar_width(progress)<=progress_bar_width);
