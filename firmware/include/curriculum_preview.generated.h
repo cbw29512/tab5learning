@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v8.json. Do not edit by hand.
+// Generated from starter.v9.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -482,6 +482,70 @@ inline constexpr Activity activities_59[]={
   {Kind::AdultReview,"remediation","Draw an imaginary playground with a path, bench and tree. Add symbols and a key. Show an adult.","Adult: check that symbols match the key and relative positions are consistent. No private addresses.",{"","",""},0,-1},
   {Kind::Choice,"review","What makes a map useful to another person?","A clear map helps someone understand locations.",{"A clear layout and key","Secret symbols","Random positions"},3,0},
 };
+inline constexpr Activity activities_60[]={
+  {Kind::Instruction,"instruction","A class counts favorite fruits: apple 4, pear 2, banana 3. Each vote belongs to one group. We can compare the groups or count all 9 votes.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Apple: 4 votes. Pear: 2 votes. Banana: 3 votes. Which has the most?","Four is more than two or three.",{"Pear","Apple","Banana"},3,1},
+  {Kind::Choice,"independent","Red: 2 votes. Blue: 5 votes. Green: 1 vote. How many votes altogether?","Two plus five plus one equals eight.",{"8","7","6"},3,0},
+  {Kind::Choice,"assessment","Cats: 5 votes. Dogs: 3 votes. Fish: 2 votes. How many more votes for cats than dogs?","Five minus three equals two.",{"1","3","2"},3,2},
+  {Kind::AdultReview,"remediation","Sort six objects into up to three groups. Draw a mark for each object and count each group.","Adult: check one mark per object, category totals and an accurate comparison.",{"","",""},0,-1},
+  {Kind::Choice,"review","Kites: 3 votes. Balls: 4 votes. Books: 2 votes. Which has the fewest?","Two votes is the smallest count.",{"Kites","Books","Balls"},3,1},
+};
+inline constexpr Activity activities_61[]={
+  {Kind::Instruction,"instruction","The equals sign means both sides have the same value. In 3 + 2 = 4 + 1, both sides are five. The equation is true.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Is 2 + 3 = 5 true?","Two plus three equals five.",{"Yes","No","Not enough information"},3,0},
+  {Kind::Choice,"independent","Which equation is true?","Both sides of 3 + 3 = 4 + 2 equal six.",{"6 - 2 = 5","3 + 3 = 4 + 2","2 + 4 = 7"},3,1},
+  {Kind::Choice,"assessment","Which number makes 7 - 3 = 2 + __ true?","Seven minus three is four, and two plus two is four.",{"1","3","2"},3,2},
+  {Kind::Instruction,"remediation","Draw dots for each side of 4 + 1 = 2 + 3. Count the dots on both sides.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which equation is true?","Five plus three equals eight.",{"8 = 5 + 3","9 = 4 + 4","7 = 8 - 2"},3,0},
+};
+inline constexpr Activity activities_62[]={
+  {Kind::Instruction,"instruction","Sometimes two letters work together to make one sound. The sh in ship makes one sound. The ch in chip makes a different sound.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word begins with sh?","Ship starts with the letters sh.",{"Chip","Ship","Sip"},3,1},
+  {Kind::Choice,"independent","Which word begins with ch?","Chin starts with the letters ch.",{"Chin","Shin","Tin"},3,0},
+  {Kind::Choice,"assessment","Which word ends with sh?","Fish ends with the letters sh.",{"Much","Mist","Fish"},3,2},
+  {Kind::AdultReview,"remediation","Read ship, shop, chip and chin with an adult. Say the first sound before reading the whole word.","Adult: listen for the distinct sh and ch sounds; spelling recognition alone is not oral reading evidence.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word ends with ch?","Much ends with the ch digraph.",{"Dish","Much","Duck"},3,1},
+};
+inline constexpr Activity activities_63[]={
+  {Kind::Instruction,"instruction","An opinion tells what you think. A reason tells why. Example: I like rainy days. I can read inside. Rainy days are fun for me.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which sentence tells an opinion?","Liking apples best tells what someone thinks.",{"I like apples best.","The apple is red.","The apple is on a plate."},3,0},
+  {Kind::Choice,"independent","Which reason supports 'I like drawing'?","Enjoying making pictures explains why someone likes drawing.",{"My cup is blue.","I enjoy making pictures.","The clock says three."},3,1},
+  {Kind::Choice,"assessment","Which ending fits a short opinion about a favorite book?","The ending returns to the opinion about the book.",{"A door is open.","The floor is clean.","That is why I like this book."},3,2},
+  {Kind::AdultReview,"remediation","Write or dictate three short sentences about a favorite activity: your opinion, a reason and an ending.","Adult: check the named topic, stated opinion, relevant reason and closure. Do not score handwriting automatically.",{"","",""},0,-1},
+  {Kind::Choice,"review","What does a reason tell your reader?","A reason explains why you hold the opinion.",{"Why you think something","Only the title","Only the date"},3,0},
+};
+inline constexpr Activity activities_64[]={
+  {Kind::Instruction,"instruction","We can look for patterns in the sky. A pattern happens again and again. Record whether the sky is light or dark at the same times on several days.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What is a safe way to observe daylight?","Observe daylight without looking directly at the Sun.",{"Look at the sky away from the Sun","Stare at the Sun","Look at the Sun through binoculars"},3,0},
+  {Kind::Choice,"independent","The sky is light at noon on three days. What does this show?","Light at noon on repeated days is a pattern.",{"The days never end","A repeated daylight pattern","The Moon is always absent"},3,1},
+  {Kind::Choice,"assessment","The sky is cloudy and you cannot see the Moon. What should you record?","Record what you can observe, not an unsupported guess.",{"The Moon vanished forever","The Moon was definitely full","Moon not visible"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, record safe daylight or Moon observations at the same times on three days. Compare the records.","Adult: supervise safe observation and accept cloudy or missing observations. Ask for evidence of a repeated pattern.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which is stronger evidence of a pattern?","Repeated observations provide better evidence of a pattern.",{"Several matching observations","One guess","A made-up record"},3,0},
+};
+inline constexpr Activity activities_65[]={
+  {Kind::Instruction,"instruction","Some seeds have hooks that catch on animal fur. A person can copy the idea of tiny hooks to make things attach. Nature can inspire useful designs.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which seed feature helps it catch on fur?","Hooks can catch on fur and help carry seeds.",{"Its name","Its hooks","Its color alone"},3,1},
+  {Kind::Choice,"independent","Which design could copy the hook idea?","Small hooks can attach to loops, copying the catching action.",{"A hook-and-loop fastener","A flat sheet of paper","A smooth drinking cup"},3,0},
+  {Kind::Choice,"assessment","You need a model that will attach to fabric. What should you test?","Testing attachment and release checks the intended function.",{"The model's name","Only its color","Whether it attaches and releases"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, use a safe hook-and-loop fastener and fabric to model attachment. Test and explain the plant idea.","Adult: check a working model, a safe test and a link to the plant structure; no automatic design score.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why change a model after a test?","Test results can help improve a design.",{"To avoid learning","To improve how it works","To make every model identical"},3,1},
+};
+inline constexpr Activity activities_66[]={
+  {Kind::Instruction,"instruction","A bakery in one town can make bread. A farm in another town can grow apples. People use goods and services made nearby and in other places.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A bakery in your town makes bread. What is the good?","Bread is a physical good produced by the bakery.",{"Bread","The baker's job title","The town map"},3,0},
+  {Kind::Choice,"independent","A mechanic repairs bikes. What is the mechanic providing?","Repair work is a service.",{"A weather report","A service","A new town"},3,1},
+  {Kind::Choice,"assessment","A store sells oranges grown in another town. Where were the oranges produced?","The oranges were grown in the other town.",{"In the store's cash register","In every town","In the other town"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, look at a safe product label or talk about a local shop. Identify one place where a good is made.","Adult: help distinguish where something is produced from where it is sold; no personal location needed.",{"","",""},0,-1},
+  {Kind::Choice,"review","Can a community use goods made somewhere else?","Goods can be transported from one community to another.",{"Yes","No","Only if it makes them again"},3,0},
+};
+inline constexpr Activity activities_67[]={
+  {Kind::Instruction,"instruction","Rules can help people stay safe and work together. A classroom may have rules about sharing. A pool may have rules about walking instead of running.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Why might a pool have a walking rule?","Walking can reduce the chance of slipping.",{"To help prevent slips","To make water warmer","To change the pool color"},3,0},
+  {Kind::Choice,"independent","Which classroom rule helps everyone hear?","Taking turns helps people hear each other.",{"Everyone talks at once","Take turns speaking","Always close your eyes"},3,1},
+  {Kind::Choice,"assessment","A library asks people to keep voices quiet. Why?","Quiet voices help people focus on reading.",{"To stop all reading","To make books heavier","To help people read and concentrate"},3,2},
+  {Kind::AdultReview,"remediation","Tell an adult one rule in a shared place and explain what problem it helps prevent.","Adult: check that the learner identifies a real purpose for the rule.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why can rules differ between a library and a playground?","Different activities and settings can need different rules.",{"Different places have different needs","Rules have no purpose","Everyone must always be silent"},3,0},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -543,6 +607,14 @@ inline constexpr Lesson lessons[]={
   {2,"g1-test-sound-vibration",1,"Observe a sound vibration",activities_57,6},
   {3,"g1-group-discussion",1,"Listen and decide together",activities_58,6},
   {3,"g1-draw-familiar-map",1,"Draw a simple map",activities_59,6},
+  {0,"g1-compare-data",1,"Count and compare data",activities_60,6},
+  {0,"g1-equal-sign",1,"What does equals mean?",activities_61,6},
+  {1,"g1-consonant-digraphs",1,"Two letters, one sound",activities_62,6},
+  {1,"g1-opinion-writing",1,"Tell what you think and why",activities_63,6},
+  {2,"g1-sky-observation-record",1,"Record a sky pattern",activities_64,6},
+  {2,"g1-design-from-plants",1,"Design a plant-inspired tool",activities_65,6},
+  {3,"g1-goods-near-far",1,"Goods made near and far",activities_66,6},
+  {3,"g1-rules-and-laws",1,"Rules in different places",activities_67,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -562,6 +634,7 @@ inline constexpr Unit units[]={
   {3,"geography","Maps and places"},
   {3,"economics","Needs and choices"},
   {3,"history","Past and present"},
+  {0,"data","Charts and data"},
 };
 inline constexpr unsigned lesson_units[]={
   1,
@@ -624,5 +697,13 @@ inline constexpr unsigned lesson_units[]={
   10,
   13,
   14,
+  17,
+  1,
+  7,
+  9,
+  11,
+  12,
+  15,
+  13,
 };
 }

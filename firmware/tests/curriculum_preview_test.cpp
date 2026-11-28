@@ -3,7 +3,7 @@
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
-  static_assert(lesson_count==60);
+  static_assert(lesson_count==68);
   static_assert(lesson_pages(0)==1&&lesson_pages(3)==1&&lesson_pages(4)==2);
   static_assert(lesson_pages(9)==3&&lesson_pages(10)==4);
   static_assert(!lesson_page_valid(3,9)&&lesson_page_valid(3,10));
@@ -24,12 +24,12 @@ int main(){
   Preview p;
   for(unsigned s=0;s<4;++s){
     p.reset();assert(p.choose_subject(s));
-    assert(p.page==0&&p.subject_count()==15);
+    assert(p.page==0&&p.subject_count()==17);
     assert(!p.change_page(-1));
     assert(!p.change_page(0)&&p.visible_lesson(3)==nullptr);
-    for(unsigned page=0;page<5;++page){
+    for(unsigned page=0;page<6;++page){
     if(page>0)assert(p.change_page(1)&&p.page==page);
-    const unsigned rows=3;
+    const unsigned rows=page==5?2:3;
     for(unsigned i=0;i<rows;++i){
       assert(p.choose_lesson(i));++visited;
       assert(p.current().subject==s);
@@ -50,13 +50,14 @@ int main(){
     }
     assert(!p.choose_lesson(rows));
     }
-    assert(!p.change_page(1)&&p.change_page(-1)&&p.page==3);
+    assert(!p.change_page(1)&&p.change_page(-1)&&p.page==4);
+    assert(p.change_page(-1)&&p.page==3);
     assert(p.change_page(-1)&&p.page==2);
     assert(p.change_page(-1)&&p.page==1);
     assert(p.change_page(-1)&&p.page==0);
     assert(p.back());assert(!p.back());
   }
-  assert(visited==60&&activities==360);
+  assert(visited==68&&activities==408);
   // Every lesson remains reachable exactly once through the real grouped path.
   bool reached[lesson_count]={};unsigned total=0;
   for(unsigned s=0;s<4;++s){
