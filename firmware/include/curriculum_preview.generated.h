@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v6.json. Do not edit by hand.
+// Generated from starter.v7.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -354,6 +354,70 @@ inline constexpr Activity activities_43[]={
   {Kind::AdultReview,"remediation","With an adult, look at a non-private old photo or object. Name one clue it gives and one question you still have.","Adult: distinguish evidence from guesses. Do not collect personal photos or identifying data.",{"","",""},0,-1},
   {Kind::Choice,"review","Why do people study historical sources?","Historical sources provide clues about past life.",{"To learn about the past","To predict every event","To erase old stories"},3,0},
 };
+inline constexpr Activity activities_44[]={
+  {Kind::Instruction,"instruction","A triangle is closed and has three straight sides. It can be big, small or turned sideways. Its color does not change its shape.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A closed shape has three straight sides. What is it?","Three straight sides enclosing a space make a triangle.",{"A square","A triangle","A circle"},3,1},
+  {Kind::Choice,"independent","A red triangle is turned upside down. What is it now?","Turning a triangle does not change its sides.",{"A triangle","A square","A circle"},3,0},
+  {Kind::Choice,"assessment","Which fact helps you decide whether a shape is a triangle?","The sides and closed boundary define a triangle.",{"Its color","Its size","It has three straight sides and is closed"},3,2},
+  {Kind::AdultReview,"remediation","Draw a small triangle and a big triangle. Turn the paper. Tell an adult what stays the same.","Adult: observe three straight sides and a closed boundary in both drawings.",{"","",""},0,-1},
+  {Kind::Choice,"review","A shape has four equal straight sides and four square corners. What is it?","A square has four equal sides and four right-angle corners.",{"A square","A triangle","A circle"},3,0},
+};
+inline constexpr Activity activities_45[]={
+  {Kind::Instruction,"instruction","Half an hour is 30 minutes. At half past two, the long hand points to 6 and the short hand is halfway between 2 and 3. We write 2:30.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which digital time means half past five?","Half past five is five hours and thirty minutes.",{"5:00","5:30","6:30"},3,1},
+  {Kind::Choice,"independent","The long hand points to 6. The short hand is between 7 and 8. What time is it?","The hour hand has passed seven, and thirty minutes have gone by.",{"7:30","8:30","7:00"},3,0},
+  {Kind::Choice,"assessment","Where does the long hand point at 10:30?","At thirty minutes the long hand points to six.",{"10","12","6"},3,2},
+  {Kind::AdultReview,"remediation","Use a paper clock or a real teaching clock with an adult. Show 4:30 and explain where both hands belong.","Adult: confirm the minute hand at six and hour hand halfway between four and five.",{"","",""},0,-1},
+  {Kind::Choice,"review","The short hand is halfway between 11 and 12. The long hand points to 6. What time is it?","It is half past eleven, not half past twelve.",{"12:30","11:30","11:00"},3,1},
+};
+inline constexpr Activity activities_46[]={
+  {Kind::Instruction,"instruction","In many words, a final e is quiet and helps the earlier vowel say its name. Compare cap and cape, or kit and kite. Some words do not follow this pattern.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Add e to cap. Which word do you make?","Cap becomes cape, with the long a sound.",{"Cape","Cup","Cop"},3,0},
+  {Kind::Choice,"independent","Which word has the long i sound in kite?","Bike has the long i sound and a final e.",{"Kit","Sit","Bike"},3,2},
+  {Kind::Choice,"assessment","Which word completes 'I rode my ___'?","Bike names something you can ride.",{"Bit","Bike","Bake"},3,1},
+  {Kind::AdultReview,"remediation","Read these pairs aloud with an adult: tap and tape, pin and pine. Listen to how the middle vowel changes.","Adult: listen for the difference between the short and long vowel sounds.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which word has a long a sound?","Made uses the common final-e pattern.",{"Mad","Made","Mud"},3,1},
+};
+inline constexpr Activity activities_47[]={
+  {Kind::Instruction,"instruction","Ana found a lost mitten. She gave it to her teacher. The teacher found its owner. A retelling tells the important events in order.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What happened first?","Ana found the mitten before the other events.",{"Ana found a mitten.","The teacher found its owner.","Ana gave it to the teacher."},3,0},
+  {Kind::Choice,"independent","What happened after Ana found the mitten?","Ana took the mitten to her teacher.",{"She lost her lunch.","She gave it to her teacher.","She went to sleep."},3,1},
+  {Kind::Choice,"assessment","What lesson fits the story?","Ana helped return something to its owner.",{"Keep every lost object.","Hide things from others.","Help return things that are lost."},3,2},
+  {Kind::AdultReview,"remediation","Tell the mitten story to an adult using first, next and last. Explain what Ana did to help.","Adult: listen for key events in order and a supported central message.",{"","",""},0,-1},
+  {Kind::Choice,"review","What happened last?","The last event is finding the owner.",{"Ana found a mitten.","The teacher found its owner.","Ana saw a dog."},3,1},
+};
+inline constexpr Activity activities_48[]={
+  {Kind::Instruction,"instruction","Many animal parents help their young survive. Some birds bring food to their chicks. Some mammals feed milk to their young. Not all animals care for young in the same way.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A bird brings insects to its chicks. How does that help?","Food gives the chicks energy to grow.",{"It provides food.","It changes their color.","It makes them older at once."},3,0},
+  {Kind::Choice,"independent","A young mammal drinks milk from its mother. What need does the milk help meet?","Milk provides nourishment.",{"A place to hide","Food and nourishment","A change in fur color"},3,1},
+  {Kind::Choice,"assessment","A parent bird gives an alarm call when danger is near. How might that help chicks?","An alarm call can warn young birds of a threat.",{"Teach a new feather color","Make all danger disappear","Warn them about danger"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, read a short animal book or view a safe video. Describe one parent behavior and how it helps the young.","Adult: ask for a behavior shown in the source and a reasonable explanation of its function.",{"","",""},0,-1},
+  {Kind::Choice,"review","What do feeding and warning calls have in common?","Both behaviors may help meet survival needs.",{"They can help young survive.","They always use the same sound.","They happen only in birds."},3,0},
+};
+inline constexpr Activity activities_49[]={
+  {Kind::Instruction,"instruction","A light can send a message. One flash could mean hello. Two flashes could mean goodbye. Both people need to agree on the meaning first.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","If two flashes mean goodbye, what do two flashes tell you?","The agreed message for two flashes is goodbye.",{"Hello","Goodbye","Wait"},3,1},
+  {Kind::Choice,"independent","What helps a partner understand your light signal?","Both people must know the code.",{"Agree on a code first","Change the code without telling them","Cover the light"},3,0},
+  {Kind::Choice,"assessment","A partner cannot count your flashes. What should you try?","Clear pauses make separate flashes easier to count.",{"Flash faster at random","Change the message each time","Make clear pauses"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, use a small flashlight aimed at a wall, never at eyes. Make two signals and test whether a partner understands.","Adult: observe a safe design, test and one improvement. This is not automatically scored.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why test a signal with a partner?","A test shows whether the receiver understands the intended message.",{"To see if it sends the intended message","To make the light hotter","To avoid agreeing on a code"},3,0},
+};
+inline constexpr Activity activities_50[]={
+  {Kind::Instruction,"instruction","A community is a group of people who share a place or interests. Leaders can help, but neighbors and children can also do useful things.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","How can a child help in a shared classroom?","Putting supplies away helps everyone use them.",{"Put away shared supplies","Hide the supplies","Leave a mess"},3,0},
+  {Kind::Choice,"independent","A neighbor helps carry groceries with permission. What are they doing?","Helping others is a community contribution.",{"Making a law","Helping someone","Running a court"},3,1},
+  {Kind::Choice,"assessment","Which action helps everyone enjoy a playground?","Caring for shared spaces helps other people.",{"Leave trash behind","Break a shared toy","Put litter in the proper bin"},3,2},
+  {Kind::AdultReview,"remediation","Tell an adult one safe way you can help your class or community. Explain who benefits.","Adult: listen for a specific age-appropriate action and who it helps.",{"","",""},0,-1},
+  {Kind::Choice,"review","Who can contribute to a community?","Children, neighbors and leaders can all contribute in different ways.",{"Only elected leaders","Many different people","Only adults with jobs"},3,1},
+};
+inline constexpr Activity activities_51[]={
+  {Kind::Instruction,"instruction","Weather affects what people wear and do. On a rainy day people may use raincoats. In a hot place, shade and water can help people stay comfortable.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","It is raining. Which item helps keep you dry?","A raincoat helps keep rain off you.",{"A raincoat","A paper fan","A sun hat only"},3,0},
+  {Kind::Choice,"independent","It is very hot outside. Which choice can help you stay cool?","Shade and water help people manage heat.",{"A heavy winter coat","Rest in shade with water","Sit in direct sun longer"},3,1},
+  {Kind::Choice,"assessment","Snow covers a road. What might people need to do?","Snow can make travel harder, so roads may need clearing.",{"Wear swimsuits to school","Plant beach umbrellas","Clear snow before traveling"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, look at today's weather. Describe one choice your family might make because of it.","Adult: accept a reasonable choice linked to an observed weather condition.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why might people in different places make different daily choices?","Different local conditions can affect people's activities.",{"Weather and surroundings can differ.","Everyone has the same weather.","Clothing never depends on weather."},3,0},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -399,5 +463,13 @@ inline constexpr Lesson lessons[]={
   {2,"g1-young-living-things",1,"Young and adult living things",activities_41,6},
   {3,"g1-life-then-now",1,"Life then and now",activities_42,6},
   {3,"g1-history-clues",1,"Find clues about the past",activities_43,6},
+  {0,"g1-shape-attributes",1,"What makes a shape?",activities_44,6},
+  {0,"g1-clock-half-hours",1,"Tell time to the half hour",activities_45,6},
+  {1,"g1-final-e",1,"Read words with final e",activities_46,6},
+  {1,"g1-retell-story",1,"Retell a story in order",activities_47,6},
+  {2,"g1-animal-care",1,"How animal parents help",activities_48,6},
+  {2,"g1-light-signals",1,"Send a message with light",activities_49,6},
+  {3,"g1-community-responsibility",1,"Everyone can help",activities_50,6},
+  {3,"g1-weather-and-people",1,"Weather changes daily choices",activities_51,6},
 };
 }
