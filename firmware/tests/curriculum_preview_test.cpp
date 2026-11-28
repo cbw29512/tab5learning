@@ -1,10 +1,15 @@
 #include "curriculum_preview.h"
 #include "learner_layout.h"
 #include "curriculum_visuals.h"
+#include "curriculum_answer_layout.h"
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
   static_assert(lesson_count==127);
+  static_assert(answer_rect(0).y>=400&&answer_rect(0).h==64);
+  static_assert(answer_rect(2).y+answer_rect(2).h<learner_choice_back.y);
+  static_assert(learner_choice_back.y+learner_choice_back.h<=720);
+  static_assert(answer_index(0,48,408)==-1&&answer_index(4,48,408)==-1);
   static_assert(lesson_pages(0)==1&&lesson_pages(3)==1&&lesson_pages(4)==2);
   static_assert(lesson_pages(9)==3&&lesson_pages(10)==4);
   static_assert(!lesson_page_valid(3,9)&&lesson_page_valid(3,10));
@@ -39,6 +44,16 @@ int main(){
         assert(p.screen==Screen::Activity);++activities;
         const auto& a=p.activity();
         if(a.kind==Kind::Choice){
+          assert(large_answers(p)&&a.count>=2&&a.count<=answer_max);
+          for(unsigned k=0;k<a.count;++k){
+            const auto r=answer_rect(k);
+            assert(answer_index(a.count,r.x,r.y)==static_cast<int>(k));
+            assert(answer_index(a.count,r.x+r.w-1,r.y+r.h-1)==static_cast<int>(k));
+            assert(answer_index(a.count,r.x,r.y+r.h)==-1);
+            assert(answer_index(a.count,r.x+r.w,r.y)==-1);
+            assert(std::strlen(a.choices[k])*6*answer_font(std::strlen(a.choices[k]))<=unsigned(r.w-48));
+          }
+          assert(answer_index(a.count,48,answer_rect(a.count).y)==-1);
           assert(!p.next());assert(!p.answer(a.count));
           assert(a.answer>=0&&unsigned(a.answer)<a.count);
           assert(p.answer(unsigned(a.answer)));assert(p.screen==Screen::Feedback);

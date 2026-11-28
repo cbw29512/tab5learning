@@ -4,6 +4,7 @@
 #include <cstring>
 #include "curriculum_browse.h"
 #include "curriculum_visual_ui.h"
+#include "curriculum_answer_layout.h"
 namespace curriculum_preview {
 // Font 0 at size 3: six pixels per character before scaling. Conservative
 // 60-column wrap fits within 1080 pixels; fixed buffer, no String allocations.
@@ -138,7 +139,14 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   if(visual)draw_visual(*visual);
   wrapped(p.activity().prompt,visual?visual_text_x:48,250,5,visual?visual_columns:60);
   if(p.activity().kind==Kind::Choice){
-    for(unsigned i=0;i<p.activity().count;++i)button(p.activity().choices[i],408+48*i,44);
+    for(unsigned i=0;i<p.activity().count&&i<answer_max;++i){
+      const auto r=answer_rect(i);
+      const auto* label=p.activity().choices[i];
+      const auto font=answer_font(std::strlen(label));
+      M5.Display.fillRoundRect(r.x,r.y,r.w,r.h,12,TFT_BLUE);
+      M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);M5.Display.setTextSize(font);
+      M5.Display.drawString(label,r.x+24,r.y+(r.h-8*static_cast<int>(font))/2);
+    }
   }else button(p.activity().kind==Kind::AdultReview?"View adult guidance":"Continue",488,64);
 }
 inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr){
@@ -160,8 +168,8 @@ inline bool touch(Preview& p,int x,int y,const CompletionLedger* ledger=nullptr)
     return false;
   }
   if(p.screen==Screen::Activity&&p.activity().kind==Kind::Choice){
-    for(unsigned i=0;i<p.activity().count;++i)if(hit(x,y,408+48*i,44))return p.answer(i);
-    return false;
+    const auto index=answer_index(p.activity().count,x,y);
+    return index>=0&&p.answer(static_cast<unsigned>(index));
   }
   if(!hit(x,y,488,64))return false;
   if(p.screen==Screen::Finished)return browse_after_finish(p,ledger);

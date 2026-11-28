@@ -41,11 +41,16 @@ inline constexpr LearnerRegion learner_battery_region{820,24,236,80};
 inline constexpr LearnerRegion learner_notice_region{32,108,1216,28};
 inline constexpr LearnerTile learner_back{32,580,1216,108,LearnerAction::Back,"Go back"};
 
-inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action,bool can_continue=false) {
+// On choice activities only, move Back below all three enlarged answer rows.
+inline constexpr LearnerTile learner_choice_back{32,632,1216,56,LearnerAction::Back,"Go back"};
+inline const LearnerTile& learner_back_tile(const LearnerNavigation& state,bool large_answers){
+  return !state.help_open&&state.screen==LearnerScreen::Curriculum&&large_answers?learner_choice_back:learner_back;
+}
+inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action,bool can_continue=false,bool large_answers=false) {
   if (learner_home.hit(x,y)) { action=learner_home.action; return true; }
   if (learner_help.hit(x,y)||learner_storage_help.hit(x,y)) { action=LearnerAction::Help; return true; }
   if (state.help_open || state.screen != LearnerScreen::Home) {
-    if (learner_back.hit(x,y)) { action=learner_back.action; return true; }
+    if (learner_back_tile(state,large_answers).hit(x,y)) { action=LearnerAction::Back; return true; }
     return false;
   }
   if(can_continue&&learner_tiles[4].hit(x,y)){

@@ -301,7 +301,7 @@ void render() {
     } else {
       M5.Display.drawString("Lesson integration pending.",48,180);
     }
-    tile(learner_back,TFT_DARKGREY);
+    tile(learner_back_tile(navigation,curriculum_preview::large_answers(curriculum)),TFT_DARKGREY);
   }
   M5.Display.endWrite();
   M5.Display.display(0,0,M5.Display.width(),M5.Display.height());
@@ -385,9 +385,9 @@ void loop() {
         curriculum.screen!=curriculum_preview::Screen::Units &&
         curriculum.screen!=curriculum_preview::Screen::Subjects &&
         (curriculum.grouped||curriculum.screen!=curriculum_preview::Screen::Lessons) &&
-        learner_back.hit(detail.x,detail.y) && curriculum.back()) {
+        learner_back_tile(navigation,curriculum_preview::large_answers(curriculum)).hit(detail.x,detail.y) && curriculum.back()) {
       render();
-    } else if (learner_hit(navigation,detail.x,detail.y,action,can_continue) &&
+    } else if (learner_hit(navigation,detail.x,detail.y,action,can_continue,curriculum_preview::large_answers(curriculum)) &&
         learner_navigate(navigation,action)) {
       const auto subject=learner_subject(action);
       if(subject>=0) {
