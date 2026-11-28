@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v9.json. Do not edit by hand.
+// Generated from starter.v10.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -546,6 +546,86 @@ inline constexpr Activity activities_67[]={
   {Kind::AdultReview,"remediation","Tell an adult one rule in a shared place and explain what problem it helps prevent.","Adult: check that the learner identifies a real purpose for the rule.",{"","",""},0,-1},
   {Kind::Choice,"review","Why can rules differ between a library and a playground?","Different activities and settings can need different rules.",{"Different places have different needs","Rules have no purpose","Everyone must always be silent"},3,0},
 };
+inline constexpr Activity activities_68[]={
+  {Kind::Instruction,"instruction","Line up three pencils at the same end. Look at their other ends. The one reaching farthest is longest.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A red strip reaches less far than a blue strip when lined up. Which is shorter?","The red strip reaches less far.",{"Blue","Red","Both equal"},3,1},
+  {Kind::Choice,"independent","Three aligned ribbons reach 2, 5 and 3 marks. Which order is shortest to longest?","Two is shortest, then three, then five.",{"2, 3, 5","5, 3, 2","3, 2, 5"},3,0},
+  {Kind::Choice,"assessment","Order lengths 4, 6 and 1 from longest to shortest.","Six is longest and one is shortest.",{"1, 4, 6","4, 6, 1","6, 4, 1"},3,2},
+  {Kind::AdultReview,"remediation","Line up three safe objects with an adult and order them both ways.","Adult: check common starting point and both orders.",{"","",""},0,-1},
+  {Kind::Choice,"review","Why line up the ends before comparing?","A common starting point makes the comparison fair.",{"To compare colors","To compare lengths fairly","To make objects longer"},3,1},
+};
+inline constexpr Activity activities_69[]={
+  {Kind::Instruction,"instruction","A penny is 1 cent, a nickel 5 cents, a dime 10 cents and a quarter 25 cents. Bills can be $1, $5 or $10. A cent is one hundredth of a dollar.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What is a nickel worth?","A nickel is worth five cents.",{"1 cent","5 cents","10 cents"},3,1},
+  {Kind::Choice,"independent","What is a quarter worth?","A quarter is worth twenty-five cents.",{"25 cents","10 cents","5 cents"},3,0},
+  {Kind::Choice,"assessment","Which bill is worth ten dollars?","The dollar sign and 10 mean ten dollars.",{"$1","$5","$10"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, identify real or play coins and bills. Write each value with the cent sign or dollar sign.","Adult: check all seven denominations and correct symbols. Do not grade handwriting automatically.",{"","",""},0,-1},
+  {Kind::Choice,"review","What is a dime worth?","A dime is worth ten cents.",{"5 cents","10 cents","25 cents"},3,1},
+};
+inline constexpr Activity activities_70[]={
+  {Kind::Instruction,"instruction","Count by fives: 5, 10, 15, 20. The last digit alternates 5 and 0. Count by tens: 15, 25, 35. The last digit stays 5.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What comes next: 20, 25, 30?","Add five to thirty.",{"40","35","31"},3,1},
+  {Kind::Choice,"independent","Count by tens: 25, 35, 45. What comes next?","Add ten to forty-five.",{"55","50","46"},3,0},
+  {Kind::Choice,"assessment","Count by fives: 85, 90, 95. Next?","Five more than ninety-five is one hundred.",{"105","99","100"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, mark counts by five on a hundred chart. Then start at 5 and count by tens.","Adult: check sequences and ask what pattern the last digit follows.",{"","",""},0,-1},
+  {Kind::Choice,"review","Count by tens: 40, 50, 60. Next?","Ten more than sixty is seventy.",{"65","70","80"},3,1},
+};
+inline constexpr Activity activities_71[]={
+  {Kind::Instruction,"instruction","Count pennies by ones, nickels by fives and dimes by tens. Four nickels count 5, 10, 15, 20 cents.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Three dimes are worth how much?","Ten plus ten plus ten is thirty cents.",{"15 cents","30 cents","3 cents"},3,1},
+  {Kind::Choice,"independent","Six pennies are worth how much?","Each penny is one cent.",{"6 cents","30 cents","60 cents"},3,0},
+  {Kind::Choice,"assessment","Eight nickels are worth how much?","Eight groups of five cents make forty cents.",{"80 cents","35 cents","40 cents"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, count ten matching dimes. Write the total in cents and compare it with one dollar.","Adult: check ten dimes equal 100 cents or one dollar.",{"","",""},0,-1},
+  {Kind::Choice,"review","Five nickels are worth how much?","Five groups of five cents make twenty-five cents.",{"50 cents","25 cents","5 cents"},3,1},
+};
+inline constexpr Activity activities_72[]={
+  {Kind::Instruction,"instruction","A circle drawn on paper is flat. A sphere, like a ball, is solid. A cube has flat square faces. A cylinder, like a can, is solid.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A ball is shaped most like which solid?","A ball has the three-dimensional shape of a sphere.",{"Circle","Sphere","Cube"},3,1},
+  {Kind::Choice,"independent","Which shape is flat?","A triangle is a flat shape.",{"Triangle","Cone","Cylinder"},3,0},
+  {Kind::Choice,"assessment","A can is shaped most like a cylinder. Is a cylinder flat or solid?","A cylinder has three dimensions.",{"Flat","Neither","Solid"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, sort drawings of flat shapes and safe objects shaped like solids. Explain each choice.","Adult: check use of flat, solid, faces and sides. Add examples of all target shapes.",{"","",""},0,-1},
+  {Kind::Choice,"review","A dice-shaped object is most like which solid?","A cube has six square faces.",{"Square","Cube","Circle"},3,1},
+};
+inline constexpr Activity activities_73[]={
+  {Kind::Instruction,"instruction","Three red counters plus five blue counters make eight. Five blue plus three red also make eight. Changing addition order does not change the total.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","If 4 + 6 = 10, what is 6 + 4?","The two addends have traded places.",{"9","10","11"},3,1},
+  {Kind::Choice,"independent","Which has the same sum as 8 + 3?","Swapping the two addends keeps their sum.",{"3 + 8","3 + 7","8 - 3"},3,0},
+  {Kind::Choice,"assessment","What is 9 + 7 if 7 + 9 = 16?","The addends are the same in the opposite order.",{"15","17","16"},3,2},
+  {Kind::AdultReview,"remediation","Make two groups of counters. Swap the groups and explain why the total stays the same.","Adult: check the explanation and equal total, not just the name of the property.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which equation matches 12 + 5?","Five plus twelve has the same total.",{"5 + 11","5 + 12","12 - 5"},3,1},
+};
+inline constexpr Activity activities_74[]={
+  {Kind::Instruction,"instruction","For 36 + 4, add four ones to the six ones. Ten ones make a new ten, so the total is 40. For 36 + 20, add two tens to get 56.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What is 24 + 30?","Two tens plus three tens make five tens. Four ones stay.",{"27","54","34"},3,1},
+  {Kind::Choice,"independent","What is 32 + 5?","Add five ones to two ones.",{"37","35","82"},3,0},
+  {Kind::Choice,"assessment","What is 48 + 5?","Two ones make fifty, then three more make fifty-three.",{"43","52","53"},3,2},
+  {Kind::AdultReview,"remediation","With an adult, bundle sticks in tens. Show 27 + 6, including the new bundle of ten.","Adult: verify regrouping, the total 33 and an explanation.",{"","",""},0,-1},
+  {Kind::Choice,"review","What is 65 + 20?","Six tens plus two tens make eight tens.",{"67","85","95"},3,1},
+};
+inline constexpr Activity activities_75[]={
+  {Kind::Instruction,"instruction","Sixty is six groups of ten. Take away two groups of ten. Four groups of ten remain. So 60 - 20 = 40.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What is 80 - 30?","Eight tens minus three tens is five tens.",{"40","50","60"},3,1},
+  {Kind::Choice,"independent","What is 40 - 10?","Four tens minus one ten leaves three tens.",{"30","39","20"},3,0},
+  {Kind::Choice,"assessment","What is 90 - 70?","Nine tens minus seven tens leaves two tens.",{"10","30","20"},3,2},
+  {Kind::AdultReview,"remediation","Use bundles of ten sticks with an adult. Show 50 - 40 and write the equation.","Adult: check one bundle remains and the equation is 50 - 40 = 10.",{"","",""},0,-1},
+  {Kind::Choice,"review","What is 70 - 70?","Removing all seven tens leaves zero.",{"70","0","10"},3,1},
+};
+inline constexpr Activity activities_76[]={
+  {Kind::Instruction,"instruction","Draw a row with one circle. Next draw two circles, then three circles. Each new row grows by one circle.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","One square, then two squares, then three squares. Which row comes next?","Each new row adds one square.",{"Two squares","Four squares","One square"},3,1},
+  {Kind::Choice,"independent","A pattern grows by two triangles each row. Rows have two, then four triangles. Next?","Add two more triangles.",{"Six triangles","Five triangles","Four triangles"},3,0},
+  {Kind::Choice,"assessment","A row of three circles becomes a row of four. The next row has how many?","Adding one circle makes five.",{"Three circles","Six circles","Five circles"},3,2},
+  {Kind::AdultReview,"remediation","Draw or build three growing rows of shapes. Add the next row and explain how it grows.","Adult: check shape construction, consistent growth rule and correct next row.",{"","",""},0,-1},
+  {Kind::Choice,"review","Which rule describes rows with one, three, then five stars?","Each row gains two stars.",{"Take away one star","Add two stars each row","Keep the same row"},3,1},
+};
+inline constexpr Activity activities_77[]={
+  {Kind::Instruction,"instruction","A repeating pattern uses the same group again and again. Circle, square, circle, square repeats circle then square. Try two circles then one square.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Circle, square, circle, square. What comes next?","Circle begins the next repeating group.",{"Square","Circle","Triangle"},3,1},
+  {Kind::Choice,"independent","Star, star, circle, star, star, circle. Next three shapes?","The repeated group is star, star, circle.",{"Star, star, circle","Circle, star, star","Star, circle, circle"},3,0},
+  {Kind::Choice,"assessment","Square, circle, circle, square, circle, circle. Next three?","Repeat the group square, circle, circle.",{"Circle, square, circle","Square, square, circle","Square, circle, circle"},3,2},
+  {Kind::AdultReview,"remediation","Build repeating rows with an adult using two or three shapes. Try one of each, two then one, and one then two.","Adult: ask for the repeating group and three correct extensions for each of four patterns.",{"","",""},0,-1},
+  {Kind::Choice,"review","Circle, triangle, square, circle, triangle, square. Next three?","The same three-shape group repeats.",{"Square, triangle, circle","Circle, triangle, square","Circle, square, triangle"},3,1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -615,6 +695,16 @@ inline constexpr Lesson lessons[]={
   {2,"g1-design-from-plants",1,"Design a plant-inspired tool",activities_65,6},
   {3,"g1-goods-near-far",1,"Goods made near and far",activities_66,6},
   {3,"g1-rules-and-laws",1,"Rules in different places",activities_67,6},
+  {0,"g1-order-lengths",1,"Shortest to longest",activities_68,6},
+  {0,"g1-money-values",1,"Know coins and bills",activities_69,6},
+  {0,"g1-skip-count",1,"Count by fives and tens",activities_70,6},
+  {0,"g1-count-like-coins",1,"Count matching coins",activities_71,6},
+  {0,"g1-flat-solid-shapes",1,"Flat and solid shapes",activities_72,6},
+  {0,"g1-addition-order",1,"Add in either order",activities_73,6},
+  {0,"g1-add-tens-ones",1,"Add tens and ones",activities_74,6},
+  {0,"g1-subtract-tens",1,"Take away whole tens",activities_75,6},
+  {0,"g1-growing-shape-pattern",1,"Growing shape patterns",activities_76,6},
+  {0,"g1-repeating-patterns",1,"Repeat a shape pattern",activities_77,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -635,6 +725,8 @@ inline constexpr Unit units[]={
   {3,"economics","Needs and choices"},
   {3,"history","Past and present"},
   {0,"data","Charts and data"},
+  {0,"money","Money"},
+  {0,"patterns","Patterns"},
 };
 inline constexpr unsigned lesson_units[]={
   1,
@@ -705,5 +797,15 @@ inline constexpr unsigned lesson_units[]={
   12,
   15,
   13,
+  4,
+  18,
+  0,
+  18,
+  3,
+  1,
+  2,
+  2,
+  19,
+  19,
 };
 }

@@ -20,3 +20,6 @@ Sources are pinned by edition and URL in [coverage.v1.json](../curriculum/grade-
 
 ## Current integration gates
 Topic browser and 52-lesson device flash previously verified; latest 68-lesson build and full regression pending. Physical SD capacity/durability, persistent learning evidence, audio, handwriting, teacher USB and rollback must pass before educator beta. See MASTER_TRACKER.md, MVP_SPEC.md, CURRICULUM_RELEASE.md and BETA_RELEASE.md.
+
+## v2 mathematics update
+[Current ledger](../curriculum/grade-1/coverage.v2.json) tracks starter.v10: 30 math rows partial, zero missing, zero approved; other subject rows unchanged. Overall 78 partial, 57 missing, zero accepted. Verified new math IDs against official July 2026 pages 23–28 for the targeted indicators. Existing fourths terminology correction tracked, no silent lesson revision. Remaining math work is explicit per row, including interactive visuals and physical evidence. Prior v1 remains historical. The complete official scope is not yet reconciled.
