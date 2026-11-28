@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v15.json. Do not edit by hand.
+// Generated from starter.v16.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -1002,6 +1002,22 @@ inline constexpr Activity activities_124[]={
   {Kind::Instruction,"remediation","A town and the state may work together to help people. Different governments have different responsibilities.","",{"","",""},0,-1},
   {Kind::Choice,"review","Why do local and state governments provide services?","Public services help meet needs in communities and across the state.",{"To stop people learning","To help meet public needs","To make every family the same"},3,1},
 };
+inline constexpr Activity activities_125[]={
+  {Kind::Instruction,"instruction","Words: The park opens at eight. Look at the picture. It shows things that the words do not tell us.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Words: The park opens at eight. Which detail comes from the words?","The opening time is in the words.",{"A ball is under a bench.","The park opens at eight.","A tree is beside a bench."},3,1},
+  {Kind::Choice,"independent","Words: The park opens at eight. What can you learn from the picture?","The picture shows a ball below the bench.",{"A ball is under the bench.","The park closes at six.","The park opened yesterday."},3,0},
+  {Kind::Choice,"assessment","Words: The park opens at eight. Where do you find the tree beside the bench?","The tree is drawn in the picture.",{"Only in the words","In neither source","In the picture"},3,2},
+  {Kind::Instruction,"remediation","Look at the bench and ball. Read the sentence again. Point to the source of each detail.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Tell an adult one fact from the words and one detail from the picture.","Adult: Check each source and record help.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_126[]={
+  {Kind::Instruction,"instruction","Words: Three flowers grow in a garden. Look at the picture. The drawing helps us see the flowers and where they grow.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which detail does the picture help explain?","The three flowers are shown in the drawing.",{"The flowers sing.","There are three flowers.","The garden is a mile wide."},3,1},
+  {Kind::Choice,"independent","What is below the flower heads in the picture?","The stems connect the flowers to the ground.",{"Stems","Stars","Books"},3,0},
+  {Kind::AdultReview,"assessment","Words: Three flowers grow in a garden. Use the picture to tell an adult what the flowers look like and how many there are.","Adult: Check details from picture and text.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Point to each flower. Count them. Say how the picture helps explain the words.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Draw a garden with two flowers on paper. Tell an adult what the drawing shows, then write or dictate one sentence.","Adult: Check the drawing and explanation.",{"","",""},0,-1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -1128,6 +1144,8 @@ inline constexpr Lesson lessons[]={
   {3,"g1-sc-community-types",1,"City neighborhoods and countryside",activities_122,6},
   {3,"g1-sc-land-and-water",1,"Mountains rivers lakes and coast",activities_123,6},
   {3,"g1-sc-government-helps",1,"How government helps communities",activities_124,6},
+  {1,"g1-picture-or-words",1,"What does the picture tell us?",activities_125,6},
+  {1,"g1-pictures-explain-details",1,"Use pictures to explain details",activities_126,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -1156,6 +1174,7 @@ inline constexpr Unit units[]={
   {1,"grammar","Grammar and punctuation"},
   {1,"handwriting","Handwriting"},
   {1,"listening","Listening and speaking"},
+  {1,"visual-reading","Pictures and words"},
 };
 inline constexpr unsigned lesson_units[]={
   1,
@@ -1283,5 +1302,7 @@ inline constexpr unsigned lesson_units[]={
   14,
   14,
   13,
+  26,
+  26,
 };
 }

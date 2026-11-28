@@ -18,7 +18,7 @@ struct Media:CompletionBackend{
 int main(){
   for(unsigned s=0;s<4;++s){
     auto p=subject_progress(nullptr,s);
-    assert(!p.known&&p.total==(s==0?27u:s==1?59u:s==2?17u:22u)&&p.completed==0);
+    assert(!p.known&&p.total==(s==0?27u:s==1?61u:s==2?17u:22u)&&p.completed==0);
   }
   assert(!subject_progress(nullptr,4).known);
   Media media;CompletionLedger ledger(media);

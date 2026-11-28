@@ -1,9 +1,10 @@
 #include "curriculum_preview.h"
 #include "learner_layout.h"
+#include "curriculum_visuals.h"
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
-  static_assert(lesson_count==125);
+  static_assert(lesson_count==127);
   static_assert(lesson_pages(0)==1&&lesson_pages(3)==1&&lesson_pages(4)==2);
   static_assert(lesson_pages(9)==3&&lesson_pages(10)==4);
   static_assert(!lesson_page_valid(3,9)&&lesson_page_valid(3,10));
@@ -24,7 +25,7 @@ int main(){
   Preview p;
   for(unsigned s=0;s<4;++s){
     p.reset();assert(p.choose_subject(s));
-    assert(p.page==0&&p.subject_count()==(s==0?27u:s==1?59u:s==2?17u:22u));
+    assert(p.page==0&&p.subject_count()==(s==0?27u:s==1?61u:s==2?17u:22u));
     assert(!p.change_page(-1));
     assert(!p.change_page(0)&&p.visible_lesson(3)==nullptr);
     for(unsigned page=0;page<lesson_pages(p.subject_count());++page){
@@ -56,7 +57,7 @@ int main(){
     assert(!p.change_page(-1));
     assert(p.back());assert(!p.back());
   }
-  assert(visited==125&&activities==750);
+  assert(visited==127&&activities==762);
   // Every lesson remains reachable exactly once through the real grouped path.
   bool reached[lesson_count]={};unsigned total=0;
   for(unsigned s=0;s<4;++s){
@@ -84,4 +85,15 @@ int main(){
     assert(!g.change_page(1));assert(g.back()&&g.screen==Screen::Subjects);
   }
   assert(total==lesson_count);
+  unsigned illustrated=0;
+  for(const auto& l:lessons){
+    const auto* v=visual_for(l,0);if(!v)continue;
+    ++illustrated;assert(v->count>0&&l.count==6);
+    for(unsigned i=0;i<l.count;++i)assert(visual_for(l,i)==v);
+    assert(!visual_for(l,l.count));
+    auto changed=l;++changed.revision;assert(!visual_for(changed,0));
+    assert((v==&park&&std::strcmp(l.id,"g1-picture-or-words")==0)||
+           (v==&garden&&std::strcmp(l.id,"g1-pictures-explain-details")==0));
+  }
+  assert(illustrated==2);
 }

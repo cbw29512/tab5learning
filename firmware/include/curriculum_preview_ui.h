@@ -3,18 +3,20 @@
 #include <cstdio>
 #include <cstring>
 #include "curriculum_progress.h"
+#include "curriculum_visual_ui.h"
 namespace curriculum_preview {
 // Font 0 at size 3: six pixels per character before scaling. Conservative
 // 60-column wrap fits within 1080 pixels; fixed buffer, no String allocations.
-inline void wrapped(const char* text,int x,int y,unsigned max_lines){
+inline void wrapped(const char* text,int x,int y,unsigned max_lines,unsigned columns=60){
+  if(columns==0||columns>60)return;
   char line[61];unsigned used=0,lines=0;
   while(*text&&lines<max_lines){
     while(*text==' ')++text;
     if(!*text)break;
     const char* end=text;while(*end&&*end!=' ')++end;
     auto n=static_cast<unsigned>(end-text);
-    if(n>60)n=60;
-    if(used&&used+1+n>60){
+    if(n>columns)n=columns;
+    if(used&&used+1+n>columns){
       line[used]='\0';M5.Display.drawString(line,x,y+30*lines++);
       used=0;if(lines>=max_lines)return;
     }
@@ -97,14 +99,18 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
     static_cast<unsigned>(p.step+1),static_cast<unsigned>(p.current().count),p.activity().phase);
   M5.Display.setTextSize(2);M5.Display.drawString(label,48,218);
   M5.Display.setTextSize(3);
+  const auto* visual=visual_for(p.current(),p.step);
   if(p.screen==Screen::Feedback){
+    const int text_x=visual?visual_text_x:48;
+    if(visual)draw_visual(*visual);
     if(p.activity().kind==Kind::Choice){
-      M5.Display.drawString(p.selected==p.activity().answer?"Correct":"Practice this again",48,250);
-    }else M5.Display.drawString("Adult guidance - not graded",48,250);
-    wrapped(p.activity().feedback,48,290,5);
+      M5.Display.drawString(p.selected==p.activity().answer?"Correct":"Practice this again",text_x,250);
+    }else M5.Display.drawString("Adult guidance - not graded",text_x,250);
+    wrapped(p.activity().feedback,text_x,290,visual?4:5,visual?visual_columns:60);
     button("Continue",488,64);return;
   }
-  wrapped(p.activity().prompt,48,250,5);
+  if(visual)draw_visual(*visual);
+  wrapped(p.activity().prompt,visual?visual_text_x:48,250,5,visual?visual_columns:60);
   if(p.activity().kind==Kind::Choice){
     for(unsigned i=0;i<p.activity().count;++i)button(p.activity().choices[i],408+48*i,44);
   }else button(p.activity().kind==Kind::AdultReview?"View adult guidance":"Continue",488,64);

@@ -38,3 +38,6 @@ Topic browser and 52-lesson device flash previously verified; latest 68-lesson b
 
 ## v7 South Carolina social studies
 [Current ledger](../curriculum/grade-1/coverage.v7.json) tracks starter.v15. All 15 Grade 1 SC social studies IDs matched to the state 2019 standards pp.13–16; all now partial draft candidates. Overall 132 partial, three missing, zero approved. Actual maps/photos, dated event refresh, local source evidence and Appendix A review remain open. Only ELA OE.2, AOR.4.1, AOR.10.1 lack draft candidates; require actual media before changing status.
+
+## v8 illustrated comprehension
+[Current ledger](../curriculum/grade-1/coverage.v8.json): 135/135 provisional rows partial draft, zero missing, zero approved. Two built-in illustrated lessons use original static art; complete review, accessibility, further media and evidence remain outstanding.
