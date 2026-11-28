@@ -1,5 +1,6 @@
 #pragma once
 #include "curriculum_preview.generated.h"
+#include <cstring>
 namespace curriculum_preview {
 inline constexpr const char* subjects[]={"Mathematics","Reading and writing","Science","Social studies"};
 inline constexpr std::size_t lesson_count=sizeof(lessons)/sizeof(lessons[0]);
@@ -37,7 +38,12 @@ struct Preview {
   const Unit* visible_unit(unsigned row)const{
     if(row>=lessons_per_page)return nullptr;
     auto n=unit_page*lessons_per_page+row;
-    for(const auto& u:units)if(u.subject==subject){if(n==0)return &u;--n;}
+    // Surface the illustrated reading topic first without changing stable unit IDs.
+    const Unit* featured=nullptr;
+    if(subject==1)for(const auto& u:units)
+      if(u.subject==subject&&std::strcmp(u.key,"visual-reading")==0){featured=&u;break;}
+    if(featured){if(n==0)return featured;--n;}
+    for(const auto& u:units)if(u.subject==subject&& &u!=featured){if(n==0)return &u;--n;}
     return nullptr;
   }
   bool choose_unit(unsigned row){

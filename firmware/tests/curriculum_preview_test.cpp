@@ -96,4 +96,10 @@ int main(){
            (v==&garden&&std::strcmp(l.id,"g1-pictures-explain-details")==0));
   }
   assert(illustrated==2);
+  // The physical path to pictures starts at the first reading topic page.
+  Preview featured;assert(featured.choose_subject_grouped(1));
+  assert(featured.visible_unit(0)&&std::strcmp(featured.visible_unit(0)->key,"visual-reading")==0);
+  assert(featured.choose_unit(0)&&featured.filtered_count()==2);
+  assert(featured.choose_lesson(0)&&visual_for(featured.current(),0)==&park);
+  assert(featured.back()&&featured.choose_lesson(1)&&visual_for(featured.current(),0)==&garden);
 }

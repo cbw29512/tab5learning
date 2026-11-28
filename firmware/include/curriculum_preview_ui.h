@@ -54,7 +54,10 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   }
   if(p.screen==Screen::Units){
     for(unsigned i=0;i<lessons_per_page;++i){
-      const auto* u=p.visible_unit(i);if(u)button(u->title,184+90*i,72);
+      const auto* u=p.visible_unit(i);if(!u)continue;
+      const int y=184+90*i;
+      button(u->title,y,72);
+      if(std::strcmp(u->key,"visual-reading")==0)draw_visual_at(park,1044,y+11,3);
     }
     char label[48];
     std::snprintf(label,sizeof(label),"Topics %u of %u",p.unit_page+1,lesson_pages(p.units_in_subject()));
@@ -76,6 +79,7 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
         M5.Display.setTextSize(2);
         M5.Display.setTextColor(status==CompletionLookup::Recorded?TFT_GREEN:TFT_WHITE,TFT_BLUE);
         M5.Display.drawString(completion_label(status),72,y+42);
+        if(const auto* art=visual_for(*l,0))draw_visual_at(*art,1044,y+11,3);
       }
     }
     char label[48];
@@ -100,6 +104,14 @@ inline void render(const Preview& p,bool resume_ok,const CompletionLedger* ledge
   M5.Display.setTextSize(2);M5.Display.drawString(label,48,218);
   M5.Display.setTextSize(3);
   const auto* visual=visual_for(p.current(),p.step);
+  if(visual){
+    std::printf("CURRICULUM,VISUAL,%s,%u,%u\n",p.current().id,
+      static_cast<unsigned>(p.step+1),static_cast<unsigned>(visual->count));
+    // A visible marker distinguishes an illustrated activity from text-only ones.
+    M5.Display.setTextSize(2);
+    M5.Display.drawString("Picture activity",1020,218);
+    M5.Display.setTextSize(3);
+  }
   if(p.screen==Screen::Feedback){
     const int text_x=visual?visual_text_x:48;
     if(visual)draw_visual(*visual);
