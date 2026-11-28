@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v13.json. Do not edit by hand.
+// Generated from starter.v14.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -874,6 +874,94 @@ inline constexpr Activity activities_108[]={
   {Kind::Instruction,"remediation","Say a definition of a ball. Start with its group and describe its round shape or use.","",{"","",""},0,-1},
   {Kind::Choice,"review","Which definition best explains a glove?","It names a group and a useful distinguishing feature.",{"Something in a drawer","Clothing that covers a hand","A thing with a color"},3,1},
 };
+inline constexpr Activity activities_109[]={
+  {Kind::Instruction,"instruction","An opinion tells what you think. A reason tells why. Connect them: I like rainy days because I can read inside. Also can introduce another reason.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word connects a reason? I like the park ___ I can play.","Because connects the opinion to its reason.",{"Yesterday","Because","Under"},3,1},
+  {Kind::Choice,"independent","Which sentence gives a reason?","The first sentence connects an opinion to a reason.",{"I like apples because they are crisp.","I like apples. The sky is blue.","Apples, apples, apples."},3,0},
+  {Kind::AdultReview,"assessment","Write two or three sentences about a favorite game. Connect your opinion to a reason using because or another useful transition.","Adult: Check opinion, relevant reason and linking words. Do not score handwriting automatically.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read: I like books. I learn new things. Try joining the ideas with because.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Write a new opinion about a favorite season. Add a reason and a closing thought.","Adult: Check that transitions connect ideas and that the closing fits.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_110[]={
+  {Kind::Instruction,"instruction","A fact page tells about a topic. Start by naming it. Add facts. Finish with a sentence that brings the ideas together. Example: Bees are insects. They have six legs. Many bees visit flowers. Bees have interesting lives.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which sentence best begins a fact page about turtles?","It names the topic.",{"I wish I had a kite.","Turtles are reptiles.","The end."},3,1},
+  {Kind::Choice,"independent","Choose a useful detail for a fact page about turtles.","The shell is a real detail about turtles.",{"Turtles have shells.","My socks are red.","Turtles are made of paper."},3,0},
+  {Kind::AdultReview,"assessment","Use these facts: ducks have feathers; many ducks swim; ducks have webbed feet. Write a topic sentence, two facts and a closing sentence.","Adult: Check accurate details, clear topic and a meaningful close. Record help.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read your fact page to an adult. Does each detail tell something about the topic? Revise any unrelated detail.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Write a new short fact page about a familiar animal using two facts from an adult-approved book.","Adult: Check introduction, accurate details and closure; ask for the source of each fact.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_111[]={
+  {Kind::Instruction,"instruction","First, Mia lost her hat. Next, she looked under a bench. She felt worried. Finally, she found it and smiled. A story has events in order and an ending.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which word can introduce the last event?","Finally signals a last event.",{"Under","Finally","Blue"},3,1},
+  {Kind::Choice,"independent","Which detail tells how a character feels?","Worried names a feeling.",{"She felt worried.","She had a hat.","The bench was wooden."},3,0},
+  {Kind::AdultReview,"assessment","Write a short story about a lost toy. Tell what happened first, next and last. Include what a character did and how they felt.","Adult: Check logical order, time words, relevant details and a sense of ending.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Tell your story aloud in three parts. If a part is missing, add it to your writing.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Write a different short story about helping someone. Include where it happens, a thought or feeling, and an ending.","Adult: Check independent narrative composition and record prompting.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_112[]={
+  {Kind::Instruction,"instruction","Names of people begin with capitals: Ana and Ben. Days and months also begin with capitals: Monday and June. A common word such as dog usually does not.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Choose the correctly written name.","The name begins with a capital M.",{"mia","Mia","mIa"},3,1},
+  {Kind::Choice,"independent","Which date begins with the correct capital?","March is a month name.",{"March 4","march 4","mArch 4"},3,0},
+  {Kind::AdultReview,"assessment","Write a sentence using the pretend name Leo and the day Friday. Then write the month April.","Adult: Check capitals in names, days and months. Record whether help was needed.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read: sam plays on tuesday. Rewrite it with capitals where needed.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which is correct?","Sunday begins with a capital S.",{"We met on sunday.","We met on Sunday.","We met on SUNday."},3,1},
+};
+inline constexpr Activity activities_113[]={
+  {Kind::Instruction,"instruction","A comma separates words in a list. Example: I packed socks, shoes, and hats. The commas help the reader see each item.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which list is easiest to read?","Commas separate list items.",{"Red blue green","Red, blue, and green","Red. Blue. And green."},3,1},
+  {Kind::Choice,"independent","Choose the sentence with commas separating items.","The commas separate the animal names.",{"I see cats, dogs, and birds.","I, see cats dogs and birds.","I see cats dogs and birds."},3,0},
+  {Kind::AdultReview,"assessment","Write a sentence listing three fruits. Use commas between items.","Adult: Check separation of list words. Accept appropriate consistent serial comma style.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read: I have a pen a bag and a book. Say where commas help, then rewrite the list.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Where should a comma go in: We need milk bread and eggs?","A comma separates milk from the next item.",{"After We","After milk","After need"},3,1},
+};
+inline constexpr Activity activities_114[]={
+  {Kind::Instruction,"instruction","Write a date like May 6, 2026. The comma separates the day number from the year. Write a time like 3:30. The colon separates hours and minutes.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which date is written correctly?","Put the comma after the day number, before the year.",{"May, 6 2026","May 6, 2026","May 6 2026"},3,1},
+  {Kind::Choice,"independent","Which is the correct way to write three thirty?","A colon separates the hour and minutes.",{"3:30","3,30","330"},3,0},
+  {Kind::AdultReview,"assessment","Write June 12, 2026 and the time 8:00. Then write a different date and a half-hour time.","Adult: Check capitalization, comma location and colon location; note prompts.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Copy July 4, 2026 and 2:30. Point to the comma and the colon.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which mark separates hours from minutes?","A colon separates the hour and minutes.",{"Comma","Colon","Question mark"},3,1},
+};
+inline constexpr Activity activities_115[]={
+  {Kind::Instruction,"instruction","A noun can name one thing or more than one. One cat becomes two cats. One box becomes two boxes. Some words change in other ways: one child, two children.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which means more than one foot?","Feet is an irregular plural of foot.",{"Foots","Feet","Foot"},3,1},
+  {Kind::Choice,"independent","Which means more than one box?","Add es to box.",{"Boxes","Boxs","Box"},3,0},
+  {Kind::AdultReview,"assessment","Write the plural forms of dog, dish, child, tooth and mouse. Use two of them in sentences.","Adult: Check dogs, dishes, children, teeth and mice; record independent versus prompted writing.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read one man, two men. Some plurals change the word itself. Practice saying one tooth, two teeth.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Choose the plural of child.","Children is the plural of child.",{"Childs","Children","Childes"},3,1},
+};
+inline constexpr Activity activities_116[]={
+  {Kind::Instruction,"instruction","A subject tells who or what the sentence is about. A verb tells an action or state. The dog runs. The dogs run. Choose a verb that fits the subject.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Choose: The bird ___ in the tree.","The single bird sings.",{"Sing","Sings","Singing"},3,1},
+  {Kind::Choice,"independent","Choose: The cats ___ on the rug.","Cats is plural, so use sleep.",{"Sleep","Sleeps","Sleeping"},3,0},
+  {Kind::AdultReview,"assessment","Write a sentence about one frog and another about two frogs. Use jump. Then write a sentence with I am.","Adult: Check subject-verb agreement and complete sentences. Do not grade penmanship.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Read: She runs. They run. He is happy. They are happy. Compare the verbs.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Choose: My friends ___ here.","Friends is plural, so use are.",{"Is","Are","Am"},3,1},
+};
+inline constexpr Activity activities_117[]={
+  {Kind::Instruction,"instruction","Uppercase A and lowercase a are two forms of the same letter. When writing, leave a small space between letters and a larger space between words.","",{"","",""},0,-1},
+  {Kind::AdultReview,"guided","With paper and an adult model, print A B C D E F and a b c d e f.","Adult: Check recognizable print forms and spacing. Provide a model if needed.",{"","",""},0,-1},
+  {Kind::AdultReview,"independent","Print G H I J K L M and g h i j k l m. Leave a little space between letters.","Adult: Observe formation and spacing; adapt the task for motor needs.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Write: I can run. Then write: A dog can sit. Leave a clear space between words.","Adult: Check recognizable letters and word/sentence spacing. Do not infer grade or mastery from the prompt.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Compare Icanrun with I can run. Spaces make the words easier to read.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Print a favorite short sentence with careful spacing. Ask an adult to help you review it.","Adult: Review legibility and spacing; remaining alphabet practice is required.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_118[]={
+  {Kind::Instruction,"instruction","A conversation has turns. Say hello, listen while someone speaks, and respond when it is your turn. You can repeat their idea in your own words to show you heard it.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","A friend is talking about a book. What should you do?","Listening and waiting gives the friend a turn.",{"Talk over them","Listen and wait","Walk away without speaking"},3,1},
+  {Kind::AdultReview,"independent","Ask a partner which animal they like. Listen, then restate their idea in your own words.","Adult: Observe greeting, turn-taking, a relevant response and accurate restatement.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Discuss an adult-selected story with a partner. Each person shares one idea and asks one question. Restate your partner's idea.","Adult: Check respectful entry, turns, relevant responses and accurate restatement without coaching.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Try: You think the rabbit was brave because it helped its friend. Say an idea back without changing its meaning.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Ask a partner about a different story or activity. Tell the adult what your partner said.","Adult: Check attentive listening and a fair summary; record support.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_119[]={
+  {Kind::Instruction,"instruction","When someone speaks, listen for important details. Ask a question if you want to learn more. Answer with something you heard, not a guess.","",{"","",""},0,-1},
+  {Kind::AdultReview,"guided","Have an adult say: A red bird landed on a fence. Ask the learner where it landed.","Adult: Hide the prompt from the learner during listening; check fence and record help.",{"","",""},0,-1},
+  {Kind::AdultReview,"independent","Have an adult say: Eli packed a hat and water for a walk. Ask the learner to name one thing he packed.","Adult: Check a hat or water from the passage, not a guessed item.",{"","",""},0,-1},
+  {Kind::AdultReview,"assessment","Have an adult say: Nina planted three seeds in a pot. Ask the learner to answer how many, then ask one relevant question.","Adult: Check three and a question about the topic; record independence.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","Practice asking who, what, where, when, why or how when you need more information.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Listen to a new short passage selected by an adult. Ask one question about it and answer one question.","Adult: Check relevance, accuracy and listening rather than reading the passage.",{"","",""},0,-1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -984,6 +1072,17 @@ inline constexpr Lesson lessons[]={
   {1,"g1-learn-from-reference",1,"Put facts together",activities_106,6},
   {1,"g1-word-groups",1,"Sort words into groups",activities_107,6},
   {1,"g1-define-by-features",1,"Explain what a word means",activities_108,6},
+  {1,"g1-opinion-transitions",1,"Connect an opinion and reason",activities_109,6},
+  {1,"g1-information-writing",1,"Write a little fact page",activities_110,6},
+  {1,"g1-narrative-writing",1,"Write a beginning middle and end",activities_111,6},
+  {1,"g1-capitalize-names-dates",1,"Capital letters in names and dates",activities_112,6},
+  {1,"g1-commas-in-lists",1,"Commas separate list words",activities_113,6},
+  {1,"g1-dates-and-times",1,"Write dates and times",activities_114,6},
+  {1,"g1-singular-plural-nouns",1,"One or more than one",activities_115,6},
+  {1,"g1-subject-verb-match",1,"Match a subject and verb",activities_116,6},
+  {1,"g1-print-letter-forms",1,"Print letters and leave spaces",activities_117,6},
+  {1,"g1-conversation-turns",1,"Take turns and share ideas",activities_118,6},
+  {1,"g1-listen-and-question",1,"Listen and ask a question",activities_119,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -1009,6 +1108,9 @@ inline constexpr Unit units[]={
   {1,"fluency","Reading smoothly"},
   {1,"book-reference","Books and reference skills"},
   {1,"vocabulary","Words and meanings"},
+  {1,"grammar","Grammar and punctuation"},
+  {1,"handwriting","Handwriting"},
+  {1,"listening","Listening and speaking"},
 };
 inline constexpr unsigned lesson_units[]={
   1,
@@ -1120,5 +1222,16 @@ inline constexpr unsigned lesson_units[]={
   21,
   22,
   22,
+  9,
+  9,
+  9,
+  23,
+  23,
+  23,
+  23,
+  23,
+  24,
+  25,
+  25,
 };
 }

@@ -32,3 +32,6 @@ Topic browser and 52-lesson device flash previously verified; latest 68-lesson b
 
 ## v5 comprehension and reference skills
 [Current ledger](../curriculum/grade-1/coverage.v5.json) tracks starter.v13; ELA 60 partial / 21 missing. Nine new candidate indicators. Visual-only objectives AOR.4.1 and AOR.10.1 remain missing until actual visual assets are provided. Full official enumeration and educator review pending. No accepted rows.
+
+## v6 writing and communication
+[Current ledger](../curriculum/grade-1/coverage.v6.json) tracks starter.v14; ELA 78 partial / 3 missing; 18 additional candidate mappings. Adult paper/oral work remains partial. Three visual/multimedia objectives and five social studies objectives remain without candidates. No approved rows.
