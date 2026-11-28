@@ -4,6 +4,7 @@ from pathlib import Path
 from html import escape
 
 from tools.curriculum_draft import decode_draft, MAX_BYTES
+from tools.teacher_coverage_review import coverage_page
 
 LOG = logging.getLogger(__name__)
 SOURCE = Path(__file__).resolve().parents[1] / "curriculum" / "grade-1" / "starter.v16.json"
@@ -16,6 +17,8 @@ def curriculum_page(lesson_id=None):
         # The browser cannot supply a filesystem path or arbitrary package.
         with SOURCE.open("rb") as stream:
             catalog, digest = decode_draft(stream.read(MAX_BYTES+1))
+        if lesson_id == "coverage":
+            return coverage_page(catalog, SOURCE.name)
         lessons = catalog["lessons"]
         body = ('<p class="notice">Educator preview only — draft material, not approved coverage. '
                 'No learner installation or student data.</p>'
@@ -23,6 +26,7 @@ def curriculum_page(lesson_id=None):
                 f'<p>Grade 1 · Revision {catalog["revision"]} · {len(lessons)} draft lessons · '
                 f'{sum(len(x["activities"]) for x in lessons)} activities · 0 approved subjects</p>')
         if lesson_id is None:
+            body += '<p><a href="/curriculum/coverage">Review standards and remaining gaps</a></p>'
             for key, title in SUBJECTS:
                 selected = [x for x in lessons if x["subject"] == key]
                 body += f'<section><h2>{title}</h2><ul>'

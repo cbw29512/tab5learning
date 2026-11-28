@@ -53,6 +53,12 @@ class GradeOneLibraryTests(unittest.TestCase):
 
     def test_preview(self):
         self.assertIn("127 draft lessons", curriculum_page())
+        self.assertIn("/curriculum/coverage", curriculum_page())
+        coverage = curriculum_page("coverage")
+        self.assertIn("135 of 135 provisional objectives", coverage)
+        self.assertIn("0 approved", coverage)
+        self.assertIn("1.DPSR.1.1", coverage)
+        self.assertIn("/curriculum/g1-compare-data", coverage)
         page = curriculum_page("g1-tens-and-ones")
         self.assertIn("1.NR.1.2",page)
         self.assertIn("Four tens",page)
@@ -72,5 +78,6 @@ class GradeOneLibraryTests(unittest.TestCase):
         web.login("admin","1234")
         self.assertIn("Review Grade 1 draft lessons",web.call()[2])
         self.assertIn("127 draft lessons",web.call("/curriculum")[2])
+        self.assertIn("135 of 135 provisional objectives", web.call("/curriculum/coverage")[2])
         self.assertIn("1.E.1",web.call("/curriculum/g1-goods-and-services")[2])
         self.assertEqual(web.call("/curriculum/unknown")[0],400)
