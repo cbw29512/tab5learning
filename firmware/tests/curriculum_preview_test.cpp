@@ -3,7 +3,7 @@
 #include <cassert>
 using namespace curriculum_preview;
 int main(){
-  static_assert(lesson_count==120);
+  static_assert(lesson_count==125);
   static_assert(lesson_pages(0)==1&&lesson_pages(3)==1&&lesson_pages(4)==2);
   static_assert(lesson_pages(9)==3&&lesson_pages(10)==4);
   static_assert(!lesson_page_valid(3,9)&&lesson_page_valid(3,10));
@@ -24,7 +24,7 @@ int main(){
   Preview p;
   for(unsigned s=0;s<4;++s){
     p.reset();assert(p.choose_subject(s));
-    assert(p.page==0&&p.subject_count()==(s==0?27u:s==1?59u:17u));
+    assert(p.page==0&&p.subject_count()==(s==0?27u:s==1?59u:s==2?17u:22u));
     assert(!p.change_page(-1));
     assert(!p.change_page(0)&&p.visible_lesson(3)==nullptr);
     for(unsigned page=0;page<lesson_pages(p.subject_count());++page){
@@ -56,7 +56,7 @@ int main(){
     assert(!p.change_page(-1));
     assert(p.back());assert(!p.back());
   }
-  assert(visited==120&&activities==720);
+  assert(visited==125&&activities==750);
   // Every lesson remains reachable exactly once through the real grouped path.
   bool reached[lesson_count]={};unsigned total=0;
   for(unsigned s=0;s<4;++s){

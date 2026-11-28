@@ -1,5 +1,5 @@
 #pragma once
-// Generated from starter.v14.json. Do not edit by hand.
+// Generated from starter.v15.json. Do not edit by hand.
 #include "curriculum_preview_types.h"
 namespace curriculum_preview {
 inline constexpr Activity activities_0[]={
@@ -962,6 +962,46 @@ inline constexpr Activity activities_119[]={
   {Kind::Instruction,"remediation","Practice asking who, what, where, when, why or how when you need more information.","",{"","",""},0,-1},
   {Kind::AdultReview,"review","Listen to a new short passage selected by an adult. Ask one question about it and answer one question.","Adult: Check relevance, accuracy and listening rather than reading the passage.",{"","",""},0,-1},
 };
+inline constexpr Activity activities_120[]={
+  {Kind::Instruction,"instruction","A dated notice said the SC State Library would close Nov. 26 and 27, 2026. This is an example from 2026. A prediction tells what might happen because of an event.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","What does the notice say?","The notice names two specific days.",{"The library will never open again.","It will close on two named days.","All libraries will close forever."},3,1},
+  {Kind::Choice,"independent","What might a visitor do if the library is closed?","A later visit is a reasonable possible response.",{"Plan a visit for another day.","Assume books no longer exist.","Expect the doors to be open."},3,0},
+  {Kind::AdultReview,"assessment","Read a recent dated SC event notice supplied by an adult. Tell what happened, where and when. Predict one possible result and say why.","Adult: Verify date and actual source; distinguish fact from prediction. Accept supported possibilities, not a single guessed outcome.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","A prediction is not a fact just because we expect it. Check what a source actually says.","",{"","",""},0,-1},
+  {Kind::AdultReview,"review","Compare your prediction with the notice. What do you know, and what do you still need to find out?","Adult: Check distinction between observed facts, possible causes and uncertain outcomes.",{"","",""},0,-1},
+};
+inline constexpr Activity activities_121[]={
+  {Kind::Instruction,"instruction","South Carolina is in the southeastern United States. It borders North Carolina, Georgia and the Atlantic Ocean. A map can show these places.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which ocean touches South Carolina?","South Carolina is on the Atlantic coast.",{"Pacific Ocean","Atlantic Ocean","Arctic Ocean"},3,1},
+  {Kind::Choice,"independent","Which state borders South Carolina?","Georgia is next to South Carolina.",{"Georgia","Alaska","Hawaii"},3,0},
+  {Kind::AdultReview,"assessment","Use an adult-provided US map and regional map. Point to South Carolina, North Carolina, Georgia and the Atlantic Ocean.","Adult: Check actual map use, relative location and naming. Use a map with a compass and legend.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","On a map, use the state names, boundaries and compass to explain where South Carolina is.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which description fits South Carolina?","South Carolina is in the southeastern United States.",{"A state in the far northwest","A state in the southeast with an ocean coast","An island in the Pacific"},3,1},
+};
+inline constexpr Activity activities_122[]={
+  {Kind::Instruction,"instruction","Urban areas often have many buildings and people close together. Suburban areas are near cities. Rural areas often have more open land. All can have homes, work and schools.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which example is most like a rural area?","Open land and scattered homes are common rural features.",{"Many tall buildings on one block","Homes with broad fields nearby","Busy streets in a city center"},3,1},
+  {Kind::Choice,"independent","Which example is most like a suburban neighborhood?","Suburbs are commonly near cities.",{"Homes near a city with local parks","A remote forest with no homes","A city block of tall offices"},3,0},
+  {Kind::AdultReview,"assessment","Compare three adult-selected SC photos or maps of urban, suburban and rural areas. Name a feature and a service in each.","Adult: Check source locations, observable evidence, differences and similarities. Avoid stereotypes and rigid boundaries.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","A hospital or a shop may serve people from several areas. Community types do not determine what every person does.","",{"","",""},0,-1},
+  {Kind::Choice,"review","What helps identify a community type?","Look for observable features of the place.",{"A person's clothing","Buildings, land use and how close homes are","A favorite food"},3,1},
+};
+inline constexpr Activity activities_123[]={
+  {Kind::Instruction,"instruction","South Carolina has Blue Ridge mountains in the northwest and an Atlantic coastline toward the east and southeast. Rivers flow across land. Lakes hold water in a basin.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Where would you expect to find Blue Ridge mountains in South Carolina?","The Blue Ridge is in the northwest of the state.",{"Along every beach","In the northwest","In the ocean"},3,1},
+  {Kind::Choice,"independent","Which feature is where land meets an ocean?","A coastline is a boundary between land and ocean.",{"Coastline","Mountain peak","River source"},3,0},
+  {Kind::AdultReview,"assessment","Use a SC map and photos of a mountain, lake, river and coast. Compare two features and describe where they are.","Adult: Require a named state example and evidence from actual sources. Ask what the map and photo each show.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","A river usually flows in a channel. A lake is a body of water surrounded by land. Compare their shapes on a map.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Which tool can help find where mountains and rivers are?","A geographic map shows where features are located.",{"A shopping list","A map showing land and water","A clock"},3,1},
+};
+inline constexpr Activity activities_124[]={
+  {Kind::Instruction,"instruction","Local governments help towns and counties meet community needs. State government works across South Carolina. State lawmakers make laws, the governor helps carry them out, and courts apply laws.","",{"","",""},0,-1},
+  {Kind::Choice,"guided","Which could be a local government service?","A town may help care for a local park.",{"Moving the moon","Caring for a town park","Changing the seasons"},3,1},
+  {Kind::Choice,"independent","Which group makes state laws?","The General Assembly is South Carolina's state lawmaking body.",{"The General Assembly","A school lunch group","A sports team"},3,0},
+  {Kind::AdultReview,"assessment","With an adult, choose a public service. Find out if a city, county, state agency or several of them provide it. Explain how it helps.","Adult: Use a reliable local or state source. Accept shared responsibilities and distinguish actual services from examples.",{"","",""},0,-1},
+  {Kind::Instruction,"remediation","A town and the state may work together to help people. Different governments have different responsibilities.","",{"","",""},0,-1},
+  {Kind::Choice,"review","Why do local and state governments provide services?","Public services help meet needs in communities and across the state.",{"To stop people learning","To help meet public needs","To make every family the same"},3,1},
+};
 inline constexpr Lesson lessons[]={
   {0,"g1-add-within-10",1,"Put groups together",activities_0,6},
   {1,"g1-short-a",1,"Blend short-a words",activities_1,6},
@@ -1083,6 +1123,11 @@ inline constexpr Lesson lessons[]={
   {1,"g1-print-letter-forms",1,"Print letters and leave spaces",activities_117,6},
   {1,"g1-conversation-turns",1,"Take turns and share ideas",activities_118,6},
   {1,"g1-listen-and-question",1,"Listen and ask a question",activities_119,6},
+  {3,"g1-sc-event-prediction",1,"What happened and what might happen?",activities_120,6},
+  {3,"g1-sc-on-us-map",1,"Find South Carolina",activities_121,6},
+  {3,"g1-sc-community-types",1,"City neighborhoods and countryside",activities_122,6},
+  {3,"g1-sc-land-and-water",1,"Mountains rivers lakes and coast",activities_123,6},
+  {3,"g1-sc-government-helps",1,"How government helps communities",activities_124,6},
 };
 inline constexpr Unit units[]={
   {0,"counting","Counting"},
@@ -1233,5 +1278,10 @@ inline constexpr unsigned lesson_units[]={
   24,
   25,
   25,
+  16,
+  14,
+  14,
+  14,
+  13,
 };
 }

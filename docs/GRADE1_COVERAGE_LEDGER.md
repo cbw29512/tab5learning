@@ -35,3 +35,6 @@ Topic browser and 52-lesson device flash previously verified; latest 68-lesson b
 
 ## v6 writing and communication
 [Current ledger](../curriculum/grade-1/coverage.v6.json) tracks starter.v14; ELA 78 partial / 3 missing; 18 additional candidate mappings. Adult paper/oral work remains partial. Three visual/multimedia objectives and five social studies objectives remain without candidates. No approved rows.
+
+## v7 South Carolina social studies
+[Current ledger](../curriculum/grade-1/coverage.v7.json) tracks starter.v15. All 15 Grade 1 SC social studies IDs matched to the state 2019 standards pp.13–16; all now partial draft candidates. Overall 132 partial, three missing, zero approved. Actual maps/photos, dated event refresh, local source evidence and Appendix A review remain open. Only ELA OE.2, AOR.4.1, AOR.10.1 lack draft candidates; require actual media before changing status.
