@@ -10,6 +10,7 @@ namespace learner_storage {
 // No application file writes, formatting or automatic retries.
 inline Status check_capacity() {
   constexpr int cs=42,sck=43,mosi=44,miso=39;
+  std::printf("SD,CAPACITY_CHECK,BEGIN\n");
   SPI.begin(sck,miso,mosi,cs);
   if(!SD.begin(cs,SPI,4000000,"/sd",5,false)){
     SPI.end();std::printf("ERR,SD_CAPACITY_MOUNT\n");return unavailable();
@@ -19,7 +20,9 @@ inline Status check_capacity() {
   const auto used=SD.usedBytes();
   const auto result=card?measured(total,used):unavailable();
   SD.end();SPI.end();
-  if(!result.known())std::printf("ERR,SD_CAPACITY_INVALID\n");
+  if(!result.known())std::printf("ERR,SD_CAPACITY_INVALID,%llu,%llu,%llu\n",
+    static_cast<unsigned long long>(card),static_cast<unsigned long long>(total),
+    static_cast<unsigned long long>(used));
   else std::printf("SD,CAPACITY,%llu,%llu\n",
     static_cast<unsigned long long>(total),static_cast<unsigned long long>(used));
   return result;

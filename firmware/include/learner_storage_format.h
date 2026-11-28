@@ -29,8 +29,15 @@ inline const char* header_label(State s){
     case State::Normal:return "SD free";
     case State::Low:return "SD low";
     case State::Critical:return "SD critical";
-    case State::Unavailable:return "SD unavailable";
-    default:return "SD not checked";
+    case State::Unavailable:return "SD error";
+    default:return "Tap for SD";
+  }
+}
+inline const char* help_hint(const Status& s){
+  switch(s.state){
+    case State::NotChecked:return "SD capacity not measured. Check a backed-up card only.";
+    case State::Unavailable:return "SD check failed. Verify card insertion and format with your teacher.";
+    default:return "SD capacity is from the last check, not a live reading.";
   }
 }
 inline void format_summary(const Status& s,char* out,std::size_t n){

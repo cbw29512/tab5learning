@@ -259,10 +259,11 @@ void render() {
     M5.Display.drawString("Choose a subject from Home.",48,180);
     M5.Display.drawString("Tap Go back to continue.",48,250);
 #ifndef POCKET_LEARNER_SD_EVAL
-    M5.Display.fillRoundRect(48,280,1184,52,12,TFT_BLUE);
+    const auto& check=learner_sd_check;
+    M5.Display.fillRoundRect(check.x,check.y,check.w,check.h,12,TFT_BLUE);
     M5.Display.setTextColor(TFT_WHITE,TFT_BLUE);
     M5.Display.setTextSize(3);
-    M5.Display.drawString("Check backed-up SD card",72,294);
+    M5.Display.drawString(check.label,check.x+24,check.y+14);
 #endif
     render_battery_runtime(battery_runtime);
     learner_storage::render_help(sd_status);
@@ -345,8 +346,8 @@ void loop() {
     auto detail=M5.Touch.getDetail(0);
     LearnerAction action;
 #ifndef POCKET_LEARNER_SD_EVAL
-    if(navigation.help_open && detail.x>=48 && detail.x<1232 &&
-        detail.y>=280 && detail.y<332) {
+    if(learner_sd_check_hit(navigation,detail.x,detail.y)) {
+      Serial.println("SD,MANUAL_CHECK_REQUEST");
       sd_status=learner_storage::check_capacity();
       render();
     } else

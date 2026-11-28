@@ -2,6 +2,7 @@
 #include <cassert>
 #include <cstring>
 #include <limits>
+#include <initializer_list>
 using namespace learner_storage;
 
 int main(){
@@ -38,6 +39,13 @@ int main(){
   assert(std::strcmp(header_label(State::Normal),"SD free")==0);
   assert(std::strcmp(header_label(State::Low),"SD low")==0);
   assert(std::strcmp(header_label(State::Critical),"SD critical")==0);
+  assert(std::strcmp(header_label(State::NotChecked),"Tap for SD")==0);
+  assert(std::strcmp(header_label(State::Unavailable),"SD error")==0);
+  assert(std::strstr(help_hint(initial),"backed-up"));
+  assert(std::strstr(help_hint(unavailable()),"failed"));
+  assert(std::strstr(help_hint(large),"last check"));
+  for(const auto state:{State::NotChecked,State::Unavailable,State::Normal,State::Low,State::Critical})
+    assert(std::strlen(header_label(state))<=13); // 13 * 12 px, within 164 px
   format_summary(unavailable(),line,sizeof(line));
   assert(std::strcmp(line,"Storage unavailable")==0);
 }

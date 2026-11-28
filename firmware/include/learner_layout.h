@@ -21,10 +21,17 @@ inline constexpr std::array<LearnerTile, 5> learner_tiles{{
 }};
 inline constexpr LearnerTile learner_home{32,24,180,80,LearnerAction::Home,"Home"};
 inline constexpr LearnerTile learner_help{1068,24,180,80,LearnerAction::Help,"Help"};
-// Noninteractive header region; outside the navigation buttons and lesson cards.
+// Header regions are outside the navigation buttons and lesson cards.
 struct LearnerRegion { int x,y,w,h; };
 // Keep a 12 px gap between the storage and existing battery indicators.
 inline constexpr LearnerRegion learner_storage_region{636,24,172,80};
+// This shortcut opens Help only. It must never mount a card or write data.
+inline constexpr LearnerTile learner_storage_help{learner_storage_region.x,learner_storage_region.y,
+  learner_storage_region.w,learner_storage_region.h,LearnerAction::Help,"SD details"};
+inline constexpr LearnerTile learner_sd_check{48,280,1184,52,LearnerAction::Help,"Check backed-up SD card"};
+inline bool learner_sd_check_hit(const LearnerNavigation& state,int x,int y){
+  return state.help_open&&learner_sd_check.hit(x,y);
+}
 inline constexpr int learner_heading_x=228;
 inline constexpr unsigned learner_heading_size=3;
 inline constexpr LearnerRegion learner_battery_region{820,24,236,80};
@@ -33,7 +40,7 @@ inline constexpr LearnerTile learner_back{32,580,1216,108,LearnerAction::Back,"G
 
 inline bool learner_hit(const LearnerNavigation& state,int x,int y,LearnerAction& action) {
   if (learner_home.hit(x,y)) { action=learner_home.action; return true; }
-  if (learner_help.hit(x,y)) { action=learner_help.action; return true; }
+  if (learner_help.hit(x,y)||learner_storage_help.hit(x,y)) { action=LearnerAction::Help; return true; }
   if (state.help_open || state.screen != LearnerScreen::Home) {
     if (learner_back.hit(x,y)) { action=learner_back.action; return true; }
     return false;

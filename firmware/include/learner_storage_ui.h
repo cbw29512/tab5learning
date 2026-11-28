@@ -21,7 +21,8 @@ inline void render_help(const Status& s){
   if(s.known()){
     char used[48];format_capacity(s.used,used,sizeof(used));
     std::snprintf(line,sizeof(line),"SD used: %s | %s",used,state_label(s.state));
-    M5.Display.drawString(line,48,540);
-  }
+    M5.Display.drawString(line,48,534);
+    M5.Display.drawString(help_hint(s),48,556);
+  }else M5.Display.drawString(help_hint(s),48,540);
 }
 }

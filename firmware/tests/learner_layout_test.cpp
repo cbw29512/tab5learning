@@ -15,7 +15,14 @@ int main() {
   // Longest existing heading is 19 characters; default font 6px at size 3.
   assert(learner_heading_x+20*6*learner_heading_size<sd.x);
   assert(sd.y+sd.h<=learner_notice_region.y);
-  assert(!learner_hit(nav,sd.x+5,sd.y+5,action));
+  assert(learner_hit(nav,sd.x+5,sd.y+5,action)&&action==LearnerAction::Help);
+  assert(!learner_hit(nav,sd.x+sd.w,sd.y+5,action));
+  assert(!learner_sd_check_hit(nav,49,281));
+  assert(learner_navigate(nav,action)&&nav.help_open);
+  assert(learner_sd_check_hit(nav,49,281));
+  assert(!learner_sd_check_hit(nav,49,332));
+  assert(!learner_sd_check_hit(nav,sd.x+5,sd.y+5));
+  assert(learner_navigate(nav,LearnerAction::Back)&&!nav.help_open);
   assert(!learner_hit(nav,640,250,action));
   learner_navigate(nav,LearnerAction::Math);
   assert(!learner_hit(nav,700,250,action));
